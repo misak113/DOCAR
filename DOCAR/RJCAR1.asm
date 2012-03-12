@@ -152,6 +152,7 @@ FL
 T0OF        equ .0
 STARTED     equ .1
 WATCHOVER   equ .2
+PCON_POR    equ .3
 ;casov constant
 ;VAROV       equ .0
 REDTUN      equ .1
@@ -160,6 +161,8 @@ WHITUN      equ .3
 ODSKOK      equ .4
 ALARM       equ .5
 
+;system constants
+POR	    equ .1
 
 
 
@@ -184,17 +187,17 @@ ALARM       equ .5
             swapf w_temp, W ;
             return
 
-;init        ;clrf PORTA      ;Init PORTS
-            ;clrf PORTB
-            ;clrf PORTC
-            ;clrf PORTD
-            ;clrf PORTE
+init        bcf PCLATH,3 ;Select page 0
+	    bcf PCLATH,4 ;Select page 0
+	    	
+	    clrf PORTA      ;Init PORTS	
+            clrf PORTB
+            clrf PORTC
+            clrf PORTD
+            clrf PORTE
             
-init        bsf STATUS, RP0  ;Bank 1
+            bsf STATUS, RP0  ;Bank 1
             
-            movlw b'00000011' ; PCON 000000XX POR, BOR
-            movwf PCON
-    
             movlw b'01001001' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogových vstupu a hodnotu k porovnání 0000
             movwf ADCON1
     
@@ -212,19 +215,28 @@ init        bsf STATUS, RP0  ;Bank 1
             movlw b'11000111' ; timer0 control
             movwf OPTION_REG
             
-            
-            bcf STATUS, RP0 ;Bank 0
-    
+	    movf PCON, W
+	    bsf PCON, POR
+
+	    bcf STATUS, RP0 ;Bank 0
+
+	    movwf r1
+	    bcf conf, PCON_POR
+	    btfsc r1, POR ;pokud neni zapnuto, obnovi stare registry
+	    bsf conf, PCON_POR
+
+
             movlw b'01000110' ; nastaví control register timer2
             movwf T2CON
             
             call inton
             
-            ;po startu zamkne a zapne alarm
-            ;call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo
             
             bsf PCLATH,3 ;Select page 1
-            goto start      ;zacni na startu
+	    btfsc conf, PCON_POR ;pokud neni zapnuto, obnovi stare registry
+	    goto restart
+
+	    goto start      ;zacni na startu
         
         
         
@@ -2335,7 +2347,51 @@ ledzam      movlw b'10110' ;port C6
 
 
             org 800h ;zacina druha stranka programu
+restart	    bcf PCLATH,3 ;Select page 0
+	    nop ;Po restartu se obnovi stare registry PORTU
+
+	    ;zapne zadni pasy po restartu
+	    movlw b'01110' ;port B6
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+            call setout ;nastav port v prc
+            bsf o_g, 6 
+	    
+	    movlw b'01111' ;port B7
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+            call setout ;nastav port v prc
+            bsf o_g, 7 
+
+
+	    bsf PCLATH,3 ;Select page 0
+	    goto loop
+    
 start       bcf PCLATH,3 ;Select page 0
+	    call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne alarm
+	    
+	    ; zapne predni pasy po startu
+	    movlw b'01100' ;port B4
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+            call setout ;nastav port v prc
+            bsf o_g, 4 
+	    
+	    movlw b'01101' ;port B5
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+            call setout ;nastav port v prc
+            bsf o_g, 5 
+        
+
+	    bsf PCLATH,3 ;Select page 0
+	    goto loop
+
+loop	    bcf PCLATH,3 ;Select page 0
 
 
             ;#### Čeká několik cyklů aby se stihly ostatní procesory vzpamatovat z případnejch problémů
@@ -2816,7 +2872,7 @@ start       bcf PCLATH,3 ;Select page 0
 
 
             bsf PCLATH,3 ;Select page 1
-            goto start      ;zpet v cyklu na zacatek
+            goto loop      ;zpet v cyklu na zacatek
         
         
         

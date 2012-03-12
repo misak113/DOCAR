@@ -1,86 +1,93 @@
 Message[301] C:\PROGRA~2\LABCEN~1\PROTEU~1\TOOLS\MPASM\P16F874.INC 39 : MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
-Message[302] DOCAR\RJCAR1.ASM 196 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR1.ASM 199 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] DOCAR\RJCAR1.ASM 202 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR1.ASM 204 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR1.ASM 206 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR1.ASM 208 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR1.ASM 210 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR1.ASM 205 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR1.ASM 207 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR1.ASM 209 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR1.ASM 211 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] DOCAR\RJCAR1.ASM 213 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[306] DOCAR\RJCAR1.ASM 227 : Crossing page boundary -- ensure page bits are set.
-Message[302] DOCAR\RJCAR1.ASM 238 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR1.ASM 247 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR1.ASM 521 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR1.ASM 696 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[306] DOCAR\RJCAR1.ASM 2343 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2345 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2348 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2350 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2353 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2355 : Crossing page boundary -- ensure page bits are set.
+Message[302] DOCAR\RJCAR1.ASM 216 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR1.ASM 218 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR1.ASM 219 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[306] DOCAR\RJCAR1.ASM 237 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 239 : Crossing page boundary -- ensure page bits are set.
+Message[302] DOCAR\RJCAR1.ASM 250 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR1.ASM 259 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR1.ASM 533 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR1.ASM 708 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[306] DOCAR\RJCAR1.ASM 2358 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2360 : Crossing page boundary -- ensure page bits are set.
 Message[306] DOCAR\RJCAR1.ASM 2365 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2390 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2373 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2380 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2387 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2399 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2401 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2404 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2406 : Crossing page boundary -- ensure page bits are set.
 Message[306] DOCAR\RJCAR1.ASM 2409 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2428 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2447 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2466 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2485 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2493 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2498 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2501 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2512 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2523 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2535 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2547 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2559 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2571 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2583 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2595 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2599 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2604 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2607 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2620 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2632 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2644 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2656 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2668 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2680 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2692 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2704 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2709 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2714 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2717 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2730 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2742 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2754 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2766 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2778 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2790 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2802 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2814 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2908 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2919 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2931 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2942 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2954 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2965 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2978 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 2989 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3001 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3012 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3024 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3035 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3048 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3059 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3071 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3082 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3094 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3105 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3118 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3129 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3141 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3152 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3164 : Crossing page boundary -- ensure page bits are set.
-Message[306] DOCAR\RJCAR1.ASM 3175 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2411 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2414 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2416 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2421 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2446 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2465 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2484 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2503 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2522 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2541 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2549 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2554 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2557 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2568 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2579 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2591 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2603 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2615 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2627 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2639 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2651 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2655 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2660 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2663 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2676 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2688 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2700 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2712 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2724 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2736 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2748 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2760 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2765 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2770 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2773 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2786 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2798 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2810 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2822 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2834 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2846 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2858 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2870 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2964 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2975 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2987 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 2998 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3010 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3021 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3034 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3045 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3057 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3068 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3080 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3091 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3104 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3115 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3127 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3138 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3150 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3161 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3174 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3185 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3197 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3208 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3220 : Crossing page boundary -- ensure page bits are set.
+Message[306] DOCAR\RJCAR1.ASM 3231 : Crossing page boundary -- ensure page bits are set.

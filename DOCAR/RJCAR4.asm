@@ -62,8 +62,10 @@ conf        equ 7Ch
 ;KONSTANTY
 ;conf constant
 WATCHOVER   equ .2
+PCON_POR    equ .3
 
-
+;system constants
+POR	    equ .1
 
         org 000h        ;vektor zacatku
         goto init
@@ -76,7 +78,7 @@ WATCHOVER   equ .2
 
 init    movlw .4    ;oznaceni tohoto procesoru
         movwf num
-
+	
         clrf PORTA      ;Init PORTS
         clrf PORTB
         clrf PORTC
@@ -86,9 +88,6 @@ init    movlw .4    ;oznaceni tohoto procesoru
 
         bsf STATUS, RP0  ;Bank 1
         
-        movlw b'00000011' ; PCON 000000XX POR, BOR
-        movwf PCON
-
         movlw b'01000000' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogových vstupu a hodnotu k porovnání 0000
         movwf ADCON1
 
@@ -106,7 +105,16 @@ init    movlw .4    ;oznaceni tohoto procesoru
         movlw b'11000000'
         movwf OPTION_REG
 
+	
+	movf PCON, W
+        bsf PCON, POR
+            
         bcf STATUS, RP0 ;Bank 0
+
+	movwf r1
+	bcf conf, PCON_POR
+	btfsc r1, POR ;pokud neni zapnuto, obnovi stare registry
+	bsf conf, PCON_POR
 
         movlw b'01000110' ; nastaví control register timer2
         movwf T2CON
@@ -115,7 +123,10 @@ init    movlw .4    ;oznaceni tohoto procesoru
         bsf INTCON, INTE
         call inton
         
-        goto start      ;zacni na startu
+	btfsc conf, PCON_POR ;pokud neni zapnuto, obnovi stare registry
+	goto restart
+
+	goto start      ;zacni na startu
         
         
 intoff      bcf INTCON, INTE
@@ -685,9 +696,14 @@ vysilej comf num, W     ;pokud neni pro nej skonci
 
         return
         
-        
 
-start       movlw .0 ;nastavime ANx kde x je zadane cislo
+restart	    nop
+	    goto loop
+
+start	    nop
+	    goto loop
+
+loop        movlw .0 ;nastavime ANx kde x je zadane cislo   
             movwf ran1
             call adconv
             movf ran1, W
@@ -735,7 +751,7 @@ start       movlw .0 ;nastavime ANx kde x je zadane cislo
             movf ran1, W
             movwf an7
         
-            goto start      ;zpet v cyklu na zacatek
+            goto loop      ;zpet v cyklu na zacatek
         
         
 
