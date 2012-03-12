@@ -100,7 +100,7 @@
 ,,,      endc
 ,,,
 ,,,
-,,,;Lok·lnÌ promÏne (pracovni a parametry) od 6D
+,,,;Lok√°ln√≠ promƒõne (pracovni a parametry) od 6D
 ,,,      cblock 0x70
 ,,,pri0
 ,,,pri1
@@ -195,10 +195,10 @@
 00000018,3003,,            movlw b'00000011' ; PCON 000000XX POR, BOR
 00000019,008E,,            movwf PCON
 ,,,
-0000001A,3049,,            movlw b'01001001' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogov˝ch
+0000001A,3049,,            movlw b'01001001' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogov√Ωch
 0000001B,009F,,            movwf ADCON1
 ,,,
-0000001C,302F,,            movlw b'00101111'; 1 znamen· vstup, 0 v˝stup
+0000001C,302F,,            movlw b'00101111'; 1 znamen√° vstup, 0 v√Ωstup
 0000001D,0085,,            movwf TRISA
 0000001E,3001,,            movlw b'00000001'
 0000001F,0086,,            movwf TRISB
@@ -215,13 +215,13 @@
 ,,,
 00000028,1283,,            bcf STATUS, RP0 ;Bank 0
 ,,,
-00000029,3046,,            movlw b'01000110' ; nastavÌ control register timer2
+00000029,3046,,            movlw b'01000110' ; nastav√≠ control register timer2
 0000002A,0092,,            movwf T2CON
 ,,,
 0000002B,202E,,            call inton
 ,,,
 ,,,            ;po startu zamkne a zapne alarm
-,,,            ;call t1_00  ;@todo: Zkouöka, aby se po startu vöe nevypÌnalo
+,,,            ;call t1_00  ;@todo: Zkou≈°ka, aby se po startu v≈°e nevyp√≠nalo
 ,,,
 0000002C,158A,,            bsf PCLATH,3 ;Select page 1
 0000002D,2800,,            goto start      ;zacni na startu
@@ -229,11 +229,11 @@
 ,,,
 ,,,
 ,,,
-0000002E,108B,inton,inton       bcf INTCON, INTF ; nastavenÌ p¯eruöenÌ od RB0
+0000002E,108B,inton,inton       bcf INTCON, INTF ; nastaven√≠ p≈ôeru≈°en√≠ od RB0
 0000002F,160B,,            bsf INTCON, INTE
-00000030,110B,,            bcf INTCON, T0IF ;nastavenÌ p¯eruöenÌ od Timer0
+00000030,110B,,            bcf INTCON, T0IF ;nastaven√≠ p≈ôeru≈°en√≠ od Timer0
 00000031,168B,,            bsf INTCON, T0IE
-00000032,108C,,            bcf PIR1, TMR2IF ;nastavenÌ p¯eruöenÌ od Timer2
+00000032,108C,,            bcf PIR1, TMR2IF ;nastaven√≠ p≈ôeru≈°en√≠ od Timer2
 00000033,1683,,            bsf STATUS, RP0  ;Bank 1
 00000034,148C,,            bsf PIE1, TMR2IE
 00000035,1283,,            bcf STATUS, RP0 ;Bank 0
@@ -262,11 +262,11 @@
 00000046,202E,,            call inton
 00000047,0008,,            return
 ,,,
-,,,;pokud p¯etekl timer2 pro watch
+,,,;pokud p≈ôetekl timer2 pro watch
 00000048,1559,watchover,watchover   bsf conf, WATCHOVER
 00000049,0008,,            return
 ,,,
-,,,;ZapnutÌ stopek pro kontrolu zacyklenÌ - timer2
+,,,;Zapnut√≠ stopek pro kontrolu zacyklen√≠ - timer2
 0000004A,1159,watchstart,watchstart  bcf conf, WATCHOVER ;nastavi jako nepreteceny
 0000004B,0191,,            clrf TMR2 ;vynuluje timer2
 0000004C,0008,,            return
@@ -277,11 +277,11 @@
 0000004F,268C,,            call w100c
 00000050,0008,,            return
 ,,,
-,,,;p¯i zachyceni signalu na radiovem p¯ijÌmaËi
+,,,;p≈ôi zachyceni signalu na radiovem p≈ôij√≠maƒçi
 00000051,0000,radio,radio       nop
 00000052,0008,,            return
 ,,,
-,,,;p¯i p¯eteËenÌ timeru 0, aû po f·zi synchronizace procesor˘
+,,,;p≈ôi p≈ôeteƒçen√≠ timeru 0, a≈æ po f√°zi synchronizace procesor≈Ø
 00000053,1858,timer0,timer0      btfsc cassir, 0
 00000054,2065,,            call sirbeep
 00000055,186E,,            btfsc casvar, 0
@@ -408,7 +408,7 @@
 000000BD,23F5,,            call t1_03
 000000BE,0008,,            return
 ,,,
-,,,;vypnuti odskok˘
+,,,;vypnuti odskok≈Ø
 000000BF,03E9,odsoff,odsoff      decf timods, F
 000000C0,1D03,,            btfss STATUS, Z
 000000C1,0008,,            return
@@ -484,7 +484,7 @@
 000000FB,1086,,            bcf PORTB, 1
 000000FC,268C,,            call w100c
 ,,,
-000000FD,0878,,            movf cil, W   ;vysila oznaceni cilovÈho procesoru XXXX
+000000FD,0878,,            movf cil, W   ;vysila oznaceni cilov√©ho procesoru XXXX
 000000FE,00A0,,            movwf r1
 000000FF,3004,,            movlw .4
 00000100,00A1,,            movwf r2
@@ -703,7 +703,7 @@
 000001B4,1086,,            bcf PORTB, 1
 000001B5,268C,,            call w100c
 ,,,
-000001B6,0853,,            movf prc, W   ;vysila oznaceni cilovÈho procesoru XXXX
+000001B6,0853,,            movf prc, W   ;vysila oznaceni cilov√©ho procesoru XXXX
 000001B7,00A0,,            movwf r1
 000001B8,3004,,            movlw .4
 000001B9,00A1,,            movwf r2
@@ -750,7 +750,7 @@
 000001DB,1086,,            bcf PORTB, 1
 000001DC,268C,,            call w100c
 ,,,
-000001DD,0853,,            movf prc, W   ;vysila oznaceni cilovÈho procesoru XXXX
+000001DD,0853,,            movf prc, W   ;vysila oznaceni cilov√©ho procesoru XXXX
 000001DE,00A0,,            movwf r1
 000001DF,3004,,            movlw .4
 000001E0,00A1,,            movwf r2
@@ -802,7 +802,7 @@
 ,,,
 ,,,
 ,,,        ;podprogramy
-,,,;TlaËitka funkci 1
+,,,;Tlaƒçitka funkci 1
 00000200,1BAC,if_58,if_58       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
 00000201,0008,,            return
 ,,,
@@ -885,7 +885,7 @@
 0000024B,2319,,            call t1_stop
 0000024C,0008,,            return
 ,,,
-,,,;TlaËitka funkci 2
+,,,;Tlaƒçitka funkci 2
 0000024D,1BAC,if_62,if_62       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
 0000024E,0008,,            return
 ,,,
@@ -967,7 +967,7 @@
 00000297,1903,,            btfsc STATUS, Z
 00000298,231B,,            call t2_stop
 00000299,0008,,            return
-,,,;TlaËitka imobilizeru
+,,,;Tlaƒçitka imobilizeru
 0000029A,0000,if_50,if_50       nop
 0000029B,0008,,            return
 ,,,             ;pasy
@@ -976,7 +976,7 @@
 ,,,             ;rychlost
 0000029E,0000,if_60,if_60       nop
 0000029F,0008,,            return
-,,,             ;ot·Ëky
+,,,             ;ot√°ƒçky
 000002A0,0000,if_61,if_61       nop
 000002A1,0008,,            return
 ,,,             ;teplota in set
@@ -997,22 +997,22 @@
 ,,,             ;palivo
 000002AC,0000,if_54,if_54       nop
 000002AD,0008,,            return
-,,,             ;dve¯e 1
+,,,             ;dve≈ôe 1
 000002AE,0000,if_55,if_55       nop
 000002AF,0008,,            return
-,,,             ;ruËnÌ brzda
+,,,             ;ruƒçn√≠ brzda
 000002B0,0000,if_56,if_56       nop
 000002B1,0008,,            return
 ,,,             ;kvalt
 000002B2,0000,if_57,if_57       nop
 000002B3,0008,,            return
-,,,             ;dve¯e 2
+,,,             ;dve≈ôe 2
 000002B4,0000,if_84,if_84       nop
 000002B5,0008,,            return
-,,,             ;dve¯e 3
+,,,             ;dve≈ôe 3
 000002B6,0000,if_85,if_85       nop
 000002B7,0008,,            return
-,,,             ;dve¯e 4
+,,,             ;dve≈ôe 4
 000002B8,0000,if_86,if_86       nop
 000002B9,0008,,            return
 ,,,             ;kapota
@@ -1040,9 +1040,9 @@
 000002C8,0000,if_127,if_127      nop
 000002C9,0008,,            return
 ,,,
-,,,;TlaËÌtka funkcÌ 3
+,,,;Tlaƒç√≠tka funkc√≠ 3
 000002CA,1BAC,if_128,if_128      btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
-000002CB,0000,,            nop;return ;po dokonceni vyvoje vratit return z duvodu bezpecnosti a je to d˘leûitÈ !!!!!
+000002CB,0000,,            nop;return ;po dokonceni vyvoje vratit return z duvodu bezpecnosti a je to d≈Øle≈æit√© !!!!!
 ,,,
 000002CC,1003,,            bcf STATUS, C
 000002CD,0C50,,            rrf ir_128, W
@@ -1123,7 +1123,7 @@
 00000315,231D,,            call t3_stop
 00000316,0008,,            return
 ,,,
-,,,;p¯edp¯ipravenÈ pro rozöÌ¯enÌ procesoru 5 a vice
+,,,;p≈ôedp≈ôipraven√© pro roz≈°√≠≈ôen√≠ procesoru 5 a vice
 00000317,0000,if_x,if_x        nop
 00000318,0008,,            return
 ,,,
@@ -1135,7 +1135,7 @@
 0000031D,0000,t3_stop,t3_stop     nop
 0000031E,0008,,            return
 ,,,
-0000031F,3010,tx_stop,tx_stop     movlw b'10000' ;port C0    ;6 tlaËÌtek ovl·d·nÌ r·dia PLAY, STOP, FWD, RWD, VOL+, VOL-
+0000031F,3010,tx_stop,tx_stop     movlw b'10000' ;port C0    ;6 tlaƒç√≠tek ovl√°d√°n√≠ r√°dia PLAY, STOP, FWD, RWD, VOL+, VOL-
 00000320,00D2,,            movwf port
 00000321,3002,,            movlw b'10' ;procesor 2
 00000322,00D3,,            movwf prc
@@ -1190,12 +1190,12 @@
 00000351,1A2B,,            btfsc o_c, 4
 00000352,21D9,,            call clrout ;nastav port v prc
 00000353,122B,,            bcf o_c, 4
-,,,                  ;stÏraËe, odst¯ikovaËe
+,,,                  ;stƒõraƒçe, odst≈ôikovaƒçe
 00000354,13AB,,            bcf o_c, 7
 00000355,1188,,            bcf PORTD, 3
 00000356,132B,,            bcf o_c, 6
 00000357,1108,,            bcf PORTD, 2
-,,,                  ;d·lkov· svÏtla
+,,,                  ;d√°lkov√° svƒõtla
 00000358,102C,,            bcf o_d, 0
 00000359,1208,,            bcf PORTD, 4
 0000035A,0008,,            return
@@ -1225,7 +1225,7 @@
 0000036E,3003,,            movlw .3
 0000036F,1BA5,,            btfsc r6, 7
 00000370,00D7,,            movwf timsir
-,,,            ;btfsc r6, 7  ;Aé budou indikace otev¯en˝ch dve¯Ì, tohle odkomentovat
+,,,            ;btfsc r6, 7  ;A≈Ω budou indikace otev≈ôen√Ωch dve≈ô√≠, tohle odkomentovat
 ,,,            ;return
 ,,,
 00000371,2464,,            call t1_06 ;vypne vse
@@ -1273,7 +1273,7 @@
 0000038E,00D7,,            movwf timsir
 0000038F,13AE,,            bcf o_f, 7 ;sklopi zrcatka neboli vypne
 00000390,1089,,            bcf PORTE, 1
-00000391,0000,,            nop ;MLUV "auto zamËeno"
+00000391,0000,,            nop ;MLUV "auto zamƒçeno"
 00000392,249B,,            call t1_07 ;zamkne
 00000393,155A,,            bsf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
 00000394,300F,,            movlw .15
@@ -1345,7 +1345,7 @@
 000003C3,00D7,,            movwf timsir
 000003C4,17AE,,            bsf o_f, 7 ;odklopi zrcatka neboli zapne
 000003C5,1489,,            bsf PORTE, 1
-000003C6,0000,,            nop ;MLUV "auto odemËeno"
+000003C6,0000,,            nop ;MLUV "auto odemƒçeno"
 000003C7,115A,,            bcf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
 000003C8,24A9,,            call t1_08 ;odemkne
 ,,,
@@ -1873,7 +1873,7 @@
 0000056F,00E4,,            movwf o3tar
 00000570,0008,,            return
 ,,,
-,,,;detsk˝ z·mek zadnÌch oken a dveri
+,,,;detsk√Ω z√°mek zadn√≠ch oken a dveri
 00000571,1E31,t1_37,t1_37       btfss o_i, 4 ;zmeni stav indikace detskeho zamku
 00000572,2D7A,,            goto t2_37
 00000573,1231,,            bcf o_i, 4
@@ -1939,7 +1939,7 @@
 000005A1,11AB,,            bcf o_c, 3
 000005A2,0008,,            return
 ,,,
-,,,;ParkovaËky
+,,,;Parkovaƒçky
 000005A3,082D,t1_42,t1_42       movf o_e, W
 000005A4,00A4,,            movwf r5
 ,,,
@@ -1954,7 +1954,7 @@
 000005AC,11AD,,            bcf o_e, 3
 000005AD,0008,,            return
 ,,,
-,,,;SvÏtla
+,,,;Svƒõtla
 000005AE,082B,t1_43,t1_43       movf o_c, W
 000005AF,00A4,,            movwf r5
 ,,,
@@ -1969,7 +1969,7 @@
 000005B7,10AB,,            bcf o_c, 1
 000005B8,0008,,            return
 ,,,
-,,,;Mlhovky zadnÌ
+,,,;Mlhovky zadn√≠
 000005B9,082E,t1_44,t1_44       movf o_f, W
 000005BA,00A4,,            movwf r5
 ,,,
@@ -1984,17 +1984,17 @@
 000005C2,10AE,,            bcf o_f, 1
 000005C3,0008,,            return
 ,,,
-,,,;Blinkr lev˝
+,,,;Blinkr lev√Ω
 000005C4,162D,t1_45,t1_45       bsf o_e, 4
 000005C5,1708,,            bsf PORTD, 6
 000005C6,0008,,            return
 ,,,
-,,,;Blinkr prav˝
+,,,;Blinkr prav√Ω
 000005C7,16AD,t1_46,t1_46       bsf o_e, 5
 000005C8,1788,,            bsf PORTD, 7
 000005C9,0008,,            return
 ,,,
-,,,;Mlhovky p¯ednÌ
+,,,;Mlhovky p≈ôedn√≠
 000005CA,082B,t1_47,t1_47       movf o_c, W
 000005CB,00A4,,            movwf r5
 ,,,
@@ -2025,16 +2025,16 @@
 000005DE,21B2,,            call setout ;nastav port v prc
 000005DF,0008,,            return
 ,,,
-,,,;stÏraËe
+,,,;stƒõraƒçe
 000005E0,17AB,t1_51,t1_51       bsf o_c, 7
 000005E1,1588,,            bsf PORTD, 3
 000005E2,0008,,            return
-,,,;odst¯ikovaËe
+,,,;odst≈ôikovaƒçe
 000005E3,172B,t1_52,t1_52       bsf o_c, 6
 000005E4,1508,,            bsf PORTD, 2
 000005E5,0008,,            return
 ,,,
-,,,;SirÈna
+,,,;Sir√©na
 000005E6,3018,t1_53,t1_53       movlw b'11000' ;port D0
 000005E7,00D2,,            movwf port
 000005E8,3003,,            movlw b'11' ;procesor 3
@@ -2075,7 +2075,7 @@
 00000602,112D,,            bcf o_e, 2
 00000603,0008,,            return
 ,,,
-,,,;D·lkovÈ svÏtla
+,,,;D√°lkov√© svƒõtla
 00000604,142C,t1_55,t1_55   bsf o_d, 0
 00000605,1608,,            bsf PORTD, 4
 00000606,0008,,            return
@@ -2151,7 +2151,7 @@
 00000637,00E5,,            movwf o4tar
 00000638,0008,,            return
 ,,,
-,,,;red interiÈr
+,,,;red interi√©r
 00000639,301A,t1_61,t1_61       movlw b'11010' ;port D2
 0000063A,00D2,,            movwf port
 0000063B,3002,,            movlw b'10' ;procesor 2
@@ -2338,34 +2338,34 @@
 00000800,118A,start,start       bcf PCLATH,3 ;Select page 0
 ,,,
 ,,,
-,,,            ;#### »ek· nÏkolik cykl˘ aby se stihly ostatnÌ procesory vzpamatovat z p¯Ìpadnejch problÈm˘
-,,,            ; ZaËne poËÌtat Ëas odpoËinku procesor˘ WATCH2
+,,,            ;#### ƒåek√° nƒõkolik cykl≈Ø aby se stihly ostatn√≠ procesory vzpamatovat z p≈ô√≠padnejch pr
+,,,            ; Zaƒçne poƒç√≠tat ƒças odpoƒçinku procesor≈Ø WATCH2
 00000801,204A,,            call watchstart
-,,,            ; »ek· aû skonËÌ Ëas odpoËinku procesor˘ WATCH2
+,,,            ; ƒåek√° a≈æ skonƒç√≠ ƒças odpoƒçinku procesor≈Ø WATCH2
 00000802,204D,,            call watchwait
 ,,,
-,,,            ; ZaËne poËÌtat Ëas odpoËinku procesor˘ WATCH2
+,,,            ; Zaƒçne poƒç√≠tat ƒças odpoƒçinku procesor≈Ø WATCH2
 00000803,204A,,            call watchstart
-,,,            ; »ek· aû skonËÌ Ëas odpoËinku procesor˘ WATCH2
+,,,            ; ƒåek√° a≈æ skonƒç√≠ ƒças odpoƒçinku procesor≈Ø WATCH2
 00000804,204D,,            call watchwait
 ,,,
-,,,            ; ZaËne poËÌtat Ëas odpoËinku procesor˘ WATCH2
+,,,            ; Zaƒçne poƒç√≠tat ƒças odpoƒçinku procesor≈Ø WATCH2
 00000805,204A,,            call watchstart
-,,,            ; »ek· aû skonËÌ Ëas odpoËinku procesor˘ WATCH2
+,,,            ; ƒåek√° a≈æ skonƒç√≠ ƒças odpoƒçinku procesor≈Ø WATCH2
 00000806,204D,,            call watchwait
 ,,,
-,,,            ; ZaËne poËÌtat Ëas odpoËinku procesor˘ WATCH2
+,,,            ; Zaƒçne poƒç√≠tat ƒças odpoƒçinku procesor≈Ø WATCH2
 00000807,204A,,            call watchstart
-,,,            ; »ek· aû skonËÌ Ëas odpoËinku procesor˘ WATCH2
+,,,            ; ƒåek√° a≈æ skonƒç√≠ ƒças odpoƒçinku procesor≈Ø WATCH2
 00000808,204D,,            call watchwait
 ,,,
 ,,,
 ,,,
-00000809,1859,,            btfsc conf, T0OF ;pokud timer 0 p¯etekl, spustÌ jeho obsluhu
+00000809,1859,,            btfsc conf, T0OF ;pokud timer 0 p≈ôetekl, spust√≠ jeho obsluhu
 0000080A,2053,,            call timer0
 ,,,
 0000080B,158A,,            bsf PCLATH,3 ;Select page 1
-,,,            ;call okna ;spouötÌ obsluhu jednotliv˝ch okÈnek DEBUG
+,,,            ;call okna ;spou≈°t√≠ obsluhu jednotliv√Ωch ok√©nek DEBUG
 0000080C,118A,,            bcf PCLATH,3 ;Select page 0
 ,,,
 ,,,
@@ -2489,7 +2489,7 @@
 ,,,
 ,,,
 ,,,
-,,,            ; ZaËne poËÌtat Ëas pro procesor WATCH2
+,,,            ; Zaƒçne poƒç√≠tat ƒças pro procesor WATCH2
 0000086D,204A,,            call watchstart
 ,,,
 ,,,            ;dotaz na procesor 2
@@ -2497,7 +2497,7 @@
 0000086F,00F8,,            movwf cil
 00000870,20F9,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
 ,,,
-,,,            ; »ek· aû dobÏhne Ëas vyhrazen˝ pro tento procesor WATCH2
+,,,            ; ƒåek√° a≈æ dobƒõhne ƒças vyhrazen√Ω pro tento procesor WATCH2
 00000871,204D,,            call watchwait
 ,,,
 00000872,0870,,            movf pri0, W    ;kontroluje zda je zmena od minule
@@ -2595,7 +2595,7 @@
 000008C1,22A2,,            call if_49  ;pokud zmena spusti podprig
 ,,,
 ,,,
-,,,            ; ZaËne poËÌtat Ëas pro procesor WATCH2
+,,,            ; Zaƒçne poƒç√≠tat ƒças pro procesor WATCH2
 000008C2,204A,,            call watchstart
 ,,,
 ,,,            ;dotaz na procesor 3
@@ -2603,7 +2603,7 @@
 000008C4,00F8,,            movwf cil
 000008C5,20F9,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
 ,,,
-,,,            ; »ek· aû dobÏhne Ëas vyhrazen˝ pro tento procesor WATCH2
+,,,            ; ƒåek√° a≈æ dobƒõhne ƒças vyhrazen√Ω pro tento procesor WATCH2
 000008C6,204D,,            call watchwait
 ,,,
 ,,,
@@ -2705,7 +2705,7 @@
 ,,,
 ,,,
 ,,,
-,,,            ; ZaËne poËÌtat Ëas pro procesor WATCH2
+,,,            ; Zaƒçne poƒç√≠tat ƒças pro procesor WATCH2
 00000917,204A,,            call watchstart
 ,,,
 ,,,            ;dotaz na procesor 4
@@ -2713,7 +2713,7 @@
 00000919,00F8,,            movwf cil
 0000091A,20F9,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
 ,,,
-,,,            ; »ek· aû dobÏhne Ëas vyhrazen˝ pro tento procesor WATCH2
+,,,            ; ƒåek√° a≈æ dobƒõhne ƒças vyhrazen√Ω pro tento procesor WATCH2
 0000091B,204D,,            call watchwait
 ,,,
 ,,,
@@ -2829,7 +2829,7 @@
 0000096E,084B,okna,okna        movf ir_90, W
 0000096F,39F0,,            andlw b'11110000' ;odseknu konecnou cast
 00000970,00A0,,            movwf r1
-00000971,09A0,,            comf r1, F ;udel·m dvojkov˝ doplnÏk
+00000971,09A0,,            comf r1, F ;udel√°m dvojkov√Ω doplnƒõk
 00000972,0862,,            movf o1tar, W
 00000973,39F0,,            andlw b'11110000' ;odseknu konecnou cast
 00000974,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
@@ -2846,7 +2846,7 @@
 0000097F,084C,okno2,okno2       movf ir_91, W
 00000980,39F0,,            andlw b'11110000' ;odseknu konecnou cast
 00000981,00A0,,            movwf r1
-00000982,09A0,,            comf r1, F ;udel·m dvojkov˝ doplnÏk
+00000982,09A0,,            comf r1, F ;udel√°m dvojkov√Ω doplnƒõk
 00000983,0863,,            movf o2tar, W
 00000984,39F0,,            andlw b'11110000' ;odseknu konecnou cast
 00000985,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
@@ -2863,7 +2863,7 @@
 00000990,084D,okno3,okno3       movf ir_92, W
 00000991,39F0,,            andlw b'11110000' ;odseknu konecnou cast
 00000992,00A0,,            movwf r1
-00000993,09A0,,            comf r1, F ;udel·m dvojkov˝ doplnÏk
+00000993,09A0,,            comf r1, F ;udel√°m dvojkov√Ω doplnƒõk
 00000994,0864,,            movf o3tar, W
 00000995,39F0,,            andlw b'11110000' ;odseknu konecnou cast
 00000996,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
@@ -2880,7 +2880,7 @@
 000009A1,084E,okno4,okno4       movf ir_93, W
 000009A2,39F0,,            andlw b'11110000' ;odseknu konecnou cast
 000009A3,00A0,,            movwf r1
-000009A4,09A0,,            comf r1, F ;udel·m dvojkov˝ doplnÏk
+000009A4,09A0,,            comf r1, F ;udel√°m dvojkov√Ω doplnƒõk
 000009A5,0865,,            movf o4tar, W
 000009A6,39F0,,            andlw b'11110000' ;odseknu konecnou cast
 000009A7,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
@@ -3188,7 +3188,7 @@
 00000AB0,00F7,,            movwf ran2 ; decrementator pro cykl
 00000AB1,00FA,,            movwf ran5 ; delitel pro vypocet prumeru
 00000AB2,0876,,            movf ran1, W
-00000AB3,00F8,,            movwf ran3 ; zachov·ni ANx vstupu
+00000AB3,00F8,,            movwf ran3 ; zachov√°ni ANx vstupu
 00000AB4,01F2,,            clrf CIS2_L
 00000AB5,01F3,,            clrf CIS2_H
 ,,,

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df name="DOCAR" root=".">
+      <in>RJCAR1.asm</in>
+      <in>RJCAR2.asm</in>
+      <in>RJCAR3.asm</in>
+      <in>RJCAR4.asm</in>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>config.mk</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>config.mk</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f config.mk</buildCommand>
+          <cleanCommand>${MAKE} -f config.mk clean</cleanCommand>
+          <executablePath></executablePath>
+        </makeTool>
+      </makefileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
