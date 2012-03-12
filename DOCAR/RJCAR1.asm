@@ -184,13 +184,13 @@ ALARM       equ .5
             swapf w_temp, W ;
             return
 
-init        clrf PORTA      ;Init PORTS
-            clrf PORTB
-            clrf PORTC
-            clrf PORTD
-            clrf PORTE
+;init        ;clrf PORTA      ;Init PORTS
+            ;clrf PORTB
+            ;clrf PORTC
+            ;clrf PORTD
+            ;clrf PORTE
             
-            bsf STATUS, RP0  ;Bank 1
+init        bsf STATUS, RP0  ;Bank 1
             
             movlw b'00000011' ; PCON 000000XX POR, BOR
             movwf PCON
