@@ -1,0 +1,8 @@
+Message[301] C:\PROGRA~2\LABCEN~1\PROTEU~1\TOOLS\MPASM\P16F874.INC 39 : MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+Message[302] C:\USERS\MISAK113\PROGRAMING\ASSEMBLLER\DOCAR\EASY_ADC.ASM 36 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MISAK113\PROGRAMING\ASSEMBLLER\DOCAR\EASY_ADC.ASM 39 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MISAK113\PROGRAMING\ASSEMBLLER\DOCAR\EASY_ADC.ASM 41 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MISAK113\PROGRAMING\ASSEMBLLER\DOCAR\EASY_ADC.ASM 43 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MISAK113\PROGRAMING\ASSEMBLLER\DOCAR\EASY_ADC.ASM 45 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MISAK113\PROGRAMING\ASSEMBLLER\DOCAR\EASY_ADC.ASM 47 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MISAK113\PROGRAMING\ASSEMBLLER\DOCAR\EASY_ADC.ASM 50 : Register in operand not in bank 0.  Ensure that bank bits are correct.

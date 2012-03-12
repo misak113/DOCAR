@@ -100,7 +100,7 @@ casvar
       endc
 
 
-;LokÃ¡lnÃ­ promÄ›ne (pracovni a parametry) od 6D
+;Lokální promìne (pracovni a parametry) od 6D
       cblock 0x70
 pri0       
 pri1       
@@ -195,10 +195,10 @@ init        clrf PORTA      ;Init PORTS
             movlw b'00000011' ; PCON 000000XX POR, BOR
             movwf PCON
     
-            movlw b'01001001' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogovÃ½ch vstupu a hodnotu k porovnÃ¡nÃ­ 0000
+            movlw b'01001001' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogovıch vstupu a hodnotu k porovnání 0000
             movwf ADCON1
     
-            movlw b'00101111'; 1 znamenÃ¡ vstup, 0 vÃ½stup
+            movlw b'00101111'; 1 znamená vstup, 0 vıstup
             movwf TRISA
             movlw b'00000001'
             movwf TRISB
@@ -215,13 +215,13 @@ init        clrf PORTA      ;Init PORTS
             
             bcf STATUS, RP0 ;Bank 0
     
-            movlw b'01000110' ; nastavÃ­ control register timer2
+            movlw b'01000110' ; nastaví control register timer2
             movwf T2CON
             
             call inton
             
             ;po startu zamkne a zapne alarm
-            ;call t1_00  ;@todo: ZkouÅ¡ka, aby se po startu vÅ¡e nevypÃ­nalo
+            ;call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo
             
             bsf PCLATH,3 ;Select page 1
             goto start      ;zacni na startu
@@ -229,11 +229,11 @@ init        clrf PORTA      ;Init PORTS
         
         
 
-inton       bcf INTCON, INTF ; nastavenÃ­ pÅ™eruÅ¡enÃ­ od RB0        
+inton       bcf INTCON, INTF ; nastavení pøerušení od RB0        
             bsf INTCON, INTE
-            bcf INTCON, T0IF ;nastavenÃ­ pÅ™eruÅ¡enÃ­ od Timer0
+            bcf INTCON, T0IF ;nastavení pøerušení od Timer0
             bsf INTCON, T0IE
-            bcf PIR1, TMR2IF ;nastavenÃ­ pÅ™eruÅ¡enÃ­ od Timer2
+            bcf PIR1, TMR2IF ;nastavení pøerušení od Timer2
             bsf STATUS, RP0  ;Bank 1
             bsf PIE1, TMR2IE
             bcf STATUS, RP0 ;Bank 0
@@ -262,11 +262,11 @@ inter       call intoff
             call inton
             return
 
-;pokud pÅ™etekl timer2 pro watch
+;pokud pøetekl timer2 pro watch
 watchover   bsf conf, WATCHOVER
             return
             
-;ZapnutÃ­ stopek pro kontrolu zacyklenÃ­ - timer2
+;Zapnutí stopek pro kontrolu zacyklení - timer2
 watchstart  bcf conf, WATCHOVER ;nastavi jako nepreteceny
             clrf TMR2 ;vynuluje timer2
             return
@@ -277,11 +277,11 @@ watchwait   btfss conf, WATCHOVER
             call w100c
             return
 
-;pÅ™i zachyceni signalu na radiovem pÅ™ijÃ­maÄi        
+;pøi zachyceni signalu na radiovem pøijímaèi        
 radio       nop
             return
             
-;pÅ™i pÅ™eteÄenÃ­ timeru 0, aÅ¾ po fÃ¡zi synchronizace procesorÅ¯    
+;pøi pøeteèení timeru 0, a po fázi synchronizace procesorù    
 timer0      btfsc cassir, 0
             call sirbeep
             btfsc casvar, 0
@@ -408,7 +408,7 @@ spioff      decf timspi, F
             call t1_03
             return
             
-;vypnuti odskokÅ¯
+;vypnuti odskokù
 odsoff      decf timods, F
             btfss STATUS, Z
             return
@@ -484,7 +484,7 @@ dotaz       bsf PORTB, 1  ;start bity XX - 10
             bcf PORTB, 1
             call w100c
             
-            movf cil, W   ;vysila oznaceni cilovÃ©ho procesoru XXXX
+            movf cil, W   ;vysila oznaceni cilového procesoru XXXX
             movwf r1
             movlw .4
             movwf r2
@@ -703,7 +703,7 @@ setout      bsf PORTB, 1  ;start bity XX - 10
             bcf PORTB, 1
             call w100c
             
-            movf prc, W   ;vysila oznaceni cilovÃ©ho procesoru XXXX
+            movf prc, W   ;vysila oznaceni cilového procesoru XXXX
             movwf r1
             movlw .4
             movwf r2
@@ -750,7 +750,7 @@ clrout      bsf PORTB, 1  ;start bity XX - 10
             bcf PORTB, 1
             call w100c
             
-            movf prc, W   ;vysila oznaceni cilovÃ©ho procesoru XXXX
+            movf prc, W   ;vysila oznaceni cilového procesoru XXXX
             movwf r1
             movlw .4
             movwf r2
@@ -802,7 +802,7 @@ clrout      bsf PORTB, 1  ;start bity XX - 10
         
         
         ;podprogramy
-;TlaÄitka funkci 1
+;Tlaèitka funkci 1
 if_58       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
             return
             
@@ -885,7 +885,7 @@ if_58       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
             call t1_stop
             return
 
-;TlaÄitka funkci 2
+;Tlaèitka funkci 2
 if_62       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
             return
             
@@ -967,7 +967,7 @@ if_62       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
             btfsc STATUS, Z
             call t2_stop
             return
-;TlaÄitka imobilizeru
+;Tlaèitka imobilizeru
 if_50       nop
             return
              ;pasy
@@ -976,7 +976,7 @@ if_59       nop
              ;rychlost
 if_60       nop
             return
-             ;otÃ¡Äky
+             ;otáèky
 if_61       nop
             return
              ;teplota in set
@@ -997,22 +997,22 @@ if_53       nop
              ;palivo
 if_54       nop
             return
-             ;dveÅ™e 1
+             ;dveøe 1
 if_55       nop
             return
-             ;ruÄnÃ­ brzda
+             ;ruèní brzda
 if_56       nop
             return
              ;kvalt
 if_57       nop
             return
-             ;dveÅ™e 2
+             ;dveøe 2
 if_84       nop
             return
-             ;dveÅ™e 3
+             ;dveøe 3
 if_85       nop
             return
-             ;dveÅ™e 4
+             ;dveøe 4
 if_86       nop
             return
              ;kapota
@@ -1040,9 +1040,9 @@ if_93       nop
 if_127      nop
             return
 
-;TlaÄÃ­tka funkcÃ­ 3
+;Tlaèítka funkcí 3
 if_128      btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
-            nop;return ;po dokonceni vyvoje vratit return z duvodu bezpecnosti a je to dÅ¯leÅ¾itÃ© !!!!!
+            nop;return ;po dokonceni vyvoje vratit return z duvodu bezpecnosti a je to dùleité !!!!!
             
             bcf STATUS, C
             rrf ir_128, W
@@ -1123,7 +1123,7 @@ if_128      btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
             call t3_stop
             return
 
-;pÅ™edpÅ™ipravenÃ© pro rozÅ¡Ã­Å™enÃ­ procesoru 5 a vice
+;pøedpøipravené pro rozšíøení procesoru 5 a vice
 if_x        nop
             return
 
@@ -1135,7 +1135,7 @@ t2_stop     nop
 t3_stop     nop
             return
             
-tx_stop     movlw b'10000' ;port C0    ;6 tlaÄÃ­tek ovlÃ¡dÃ¡nÃ­ rÃ¡dia PLAY, STOP, FWD, RWD, VOL+, VOL-
+tx_stop     movlw b'10000' ;port C0    ;6 tlaèítek ovládání rádia PLAY, STOP, FWD, RWD, VOL+, VOL-
             movwf port
             movlw b'10' ;procesor 2
             movwf prc
@@ -1190,12 +1190,12 @@ tx_stop     movlw b'10000' ;port C0    ;6 tlaÄÃ­tek ovlÃ¡dÃ¡nÃ­ rÃ¡dia PLAY, ST
             btfsc o_c, 4
             call clrout ;nastav port v prc
             bcf o_c, 4
-                  ;stÄ›raÄe, odstÅ™ikovaÄe
+                  ;stìraèe, odstøikovaèe
             bcf o_c, 7
             bcf PORTD, 3
             bcf o_c, 6
             bcf PORTD, 2
-                  ;dÃ¡lkovÃ¡ svÄ›tla
+                  ;dálková svìtla
             bcf o_d, 0
             bcf PORTD, 4
             return
@@ -1225,7 +1225,7 @@ t1_00       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
             movlw .3
             btfsc r6, 7
             movwf timsir
-            ;btfsc r6, 7  ;AÅ½ budou indikace otevÅ™enÃ½ch dveÅ™Ã­, tohle odkomentovat
+            ;btfsc r6, 7  ;A budou indikace otevøenıch dveøí, tohle odkomentovat
             ;return
 
             call t1_06 ;vypne vse 
@@ -1273,7 +1273,7 @@ t1_00       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
             movwf timsir
             bcf o_f, 7 ;sklopi zrcatka neboli vypne
             bcf PORTE, 1
-            nop ;MLUV "auto zamÄeno"
+            nop ;MLUV "auto zamèeno"
             call t1_07 ;zamkne
             bsf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
             movlw .15
@@ -1345,7 +1345,7 @@ t1_01       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
             movwf timsir
             bsf o_f, 7 ;odklopi zrcatka neboli zapne
             bsf PORTE, 1
-            nop ;MLUV "auto odemÄeno"
+            nop ;MLUV "auto odemèeno"
             bcf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
             call t1_08 ;odemkne
 
@@ -1873,7 +1873,7 @@ t1_36       btfsc o_i, 4
             movwf o3tar
             return
             
-;detskÃ½ zÃ¡mek zadnÃ­ch oken a dveri
+;detskı zámek zadních oken a dveri
 t1_37       btfss o_i, 4 ;zmeni stav indikace detskeho zamku
             goto t2_37
             bcf o_i, 4
@@ -1939,7 +1939,7 @@ t1_41       movlw b'10111' ;port C7
             bcf o_c, 3 
             return
             
-;ParkovaÄky
+;Parkovaèky
 t1_42       movf o_e, W
             movwf r5
 
@@ -1954,7 +1954,7 @@ t1_42       movf o_e, W
             bcf o_e, 3 
             return
             
-;SvÄ›tla
+;Svìtla
 t1_43       movf o_c, W
             movwf r5
 
@@ -1969,7 +1969,7 @@ t1_43       movf o_c, W
             bcf o_c, 1 
             return
             
-;Mlhovky zadnÃ­
+;Mlhovky zadní
 t1_44       movf o_f, W
             movwf r5
 
@@ -1984,17 +1984,17 @@ t1_44       movf o_f, W
             bcf o_f, 1 
             return
             
-;Blinkr levÃ½
+;Blinkr levı
 t1_45       bsf o_e, 4
             bsf PORTD, 6
             return
             
-;Blinkr pravÃ½
+;Blinkr pravı
 t1_46       bsf o_e, 5
             bsf PORTD, 7
             return
             
-;Mlhovky pÅ™ednÃ­
+;Mlhovky pøední
 t1_47       movf o_c, W
             movwf r5
 
@@ -2025,16 +2025,16 @@ t1_50       bsf o_c, 4
             call setout ;nastav port v prc
             return
             
-;stÄ›raÄe
+;stìraèe
 t1_51       bsf o_c, 7
             bsf PORTD, 3
             return
-;odstÅ™ikovaÄe
+;odstøikovaèe
 t1_52       bsf o_c, 6
             bsf PORTD, 2
             return
             
-;SirÃ©na
+;Siréna
 t1_53       movlw b'11000' ;port D0
             movwf port
             movlw b'11' ;procesor 3
@@ -2075,7 +2075,7 @@ t1_54       movlw b'11001' ;port D1
             bcf o_e, 2 
             return
             
-;DÃ¡lkovÃ© svÄ›tla
+;Dálkové svìtla
 t1_55   bsf o_d, 0
             bsf PORTD, 4
             return
@@ -2151,7 +2151,7 @@ t1_60       btfsc o_i, 4
             movwf o4tar
             return
             
-;red interiÃ©r
+;red interiér
 t1_61       movlw b'11010' ;port D2
             movwf port
             movlw b'10' ;procesor 2
@@ -2338,34 +2338,34 @@ ledzam      movlw b'10110' ;port C6
 start       bcf PCLATH,3 ;Select page 0
 
 
-            ;#### ÄŒekÃ¡ nÄ›kolik cyklÅ¯ aby se stihly ostatnÃ­ procesory vzpamatovat z pÅ™Ã­padnejch problÃ©mÅ¯
-            ; ZaÄne poÄÃ­tat Äas odpoÄinku procesorÅ¯ WATCH2
+            ;#### Èeká nìkolik cyklù aby se stihly ostatní procesory vzpamatovat z pøípadnejch problémù
+            ; Zaène poèítat èas odpoèinku procesorù WATCH2
             call watchstart
-            ; ÄŒekÃ¡ aÅ¾ skonÄÃ­ Äas odpoÄinku procesorÅ¯ WATCH2
+            ; Èeká a skonèí èas odpoèinku procesorù WATCH2
             call watchwait
             
-            ; ZaÄne poÄÃ­tat Äas odpoÄinku procesorÅ¯ WATCH2
+            ; Zaène poèítat èas odpoèinku procesorù WATCH2
             call watchstart
-            ; ÄŒekÃ¡ aÅ¾ skonÄÃ­ Äas odpoÄinku procesorÅ¯ WATCH2
+            ; Èeká a skonèí èas odpoèinku procesorù WATCH2
             call watchwait
             
-            ; ZaÄne poÄÃ­tat Äas odpoÄinku procesorÅ¯ WATCH2
+            ; Zaène poèítat èas odpoèinku procesorù WATCH2
             call watchstart
-            ; ÄŒekÃ¡ aÅ¾ skonÄÃ­ Äas odpoÄinku procesorÅ¯ WATCH2
+            ; Èeká a skonèí èas odpoèinku procesorù WATCH2
             call watchwait
             
-            ; ZaÄne poÄÃ­tat Äas odpoÄinku procesorÅ¯ WATCH2
+            ; Zaène poèítat èas odpoèinku procesorù WATCH2
             call watchstart
-            ; ÄŒekÃ¡ aÅ¾ skonÄÃ­ Äas odpoÄinku procesorÅ¯ WATCH2
+            ; Èeká a skonèí èas odpoèinku procesorù WATCH2
             call watchwait
       
       
       
-            btfsc conf, T0OF ;pokud timer 0 pÅ™etekl, spustÃ­ jeho obsluhu
+            btfsc conf, T0OF ;pokud timer 0 pøetekl, spustí jeho obsluhu
             call timer0
 
             bsf PCLATH,3 ;Select page 1
-            ;call okna ;spouÅ¡tÃ­ obsluhu jednotlivÃ½ch okÃ©nek DEBUG
+            ;call okna ;spouští obsluhu jednotlivıch okének DEBUG
             bcf PCLATH,3 ;Select page 0
 
 
@@ -2489,7 +2489,7 @@ start       bcf PCLATH,3 ;Select page 0
             
 
 
-            ; ZaÄne poÄÃ­tat Äas pro procesor WATCH2
+            ; Zaène poèítat èas pro procesor WATCH2
             call watchstart
 
             ;dotaz na procesor 2
@@ -2497,7 +2497,7 @@ start       bcf PCLATH,3 ;Select page 0
             movwf cil
             call dotaz  ;prijem dat z procesoru do pri0 - pri7
     
-            ; ÄŒekÃ¡ aÅ¾ dobÄ›hne Äas vyhrazenÃ½ pro tento procesor WATCH2
+            ; Èeká a dobìhne èas vyhrazenı pro tento procesor WATCH2
             call watchwait
     
             movf pri0, W    ;kontroluje zda je zmena od minule
@@ -2595,7 +2595,7 @@ start       bcf PCLATH,3 ;Select page 0
             call if_49  ;pokud zmena spusti podprig
 
 
-            ; ZaÄne poÄÃ­tat Äas pro procesor WATCH2
+            ; Zaène poèítat èas pro procesor WATCH2
             call watchstart
 
             ;dotaz na procesor 3
@@ -2603,7 +2603,7 @@ start       bcf PCLATH,3 ;Select page 0
             movwf cil
             call dotaz  ;prijem dat z procesoru do pri0 - pri7
             
-            ; ÄŒekÃ¡ aÅ¾ dobÄ›hne Äas vyhrazenÃ½ pro tento procesor WATCH2
+            ; Èeká a dobìhne èas vyhrazenı pro tento procesor WATCH2
             call watchwait
             
     
@@ -2705,7 +2705,7 @@ start       bcf PCLATH,3 ;Select page 0
 
 
 
-            ; ZaÄne poÄÃ­tat Äas pro procesor WATCH2
+            ; Zaène poèítat èas pro procesor WATCH2
             call watchstart
 
             ;dotaz na procesor 4
@@ -2713,7 +2713,7 @@ start       bcf PCLATH,3 ;Select page 0
             movwf cil
             call dotaz  ;prijem dat z procesoru do pri0 - pri7
             
-            ; ÄŒekÃ¡ aÅ¾ dobÄ›hne Äas vyhrazenÃ½ pro tento procesor WATCH2
+            ; Èeká a dobìhne èas vyhrazenı pro tento procesor WATCH2
             call watchwait
             
     
@@ -2829,7 +2829,7 @@ start       bcf PCLATH,3 ;Select page 0
 okna        movf ir_90, W
             andlw b'11110000' ;odseknu konecnou cast
             movwf r1
-            comf r1, F ;udelÃ¡m dvojkovÃ½ doplnÄ›k
+            comf r1, F ;udelám dvojkovı doplnìk
             movf o1tar, W
             andlw b'11110000' ;odseknu konecnou cast
             addwf r1, F ;sectu s dvojkovym doplnkem
@@ -2846,7 +2846,7 @@ okna        movf ir_90, W
 okno2       movf ir_91, W
             andlw b'11110000' ;odseknu konecnou cast
             movwf r1
-            comf r1, F ;udelÃ¡m dvojkovÃ½ doplnÄ›k
+            comf r1, F ;udelám dvojkovı doplnìk
             movf o2tar, W
             andlw b'11110000' ;odseknu konecnou cast
             addwf r1, F ;sectu s dvojkovym doplnkem
@@ -2863,7 +2863,7 @@ okno2       movf ir_91, W
 okno3       movf ir_92, W
             andlw b'11110000' ;odseknu konecnou cast
             movwf r1
-            comf r1, F ;udelÃ¡m dvojkovÃ½ doplnÄ›k
+            comf r1, F ;udelám dvojkovı doplnìk
             movf o3tar, W
             andlw b'11110000' ;odseknu konecnou cast
             addwf r1, F ;sectu s dvojkovym doplnkem
@@ -2880,7 +2880,7 @@ okno3       movf ir_92, W
 okno4       movf ir_93, W
             andlw b'11110000' ;odseknu konecnou cast
             movwf r1
-            comf r1, F ;udelÃ¡m dvojkovÃ½ doplnÄ›k
+            comf r1, F ;udelám dvojkovı doplnìk
             movf o4tar, W
             andlw b'11110000' ;odseknu konecnou cast
             addwf r1, F ;sectu s dvojkovym doplnkem
@@ -3188,7 +3188,7 @@ adconv      movlw .50 ; kolikrat se ma merit vstup
             movwf ran2 ; decrementator pro cykl
             movwf ran5 ; delitel pro vypocet prumeru
             movf ran1, W
-            movwf ran3 ; zachovÃ¡ni ANx vstupu
+            movwf ran3 ; zachováni ANx vstupu
             clrf CIS2_L
             clrf CIS2_H
             

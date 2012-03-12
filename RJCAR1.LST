@@ -1,4 +1,4 @@
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE  1
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ Message[301]: MESSAGE: (Processor-header file mismatch.  Verify selected process
   0000003F            00047 ir_58       
   00000040            00048 ir_59       
   00000041            00049 ir_60       
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE  2
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,13 +116,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00100       endc
                       00101 
                       00102 
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE  3
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00103 ;Lok√°ln√≠ promƒõne (pracovni a parametry) od 6D
+                      00103 ;Lok·lnÌ promÏne (pracovni a parametry) od 6D
                       00104       cblock 0x70
   00000070            00105 pri0       
   00000071            00106 pri1       
@@ -175,7 +175,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   00000001            00153 STARTED     equ .1
   00000002            00154 WATCHOVER   equ .2
                       00155 ;casov constant
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE  4
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -224,17 +224,17 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0019   008E           00196             movwf PCON
                       00197     
-001A   3049           00198             movlw b'01001001' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogov√Ωch
-                             vstupu a hodnotu k porovn√°n√≠ 0000
+001A   3049           00198             movlw b'01001001' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogov˝ch 
+                            vstupu a hodnotu k porovn·nÌ 0000
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 001B   009F           00199             movwf ADCON1
                       00200     
-001C   302F           00201             movlw b'00101111'; 1 znamen√° vstup, 0 v√Ωstup
+001C   302F           00201             movlw b'00101111'; 1 znamen· vstup, 0 v˝stup
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 001D   0085           00202             movwf TRISA
 001E   3001           00203             movlw b'00000001'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE  5
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -258,13 +258,13 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00215             
 0028   1283           00216             bcf STATUS, RP0 ;Bank 0
                       00217     
-0029   3046           00218             movlw b'01000110' ; nastav√≠ control register timer2
+0029   3046           00218             movlw b'01000110' ; nastavÌ control register timer2
 002A   0092           00219             movwf T2CON
                       00220             
 002B   202E           00221             call inton
                       00222             
                       00223             ;po startu zamkne a zapne alarm
-                      00224             ;call t1_00  ;@todo: Zkou≈°ka, aby se po startu v≈°e nevyp√≠nalo
+                      00224             ;call t1_00  ;@todo: Zkouöka, aby se po startu vöe nevypÌnalo
                       00225             
 002C   158A           00226             bsf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
@@ -273,11 +273,11 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
                       00229         
                       00230         
                       00231 
-002E   108B           00232 inton       bcf INTCON, INTF ; nastaven√≠ p≈ôeru≈°en√≠ od RB0        
+002E   108B           00232 inton       bcf INTCON, INTF ; nastavenÌ p¯eruöenÌ od RB0        
 002F   160B           00233             bsf INTCON, INTE
-0030   110B           00234             bcf INTCON, T0IF ;nastaven√≠ p≈ôeru≈°en√≠ od Timer0
+0030   110B           00234             bcf INTCON, T0IF ;nastavenÌ p¯eruöenÌ od Timer0
 0031   168B           00235             bsf INTCON, T0IE
-0032   108C           00236             bcf PIR1, TMR2IF ;nastaven√≠ p≈ôeru≈°en√≠ od Timer2
+0032   108C           00236             bcf PIR1, TMR2IF ;nastavenÌ p¯eruöenÌ od Timer2
 0033   1683           00237             bsf STATUS, RP0  ;Bank 1
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0034   148C           00238             bsf PIE1, TMR2IE
@@ -293,7 +293,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 003C   108C           00247             bcf PIE1, TMR2IE
 003D   1283           00248             bcf STATUS, RP0 ;Bank 0
 003E   0008           00249             return
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE  6
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -314,11 +314,11 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0046   202E           00262             call inton
 0047   0008           00263             return
                       00264 
-                      00265 ;pokud p≈ôetekl timer2 pro watch
+                      00265 ;pokud p¯etekl timer2 pro watch
 0048   1559           00266 watchover   bsf conf, WATCHOVER
 0049   0008           00267             return
                       00268             
-                      00269 ;Zapnut√≠ stopek pro kontrolu zacyklen√≠ - timer2
+                      00269 ;ZapnutÌ stopek pro kontrolu zacyklenÌ - timer2
 004A   1159           00270 watchstart  bcf conf, WATCHOVER ;nastavi jako nepreteceny
 004B   0191           00271             clrf TMR2 ;vynuluje timer2
 004C   0008           00272             return
@@ -329,11 +329,11 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 004F   268C           00277             call w100c
 0050   0008           00278             return
                       00279 
-                      00280 ;p≈ôi zachyceni signalu na radiovem p≈ôij√≠maƒçi        
+                      00280 ;p¯i zachyceni signalu na radiovem p¯ijÌmaËi        
 0051   0000           00281 radio       nop
 0052   0008           00282             return
                       00283             
-                      00284 ;p≈ôi p≈ôeteƒçen√≠ timeru 0, a≈æ po f√°zi synchronizace procesor≈Ø    
+                      00284 ;p¯i p¯eteËenÌ timeru 0, aû po f·zi synchronizace procesor˘    
 0053   1858           00285 timer0      btfsc cassir, 0
 0054   2065           00286             call sirbeep
 0055   186E           00287             btfsc casvar, 0
@@ -352,7 +352,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0062   20BA           00300             call spioff
                       00301 
 0063   1059           00302             bcf conf, T0OF
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE  7
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -411,7 +411,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 008E   3008           00353             movlw .8 ;nastavy na dalsich 240ms
 008F   00DB           00354             movwf timvar
 0090   0008           00355             return
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE  8
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -470,7 +470,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00BB   1D03           00406             btfss STATUS, Z
 00BC   0008           00407             return
 00BD   23F5           00408             call t1_03
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE  9
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -478,7 +478,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 
 00BE   0008           00409             return
                       00410             
-                      00411 ;vypnuti odskok≈Ø
+                      00411 ;vypnuti odskok˘
 00BF   03E9           00412 odsoff      decf timods, F
 00C0   1D03           00413             btfss STATUS, Z
 00C1   0008           00414             return
@@ -529,7 +529,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00EC   125A           00459             bcf casov, ODSKOK ;timer red tunningu nebude vniman
 00ED   0008           00460             return
                       00461             
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 10
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -560,7 +560,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00FB   1086           00484             bcf PORTB, 1
 00FC   268C           00485             call w100c
                       00486             
-00FD   0878           00487             movf cil, W   ;vysila oznaceni cilov√©ho procesoru XXXX
+00FD   0878           00487             movf cil, W   ;vysila oznaceni cilovÈho procesoru XXXX
 00FE   00A0           00488             movwf r1
 00FF   3004           00489             movlw .4
 0100   00A1           00490             movwf r2
@@ -588,7 +588,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00512             
 0115   1486           00513             bsf PORTB, 1  ;STOP bity XXX - 111
 0116   268C           00514             call w100c
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 11
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -647,7 +647,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0140   1071           00564             bcf pri1, 0
 0141   268C           00565             call w100c
 0142   0BA1           00566             decfsz r2, F
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 12
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -706,7 +706,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 016C   01F4           00617             clrf pri4        ; ulozi priijate do pri XXXX XXXX
 016D   3008           00618             movlw .8
 016E   00A1           00619             movwf r2
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 13
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 13
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -765,7 +765,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 019A   29AE           00670             goto dotazerr
 019B   1886           00671             btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
 019C   2999           00672             goto $-3 ;ochrana proti zamrznuti
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 14
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 14
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -805,7 +805,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 01B4   1086           00703             bcf PORTB, 1
 01B5   268C           00704             call w100c
                       00705             
-01B6   0853           00706             movf prc, W   ;vysila oznaceni cilov√©ho procesoru XXXX
+01B6   0853           00706             movf prc, W   ;vysila oznaceni cilovÈho procesoru XXXX
 01B7   00A0           00707             movwf r1
 01B8   3004           00708             movlw .4
 01B9   00A1           00709             movwf r2
@@ -824,7 +824,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 01C4   0852           00722             movf port, W   ;vysila port ke zmene XXXXX
 01C5   00A0           00723             movwf r1
 01C6   3005           00724             movlw .5
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 15
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 15
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -858,7 +858,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 01DB   1086           00750             bcf PORTB, 1
 01DC   268C           00751             call w100c
                       00752             
-01DD   0853           00753             movf prc, W   ;vysila oznaceni cilov√©ho procesoru XXXX
+01DD   0853           00753             movf prc, W   ;vysila oznaceni cilovÈho procesoru XXXX
 01DE   00A0           00754             movwf r1
 01DF   3004           00755             movlw .4
 01E0   00A1           00756             movwf r2
@@ -883,7 +883,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 01F1   1E20           00775             btfss r1, 4
 01F2   1086           00776             bcf PORTB, 1
 01F3   268C           00777             call w100c
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 16
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 16
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -916,7 +916,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00802         
                       00803         
                       00804         ;podprogramy
-                      00805 ;Tlaƒçitka funkci 1
+                      00805 ;TlaËitka funkci 1
 0200   1BAC           00806 if_58       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
 0201   0008           00807             return
                       00808             
@@ -942,7 +942,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0213   0AA0           00828             incf r1, F
 0214   1903           00829             btfsc STATUS, Z
 0215   2464           00830             call t1_06
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 17
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 17
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1001,7 +1001,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0247   0C3F           00881             rrf ir_58, W
 0248   00A0           00882             movwf r1
 0249   0820           00883             movf r1, W
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 18
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 18
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1011,7 +1011,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 024B   2319           00885             call t1_stop
 024C   0008           00886             return
                       00887 
-                      00888 ;Tlaƒçitka funkci 2
+                      00888 ;TlaËitka funkci 2
 024D   1BAC           00889 if_62       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
 024E   0008           00890             return
                       00891             
@@ -1060,7 +1060,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0277   25F5           00934             call t1_54
 0278   0AA0           00935             incf r1, F
 0279   1903           00936             btfsc STATUS, Z
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 19
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 19
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1099,7 +1099,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0297   1903           00967             btfsc STATUS, Z
 0298   231B           00968             call t2_stop
 0299   0008           00969             return
-                      00970 ;Tlaƒçitka imobilizeru
+                      00970 ;TlaËitka imobilizeru
 029A   0000           00971 if_50       nop
 029B   0008           00972             return
                       00973              ;pasy
@@ -1108,7 +1108,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00976              ;rychlost
 029E   0000           00977 if_60       nop
 029F   0008           00978             return
-                      00979              ;ot√°ƒçky
+                      00979              ;ot·Ëky
 02A0   0000           00980 if_61       nop
 02A1   0008           00981             return
                       00982              ;teplota in set
@@ -1119,7 +1119,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 02A5   0008           00987             return
                       00988              ;baterie
 02A6   0000           00989 if_51       nop
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 20
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 20
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1135,22 +1135,22 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00997              ;palivo
 02AC   0000           00998 if_54       nop
 02AD   0008           00999             return
-                      01000              ;dve≈ôe 1
+                      01000              ;dve¯e 1
 02AE   0000           01001 if_55       nop
 02AF   0008           01002             return
-                      01003              ;ruƒçn√≠ brzda
+                      01003              ;ruËnÌ brzda
 02B0   0000           01004 if_56       nop
 02B1   0008           01005             return
                       01006              ;kvalt
 02B2   0000           01007 if_57       nop
 02B3   0008           01008             return
-                      01009              ;dve≈ôe 2
+                      01009              ;dve¯e 2
 02B4   0000           01010 if_84       nop
 02B5   0008           01011             return
-                      01012              ;dve≈ôe 3
+                      01012              ;dve¯e 3
 02B6   0000           01013 if_85       nop
 02B7   0008           01014             return
-                      01015              ;dve≈ôe 4
+                      01015              ;dve¯e 4
 02B8   0000           01016 if_86       nop
 02B9   0008           01017             return
                       01018              ;kapota
@@ -1178,15 +1178,15 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 02C8   0000           01040 if_127      nop
 02C9   0008           01041             return
                       01042 
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 21
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 21
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      01043 ;Tlaƒç√≠tka funkc√≠ 3
+                      01043 ;TlaËÌtka funkcÌ 3
 02CA   1BAC           01044 if_128      btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
-02CB   0000           01045             nop;return ;po dokonceni vyvoje vratit return z duvodu bezpecnosti a je to d≈Øle≈æit√© !!!!!
+02CB   0000           01045             nop;return ;po dokonceni vyvoje vratit return z duvodu bezpecnosti a je to d˘leûitÈ !!!!!
                       01046             
 02CC   1003           01047             bcf STATUS, C
 02CD   0C50           01048             rrf ir_128, W
@@ -1237,7 +1237,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 02F8   0AA0           01093             incf r1, F
 02F9   1903           01094             btfsc STATUS, Z
 02FA   2685           01095             call t1_x
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 22
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 22
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1273,7 +1273,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0315   231D           01123             call t3_stop
 0316   0008           01124             return
                       01125 
-                      01126 ;p≈ôedp≈ôipraven√© pro roz≈°√≠≈ôen√≠ procesoru 5 a vice
+                      01126 ;p¯edp¯ipravenÈ pro rozöÌ¯enÌ procesoru 5 a vice
 0317   0000           01127 if_x        nop
 0318   0008           01128             return
                       01129 
@@ -1285,7 +1285,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 031D   0000           01135 t3_stop     nop
 031E   0008           01136             return
                       01137             
-031F   3010           01138 tx_stop     movlw b'10000' ;port C0    ;6 tlaƒç√≠tek ovl√°d√°n√≠ r√°dia PLAY, STOP, FWD, RWD, VOL+, VOL-
+031F   3010           01138 tx_stop     movlw b'10000' ;port C0    ;6 tlaËÌtek ovl·d·nÌ r·dia PLAY, STOP, FWD, RWD, VOL+, VOL-
 0320   00D2           01139             movwf port
 0321   3002           01140             movlw b'10' ;procesor 2
 0322   00D3           01141             movwf prc
@@ -1296,7 +1296,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0327   00D2           01146             movwf port
 0328   3002           01147             movlw b'10' ;procesor 2
 0329   00D3           01148             movwf prc
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 23
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 23
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1346,16 +1346,16 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0351   1A2B           01190             btfsc o_c, 4
 0352   21D9           01191             call clrout ;nastav port v prc
 0353   122B           01192             bcf o_c, 4
-                      01193                   ;stƒõraƒçe, odst≈ôikovaƒçe
+                      01193                   ;stÏraËe, odst¯ikovaËe
 0354   13AB           01194             bcf o_c, 7
 0355   1188           01195             bcf PORTD, 3
 0356   132B           01196             bcf o_c, 6
 0357   1108           01197             bcf PORTD, 2
-                      01198                   ;d√°lkov√° svƒõtla
+                      01198                   ;d·lkov· svÏtla
 0358   102C           01199             bcf o_d, 0
 0359   1208           01200             bcf PORTD, 4
 035A   0008           01201             return
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 24
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 24
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1387,7 +1387,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 036E   3003           01225             movlw .3
 036F   1BA5           01226             btfsc r6, 7
 0370   00D7           01227             movwf timsir
-                      01228             ;btfsc r6, 7  ;A≈Ω budou indikace otev≈ôen√Ωch dve≈ô√≠, tohle odkomentovat
+                      01228             ;btfsc r6, 7  ;Aé budou indikace otev¯en˝ch dve¯Ì, tohle odkomentovat
                       01229             ;return
                       01230 
 0371   2464           01231             call t1_06 ;vypne vse 
@@ -1414,7 +1414,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       01251             
 0379   3016           01252             movlw b'10110' ;port C6
 037A   00D2           01253             movwf port
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 25
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 25
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1442,7 +1442,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 038E   00D7           01273             movwf timsir
 038F   13AE           01274             bcf o_f, 7 ;sklopi zrcatka neboli vypne
 0390   1089           01275             bcf PORTE, 1
-0391   0000           01276             nop ;MLUV "auto zamƒçeno"
+0391   0000           01276             nop ;MLUV "auto zamËeno"
 0392   249B           01277             call t1_07 ;zamkne
 0393   155A           01278             bsf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
 0394   300F           01279             movlw .15
@@ -1473,7 +1473,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 03A7   1386           01304             bcf PORTB, 7
                       01305                   ;zapne probliknuti nejakych svetel a sirenu a po urcitem case vypne, STOP alarm
                       01306                   ;stahne okna do pamatovane polohy, prestane problikavat LED zamceno, promluvi ze je od
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 26
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 26
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1521,7 +1521,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 03C3   00D7           01345             movwf timsir
 03C4   17AE           01346             bsf o_f, 7 ;odklopi zrcatka neboli zapne
 03C5   1489           01347             bsf PORTE, 1
-03C6   0000           01348             nop ;MLUV "auto odemƒçeno"
+03C6   0000           01348             nop ;MLUV "auto odemËeno"
 03C7   115A           01349             bcf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
 03C8   24A9           01350             call t1_08 ;odemkne
                       01351 
@@ -1532,7 +1532,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 03CC   00E3           01356             movwf o2tar
 03CD   0860           01357             movf o3tmp, W
 03CE   00E4           01358             movwf o3tar
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 27
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 27
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1591,7 +1591,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       01409             ;pokud poloha 2
 03F9   1CE7           01410             btfss spinac, 1
 03FA   2C0C           01411             goto t2_03
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 28
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 28
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1650,7 +1650,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0422   3002           01462             movlw b'10' ;procesor 2
 0423   00D3           01463             movwf prc 
 0424   192D           01464             btfsc o_e, 2
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 29
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 29
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1709,7 +1709,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0453   1388           01515             bcf PORTD, 7
                       01516     
 0454   1C6E           01517             btfss casvar, 0 ;pokud jeden vyply oba zapne
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 30
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 30
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1768,7 +1768,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 047E   00D2           01568             movwf port
 047F   3002           01569             movlw b'10' ;procesor 2
 0480   00D3           01570             movwf prc 
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 31
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 31
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1827,7 +1827,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 04A9   1051           01621 t1_08       bcf locked, 0 ;smaze registr locked
 04AA   16B0           01622             bsf o_h, 5 ;zapne v regs led odemceno
 04AB   3015           01623             movlw b'10101' ;port C5
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 32
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 32
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1886,7 +1886,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 04D4   1586           01674             bsf PORTB, 3
 04D5   165A           01675             bsf casov, ODSKOK
 04D6   3008           01676             movlw .8
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 33
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 33
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1945,7 +1945,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 04FB   3002           01727             movlw b'10' ;procesor 2
 04FC   00D3           01728             movwf prc
 04FD   21B2           01729             call setout ;nastav port v prc
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 34
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 34
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2004,7 +2004,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0524   112E           01780             bcf o_f, 2 
 0525   0008           01781             return
                       01782             
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 35
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 35
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2063,7 +2063,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 054C   00A4           01832             movwf r5
 054D   30F0           01833             movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
 054E   07A4           01834             addwf r5, F
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 36
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 36
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2110,7 +2110,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 056F   00E4           01873             movwf o3tar
 0570   0008           01874             return
                       01875             
-                      01876 ;detsk√Ω z√°mek zadn√≠ch oken a dveri
+                      01876 ;detsk˝ z·mek zadnÌch oken a dveri
 0571   1E31           01877 t1_37       btfss o_i, 4 ;zmeni stav indikace detskeho zamku
 0572   2D7A           01878             goto t2_37
 0573   1231           01879             bcf o_i, 4
@@ -2122,7 +2122,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0579   0008           01885             return
                       01886             
 057A   1631           01887 t2_37       bsf o_i, 4
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 37
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 37
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2181,14 +2181,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 05A0   19A4           01938             btfsc r5, 3
 05A1   11AB           01939             bcf o_c, 3 
 05A2   0008           01940             return
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 38
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 38
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
                       01941             
-                      01942 ;Parkovaƒçky
+                      01942 ;ParkovaËky
 05A3   082D           01943 t1_42       movf o_e, W
 05A4   00A4           01944             movwf r5
                       01945 
@@ -2203,7 +2203,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 05AC   11AD           01954             bcf o_e, 3 
 05AD   0008           01955             return
                       01956             
-                      01957 ;Svƒõtla
+                      01957 ;SvÏtla
 05AE   082B           01958 t1_43       movf o_c, W
 05AF   00A4           01959             movwf r5
                       01960 
@@ -2218,7 +2218,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 05B7   10AB           01969             bcf o_c, 1 
 05B8   0008           01970             return
                       01971             
-                      01972 ;Mlhovky zadn√≠
+                      01972 ;Mlhovky zadnÌ
 05B9   082E           01973 t1_44       movf o_f, W
 05BA   00A4           01974             movwf r5
                       01975 
@@ -2233,14 +2233,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 05C2   10AE           01984             bcf o_f, 1 
 05C3   0008           01985             return
                       01986             
-                      01987 ;Blinkr lev√Ω
+                      01987 ;Blinkr lev˝
 05C4   162D           01988 t1_45       bsf o_e, 4
 05C5   1708           01989             bsf PORTD, 6
 05C6   0008           01990             return
                       01991             
-                      01992 ;Blinkr prav√Ω
+                      01992 ;Blinkr prav˝
 05C7   16AD           01993 t1_46       bsf o_e, 5
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 39
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 39
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2249,7 +2249,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 05C8   1788           01994             bsf PORTD, 7
 05C9   0008           01995             return
                       01996             
-                      01997 ;Mlhovky p≈ôedn√≠
+                      01997 ;Mlhovky p¯ednÌ
 05CA   082B           01998 t1_47       movf o_c, W
 05CB   00A4           01999             movwf r5
                       02000 
@@ -2280,16 +2280,16 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 05DE   21B2           02025             call setout ;nastav port v prc
 05DF   0008           02026             return
                       02027             
-                      02028 ;stƒõraƒçe
+                      02028 ;stÏraËe
 05E0   17AB           02029 t1_51       bsf o_c, 7
 05E1   1588           02030             bsf PORTD, 3
 05E2   0008           02031             return
-                      02032 ;odst≈ôikovaƒçe
+                      02032 ;odst¯ikovaËe
 05E3   172B           02033 t1_52       bsf o_c, 6
 05E4   1508           02034             bsf PORTD, 2
 05E5   0008           02035             return
                       02036             
-                      02037 ;Sir√©na
+                      02037 ;SirÈna
 05E6   3018           02038 t1_53       movlw b'11000' ;port D0
 05E7   00D2           02039             movwf port
 05E8   3003           02040             movlw b'11' ;procesor 3
@@ -2299,7 +2299,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 05EB   00A4           02044             movwf r5
                       02045 
 05EC   1CA4           02046             btfss r5, 1
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 40
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 40
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2336,7 +2336,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0602   112D           02075             bcf o_e, 2 
 0603   0008           02076             return
                       02077             
-                      02078 ;D√°lkov√© svƒõtla
+                      02078 ;D·lkovÈ svÏtla
 0604   142C           02079 t1_55   bsf o_d, 0
 0605   1608           02080             bsf PORTD, 4
 0606   0008           02081             return
@@ -2358,7 +2358,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       02097             
                       02098             ;stroboskop
 060F   3019           02099             movlw b'11001' ;port D1
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 41
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 41
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2417,14 +2417,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0636   0824           02150             movf r5, W
 0637   00E5           02151             movwf o4tar
 0638   0008           02152             return
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 42
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 42
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
                       02153             
-                      02154 ;red interi√©r
+                      02154 ;red interiÈr
 0639   301A           02155 t1_61       movlw b'11010' ;port D2
 063A   00D2           02156             movwf port
 063B   3002           02157             movlw b'10' ;procesor 2
@@ -2476,7 +2476,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 065F   00E9           02203             movwf timods
 0660   0008           02204             return
                       02205             
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 43
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 43
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2535,7 +2535,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       02256 
                       02257 
                       02258 
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 44
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 44
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2594,7 +2594,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 06A8   00D3           02309             movwf prc
                       02310             
 06A9   0830           02311             movf o_h, W
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 45
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 45
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2629,50 +2629,49 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0800   118A           02338 start       bcf PCLATH,3 ;Select page 0
                       02339 
                       02340 
-                      02341             ;#### ƒåek√° nƒõkolik cykl≈Ø aby se stihly ostatn√≠ procesory vzpamatovat z p≈ô√≠padnejch pr
-                            obl√©m≈Ø
-                      02342             ; Zaƒçne poƒç√≠tat ƒças odpoƒçinku procesor≈Ø WATCH2
+                      02341             ;#### »ek· nÏkolik cykl˘ aby se stihly ostatnÌ procesory vzpamatovat z p¯Ìpadnejch problÈm˘
+                      02342             ; ZaËne poËÌtat Ëas odpoËinku procesor˘ WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0801   204A           02343             call watchstart
-                      02344             ; ƒåek√° a≈æ skonƒç√≠ ƒças odpoƒçinku procesor≈Ø WATCH2
+                      02344             ; »ek· aû skonËÌ Ëas odpoËinku procesor˘ WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0802   204D           02345             call watchwait
                       02346             
-                      02347             ; Zaƒçne poƒç√≠tat ƒças odpoƒçinku procesor≈Ø WATCH2
+                      02347             ; ZaËne poËÌtat Ëas odpoËinku procesor˘ WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0803   204A           02348             call watchstart
-                      02349             ; ƒåek√° a≈æ skonƒç√≠ ƒças odpoƒçinku procesor≈Ø WATCH2
+                      02349             ; »ek· aû skonËÌ Ëas odpoËinku procesor˘ WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0804   204D           02350             call watchwait
                       02351             
-                      02352             ; Zaƒçne poƒç√≠tat ƒças odpoƒçinku procesor≈Ø WATCH2
+                      02352             ; ZaËne poËÌtat Ëas odpoËinku procesor˘ WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0805   204A           02353             call watchstart
-                      02354             ; ƒåek√° a≈æ skonƒç√≠ ƒças odpoƒçinku procesor≈Ø WATCH2
+                      02354             ; »ek· aû skonËÌ Ëas odpoËinku procesor˘ WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0806   204D           02355             call watchwait
                       02356             
-                      02357             ; Zaƒçne poƒç√≠tat ƒças odpoƒçinku procesor≈Ø WATCH2
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 46
+                      02357             ; ZaËne poËÌtat Ëas odpoËinku procesor˘ WATCH2
+Message[306]: Crossing page boundary -- ensure page bits are set.
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 46
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-Message[306]: Crossing page boundary -- ensure page bits are set.
 0807   204A           02358             call watchstart
-                      02359             ; ƒåek√° a≈æ skonƒç√≠ ƒças odpoƒçinku procesor≈Ø WATCH2
+                      02359             ; »ek· aû skonËÌ Ëas odpoËinku procesor˘ WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0808   204D           02360             call watchwait
                       02361       
                       02362       
                       02363       
-0809   1859           02364             btfsc conf, T0OF ;pokud timer 0 p≈ôetekl, spust√≠ jeho obsluhu
+0809   1859           02364             btfsc conf, T0OF ;pokud timer 0 p¯etekl, spustÌ jeho obsluhu
 Message[306]: Crossing page boundary -- ensure page bits are set.
 080A   2053           02365             call timer0
                       02366 
 080B   158A           02367             bsf PCLATH,3 ;Select page 1
-                      02368             ;call okna ;spou≈°t√≠ obsluhu jednotliv√Ωch ok√©nek DEBUG
+                      02368             ;call okna ;spouötÌ obsluhu jednotliv˝ch okÈnek DEBUG
 080C   118A           02369             bcf PCLATH,3 ;Select page 0
                       02370 
                       02371 
@@ -2712,13 +2711,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 0827   0FA0           02404             incfsz r1, F  ;pokud zadna zmena pokracuje dal
 0828   00C3           02405             movwf ir_62  ;prepise reg AN prevedenou hodnotou
 0829   0820           02406             movf r1, W
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 47
+082A   118A           02407             bcf PCLATH,3 ;Select page 0
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 47
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-082A   118A           02407             bcf PCLATH,3 ;Select page 0
 082B   1D03           02408             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
 082C   224D           02409             call if_62  ;pokud zmena odesle na sbernici
@@ -2771,13 +2770,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 0851   118A           02454             bcf PCLATH,3 ;Select page 0
 0852   0876           02455             movf ran1, W
 0853   00A0           02456             movwf r1
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 48
+                      02457             
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 48
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      02457             
 0854   0941           02458             comf ir_60, W
 0855   07A0           02459             addwf r1, F
 0856   081E           02460             movf ADRESH, W
@@ -2814,7 +2813,7 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
                       02489             
                       02490 
                       02491 
-                      02492             ; Zaƒçne poƒç√≠tat ƒças pro procesor WATCH2
+                      02492             ; ZaËne poËÌtat Ëas pro procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 086D   204A           02493             call watchstart
                       02494 
@@ -2824,19 +2823,19 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0870   20F9           02498             call dotaz  ;prijem dat z procesoru do pri0 - pri7
                       02499     
-                      02500             ; ƒåek√° a≈æ dobƒõhne ƒças vyhrazen√Ω pro tento procesor WATCH2
+                      02500             ; »ek· aû dobÏhne Ëas vyhrazen˝ pro tento procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0871   204D           02501             call watchwait
                       02502     
 0872   0870           02503             movf pri0, W    ;kontroluje zda je zmena od minule
 0873   00A0           02504             movwf r1
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 49
+0874   0938           02505             comf ir_51, W
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 49
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0874   0938           02505             comf ir_51, W
 0875   07A0           02506             addwf r1, F
 0876   0870           02507             movf pri0, W
 0877   0FA0           02508             incfsz r1, F  ;pokud zadna zmena pokracuje dal
@@ -2889,13 +2888,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 089B   00A0           02551             movwf r1
 089C   093C           02552             comf ir_55, W
 089D   07A0           02553             addwf r1, F
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 50
+089E   0874           02554             movf pri4, W
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 50
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-089E   0874           02554             movf pri4, W
 089F   0FA0           02555             incfsz r1, F  ;pokud zadna zmena pokracuje dal
 08A0   00BC           02556             movwf ir_55  ;priepise reg AN prievedenou hodnotou
 08A1   0820           02557             movf r1, W
@@ -2943,23 +2942,23 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 08C1   22A2           02595             call if_49  ;pokud zmena spusti podprig
                       02596 
                       02597 
-                      02598             ; Zaƒçne poƒç√≠tat ƒças pro procesor WATCH2
+                      02598             ; ZaËne poËÌtat Ëas pro procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 08C2   204A           02599             call watchstart
                       02600 
                       02601             ;dotaz na procesor 3
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 51
+08C3   3003           02602             movlw .3  ;oznaceni ciloveho procesoru
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 51
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-08C3   3003           02602             movlw .3  ;oznaceni ciloveho procesoru
 08C4   00F8           02603             movwf cil
 Message[306]: Crossing page boundary -- ensure page bits are set.
 08C5   20F9           02604             call dotaz  ;prijem dat z procesoru do pri0 - pri7
                       02605             
-                      02606             ; ƒåek√° a≈æ dobƒõhne ƒças vyhrazen√Ω pro tento procesor WATCH2
+                      02606             ; »ek· aû dobÏhne Ëas vyhrazen˝ pro tento procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 08C6   204D           02607             call watchwait
                       02608             
@@ -3007,13 +3006,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 08E5   0873           02647             movf pri3, W    ;kontroluje zda je zmena od minule
 08E6   00A0           02648             movwf r1
 08E7   0947           02649             comf ir_86, W
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 52
+08E8   07A0           02650             addwf r1, F
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 52
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-08E8   07A0           02650             addwf r1, F
 08E9   0873           02651             movf pri3, W
 08EA   0FA0           02652             incfsz r1, F  ;pokud zadna zmena pokracuje dal
 08EB   00C7           02653             movwf ir_86  ;priepise reg AN prievedenou hodnotou
@@ -3066,13 +3065,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 090E   00A0           02696             movwf r1
 090F   094B           02697             comf ir_90, W
 0910   07A0           02698             addwf r1, F
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 53
+0911   0877           02699             movf pri7, W
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 53
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0911   0877           02699             movf pri7, W
 0912   0FA0           02700             incfsz r1, F  ;pokud zadna zmena pokracuje dal
 0913   00CB           02701             movwf ir_90  ;priepise reg AN prievedenou hodnotou
 0914   0820           02702             movf r1, W
@@ -3082,7 +3081,7 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
                       02705 
                       02706 
                       02707 
-                      02708             ; Zaƒçne poƒç√≠tat ƒças pro procesor WATCH2
+                      02708             ; ZaËne poËÌtat Ëas pro procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0917   204A           02709             call watchstart
                       02710 
@@ -3092,7 +3091,7 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 Message[306]: Crossing page boundary -- ensure page bits are set.
 091A   20F9           02714             call dotaz  ;prijem dat z procesoru do pri0 - pri7
                       02715             
-                      02716             ; ƒåek√° a≈æ dobƒõhne ƒças vyhrazen√Ω pro tento procesor WATCH2
+                      02716             ; »ek· aû dobÏhne Ëas vyhrazen˝ pro tento procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
 091B   204D           02717             call watchwait
                       02718             
@@ -3125,13 +3124,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
                       02743     
                       02744     
 0930   0872           02745             movf pri2, W    ;kontroluje zda je zmena od minule
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 54
+0931   00A0           02746             movwf r1
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 54
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0931   00A0           02746             movwf r1
 0932   094E           02747             comf ir_93, W
 0933   07A0           02748             addwf r1, F
 0934   0872           02749             movf pri2, W
@@ -3184,13 +3183,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
                       02792     
 0958   0876           02793             movf pri6, W    ;kontroluje zda je zmena od minule
 0959   00A0           02794             movwf r1
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 55
+095A   0935           02795             comf ir_x, W
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 55
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-095A   0935           02795             comf ir_x, W
 095B   07A0           02796             addwf r1, F
 095C   0876           02797             movf pri6, W
 095D   0FA0           02798             incfsz r1, F  ;pokud zadna zmena pokracuje dal
@@ -3229,7 +3228,7 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 096E   084B           02829 okna        movf ir_90, W
 096F   39F0           02830             andlw b'11110000' ;odseknu konecnou cast
 0970   00A0           02831             movwf r1
-0971   09A0           02832             comf r1, F ;udel√°m dvojkov√Ω doplnƒõk
+0971   09A0           02832             comf r1, F ;udel·m dvojkov˝ doplnÏk
 0972   0862           02833             movf o1tar, W
 0973   39F0           02834             andlw b'11110000' ;odseknu konecnou cast
 0974   07A0           02835             addwf r1, F ;sectu s dvojkovym doplnkem
@@ -3243,16 +3242,16 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 097C   21B3           02843             call o1up
 097D   1822           02844             btfsc r3, C ;pokud preteklo, sjed dolu
 097E   21C8           02845             call o1down
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 56
+097F   084C           02846 okno2       movf ir_91, W
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 56
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-097F   084C           02846 okno2       movf ir_91, W
 0980   39F0           02847             andlw b'11110000' ;odseknu konecnou cast
 0981   00A0           02848             movwf r1
-0982   09A0           02849             comf r1, F ;udel√°m dvojkov√Ω doplnƒõk
+0982   09A0           02849             comf r1, F ;udel·m dvojkov˝ doplnÏk
 0983   0863           02850             movf o2tar, W
 0984   39F0           02851             andlw b'11110000' ;odseknu konecnou cast
 0985   07A0           02852             addwf r1, F ;sectu s dvojkovym doplnkem
@@ -3269,7 +3268,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0990   084D           02863 okno3       movf ir_92, W
 0991   39F0           02864             andlw b'11110000' ;odseknu konecnou cast
 0992   00A0           02865             movwf r1
-0993   09A0           02866             comf r1, F ;udel√°m dvojkov√Ω doplnƒõk
+0993   09A0           02866             comf r1, F ;udel·m dvojkov˝ doplnÏk
 0994   0864           02867             movf o3tar, W
 0995   39F0           02868             andlw b'11110000' ;odseknu konecnou cast
 0996   07A0           02869             addwf r1, F ;sectu s dvojkovym doplnkem
@@ -3286,7 +3285,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 09A1   084E           02880 okno4       movf ir_93, W
 09A2   39F0           02881             andlw b'11110000' ;odseknu konecnou cast
 09A3   00A0           02882             movwf r1
-09A4   09A0           02883             comf r1, F ;udel√°m dvojkov√Ω doplnƒõk
+09A4   09A0           02883             comf r1, F ;udel·m dvojkov˝ doplnÏk
 09A5   0865           02884             movf o4tar, W
 09A6   39F0           02885             andlw b'11110000' ;odseknu konecnou cast
 09A7   07A0           02886             addwf r1, F ;sectu s dvojkovym doplnkem
@@ -3302,13 +3301,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 09B1   2285           02896             call o4down
 09B2   0008           02897             return
                       02898 
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 57
+                      02899 ;okno 1 nahoru, dolu, zastavit
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 57
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      02899 ;okno 1 nahoru, dolu, zastavit
 09B3   19A9           02900 o1up        btfsc o_a, 3
 09B4   29BD           02901             goto no1up
 09B5   301D           02902             movlw b'11101' ;port D5
@@ -3361,13 +3360,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 09DC   0008           02945             return
 09DD   1DA9           02946 o1stop      btfss o_a, 3
 09DE   29E7           02947             goto no1stop
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 58
+09DF   301D           02948             movlw b'11101' ;port D5
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 58
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-09DF   301D           02948             movlw b'11101' ;port D5
 09E0   00D2           02949             movwf port
 09E1   3003           02950             movlw b'11' ;procesor 3
 09E2   00D3           02951             movwf prc
@@ -3420,13 +3419,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 0A08   2A11           02994             goto no2down
 0A09   3018           02995             movlw b'11000' ;port D0
 0A0A   00D2           02996             movwf port
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 59
+0A0B   3002           02997             movlw b'10' ;procesor 2
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 59
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0A0B   3002           02997             movlw b'10' ;procesor 2
 0A0C   00D3           02998             movwf prc
                       02999             
 0A0D   118A           03000             bcf PCLATH,3 ;Select page 1
@@ -3479,13 +3478,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 0A34   00D2           03043             movwf port
 0A35   3002           03044             movlw b'10' ;procesor 2
 0A36   00D3           03045             movwf prc
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 60
+                      03046             
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 60
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      03046             
 0A37   118A           03047             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0A38   21B2           03048             call setout ;smaz port v prc
@@ -3538,13 +3537,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
                       03092             
 0A61   118A           03093             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 61
+0A62   21D9           03094             call clrout ;smaz port v prc
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 61
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0A62   21D9           03094             call clrout ;smaz port v prc
 0A63   158A           03095             bsf PCLATH,3 ;Select page 1
 0A64   12A9           03096             bcf o_a, 5 
 0A65   1CAA           03097 no3stop     btfss o_b, 1
@@ -3597,13 +3596,13 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 Message[306]: Crossing page boundary -- ensure page bits are set.
 0A8C   21D9           03141             call clrout ;smaz port v prc
 0A8D   158A           03142             bsf PCLATH,3 ;Select page 1
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 62
+0A8E   1329           03143             bcf o_a, 6 
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 62
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0A8E   1329           03143             bcf o_a, 6 
 0A8F   192A           03144 no4down     btfsc o_b, 2
 0A90   0008           03145             return
 0A91   300F           03146             movlw b'01111' ;port B7
@@ -3654,15 +3653,15 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 0AB0   00F7           03188             movwf ran2 ; decrementator pro cykl
 0AB1   00FA           03189             movwf ran5 ; delitel pro vypocet prumeru
 0AB2   0876           03190             movf ran1, W
-0AB3   00F8           03191             movwf ran3 ; zachov√°ni ANx vstupu
+0AB3   00F8           03191             movwf ran3 ; zachov·ni ANx vstupu
 0AB4   01F2           03192             clrf CIS2_L
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 63
+0AB5   01F3           03193             clrf CIS2_H
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 63
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0AB5   01F3           03193             clrf CIS2_H
                       03194             
 0AB6   0878           03195 adconv2     movf ran3, W
 0AB7   00F6           03196             movwf ran1 ; nasteni znova ANx vstupu
@@ -3715,13 +3714,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0AD6   0008           03243             return
                       03244         
 0AD7   1003           03245 adconv_one  bcf STATUS, C
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 64
+0AD8   0DF6           03246             rlf ran1, F
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 64
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0AD8   0DF6           03246             rlf ran1, F
 0AD9   0DF6           03247             rlf ran1, F
 0ADA   0DF6           03248             rlf ran1, F
                       03249             
@@ -3774,13 +3773,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0AF4   01F1           03296         CLRF    A2              ;
 0AF5   01F2           03297         CLRF    A3              ;
 0AF6   3018           03298         MOVLW   24              ;pocet bitu
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 65
+0AF7   00FC           03299         MOVWF   X1              ;
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 65
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0AF7   00FC           03299         MOVWF   X1              ;
 0AF8   1003           03300         BCF     STATUS,C        ;SC=0
                       03301 ;deleni
 0AF9   230B           03302 LDalsi  CALL    x2M             ;D,A posun vlevo, A-B=C
@@ -3833,13 +3832,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0B1B   0271           03349         SUBWF   A2,W            ;A2-W=W
 0B1C   00F7           03350         MOVWF   C2              ;C2=w=vysledek2
 0B1D   0878           03351         MOVF    C3,W            ;W=C3
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 66
+0B1E   1C03           03352         BTFSS   STATUS,C        ;SUB kladne?
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 66
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0B1E   1C03           03352         BTFSS   STATUS,C        ;SUB kladne?
 0B1F   3001           03353         MOVLW   1               ;W=1
 0B20   0775           03354         ADDWF   B3,W            ;B3+W=W
 0B21   01F8           03355         CLRF    C3              ;C3=0
@@ -3853,7 +3852,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       03363 
                       03364 
                       03365         end                                           ; KONEC PROGRAMU
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 67
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 67
 
 
 SYMBOL TABLE
@@ -3912,7 +3911,7 @@ CCPR2H                            0000001C
 CCPR2L                            0000001B
 CHS0                              00000003
 CHS1                              00000004
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 68
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 68
 
 
 SYMBOL TABLE
@@ -3971,7 +3970,7 @@ LZapor                            00000B01
 MINUS                             00000B11
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 69
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 69
 
 
 SYMBOL TABLE
@@ -4030,7 +4029,7 @@ RC9                               00000006
 RCD8                              00000000
 RCEN                              00000003
 RCIE                              00000005
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 70
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 70
 
 
 SYMBOL TABLE
@@ -4089,7 +4088,7 @@ TMR1CS                            00000001
 TMR1H                             0000000F
 TMR1IE                            00000000
 TMR1IF                            00000000
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 71
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 71
 
 
 SYMBOL TABLE
@@ -4148,7 +4147,7 @@ _HS_OSC                           00003FFE
 _LP_OSC                           00003FFC
 _LVP_OFF                          00003F7F
 _LVP_ON                           00003FFF
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 72
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 72
 
 
 SYMBOL TABLE
@@ -4207,7 +4206,7 @@ init                              00000012
 inter                             0000003F
 intoff                            00000039
 inton                             0000002E
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 73
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 73
 
 
 SYMBOL TABLE
@@ -4266,7 +4265,7 @@ o2down                            00000A07
 o2stop                            00000A1C
 o2tar                             00000063
 o2tmp                             0000005F
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 74
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 74
 
 
 SYMBOL TABLE
@@ -4325,7 +4324,7 @@ ran4                              00000079
 ran5                              0000007A
 rtuoff                            00000091
 s_temp                            00000027
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 75
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 75
 
 
 SYMBOL TABLE
@@ -4384,7 +4383,7 @@ t1_44                             000005B9
 t1_45                             000005C4
 t1_46                             000005C7
 t1_47                             000005CA
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 76
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 76
 
 
 SYMBOL TABLE
@@ -4443,7 +4442,7 @@ watchover                         00000048
 watchstart                        0000004A
 watchwait                         0000004D
 wtuoff                            000000A9
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 77
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 77
 
 
 SYMBOL TABLE
@@ -4495,7 +4494,7 @@ MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 0A00 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0A40 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0A80 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:33:47         PAGE 78
+MPASM  5.35                        RJCAR1.ASM   3-12-2012  8:32:46         PAGE 78
 
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)

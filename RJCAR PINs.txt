@@ -1,0 +1,5 @@
+PIC16F874A
+
+configuration word 3F7A
+
+viz funkce excel

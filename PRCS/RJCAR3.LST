@@ -1,0 +1,1144 @@
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 
+                      00002 
+                      00003  LIST      P=16F874A, R=DEC
+                      00004  INCLUDE  <P16F874.INC>
+                      00001         LIST
+                      00002 ; P16F874.INC  Standard Header File, Version 1.00    Microchip Technology, Inc.
+Message[301]: MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+                      00374         LIST
+                      00005 
+                      00006                   ;deklarace registru
+  00000020            00007 r1      equ 20h
+  00000021            00008 r2      equ 21h
+  00000022            00009 r3      equ 22h
+  00000023            00010 r4      equ 23h
+                      00011 
+  00000024            00012 cil     equ 24h
+  00000025            00013 port    equ 25h
+  00000026            00014 cislo   equ 26h
+                      00015 
+  00000027            00016 r5      equ 27h
+                      00017 
+  0000002B            00018 w_temp  equ 2Bh
+  0000002C            00019 s_temp  equ 2Ch
+                      00020 
+  00000030            00021 num     equ 30h
+                      00022 
+  00000031            00023 an0     equ 31h
+  00000032            00024 an1     equ 32h
+  00000033            00025 an2     equ 33h
+  00000034            00026 an3     equ 34h
+  00000035            00027 an4     equ 35h
+  00000036            00028 an5     equ 36h
+  00000037            00029 an6     equ 37h
+  00000038            00030 an7     equ 38h
+                      00031 
+                      00032 
+0000                  00033         org 000h        ;vektor zacatku
+0000   2805           00034         goto init
+                      00035 
+0004                  00036         org 004h        ;vektor preruseni
+0004   281E           00037         goto inter
+                      00038 
+                      00039 
+                      00040 
+                      00041 
+0005   3003           00042 init    movlw .3    ;oznaceni tohoto procesoru 3
+0006   00B0           00043         movwf num
+                      00044 
+0007   0185           00045         clrf PORTA      ;Init PORTS
+0008   0186           00046         clrf PORTB
+0009   0187           00047         clrf PORTC
+000A   0188           00048         clrf PORTD
+000B   0189           00049         clrf PORTE
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00050         
+                      00051 
+000C   1683           00052         bsf STATUS, RP0  ;Bank 1
+                      00053 
+000D   3000           00054         movlw b'00000000' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogových vstu
+                            pu a hodnotu k porovnání 0000
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000E   009F           00055         movwf ADCON1
+                      00056 
+000F   302F           00057         movlw   b'00101111'; 1 znamená vstup, 0 výstup
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0010   0085           00058         movwf   TRISA
+0011   3001           00059         movlw   b'00000001'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0012   0086           00060         movwf   TRISB
+0013   3000           00061         movlw b'00000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0014   0087           00062         movwf TRISC
+0015   3000           00063         movlw b'00000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0016   0088           00064         movwf TRISD
+0017   3007           00065         movlw b'00000111'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0018   0089           00066         movwf TRISE
+                      00067 
+0019   30C0           00068         movlw b'11000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001A   0081           00069         movwf OPTION_REG
+                      00070 
+001B   1283           00071         bcf STATUS, RP0 ;Bank 0
+                      00072 
+                      00073         
+001C   21DA           00074         call inton
+                      00075         
+001D   29E0           00076         goto start      ;zacni na startu
+                      00077         
+                      00078 
+001E   21DE           00079 inter   call intoff
+001F   00AB           00080         movwf w_temp ;copy w to temp register
+0020   0E03           00081         swapf STATUS, W ;swap status to be saved into w
+0021   0183           00082         clrf STATUS ;bank 0, regardless of current bank, clears irp,rp1,rp0
+0022   00AC           00083         movwf s_temp ;save status to bank zero status_temp register
+                      00084 
+0023   188B           00085         btfsc INTCON, INTF   ;pokud preruseni od B0
+0024   202B           00086         call prijem
+                      00087 
+0025   0E2C           00088         swapf s_temp, W ;swap status_temp register into w
+0026   0083           00089         movwf STATUS ;move w into status register;(sets bank to original state)
+0027   0EAB           00090         swapf w_temp, F ;swap w_temp
+0028   0E2B           00091         swapf w_temp, W ;
+0029   21DA           00092         call inton
+002A   0008           00093         return
+                      00094 
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00095 
+002B   1806           00096 prijem  btfsc PORTB, 0  ;ceka az skonci prvni start bit
+002C   282B           00097         goto $-1
+002D   2216           00098         call w40c   ;posune do prostred prijimaneho bitu
+002E   2211           00099         call w100c  ;odbije druhy startbit
+                      00100         
+002F   01A4           00101         clrf cil        ; ulozi prijate oznaceni do cil XXXX
+0030   3004           00102         movlw .4
+0031   00A1           00103         movwf r2
+0032   0DA4           00104         rlf cil, F
+0033   1806           00105         btfsc PORTB, 0
+0034   1424           00106         bsf cil, 0
+0035   1C06           00107         btfss PORTB, 0
+0036   1024           00108         bcf cil, 0
+0037   2211           00109         call w100c
+0038   0BA1           00110         decfsz r2, F
+0039   2832           00111         goto $-7
+                      00112 
+003A   1806           00113         btfsc PORTB, 0  ;zkontroluje pokud (r5, 0) = 0 vysle sve registry, naopak zapise do svych reg
+003B   1427           00114         bsf r5, 0
+003C   1C06           00115         btfss PORTB, 0
+003D   1027           00116         bcf r5, 0
+003E   2211           00117         call w100c
+                      00118 
+003F   01A5           00119         clrf port        ; ulozi prijate do port XX
+0040   3002           00120         movlw .2
+0041   00A1           00121         movwf r2
+0042   0DA5           00122         rlf port, F
+0043   1806           00123         btfsc PORTB, 0
+0044   1425           00124         bsf port, 0
+0045   1C06           00125         btfss PORTB, 0
+0046   1025           00126         bcf port, 0
+0047   2211           00127         call w100c
+0048   0BA1           00128         decfsz r2, F
+0049   2842           00129         goto $-7
+                      00130         
+004A   01A6           00131         clrf cislo        ; ulozi prijate do cislo portu XXX
+004B   3003           00132         movlw .3
+004C   00A1           00133         movwf r2
+004D   0DA6           00134         rlf cislo, F
+004E   1806           00135         btfsc PORTB, 0
+004F   1426           00136         bsf cislo, 0
+0050   1C06           00137         btfss PORTB, 0
+0051   1026           00138         bcf cislo, 0
+0052   2211           00139         call w100c
+0053   0BA1           00140         decfsz r2, F
+0054   284D           00141         goto $-7
+                      00142 
+0055   1806           00143         btfsc PORTB, 0  ;zkontroluje (r5, 1) = hodnota ciloveho registru
+0056   14A7           00144         bsf r5, 1
+0057   1C06           00145         btfss PORTB, 0
+0058   10A7           00146         bcf r5, 1
+0059   2211           00147         call w100c
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00148         
+                      00149 
+005A   1C27           00150         btfss r5, 0  ;pokud 1 skoci a kontroluje prijate reg
+005B   286E           00151         goto ende
+                      00152 
+005C   0930           00153         comf num, W     ;pokud neni pro nej zkonci
+005D   0724           00154         addwf cil, W
+005E   00A0           00155         movwf r1
+005F   0FA0           00156         incfsz r1, F
+0060   286E           00157         goto ende
+                      00158         
+0061   0825           00159         movf port, W      ;podle port, cislo, hodno - nastavy prislusny port na danou hodnotu napr.: RC3
+                            :=1
+0062   00A0           00160         movwf r1          ;zdrzuje cca 46 instrukci
+0063   1903           00161         btfsc STATUS, Z
+0064   2073           00162         call pra
+0065   03A0           00163         decf r1, F
+0066   1903           00164         btfsc STATUS, Z
+0067   2081           00165         call prb
+0068   03A0           00166         decf r1, F
+0069   1903           00167         btfsc STATUS, Z
+006A   20BC           00168         call prc
+006B   03A0           00169         decf r1, F
+006C   1903           00170         btfsc STATUS, Z
+006D   20FE           00171         call prd
+                      00172         
+006E   1806           00173 ende    btfsc PORTB, 0    ;ceka az skonci stopbity
+006F   286E           00174         goto $-1
+                      00175 
+0070   1C27           00176         btfss r5, 0  ;pokud 0 vysle sve registry nebo ceka X bitu pokud neni pro nej
+0071   2140           00177         call vysilej
+                      00178 
+0072   0008           00179         return
+                      00180 
+0073   0826           00181 pra     movf cislo, W
+0074   00A1           00182         movwf r2
+0075   03A1           00183         decf r2, F
+0076   03A1           00184         decf r2, F
+0077   03A1           00185         decf r2, F
+0078   03A1           00186         decf r2, F
+0079   1903           00187         btfsc STATUS, Z
+007A   287C           00188         goto na4
+007B   0008           00189         return
+                      00190         
+                      00191 
+007C   1CA7           00192 na4     btfss r5, 1
+007D   1205           00193         bcf PORTA, 4
+007E   18A7           00194         btfsc r5, 1
+007F   1605           00195         bsf PORTA, 4
+0080   0008           00196         return
+                      00197 
+                      00198 
+0081   0826           00199 prb     movf cislo, W
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0082   00A1           00200         movwf r2
+0083   03A1           00201         decf r2, F
+0084   1903           00202         btfsc STATUS, Z
+0085   2899           00203         goto nb1
+0086   03A1           00204         decf r2, F
+0087   1903           00205         btfsc STATUS, Z
+0088   289E           00206         goto nb2
+0089   03A1           00207         decf r2, F
+008A   1903           00208         btfsc STATUS, Z
+008B   28A3           00209         goto nb3
+008C   03A1           00210         decf r2, F
+008D   1903           00211         btfsc STATUS, Z
+008E   28A8           00212         goto nb4
+008F   03A1           00213         decf r2, F
+0090   1903           00214         btfsc STATUS, Z
+0091   28AD           00215         goto nb5
+0092   03A1           00216         decf r2, F
+0093   1903           00217         btfsc STATUS, Z
+0094   28B2           00218         goto nb6
+0095   03A1           00219         decf r2, F
+0096   1903           00220         btfsc STATUS, Z
+0097   28B7           00221         goto nb7
+0098   0008           00222         return
+                      00223         
+                      00224 
+0099   1CA7           00225 nb1     btfss r5, 1
+009A   1086           00226         bcf PORTB, 1
+009B   18A7           00227         btfsc r5, 1
+009C   1486           00228         bsf PORTB, 1
+009D   0008           00229         return
+009E   1CA7           00230 nb2     btfss r5, 1
+009F   1106           00231         bcf PORTB, 2
+00A0   18A7           00232         btfsc r5, 1
+00A1   1506           00233         bsf PORTB, 2
+00A2   0008           00234         return
+00A3   1CA7           00235 nb3     btfss r5, 1
+00A4   1186           00236         bcf PORTB, 3
+00A5   18A7           00237         btfsc r5, 1
+00A6   1586           00238         bsf PORTB, 3
+00A7   0008           00239         return
+00A8   1CA7           00240 nb4     btfss r5, 1
+00A9   1206           00241         bcf PORTB, 4
+00AA   18A7           00242         btfsc r5, 1
+00AB   1606           00243         bsf PORTB, 4
+00AC   0008           00244         return
+00AD   1CA7           00245 nb5     btfss r5, 1
+00AE   1286           00246         bcf PORTB, 5
+00AF   18A7           00247         btfsc r5, 1
+00B0   1686           00248         bsf PORTB, 5
+00B1   0008           00249         return
+00B2   1CA7           00250 nb6     btfss r5, 1
+00B3   1306           00251         bcf PORTB, 6
+00B4   18A7           00252         btfsc r5, 1
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00B5   1706           00253         bsf PORTB, 6
+00B6   0008           00254         return
+00B7   1CA7           00255 nb7     btfss r5, 1
+00B8   1386           00256         bcf PORTB, 7
+00B9   18A7           00257         btfsc r5, 1
+00BA   1786           00258         bsf PORTB, 7
+00BB   0008           00259         return
+                      00260         
+                      00261         
+00BC   0826           00262 prc     movf cislo, W
+00BD   00A1           00263         movwf r2
+00BE   1903           00264         btfsc STATUS, Z
+00BF   28D6           00265         goto nc0
+00C0   03A1           00266         decf r2, F
+00C1   1903           00267         btfsc STATUS, Z
+00C2   28DB           00268         goto nc1
+00C3   03A1           00269         decf r2, F
+00C4   1903           00270         btfsc STATUS, Z
+00C5   28E0           00271         goto nc2
+00C6   03A1           00272         decf r2, F
+00C7   1903           00273         btfsc STATUS, Z
+00C8   28E5           00274         goto nc3
+00C9   03A1           00275         decf r2, F
+00CA   1903           00276         btfsc STATUS, Z
+00CB   28EA           00277         goto nc4
+00CC   03A1           00278         decf r2, F
+00CD   1903           00279         btfsc STATUS, Z
+00CE   28EF           00280         goto nc5
+00CF   03A1           00281         decf r2, F
+00D0   1903           00282         btfsc STATUS, Z
+00D1   28F4           00283         goto nc6
+00D2   03A1           00284         decf r2, F
+00D3   1903           00285         btfsc STATUS, Z
+00D4   28F9           00286         goto nc7
+00D5   0008           00287         return
+                      00288         
+00D6   1CA7           00289 nc0     btfss r5, 1
+00D7   1007           00290         bcf PORTC, 0
+00D8   18A7           00291         btfsc r5, 1
+00D9   1407           00292         bsf PORTC, 0
+00DA   0008           00293         return
+00DB   1CA7           00294 nc1     btfss r5, 1
+00DC   1087           00295         bcf PORTC, 1
+00DD   18A7           00296         btfsc r5, 1
+00DE   1487           00297         bsf PORTC, 1
+00DF   0008           00298         return
+00E0   1CA7           00299 nc2     btfss r5, 1
+00E1   1107           00300         bcf PORTC, 2
+00E2   18A7           00301         btfsc r5, 1
+00E3   1507           00302         bsf PORTC, 2
+00E4   0008           00303         return
+00E5   1CA7           00304 nc3     btfss r5, 1
+00E6   1187           00305         bcf PORTC, 3
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00E7   18A7           00306         btfsc r5, 1
+00E8   1587           00307         bsf PORTC, 3
+00E9   0008           00308         return
+00EA   1CA7           00309 nc4     btfss r5, 1
+00EB   1207           00310         bcf PORTC, 4
+00EC   18A7           00311         btfsc r5, 1
+00ED   1607           00312         bsf PORTC, 4
+00EE   0008           00313         return
+00EF   1CA7           00314 nc5     btfss r5, 1
+00F0   1287           00315         bcf PORTC, 5
+00F1   18A7           00316         btfsc r5, 1
+00F2   1687           00317         bsf PORTC, 5
+00F3   0008           00318         return
+00F4   1CA7           00319 nc6     btfss r5, 1
+00F5   1307           00320         bcf PORTC, 6
+00F6   18A7           00321         btfsc r5, 1
+00F7   1707           00322         bsf PORTC, 6
+00F8   0008           00323         return
+00F9   1CA7           00324 nc7     btfss r5, 1
+00FA   1387           00325         bcf PORTC, 7
+00FB   18A7           00326         btfsc r5, 1
+00FC   1787           00327         bsf PORTC, 7
+00FD   0008           00328         return
+                      00329         
+                      00330         
+00FE   0826           00331 prd     movf cislo, W
+00FF   00A1           00332         movwf r2
+0100   1903           00333         btfsc STATUS, Z
+0101   2918           00334         goto nd0
+0102   03A1           00335         decf r2, F
+0103   1903           00336         btfsc STATUS, Z
+0104   291D           00337         goto nd1
+0105   03A1           00338         decf r2, F
+0106   1903           00339         btfsc STATUS, Z
+0107   2922           00340         goto nd2
+0108   03A1           00341         decf r2, F
+0109   1903           00342         btfsc STATUS, Z
+010A   2927           00343         goto nd3
+010B   03A1           00344         decf r2, F
+010C   1903           00345         btfsc STATUS, Z
+010D   292C           00346         goto nd4
+010E   03A1           00347         decf r2, F
+010F   1903           00348         btfsc STATUS, Z
+0110   2931           00349         goto nd5
+0111   03A1           00350         decf r2, F
+0112   1903           00351         btfsc STATUS, Z
+0113   2936           00352         goto nd6
+0114   03A1           00353         decf r2, F
+0115   1903           00354         btfsc STATUS, Z
+0116   293B           00355         goto nd7
+0117   0008           00356         return
+                      00357         
+0118   1CA7           00358 nd0     btfss r5, 1
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0119   1008           00359         bcf PORTD, 0
+011A   18A7           00360         btfsc r5, 1
+011B   1408           00361         bsf PORTD, 0
+011C   0008           00362         return
+011D   1CA7           00363 nd1     btfss r5, 1
+011E   1088           00364         bcf PORTD, 1
+011F   18A7           00365         btfsc r5, 1
+0120   1488           00366         bsf PORTD, 1
+0121   0008           00367         return
+0122   1CA7           00368 nd2     btfss r5, 1
+0123   1108           00369         bcf PORTD, 2
+0124   18A7           00370         btfsc r5, 1
+0125   1508           00371         bsf PORTD, 2
+0126   0008           00372         return
+0127   1CA7           00373 nd3     btfss r5, 1
+0128   1188           00374         bcf PORTD, 3
+0129   18A7           00375         btfsc r5, 1
+012A   1588           00376         bsf PORTD, 3
+012B   0008           00377         return
+012C   1CA7           00378 nd4     btfss r5, 1
+012D   1208           00379         bcf PORTD, 4
+012E   18A7           00380         btfsc r5, 1
+012F   1608           00381         bsf PORTD, 4
+0130   0008           00382         return
+0131   1CA7           00383 nd5     btfss r5, 1
+0132   1288           00384         bcf PORTD, 5
+0133   18A7           00385         btfsc r5, 1
+0134   1688           00386         bsf PORTD, 5
+0135   0008           00387         return
+0136   1CA7           00388 nd6     btfss r5, 1
+0137   1308           00389         bcf PORTD, 6
+0138   18A7           00390         btfsc r5, 1
+0139   1708           00391         bsf PORTD, 6
+013A   0008           00392         return
+013B   1CA7           00393 nd7     btfss r5, 1
+013C   1388           00394         bcf PORTD, 7
+013D   18A7           00395         btfsc r5, 1
+013E   1788           00396         bsf PORTD, 7
+013F   0008           00397         return
+                      00398 
+                      00399 
+0140   0930           00400 vysilej comf num, W     ;pokud neni pro nej ceka X bitu
+0141   0724           00401         addwf cil, W
+0142   00A0           00402         movwf r1
+0143   0FA0           00403         incfsz r1, F
+0144   29D1           00404         goto cekej
+                      00405         
+0145   1683           00406         bsf STATUS, RP0  ;Bank 1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0146   1006           00407         bcf TRISB, 0  ;nastavim sbernici na vystup z procesoru
+0147   1283           00408         bcf STATUS, RP0  ;Bank 0
+                      00409         
+0148   1406           00410         bsf PORTB, 0  ;vysle start bity XX - 10
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0149   2211           00411         call w100c
+014A   1006           00412         bcf PORTB, 0
+014B   2211           00413         call w100c
+                      00414         
+                      00415                 ; vysle bajt AN XXXX XXXX
+014C   0831           00416         movf an0, W
+014D   00A0           00417         movwf r1
+014E   3008           00418         movlw .8
+014F   00A1           00419         movwf r2
+0150   1BA0           00420         btfsc r1, 7
+0151   1406           00421         bsf PORTB, 0
+0152   1FA0           00422         btfss r1, 7
+0153   1006           00423         bcf PORTB, 0
+0154   2211           00424         call w100c
+0155   0DA0           00425         rlf r1, F
+0156   0BA1           00426         decfsz r2, F
+0157   2950           00427         goto $-7
+                      00428         
+0158   1406           00429         bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+0159   2211           00430         call w100c
+015A   1006           00431         bcf PORTB, 0
+015B   2211           00432         call w100c
+                      00433         
+                      00434 
+                      00435                 ; vysle bajt AN XXXX XXXX
+015C   0832           00436         movf an1, W
+015D   00A0           00437         movwf r1
+015E   3008           00438         movlw .8
+015F   00A1           00439         movwf r2
+0160   1BA0           00440         btfsc r1, 7
+0161   1406           00441         bsf PORTB, 0
+0162   1FA0           00442         btfss r1, 7
+0163   1006           00443         bcf PORTB, 0
+0164   2211           00444         call w100c
+0165   0DA0           00445         rlf r1, F
+0166   0BA1           00446         decfsz r2, F
+0167   2960           00447         goto $-7
+                      00448         
+0168   1406           00449         bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+0169   2211           00450         call w100c
+016A   1006           00451         bcf PORTB, 0
+016B   2211           00452         call w100c
+                      00453         
+                      00454 
+                      00455                 ; vysle bajt AN XXXX XXXX
+016C   0833           00456         movf an2, W
+016D   00A0           00457         movwf r1
+016E   3008           00458         movlw .8
+016F   00A1           00459         movwf r2
+0170   1BA0           00460         btfsc r1, 7
+0171   1406           00461         bsf PORTB, 0
+0172   1FA0           00462         btfss r1, 7
+0173   1006           00463         bcf PORTB, 0
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0174   2211           00464         call w100c
+0175   0DA0           00465         rlf r1, F
+0176   0BA1           00466         decfsz r2, F
+0177   2970           00467         goto $-7
+                      00468         
+0178   1406           00469         bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+0179   2211           00470         call w100c
+017A   1006           00471         bcf PORTB, 0
+017B   2211           00472         call w100c
+                      00473         
+                      00474 
+                      00475                 ; vysle bajt AN XXXX XXXX
+017C   0834           00476         movf an3, W
+017D   00A0           00477         movwf r1
+017E   3008           00478         movlw .8
+017F   00A1           00479         movwf r2
+0180   1BA0           00480         btfsc r1, 7
+0181   1406           00481         bsf PORTB, 0
+0182   1FA0           00482         btfss r1, 7
+0183   1006           00483         bcf PORTB, 0
+0184   2211           00484         call w100c
+0185   0DA0           00485         rlf r1, F
+0186   0BA1           00486         decfsz r2, F
+0187   2980           00487         goto $-7
+                      00488         
+0188   1406           00489         bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+0189   2211           00490         call w100c
+018A   1006           00491         bcf PORTB, 0
+018B   2211           00492         call w100c
+                      00493         
+                      00494 
+                      00495                 ; vysle bajt AN XXXX XXXX
+018C   0835           00496         movf an4, W
+018D   00A0           00497         movwf r1
+018E   3008           00498         movlw .8
+018F   00A1           00499         movwf r2
+0190   1BA0           00500         btfsc r1, 7
+0191   1406           00501         bsf PORTB, 0
+0192   1FA0           00502         btfss r1, 7
+0193   1006           00503         bcf PORTB, 0
+0194   2211           00504         call w100c
+0195   0DA0           00505         rlf r1, F
+0196   0BA1           00506         decfsz r2, F
+0197   2990           00507         goto $-7
+                      00508         
+0198   1406           00509         bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+0199   2211           00510         call w100c
+019A   1006           00511         bcf PORTB, 0
+019B   2211           00512         call w100c
+                      00513         
+                      00514 
+                      00515                 ; vysle bajt AN XXXX XXXX
+019C   0836           00516         movf an5, W
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+019D   00A0           00517         movwf r1
+019E   3008           00518         movlw .8
+019F   00A1           00519         movwf r2
+01A0   1BA0           00520         btfsc r1, 7
+01A1   1406           00521         bsf PORTB, 0
+01A2   1FA0           00522         btfss r1, 7
+01A3   1006           00523         bcf PORTB, 0
+01A4   2211           00524         call w100c
+01A5   0DA0           00525         rlf r1, F
+01A6   0BA1           00526         decfsz r2, F
+01A7   29A0           00527         goto $-7
+                      00528         
+01A8   1406           00529         bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+01A9   2211           00530         call w100c
+01AA   1006           00531         bcf PORTB, 0
+01AB   2211           00532         call w100c
+                      00533         
+                      00534 
+                      00535                 ; vysle bajt AN XXXX XXXX
+01AC   0837           00536         movf an6, W
+01AD   00A0           00537         movwf r1
+01AE   3008           00538         movlw .8
+01AF   00A1           00539         movwf r2
+01B0   1BA0           00540         btfsc r1, 7
+01B1   1406           00541         bsf PORTB, 0
+01B2   1FA0           00542         btfss r1, 7
+01B3   1006           00543         bcf PORTB, 0
+01B4   2211           00544         call w100c
+01B5   0DA0           00545         rlf r1, F
+01B6   0BA1           00546         decfsz r2, F
+01B7   29B0           00547         goto $-7
+                      00548         
+01B8   1406           00549         bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+01B9   2211           00550         call w100c
+01BA   1006           00551         bcf PORTB, 0
+01BB   2211           00552         call w100c
+                      00553         
+                      00554 
+                      00555                 ; vysle bajt AN XXXX XXXX
+01BC   0838           00556         movf an7, W
+01BD   00A0           00557         movwf r1
+01BE   3008           00558         movlw .8
+01BF   00A1           00559         movwf r2
+01C0   1BA0           00560         btfsc r1, 7
+01C1   1406           00561         bsf PORTB, 0
+01C2   1FA0           00562         btfss r1, 7
+01C3   1006           00563         bcf PORTB, 0
+01C4   2211           00564         call w100c
+01C5   0DA0           00565         rlf r1, F
+01C6   0BA1           00566         decfsz r2, F
+01C7   29C0           00567         goto $-7
+                      00568         
+01C8   1406           00569         bsf PORTB, 0  ;vysle stop bity XXX - 111
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01C9   2211           00570         call w100c
+01CA   2211           00571         call w100c
+01CB   2211           00572         call w100c
+01CC   1006           00573         bcf PORTB, 0
+                      00574         
+                      00575 
+                      00576 
+01CD   1683           00577         bsf STATUS, RP0  ;Bank 1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+01CE   1406           00578         bsf TRISB, 0  ;nastavim sbernici na vstup do procesoru
+01CF   1283           00579         bcf STATUS, RP0  ;Bank 0
+                      00580 
+01D0   0008           00581         return
+                      00582         
+01D1   2216           00583 cekej   call w40c
+01D2   3051           00584         movlw .81 ;bude cekat 81 bitu
+01D3   00A2           00585         movwf r3
+01D4   2211           00586         call w100c
+01D5   0BA2           00587         decfsz r3, F
+01D6   29D4           00588         goto $-2
+01D7   1806           00589         btfsc PORTB, 0  ;ceka az skonci stop bity
+01D8   29D7           00590         goto $-1
+01D9   0008           00591         return
+                      00592 
+                      00593 
+01DA   108B           00594 inton   bcf INTCON, INTF        ; nastavení pøerušení od RB0        
+01DB   160B           00595         bsf INTCON, INTE
+01DC   178B           00596         bsf INTCON, GIE
+01DD   0008           00597         return
+                      00598         
+01DE   120B           00599 intoff  bcf INTCON, INTE
+01DF   0008           00600         return
+                      00601 
+                      00602 
+01E0   3005           00603 start   movlw b'00000101' ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
+01E1   009F           00604         movwf ADCON0
+01E2   191F           00605         btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+01E3   29E2           00606         goto $-1
+01E4   081E           00607         movf ADRESH, W    ;kontroluje zda je zmena od minule
+01E5   00B1           00608         movwf an0
+                      00609         
+01E6   300D           00610         movlw b'00001101' ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
+01E7   009F           00611         movwf ADCON0
+01E8   191F           00612         btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+01E9   29E8           00613         goto $-1
+01EA   081E           00614         movf ADRESH, W    ;kontroluje zda je zmena od minule
+01EB   00B2           00615         movwf an1
+                      00616         
+01EC   3015           00617         movlw b'00010101' ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
+01ED   009F           00618         movwf ADCON0
+01EE   191F           00619         btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+01EF   29EE           00620         goto $-1
+01F0   081E           00621         movf ADRESH, W    ;kontroluje zda je zmena od minule
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01F1   00B3           00622         movwf an2
+                      00623         
+01F2   301D           00624         movlw b'00011101' ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
+01F3   009F           00625         movwf ADCON0
+01F4   191F           00626         btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+01F5   29F4           00627         goto $-1
+01F6   081E           00628         movf ADRESH, W    ;kontroluje zda je zmena od minule
+01F7   00B4           00629         movwf an3
+                      00630         
+01F8   3025           00631         movlw b'00100101' ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
+01F9   009F           00632         movwf ADCON0
+01FA   191F           00633         btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+01FB   29FA           00634         goto $-1
+01FC   081E           00635         movf ADRESH, W    ;kontroluje zda je zmena od minule
+01FD   00B5           00636         movwf an4
+                      00637         
+01FE   302D           00638         movlw b'00101101' ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
+01FF   009F           00639         movwf ADCON0
+0200   191F           00640         btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+0201   2A00           00641         goto $-1
+0202   081E           00642         movf ADRESH, W    ;kontroluje zda je zmena od minule
+0203   00B6           00643         movwf an5
+                      00644         
+0204   3035           00645         movlw b'00110101' ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
+0205   009F           00646         movwf ADCON0
+0206   191F           00647         btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+0207   2A06           00648         goto $-1
+0208   081E           00649         movf ADRESH, W    ;kontroluje zda je zmena od minule
+0209   00B7           00650         movwf an6
+                      00651         
+020A   303D           00652         movlw b'00111101' ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
+020B   009F           00653         movwf ADCON0
+020C   191F           00654         btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+020D   2A0C           00655         goto $-1
+020E   081E           00656         movf ADRESH, W    ;kontroluje zda je zmena od minule
+020F   00B8           00657         movwf an7
+                      00658         
+                      00659         
+0210   29E0           00660         goto start      ;zpet v cyklu na zacatek
+                      00661         
+                      00662         
+                      00663 
+                      00664 
+                      00665         ;cekej cca 100 cyklu 40us  + u kazdeho cekani je 7 cyklu povinych
+0211   3050           00666 w100c   movlw .80
+0212   00A3           00667         movwf r4
+0213   0BA3           00668         decfsz r4, F
+0214   2A13           00669         goto $-1
+0215   0008           00670         return
+                      00671 
+                      00672           ;cekej necelou polovinu w100c
+0216   301E           00673 w40c   movlw .30
+0217   00A3           00674         movwf r4
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0218   0BA3           00675         decfsz r4, F
+0219   2A18           00676         goto $-1
+021A   0008           00677         return
+                      00678 
+                      00679 
+                      00680         end                                           ; KONEC PROGRAMU
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CKE                               00000006
+CKP                               00000004
+CREN                              00000004
+CSRC                              00000007
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+D_A                               00000005
+EEADR                             0000010D
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+OPTION_REG                        00000081
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+R                                 00000002
+RBIE                              00000003
+RBIF                              00000000
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_W                               00000002
+S                                 00000003
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISB                             00000086
+TRISC                             00000087
+TRISD                             00000088
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+W                                 00000000
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00000FCF
+_CP_HALF                          00001FDF
+_CP_OFF                           00003FFF
+_CP_UPPER_256                     00002FEF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_HS_OSC                           00003FFE
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_ENABLE_OFF                   00003DFF
+_WRT_ENABLE_ON                    00003FFF
+_XT_OSC                           00003FFD
+__16F874A                         00000001
+an0                               00000031
+an1                               00000032
+an2                               00000033
+an3                               00000034
+an4                               00000035
+an5                               00000036
+an6                               00000037
+an7                               00000038
+cekej                             000001D1
+cil                               00000024
+cislo                             00000026
+ende                              0000006E
+init                              00000005
+inter                             0000001E
+intoff                            000001DE
+inton                             000001DA
+na4                               0000007C
+nb1                               00000099
+nb2                               0000009E
+nb3                               000000A3
+nb4                               000000A8
+nb5                               000000AD
+nb6                               000000B2
+nb7                               000000B7
+nc0                               000000D6
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+nc1                               000000DB
+nc2                               000000E0
+nc3                               000000E5
+nc4                               000000EA
+nc5                               000000EF
+nc6                               000000F4
+nc7                               000000F9
+nd0                               00000118
+nd1                               0000011D
+nd2                               00000122
+nd3                               00000127
+nd4                               0000012C
+nd5                               00000131
+nd6                               00000136
+nd7                               0000013B
+num                               00000030
+port                              00000025
+pra                               00000073
+prb                               00000081
+prc                               000000BC
+prd                               000000FE
+prijem                            0000002B
+r1                                00000020
+r2                                00000021
+r3                                00000022
+r4                                00000023
+r5                                00000027
+s_temp                            0000002C
+start                             000001E0
+vysilej                           00000140
+w100c                             00000211
+w40c                              00000216
+w_temp                            0000002B
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0180 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+01C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0200 : XXXXXXXXXXXXXXXX XXXXXXXXXXX----- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   536
+Program Memory Words Free:  3560
+
+MPASM  5.03                        RJCAR3.ASM   11-1-2011  0:44:40         PAGE 21
+
+
+
+
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :    10 reported,     0 suppressed
+
+

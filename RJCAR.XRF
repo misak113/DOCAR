@@ -1,0 +1,783 @@
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE  1
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+ACKDT                             C   P16F874.INC                        275*
+ACKEN                             C   P16F874.INC                        276*
+ACKSTAT                           C   P16F874.INC                        274*
+ADCON0                            C   RJCAR.ASM                         2224. 2225. 2239. 2240. 2254. 2255. 2269. 2270. 2284. 2285.
+                                                                        2299. 2300.
+                                      P16F874.INC                         84*
+ADCON1                            C   RJCAR.ASM                          137.
+                                      P16F874.INC                        102*
+ADCS0                             C   P16F874.INC                        218*
+ADCS1                             C   P16F874.INC                        217*
+ADDEN                             C   P16F874.INC                        200*
+ADFM                              C   P16F874.INC                        320*
+ADIE                              C   P16F874.INC                        251*
+ADIF                              C   P16F874.INC                        136*
+ADON                              C   P16F874.INC                        225*
+ADRESH                            C   RJCAR.ASM                         2227. 2231. 2242. 2246. 2257. 2261. 2272. 2276. 2287. 2291.
+                                                                        2302. 2306.
+                                      P16F874.INC                         83*
+ADRESL                            C   P16F874.INC                        101*
+BCLIE                             C   P16F874.INC                        262*
+BCLIF                             C   P16F874.INC                        147*
+BF                                C   P16F874.INC                        303*
+BRGH                              C   P16F874.INC                        313*
+C                                 C   RJCAR.ASM                          209.  630.  633.  635.  701.  711.  714.  716.  782.  864.
+                                                                         867.  869.  935. 1158. 1197. 1444. 1454. 1466. 1478. 1488.
+                                                                        1498. 1510. 1718. 1870. 1872. 1887. 1889. 1904. 1906. 1921.
+                                                                        1923.
+                                      P16F874.INC                        120*
+CCP1CON                           C   P16F874.INC                         76*
+CCP1IE                            C   P16F874.INC                        255*
+CCP1IF                            C   P16F874.INC                        140*
+CCP1M0                            C   P16F874.INC                        189*
+CCP1M1                            C   P16F874.INC                        188*
+CCP1M2                            C   P16F874.INC                        187*
+CCP1M3                            C   P16F874.INC                        186*
+CCP1X                             C   P16F874.INC                        184*
+CCP1Y                             C   P16F874.INC                        185*
+CCP2CON                           C   P16F874.INC                         82*
+CCP2IE                            C   P16F874.INC                        263*
+CCP2IF                            C   P16F874.INC                        148*
+CCP2M0                            C   P16F874.INC                        213*
+CCP2M1                            C   P16F874.INC                        212*
+CCP2M2                            C   P16F874.INC                        211*
+CCP2M3                            C   P16F874.INC                        210*
+CCP2X                             C   P16F874.INC                        208*
+CCP2Y                             C   P16F874.INC                        209*
+CCPR1H                            C   P16F874.INC                         75*
+CCPR1L                            C   P16F874.INC                         74*
+CCPR2H                            C   P16F874.INC                         81*
+CCPR2L                            C   P16F874.INC                         80*
+CHS0                              C   P16F874.INC                        221*
+CHS1                              C   P16F874.INC                        220*
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE  2
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+CHS2                              C   P16F874.INC                        219*
+CKE                               C   P16F874.INC                        285*
+CKP                               C   P16F874.INC                        176*
+CREN                              C   P16F874.INC                        199*
+CSRC                              C   P16F874.INC                        307*
+D                                 C   P16F874.INC                        286*
+DATA_ADDRESS                      C   P16F874.INC                        291*
+DC                                C   P16F874.INC                        119*
+D_A                               C   P16F874.INC                        290*
+EEADR                             C   P16F874.INC                        105*
+EEADRH                            C   P16F874.INC                        107*
+EECON1                            C   P16F874.INC                        109*
+EECON2                            C   P16F874.INC                        110*
+EEDATA                            C   P16F874.INC                        104*
+EEDATH                            C   P16F874.INC                        106*
+EEIE                              C   P16F874.INC                        261*
+EEIF                              C   P16F874.INC                        146*
+EEPGD                             C   P16F874.INC                        328*
+F                                 C   P16F874.INC                         49*
+FERR                              C   P16F874.INC                        201*
+FSR                               C   P16F874.INC                         57*
+GCEN                              C   P16F874.INC                        273*
+GIE                               C   RJCAR.ASM                          325.
+                                      P16F874.INC                        124*
+GO                                C   P16F874.INC                        222*
+GO_DONE                           C   P16F874.INC                        224*
+I2C_DATA                          C   P16F874.INC                        287*
+I2C_READ                          C   P16F874.INC                        297*
+I2C_START                         C   P16F874.INC                        295*
+I2C_STOP                          C   P16F874.INC                        293*
+IBF                               C   P16F874.INC                        240*
+IBOV                              C   P16F874.INC                        242*
+INDF                              C   P16F874.INC                         53*
+INTCON                            C   RJCAR.ASM                          172.  174.  321.  322.  323.  324.  325.  328.  329.
+                                      P16F874.INC                         64*
+INTE                              C   RJCAR.ASM                          322.  328.
+                                      P16F874.INC                        127*
+INTEDG                            C   P16F874.INC                        230*
+INTF                              C   RJCAR.ASM                          172.  321.
+                                      P16F874.INC                        130*
+IRP                               C   P16F874.INC                        113*
+LEDZAM                            C   RJCAR.ASM                          112*  194. 1088. 1141.
+NOT_A                             C   P16F874.INC                        288*
+NOT_ADDRESS                       C   P16F874.INC                        289*
+NOT_BO                            C   P16F874.INC                        268*
+NOT_BOR                           C   P16F874.INC                        269*
+NOT_DONE                          C   P16F874.INC                        223*
+NOT_PD                            C   P16F874.INC                        117*
+NOT_POR                           C   P16F874.INC                        267*
+NOT_RBPU                          C   P16F874.INC                        229*
+NOT_RC8                           C   P16F874.INC                        196*
+NOT_T1SYNC                        C   P16F874.INC                        155*
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE  3
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+NOT_TO                            C   P16F874.INC                        116*
+NOT_TX8                           C   P16F874.INC                        309*
+NOT_W                             C   P16F874.INC                        298*
+NOT_WRITE                         C   P16F874.INC                        299*
+OBF                               C   P16F874.INC                        241*
+ODSKOK                            C   RJCAR.ASM                          114*  198.  315. 1305. 1312. 1321. 1330. 1337. 1344. 1351.
+                                                                        1768. 1779. 1790. 1801.
+OERR                              C   P16F874.INC                        202*
+OPTION_REG                        C   RJCAR.ASM                          151.
+                                      P16F874.INC                         86*
+P                                 C   P16F874.INC                        292*
+PCFG0                             C   P16F874.INC                        324*
+PCFG1                             C   P16F874.INC                        323*
+PCFG2                             C   P16F874.INC                        322*
+PCFG3                             C   P16F874.INC                        321*
+PCL                               C   P16F874.INC                         55*
+PCLATH                            C   RJCAR.ASM                          161.  162.  211.  212.  214.  215.  245.  246.  248.  249.
+                                                                        2216. 2217. 2605. 2606.
+                                      P16F874.INC                         63*
+PCON                              C   P16F874.INC                         94*
+PEIE                              C   P16F874.INC                        125*
+PEN                               C   P16F874.INC                        278*
+PIE1                              C   P16F874.INC                         92*
+PIE2                              C   P16F874.INC                         93*
+PIR1                              C   P16F874.INC                         65*
+PIR2                              C   P16F874.INC                         66*
+PORTA                             C   RJCAR.ASM                          127.  276. 1304.
+                                      P16F874.INC                         58*
+PORTB                             C   RJCAR.ASM                          128.  280.  282.  284.  286.  288.  336.  338.  346.  348.
+                                                                         359.  361.  367.  371.  378.  380.  390.  392.  398.  408.
+                                                                         410.  416.  426.  428.  434.  444.  446.  452.  462.  464.
+                                                                         470.  480.  482.  488.  498.  500.  506.  516.  518.  524.
+                                                                         535.  537.  545.  547.  553.  561.  563.  569.  572.  576.
+                                                                         580.  582.  590.  592.  598.  606.  608.  614.  617.  621.
+                                                                        1060. 1113. 1320. 1329. 1336. 1343. 1350.
+                                      P16F874.INC                         59*
+PORTC                             C   RJCAR.ASM                          129.  278. 1164. 1166. 1186. 1188. 1192. 1203. 1205. 1223.
+                                                                        1225. 1229. 1311. 1419. 1424. 1597. 1602. 1611. 1616.
+                                      P16F874.INC                         60*
+PORTD                             C   RJCAR.ASM                          130.  224.  226.  999. 1001. 1012. 1014. 1025. 1064. 1066.
+                                                                        1118. 1120. 1247. 1251. 1256. 1260. 1583. 1588. 1622. 1626.
+                                                                        1633. 1638. 1660. 1664. 1695.
+                                      P16F874.INC                         61*
+PORTE                             C   RJCAR.ASM                          131. 1085. 1139.
+                                      P16F874.INC                         62*
+PR2                               C   P16F874.INC                         96*
+PS0                               C   P16F874.INC                        236*
+PS1                               C   P16F874.INC                        235*
+PS2                               C   P16F874.INC                        234*
+PSA                               C   P16F874.INC                        233*
+PSPIE                             C   P16F874.INC                        250*
+PSPIF                             C   P16F874.INC                        135*
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE  4
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+PSPMODE                           C   P16F874.INC                        243*
+R                                 C   P16F874.INC                        296*
+RBIE                              C   P16F874.INC                        128*
+RBIF                              C   P16F874.INC                        131*
+RC8_9                             C   P16F874.INC                        197*
+RC9                               C   P16F874.INC                        195*
+RCD8                              C   P16F874.INC                        204*
+RCEN                              C   P16F874.INC                        277*
+RCIE                              C   P16F874.INC                        252*
+RCIF                              C   P16F874.INC                        137*
+RCREG                             C   P16F874.INC                         79*
+RCSTA                             C   P16F874.INC                         77*
+RD                                C   P16F874.INC                        332*
+READ_WRITE                        C   P16F874.INC                        301*
+REDTUN                            C   RJCAR.ASM                          111*  192.  239. 1076.
+RP0                               C   RJCAR.ASM                          134.  153.  374.  376.  528.  530.
+                                      P16F874.INC                        115*
+RP1                               C   P16F874.INC                        114*
+RSEN                              C   P16F874.INC                        279*
+RX9                               C   P16F874.INC                        194*
+RX9D                              C   P16F874.INC                        203*
+R_W                               C   P16F874.INC                        300*
+S                                 C   P16F874.INC                        294*
+SEN                               C   P16F874.INC                        280*
+SMP                               C   P16F874.INC                        284*
+SPBRG                             C   P16F874.INC                        100*
+SPEN                              C   P16F874.INC                        193*
+SREN                              C   P16F874.INC                        198*
+SSPADD                            C   P16F874.INC                         97*
+SSPBUF                            C   P16F874.INC                         72*
+SSPCON                            C   P16F874.INC                         73*
+SSPCON2                           C   P16F874.INC                         95*
+SSPEN                             C   P16F874.INC                        175*
+SSPIE                             C   P16F874.INC                        254*
+SSPIF                             C   P16F874.INC                        139*
+SSPM0                             C   P16F874.INC                        180*
+SSPM1                             C   P16F874.INC                        179*
+SSPM2                             C   P16F874.INC                        178*
+SSPM3                             C   P16F874.INC                        177*
+SSPOV                             C   P16F874.INC                        174*
+SSPSTAT                           C   P16F874.INC                         98*
+STATUS                            C   RJCAR.ASM                          134.  153.  168.  169.  178.  207.  209.  221.  231.  243.
+                                                                         255.  267.  273.  374.  376.  528.  530.  630.  633.  635.
+                                                                         644.  650.  653.  656.  659.  662.  665.  668.  671.  674.
+                                                                         677.  680.  683.  686.  689.  692.  695.  698.  701.  705.
+                                                                         711.  714.  716.  725.  731.  734.  737.  740.  743.  746.
+                                                                         749.  752.  755.  758.  761.  764.  767.  770.  773.  776.
+                                                                         779.  782.  786.  864.  867.  869.  878.  884.  887.  890.
+                                                                         893.  896.  899.  902.  905.  908.  911.  914.  917.  920.
+                                                                         923.  926.  929.  932.  935.  939. 1158. 1197. 1444. 1454.
+                                                                        1466. 1478. 1488. 1498. 1510. 1718. 1864. 1881. 1898. 1915.
+                                                                        2235. 2250. 2265. 2280. 2295. 2310. 2330. 2341. 2352. 2363.
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE  5
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+                                                                        2374. 2385. 2396. 2407. 2427. 2438. 2449. 2460. 2471. 2482.
+                                                                        2493. 2504. 2524. 2535. 2546. 2557. 2568. 2579. 2590. 2601.
+                                      P16F874.INC                         56*
+SYNC                              C   P16F874.INC                        312*
+T0CS                              C   P16F874.INC                        231*
+T0IE                              C   RJCAR.ASM                          324.  329.
+                                      P16F874.INC                        126*
+T0IF                              C   RJCAR.ASM                          174.  323.
+                                      P16F874.INC                        129*
+T0OF                              C   RJCAR.ASM                          108*  175.  203. 2215.
+T0SE                              C   P16F874.INC                        232*
+T1CKPS0                           C   P16F874.INC                        153*
+T1CKPS1                           C   P16F874.INC                        152*
+T1CON                             C   P16F874.INC                         69*
+T1INSYNC                          C   P16F874.INC                        156*
+T1OSCEN                           C   P16F874.INC                        154*
+T1SYNC                            C   P16F874.INC                        157*
+T2CKPS0                           C   P16F874.INC                        169*
+T2CKPS1                           C   P16F874.INC                        168*
+T2CON                             C   P16F874.INC                         71*
+TMR0                              C   P16F874.INC                         54*
+TMR1CS                            C   P16F874.INC                        158*
+TMR1H                             C   P16F874.INC                         68*
+TMR1IE                            C   P16F874.INC                        257*
+TMR1IF                            C   P16F874.INC                        142*
+TMR1L                             C   P16F874.INC                         67*
+TMR1ON                            C   P16F874.INC                        159*
+TMR2                              C   P16F874.INC                         70*
+TMR2IE                            C   P16F874.INC                        256*
+TMR2IF                            C   P16F874.INC                        141*
+TMR2ON                            C   P16F874.INC                        167*
+TOUTPS0                           C   P16F874.INC                        166*
+TOUTPS1                           C   P16F874.INC                        165*
+TOUTPS2                           C   P16F874.INC                        164*
+TOUTPS3                           C   P16F874.INC                        163*
+TRISA                             C   RJCAR.ASM                          140.
+                                      P16F874.INC                         87*
+TRISB                             C   RJCAR.ASM                          142.  375.  529.
+                                      P16F874.INC                         88*
+TRISC                             C   RJCAR.ASM                          144.
+                                      P16F874.INC                         89*
+TRISD                             C   RJCAR.ASM                          146.
+                                      P16F874.INC                         90*
+TRISE                             C   RJCAR.ASM                          148.
+                                      P16F874.INC                         91*
+TRISE0                            C   P16F874.INC                        246*
+TRISE1                            C   P16F874.INC                        245*
+TRISE2                            C   P16F874.INC                        244*
+TRMT                              C   P16F874.INC                        314*
+TX8_9                             C   P16F874.INC                        310*
+TX9                               C   P16F874.INC                        308*
+TX9D                              C   P16F874.INC                        315*
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE  6
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+TXD8                              C   P16F874.INC                        316*
+TXEN                              C   P16F874.INC                        311*
+TXIE                              C   P16F874.INC                        253*
+TXIF                              C   P16F874.INC                        138*
+TXREG                             C   P16F874.INC                         78*
+TXSTA                             C   P16F874.INC                         99*
+UA                                C   P16F874.INC                        302*
+VAROV                             C   RJCAR.ASM                          110*  190.  227. 1067. 1121.
+W                                 C   P16F874.INC                         48*
+WCOL                              C   P16F874.INC                        173*
+WHITUN                            C   RJCAR.ASM                          113*  196.  263. 1130.
+WR                                C   P16F874.INC                        331*
+WREN                              C   P16F874.INC                        330*
+WRERR                             C   P16F874.INC                        329*
+Z                                 C   RJCAR.ASM                          207.  221.  231.  243.  255.  267.  273.  644.  650.  653.
+                                                                         656.  659.  662.  665.  668.  671.  674.  677.  680.  683.
+                                                                         686.  689.  692.  695.  698.  705.  725.  731.  734.  737.
+                                                                         740.  743.  746.  749.  752.  755.  758.  761.  764.  767.
+                                                                         770.  773.  776.  779.  786.  878.  884.  887.  890.  893.
+                                                                         896.  899.  902.  905.  908.  911.  914.  917.  920.  923.
+                                                                         926.  929.  932.  939. 1866. 1868. 1883. 1885. 1900. 1902.
+                                                                        1917. 1919. 2235. 2250. 2265. 2280. 2295. 2310. 2330. 2341.
+                                                                        2352. 2363. 2374. 2385. 2396. 2407. 2427. 2438. 2449. 2460.
+                                                                        2471. 2482. 2493. 2504. 2524. 2535. 2546. 2557. 2568. 2579.
+                                                                        2590. 2601.
+                                      P16F874.INC                        118*
+_.org_1_00C1                      A   RJCAR.ASM                          352*
+_.org_1_00CD                      A   RJCAR.ASM                          365*
+_.org_1_00D7                      A   RJCAR.ASM                          379*
+_.org_1_00D9                      A   RJCAR.ASM                          381*
+_.org_1_00E6                      A   RJCAR.ASM                          396*
+_.org_1_00E8                      A   RJCAR.ASM                          399*
+_.org_1_00F5                      A   RJCAR.ASM                          414*
+_.org_1_00F7                      A   RJCAR.ASM                          417*
+_.org_1_0104                      A   RJCAR.ASM                          432*
+_.org_1_0106                      A   RJCAR.ASM                          435*
+_.org_1_0113                      A   RJCAR.ASM                          450*
+_.org_1_0115                      A   RJCAR.ASM                          453*
+_.org_1_0122                      A   RJCAR.ASM                          468*
+_.org_1_0124                      A   RJCAR.ASM                          471*
+_.org_1_0131                      A   RJCAR.ASM                          486*
+_.org_1_0133                      A   RJCAR.ASM                          489*
+_.org_1_0140                      A   RJCAR.ASM                          504*
+_.org_1_0142                      A   RJCAR.ASM                          507*
+_.org_1_014F                      A   RJCAR.ASM                          522*
+_.org_1_0151                      A   RJCAR.ASM                          525*
+_.org_1_0166                      A   RJCAR.ASM                          551*
+_.org_1_0174                      A   RJCAR.ASM                          567*
+_.org_1_018D                      A   RJCAR.ASM                          596*
+_.org_1_019B                      A   RJCAR.ASM                          612*
+_.org_1_059A                      A   RJCAR.ASM                         1833*
+_.org_1_059F                      A   RJCAR.ASM                         1842*
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE  7
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+_.org_1_05A4                      A   RJCAR.ASM                         1849*
+_.org_2_0808                      A   RJCAR.ASM                         2226*
+_.org_2_0816                      A   RJCAR.ASM                         2241*
+_.org_2_0824                      A   RJCAR.ASM                         2256*
+_.org_2_0832                      A   RJCAR.ASM                         2271*
+_.org_2_0840                      A   RJCAR.ASM                         2286*
+_.org_2_084E                      A   RJCAR.ASM                         2301*
+_BODEN_OFF                        C   P16F874.INC                        364*
+_BODEN_ON                         C   P16F874.INC                        363*
+_CPD_OFF                          C   P16F874.INC                        360*
+_CPD_ON                           C   P16F874.INC                        359*
+_CP_ALL                           C   P16F874.INC                        351*
+_CP_HALF                          C   P16F874.INC                        352*
+_CP_OFF                           C   P16F874.INC                        354*
+_CP_UPPER_256                     C   P16F874.INC                        353*
+_DEBUG_OFF                        C   P16F874.INC                        356*
+_DEBUG_ON                         C   P16F874.INC                        355*
+_HS_OSC                           C   P16F874.INC                        371*
+_LP_OSC                           C   P16F874.INC                        369*
+_LVP_OFF                          C   P16F874.INC                        362*
+_LVP_ON                           C   P16F874.INC                        361*
+_PWRTE_OFF                        C   P16F874.INC                        365*
+_PWRTE_ON                         C   P16F874.INC                        366*
+_RC_OSC                           C   P16F874.INC                        372*
+_WDT_OFF                          C   P16F874.INC                        368*
+_WDT_ON                           C   P16F874.INC                        367*
+_WRT_ENABLE_OFF                   C   P16F874.INC                        358*
+_WRT_ENABLE_ON                    C   P16F874.INC                        357*
+_XT_OSC                           C   P16F874.INC                        370*
+__16F874A                         V   RJCAR.ASM                            2*
+casov                             C   RJCAR.ASM                           86*  190.  192.  194.  196.  198.  227.  239.  263.  315.
+                                                                        1067. 1076. 1088. 1121. 1130. 1141. 1305. 1312. 1321. 1330.
+                                                                        1337. 1344. 1351. 1768. 1779. 1790. 1801.
+cassir                            C   RJCAR.ASM                           84*  188.  210. 1033. 1050. 1081. 1109. 1135.
+cil                               C   RJCAR.ASM                           28*  341. 2319. 2416. 2513.
+clrout                            A   RJCAR.ASM                          238.  262.  295.  301.  307.  313.  580*  960.  967.  974.
+                                                                         981.  988.  995. 1008. 1021. 1211. 1217. 1274. 1295. 1523.
+                                                                        1555. 1574. 1689. 1738. 1757. 1944. 1954. 1973. 1982. 2002.
+                                                                        2012. 2031. 2040. 2060. 2070. 2089. 2098. 2118. 2128. 2147.
+                                                                        2156. 2176. 2197.
+conf                              C   RJCAR.ASM                           85*  175.  203. 2215.
+dotaz                             A   RJCAR.ASM                          336* 2320. 2417. 2514.
+if_127                            A   RJCAR.ASM                          859* 2558.
+if_128                            A   RJCAR.ASM                          862* 2569.
+if_49                             A   RJCAR.ASM                          802* 2408.
+if_50                             A   RJCAR.ASM                          790* 2266.
+if_51                             A   RJCAR.ASM                          808* 2331.
+if_52                             A   RJCAR.ASM                          811* 2342.
+if_53                             A   RJCAR.ASM                          814* 2353.
+if_54                             A   RJCAR.ASM                          817* 2364.
+if_55                             A   RJCAR.ASM                          820* 2375.
+if_56                             A   RJCAR.ASM                          823* 2386.
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE  8
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+if_57                             A   RJCAR.ASM                          826* 2397.
+if_58                             A   RJCAR.ASM                          628* 2236.
+if_59                             A   RJCAR.ASM                          793* 2281.
+if_60                             A   RJCAR.ASM                          796* 2296.
+if_61                             A   RJCAR.ASM                          799* 2311.
+if_62                             A   RJCAR.ASM                          709* 2251.
+if_80                             A   RJCAR.ASM                          805* 2428.
+if_84                             A   RJCAR.ASM                          829* 2439.
+if_85                             A   RJCAR.ASM                          832* 2450.
+if_86                             A   RJCAR.ASM                          835* 2461.
+if_87                             A   RJCAR.ASM                          838* 2472.
+if_88                             A   RJCAR.ASM                          841* 2483.
+if_89                             A   RJCAR.ASM                          844* 2494.
+if_90                             A   RJCAR.ASM                          847* 2505.
+if_91                             A   RJCAR.ASM                          850* 2525.
+if_92                             A   RJCAR.ASM                          853* 2536.
+if_93                             A   RJCAR.ASM                          856* 2547.
+if_x                              A   RJCAR.ASM                          944* 2580. 2591. 2602.
+init                              A   RJCAR.ASM                          118.  124*
+inter                             A   RJCAR.ASM                          121.  166*
+intoff                            A   RJCAR.ASM                          166.  328*
+inton                             A   RJCAR.ASM                          155.  181.  321*
+ir_127                            C   RJCAR.ASM                           72* 2551. 2555.
+ir_128                            C   RJCAR.ASM                           73*  865.  936. 2562. 2566.
+ir_49                             C   RJCAR.ASM                           47* 2401. 2405.
+ir_50                             C   RJCAR.ASM                           48* 2259. 2263.
+ir_51                             C   RJCAR.ASM                           49* 2324. 2328.
+ir_52                             C   RJCAR.ASM                           50* 2335. 2339.
+ir_53                             C   RJCAR.ASM                           51* 2346. 2350.
+ir_54                             C   RJCAR.ASM                           52* 2357. 2361.
+ir_55                             C   RJCAR.ASM                           53* 1035. 2368. 2372.
+ir_56                             C   RJCAR.ASM                           54* 2379. 2383.
+ir_57                             C   RJCAR.ASM                           55* 2390. 2394.
+ir_58                             C   RJCAR.ASM                           56*  631.  702. 2229. 2233.
+ir_59                             C   RJCAR.ASM                           57* 2274. 2278.
+ir_60                             C   RJCAR.ASM                           58* 2289. 2293.
+ir_61                             C   RJCAR.ASM                           59* 2304. 2308.
+ir_62                             C   RJCAR.ASM                           60*  712.  783. 2244. 2248.
+ir_80                             C   RJCAR.ASM                           61* 2421. 2425.
+ir_84                             C   RJCAR.ASM                           62* 1036. 2432. 2436.
+ir_85                             C   RJCAR.ASM                           63* 1037. 2443. 2447.
+ir_86                             C   RJCAR.ASM                           64* 1038. 2454. 2458.
+ir_87                             C   RJCAR.ASM                           65* 1039. 2465. 2469.
+ir_88                             C   RJCAR.ASM                           66* 1040. 2476. 2480.
+ir_89                             C   RJCAR.ASM                           67* 1041. 2487. 2491.
+ir_90                             C   RJCAR.ASM                           68* 1093. 1857. 2498. 2502.
+ir_91                             C   RJCAR.ASM                           69* 1095. 1874. 2518. 2522.
+ir_92                             C   RJCAR.ASM                           70* 1097. 1891. 2529. 2533.
+ir_93                             C   RJCAR.ASM                           71* 1099. 1908. 2540. 2544.
+ir_x                              C   RJCAR.ASM                           46* 2573. 2577. 2584. 2588. 2595. 2599.
+ledzam                            A   RJCAR.ASM                          247. 2183*
+locked                            C   RJCAR.ASM                           76* 1268. 1283.
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE  9
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+lzabli                            A   RJCAR.ASM                          195.  242*
+nastart                           C   RJCAR.ASM                           79*
+no1down                           A   RJCAR.ASM                         1948. 1956*
+no1stop                           A   RJCAR.ASM                         1967. 1975*
+no1up                             A   RJCAR.ASM                         1929. 1937*
+no2down                           A   RJCAR.ASM                         2006. 2014*
+no2stop                           A   RJCAR.ASM                         2025. 2033*
+no2up                             A   RJCAR.ASM                         1987. 1995*
+no3down                           A   RJCAR.ASM                         2064. 2072*
+no3stop                           A   RJCAR.ASM                         2083. 2091*
+no3up                             A   RJCAR.ASM                         2045. 2053*
+no4down                           A   RJCAR.ASM                         2122. 2130*
+no4stop                           A   RJCAR.ASM                         2141. 2149*
+no4up                             A   RJCAR.ASM                         2103. 2111*
+num                               C   RJCAR.ASM                           18*  125.
+o1down                            A   RJCAR.ASM                         1873. 1947*
+o1stop                            A   RJCAR.ASM                         1867. 1966*
+o1tar                             C   RJCAR.ASM                           95* 1102. 1146. 1440. 1447. 1484. 1491. 1861.
+o1tmp                             C   RJCAR.ASM                           91* 1094. 1145.
+o1up                              A   RJCAR.ASM                         1871. 1928*
+o2down                            A   RJCAR.ASM                         1890. 2005*
+o2stop                            A   RJCAR.ASM                         1884. 2024*
+o2tar                             C   RJCAR.ASM                           96* 1103. 1148. 1450. 1457. 1494. 1501. 1878.
+o2tmp                             C   RJCAR.ASM                           92* 1096. 1147.
+o2up                              A   RJCAR.ASM                         1888. 1986*
+o3down                            A   RJCAR.ASM                         1907. 2063*
+o3stop                            A   RJCAR.ASM                         1901. 2082*
+o3tar                             C   RJCAR.ASM                           97* 1104. 1150. 1462. 1469. 1506. 1513. 1895.
+o3tmp                             C   RJCAR.ASM                           93* 1098. 1149.
+o3up                              A   RJCAR.ASM                         1905. 2044*
+o4down                            A   RJCAR.ASM                         1924. 2121*
+o4stop                            A   RJCAR.ASM                         1918. 2140*
+o4tar                             C   RJCAR.ASM                           98* 1105. 1152. 1474. 1481. 1714. 1721. 1912.
+o4tmp                             C   RJCAR.ASM                           94* 1100. 1151.
+o4up                              A   RJCAR.ASM                         1922. 2102*
+o_a                               C   RJCAR.ASM                           33* 1163. 1165. 1185. 1187. 1191. 1202. 1204. 1222. 1224.
+                                                                        1228. 1928. 1936. 1937. 1945. 1947. 1955. 1956. 1964. 1966.
+                                                                        1974. 1975. 1983. 1986. 1994. 2005. 2013. 2024. 2032. 2044.
+                                                                        2052. 2063. 2071. 2082. 2090. 2102. 2110. 2121. 2129. 2140.
+                                                                        2148.
+o_b                               C   RJCAR.ASM                           34*  275.  277.  279.  281.  283. 1303. 1310. 1319. 1328.
+                                                                        1335. 1995. 2003. 2014. 2022. 2033. 2041. 2053. 2061. 2072.
+                                                                        2080. 2091. 2099. 2111. 2119. 2130. 2138. 2149. 2157.
+o_c                               C   RJCAR.ASM                           35*  233.  257.  287. 1007. 1009. 1011. 1013. 1070. 1124.
+                                                                        1349. 1546. 1552. 1557. 1565. 1571. 1576. 1593. 1599. 1604.
+                                                                        1629. 1635. 1640. 1651. 1659. 1663.
+o_d                               C   RJCAR.ASM                           36*  628.  709.  862.  959.  961.  966.  968.  973.  975.
+                                                                         980.  982.  987.  989.  994.  996. 1024. 1059. 1112. 1367.
+                                                                        1375. 1383. 1391. 1399. 1407. 1694.
+o_e                               C   RJCAR.ASM                           37*  223.  225.  285.  290.  296.  998. 1000. 1020. 1022.
+                                                                        1063. 1065. 1117. 1119. 1237. 1239. 1245. 1249. 1254. 1258.
+                                                                        1342. 1579. 1585. 1590. 1621. 1625. 1667. 1680. 1686. 1691.
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE 10
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+                                                                        1762. 1773. 2167. 2173. 2178.
+o_f                               C   RJCAR.ASM                           38*  302.  308. 1084. 1138. 1415. 1421. 1426. 1607. 1613.
+                                                                        1618. 1729. 1735. 1740. 1748. 1754. 1759. 1784. 1795.
+o_g                               C   RJCAR.ASM                           39*
+o_h                               C   RJCAR.ASM                           40* 1269. 1275. 1284. 1290. 2188. 2194. 2199.
+o_i                               C   RJCAR.ASM                           41* 1167. 1173. 1206. 1212. 1317. 1326. 1460. 1472. 1504.
+                                                                        1516. 1518. 1525. 1712.
+o_j                               C   RJCAR.ASM                           42*
+o_k                               C   RJCAR.ASM                           43*
+o_l                               C   RJCAR.ASM                           44*
+odsoff                            A   RJCAR.ASM                          199.  272*
+okna                              A   RJCAR.ASM                         1857* 2221.
+okno2                             A   RJCAR.ASM                         1869. 1874*
+okno3                             A   RJCAR.ASM                         1886. 1891*
+okno4                             A   RJCAR.ASM                         1903. 1908*
+port                              C   RJCAR.ASM                           77*  235.  259.  292.  298.  304.  310.  556.  601.  956.
+                                                                         963.  970.  977.  984.  991. 1004. 1017. 1072. 1126. 1169.
+                                                                        1175. 1208. 1214. 1271. 1277. 1286. 1292. 1369. 1377. 1385.
+                                                                        1393. 1401. 1409. 1520. 1527. 1542. 1561. 1653. 1669. 1676.
+                                                                        1725. 1744. 1764. 1775. 1786. 1797. 1931. 1940. 1950. 1959.
+                                                                        1969. 1978. 1989. 1998. 2008. 2017. 2027. 2036. 2047. 2056.
+                                                                        2066. 2075. 2085. 2094. 2105. 2114. 2124. 2133. 2143. 2152.
+                                                                        2163. 2184.
+prc                               C   RJCAR.ASM                           78*  237.  261.  294.  300.  306.  312.  540.  585.  958.
+                                                                         965.  972.  979.  986.  993. 1006. 1019. 1074. 1128. 1171.
+                                                                        1177. 1210. 1216. 1273. 1279. 1288. 1294. 1371. 1379. 1387.
+                                                                        1395. 1403. 1411. 1522. 1529. 1544. 1563. 1655. 1671. 1678.
+                                                                        1727. 1746. 1766. 1777. 1788. 1799. 1933. 1942. 1952. 1961.
+                                                                        1971. 1980. 1991. 2000. 2010. 2019. 2029. 2038. 2049. 2058.
+                                                                        2068. 2077. 2087. 2096. 2107. 2116. 2126. 2135. 2145. 2154.
+                                                                        2165. 2186.
+pri0                              C   RJCAR.ASM                           20*  386.  389.  391.  393. 2322. 2326. 2419. 2423. 2516.
+                                                                        2520.
+pri1                              C   RJCAR.ASM                           21*  404.  407.  409.  411. 2333. 2337. 2430. 2434. 2527.
+                                                                        2531.
+pri2                              C   RJCAR.ASM                           22*  422.  425.  427.  429. 2344. 2348. 2441. 2445. 2538.
+                                                                        2542.
+pri3                              C   RJCAR.ASM                           23*  440.  443.  445.  447. 2355. 2359. 2452. 2456. 2549.
+                                                                        2553.
+pri4                              C   RJCAR.ASM                           24*  458.  461.  463.  465. 2366. 2370. 2463. 2467. 2560.
+                                                                        2564.
+pri5                              C   RJCAR.ASM                           25*  476.  479.  481.  483. 2377. 2381. 2474. 2478. 2571.
+                                                                        2575.
+pri6                              C   RJCAR.ASM                           26*  494.  497.  499.  501. 2388. 2392. 2485. 2489. 2582.
+                                                                        2586.
+pri7                              C   RJCAR.ASM                           27*  512.  515.  517.  519. 2399. 2403. 2496. 2500. 2593.
+                                                                        2597.
+r1                                C   RJCAR.ASM                            6*  342.  345.  347.  350.  355.  358.  360.  363.  541.
+                                                                         544.  546.  549.  557.  560.  562.  565.  586.  589.  591.
+                                                                         594.  602.  605.  607.  610.  632.  634.  636.  638.  640.
+                                                                         646.  649.  652.  655.  658.  661.  664.  667.  670.  673.
+                                                                         676.  679.  682.  685.  688.  691.  694.  697.  703.  704.
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE 11
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+                                                                         713.  715.  717.  719.  721.  727.  730.  733.  736.  739.
+                                                                         742.  745.  748.  751.  754.  757.  760.  763.  766.  769.
+                                                                         772.  775.  778.  784.  785.  866.  868.  870.  872.  874.
+                                                                         880.  883.  886.  889.  892.  895.  898.  901.  904.  907.
+                                                                         910.  913.  916.  919.  922.  925.  928.  931.  937.  938.
+                                                                        1859. 1860. 1863. 1876. 1877. 1880. 1893. 1894. 1897. 1910.
+                                                                        1911. 1914. 2228. 2230. 2232. 2234. 2243. 2245. 2247. 2249.
+                                                                        2258. 2260. 2262. 2264. 2273. 2275. 2277. 2279. 2288. 2290.
+                                                                        2292. 2294. 2303. 2305. 2307. 2309. 2323. 2325. 2327. 2329.
+                                                                        2334. 2336. 2338. 2340. 2345. 2347. 2349. 2351. 2356. 2358.
+                                                                        2360. 2362. 2367. 2369. 2371. 2373. 2378. 2380. 2382. 2384.
+                                                                        2389. 2391. 2393. 2395. 2400. 2402. 2404. 2406. 2420. 2422.
+                                                                        2424. 2426. 2431. 2433. 2435. 2437. 2442. 2444. 2446. 2448.
+                                                                        2453. 2455. 2457. 2459. 2464. 2466. 2468. 2470. 2475. 2477.
+                                                                        2479. 2481. 2486. 2488. 2490. 2492. 2497. 2499. 2501. 2503.
+                                                                        2517. 2519. 2521. 2523. 2528. 2530. 2532. 2534. 2539. 2541.
+                                                                        2543. 2545. 2550. 2552. 2554. 2556. 2561. 2563. 2565. 2567.
+                                                                        2572. 2574. 2576. 2578. 2583. 2585. 2587. 2589. 2594. 2596.
+                                                                        2598. 2600.
+r2                                C   RJCAR.ASM                            7*  344.  351.  357.  364.  388.  395.  406.  413.  424.
+                                                                         431.  442.  449.  460.  467.  478.  485.  496.  503.  514.
+                                                                         521.  543.  550.  559.  566.  588.  595.  604.  611. 1235.
+                                                                        1238. 1241.
+r3                                C   RJCAR.ASM                            8* 1236. 1240. 1242. 1244. 1246. 1248. 1250. 1253. 1255.
+                                                                        1257. 1259. 1865. 1866. 1868. 1870. 1872. 1882. 1883. 1885.
+                                                                        1887. 1889. 1899. 1900. 1902. 1904. 1906. 1916. 1917. 1919.
+                                                                        1921. 1923.
+r4                                C   RJCAR.ASM                            9*  641.  643.  722.  724.  875.  877. 1831. 1832. 1840.
+                                                                        1841. 1847. 1848.
+r5                                C   RJCAR.ASM                           10* 1416. 1418. 1420. 1423. 1425. 1441. 1443. 1446. 1451.
+                                                                        1453. 1456. 1463. 1465. 1468. 1475. 1477. 1480. 1485. 1487.
+                                                                        1490. 1495. 1497. 1500. 1507. 1509. 1512. 1547. 1549. 1551.
+                                                                        1554. 1556. 1566. 1568. 1570. 1573. 1575. 1580. 1582. 1584.
+                                                                        1587. 1589. 1594. 1596. 1598. 1601. 1603. 1608. 1610. 1612.
+                                                                        1615. 1617. 1630. 1632. 1634. 1637. 1639. 1681. 1683. 1685.
+                                                                        1688. 1690. 1715. 1717. 1720. 1730. 1732. 1734. 1737. 1739.
+                                                                        1749. 1751. 1753. 1756. 1758. 2168. 2170. 2172. 2175. 2177.
+                                                                        2189. 2191. 2193. 2196. 2198.
+r6                                C   RJCAR.ASM                           11* 1042. 1043. 1045. 1047. 1049. 1051. 1053. 1055.
+radio                             A   RJCAR.ASM                          173.  185*
+rtuoff                            A   RJCAR.ASM                          193.  230*
+s_temp                            C   RJCAR.ASM                           16*  170.  177.
+setout                            A   RJCAR.ASM                          535* 1075. 1129. 1172. 1178. 1280. 1289. 1372. 1380. 1388.
+                                                                        1396. 1404. 1412. 1530. 1550. 1569. 1656. 1672. 1684. 1733.
+                                                                        1752. 1767. 1778. 1789. 1800. 1935. 1963. 1993. 2021. 2051.
+                                                                        2079. 2109. 2137. 2171. 2192.
+sirbeep                           A   RJCAR.ASM                          189.  206*
+sirena                            A   RJCAR.ASM                          213. 1046. 1079. 1133. 2162*
+spinac                            C   RJCAR.ASM                          101*  200. 1156. 1159. 1161. 1183. 1195. 1198. 1200. 1220.
+spioff                            A   RJCAR.ASM                          201.  266*
+start                             A   RJCAR.ASM                          163. 2215* 2607.
+t1_00                             A   RJCAR.ASM                          158.  888. 1033*
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE 12
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+t1_01                             A   RJCAR.ASM                          891. 1109*
+t1_02                             A   RJCAR.ASM                          654. 1156*
+t1_03                             A   RJCAR.ASM                          269.  657. 1195*
+t1_04                             A   RJCAR.ASM                          732. 1116. 1232*
+t1_05                             A   RJCAR.ASM                          660. 1235*
+t1_06                             A   RJCAR.ASM                          651. 1058. 1265*
+t1_07                             A   RJCAR.ASM                          669. 1087. 1268*
+t1_08                             A   RJCAR.ASM                          672. 1142. 1283*
+t1_09                             A   RJCAR.ASM                         1298*
+t1_10                             A   RJCAR.ASM                          684. 1303*
+t1_11                             A   RJCAR.ASM                          747. 1310*
+t1_12                             A   RJCAR.ASM                          687. 1317*
+t1_13                             A   RJCAR.ASM                          750. 1326*
+t1_14                             A   RJCAR.ASM                          675. 1335*
+t1_15                             A   RJCAR.ASM                          678. 1342*
+t1_16                             A   RJCAR.ASM                          738. 1349*
+t1_17                             A   RJCAR.ASM                         1356*
+t1_18                             A   RJCAR.ASM                         1359*
+t1_19                             A   RJCAR.ASM                         1362*
+t1_20                             A   RJCAR.ASM                          894. 1367*
+t1_21                             A   RJCAR.ASM                          897. 1375*
+t1_22                             A   RJCAR.ASM                          900. 1383*
+t1_23                             A   RJCAR.ASM                          903. 1391*
+t1_24                             A   RJCAR.ASM                          906. 1399*
+t1_25                             A   RJCAR.ASM                          909. 1407*
+t1_26                             A   RJCAR.ASM                          741. 1415*
+t1_27                             A   RJCAR.ASM                         1429*
+t1_28                             A   RJCAR.ASM                         1432*
+t1_29                             A   RJCAR.ASM                         1435*
+t1_30                             A   RJCAR.ASM                          690. 1440*
+t1_31                             A   RJCAR.ASM                          768. 1450*
+t1_32                             A   RJCAR.ASM                          696. 1460*
+t1_33                             A   RJCAR.ASM                          777. 1472*
+t1_34                             A   RJCAR.ASM                          693. 1484*
+t1_35                             A   RJCAR.ASM                          771. 1494*
+t1_36                             A   RJCAR.ASM                          699. 1504*
+t1_37                             A   RJCAR.ASM                          681. 1516*
+t1_38                             A   RJCAR.ASM                         1533*
+t1_39                             A   RJCAR.ASM                         1536*
+t1_40                             A   RJCAR.ASM                          762. 1541*
+t1_41                             A   RJCAR.ASM                          756. 1560*
+t1_42                             A   RJCAR.ASM                          666. 1579*
+t1_43                             A   RJCAR.ASM                          663. 1593*
+t1_44                             A   RJCAR.ASM                          744. 1607*
+t1_45                             A   RJCAR.ASM                          912. 1621*
+t1_46                             A   RJCAR.ASM                          915. 1625*
+t1_47                             A   RJCAR.ASM                          885. 1629*
+t1_48                             A   RJCAR.ASM                         1643*
+t1_49                             A   RJCAR.ASM                         1646*
+t1_50                             A   RJCAR.ASM                          918. 1651*
+t1_51                             A   RJCAR.ASM                          921. 1659*
+t1_52                             A   RJCAR.ASM                          924. 1663*
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE 13
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+t1_53                             A   RJCAR.ASM                          774.  927. 1667*
+t1_54                             A   RJCAR.ASM                          753. 1675*
+t1_55                             A   RJCAR.ASM                          930. 1694*
+t1_56                             A   RJCAR.ASM                          735. 1698*
+t1_57                             A   RJCAR.ASM                         1701*
+t1_58                             A   RJCAR.ASM                         1704*
+t1_59                             A   RJCAR.ASM                         1707*
+t1_60                             A   RJCAR.ASM                          780. 1712*
+t1_61                             A   RJCAR.ASM                          765. 1724*
+t1_62                             A   RJCAR.ASM                          759. 1743*
+t1_63                             A   RJCAR.ASM                         1762*
+t1_64                             A   RJCAR.ASM                         1773*
+t1_65                             A   RJCAR.ASM                         1784*
+t1_66                             A   RJCAR.ASM                         1795*
+t1_67                             A   RJCAR.ASM                         1806*
+t1_68                             A   RJCAR.ASM                         1809*
+t1_69                             A   RJCAR.ASM                         1812*
+t1_stop                           A   RJCAR.ASM                          706.  948*
+t1_x                              A   RJCAR.ASM                          933. 1816*
+t2_02                             A   RJCAR.ASM                         1162. 1183*
+t2_03                             A   RJCAR.ASM                         1201. 1220*
+t2_37                             A   RJCAR.ASM                         1517. 1525*
+t2_stop                           A   RJCAR.ASM                          787.  950*
+t3_02                             A   RJCAR.ASM                         1184. 1191*
+t3_03                             A   RJCAR.ASM                         1221. 1228*
+t3_stop                           A   RJCAR.ASM                          940.  952*
+timer0                            A   RJCAR.ASM                          188* 2219.
+timlza                            C   RJCAR.ASM                           89*  242.  251. 1090.
+timods                            C   RJCAR.ASM                          103*  272. 1307. 1314. 1323. 1332. 1339. 1346. 1353. 1770.
+                                                                        1781. 1792. 1803.
+timrtu                            C   RJCAR.ASM                           88*  230. 1078.
+timsir                            C   RJCAR.ASM                           83*  206.  217. 1054. 1083. 1137.
+timspi                            C   RJCAR.ASM                          102*  266. 1180.
+timvar                            C   RJCAR.ASM                           87*  220. 1069. 1123.
+timwtu                            C   RJCAR.ASM                          100*  254. 1132.
+tl1                               C   RJCAR.ASM                           80*  642.  647.
+tl2                               C   RJCAR.ASM                           81*  723.  728.
+tl3                               C   RJCAR.ASM                           82*  876.  881.
+tx_stop                           A   RJCAR.ASM                          953.  955*
+varoff                            A   RJCAR.ASM                          191.  220*
+w100c                             A   RJCAR.ASM                          337.  339.  349.  362.  368.  369.  370.  384.  394.  401.
+                                                                         412.  419.  430.  437.  448.  455.  466.  473.  484.  491.
+                                                                         502.  509.  520.  536.  538.  548.  554.  564.  570.  573.
+                                                                         574.  575.  581.  583.  593.  599.  609.  615.  618.  619.
+                                                                         620. 1839*
+w20i                              A   RJCAR.ASM                          531.  577.  622. 1830*
+w40c                              A   RJCAR.ASM                          383.  400.  418.  436.  454.  472.  490.  508. 1846*
+w_temp                            C   RJCAR.ASM                           15*  167.  179.  180.
+wtuoff                            A   RJCAR.ASM                          197.  254*
+MPASM  5.03                         RJCAR.ASM   2-22-2010  1:00:32         PAGE 14
+
+                          MPASM Cross Reference File
+
+LABEL                            TYPE FILE NAME                  SOURCE FILE REFERENCES
+-----                            ---- ---------                  ----------------------
+
+
+
+LABEL TYPES
+-----------
+A  Address 
+C  Constant
+E  External
+M  Macro   
+S  Segment 
+U  Unknown 
+V  Variable
+X  Other   

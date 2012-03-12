@@ -1,0 +1,488 @@
+MPASM  5.35                      EASY_ADC.ASM   2-27-2012  15:08:09         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 
+                      00002  LIST      P=16F874A, R=DEC
+                      00003  INCLUDE  <P16F874.INC>
+                      00001         LIST
+                      00002 ; P16F874.INC  Standard Header File, Version 1.00    Microchip Technology, Inc.
+Message[301]: MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+                      00374         LIST
+                      00004 
+                      00005                   ;deklarace registru
+  00000020            00006 r1      equ 20h
+  00000021            00007 r2      equ 21h
+  00000022            00008 r3      equ 22h
+  00000023            00009 r4      equ 23h
+  00000024            00010 an4         equ 24h
+                      00011 
+                      00012 
+                      00013 
+                      00014 
+                      00015 
+0000                  00016         org 000h        ;vektor zacatku
+0000   2805           00017         goto init
+                      00018 
+0004                  00019         org 004h        ;vektor preruseni
+0004   284C           00020         goto inter
+                      00021 
+                      00022 
+                      00023 
+                      00024 
+0005   0000           00025 init    nop
+0006   0185           00026       clrf PORTA      ;Init PORTS
+0007   0186           00027         clrf PORTB
+0008   0187           00028         clrf PORTC
+0009   0188           00029         clrf PORTD
+000A   0189           00030         clrf PORTE
+                      00031         
+                      00032 
+000B   1683           00033         bsf STATUS, RP0  ;Bank 1
+                      00034 
+000C   3040           00035         movlw b'01000000' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogových vst
+                            upu a hodnotu k porovnání 0000
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000D   009F           00036         movwf ADCON1
+                      00037 
+000E   302F           00038         movlw   b'00101111'; 1 znamená vstup, 0 výstup
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000F   0085           00039         movwf   TRISA
+0010   3001           00040         movlw   b'00000001'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0011   0086           00041         movwf   TRISB
+0012   3000           00042         movlw b'00000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0013   0087           00043         movwf TRISC
+0014   3000           00044         movlw b'00000000'
+MPASM  5.35                      EASY_ADC.ASM   2-27-2012  15:08:09         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0015   0088           00045         movwf TRISD
+0016   3007           00046         movlw b'00000111'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0017   0089           00047         movwf TRISE
+                      00048         
+0018   30C0           00049         movlw b'11000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0019   0081           00050         movwf OPTION_REG
+                      00051 
+001A   1283           00052         bcf STATUS, RP0 ;Bank 0
+                      00053 
+                      00054         
+                      00055         
+                      00056         
+001B   0000           00057 start  nop;
+                      00058       
+                      00059       
+001C   30A5           00060         movlw b'10100101' ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
+001D   009F           00061         movwf ADCON0
+001E   191F           00062         btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+001F   281E           00063         goto $-1
+0020   081E           00064         movf ADRESH, W    ;kontroluje zda je zmena od minule
+0021   00A4           00065         movwf an4
+                      00066         
+                      00067         
+                      00068         
+                      00069         
+                      00070         
+                      00071         
+                      00072         
+                      00073         ;;;;;;;;;;;;;;;; DEBUG
+0022   1C24           00074         btfss an4, 0
+0023   1008           00075         bcf PORTD, 0
+0024   1824           00076         btfsc an4, 0
+0025   1408           00077         bsf PORTD, 0
+                      00078         
+0026   1CA4           00079         btfss an4, 1
+0027   1088           00080         bcf PORTD, 1
+0028   18A4           00081         btfsc an4, 1
+0029   1488           00082         bsf PORTD, 1
+                      00083         
+002A   1D24           00084         btfss an4, 2
+002B   1108           00085         bcf PORTD, 2
+002C   1924           00086         btfsc an4, 2
+002D   1508           00087         bsf PORTD, 2
+                      00088         
+002E   1DA4           00089         btfss an4, 3
+002F   1188           00090         bcf PORTD, 3
+0030   19A4           00091         btfsc an4, 3
+0031   1588           00092         bsf PORTD, 3
+                      00093         
+0032   1E24           00094         btfss an4, 4
+MPASM  5.35                      EASY_ADC.ASM   2-27-2012  15:08:09         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0033   1208           00095         bcf PORTD, 4
+0034   1A24           00096         btfsc an4, 4
+0035   1608           00097         bsf PORTD, 4
+                      00098         
+0036   1EA4           00099         btfss an4, 5
+0037   1288           00100         bcf PORTD, 5
+0038   1AA4           00101         btfsc an4, 5
+0039   1688           00102         bsf PORTD, 5
+                      00103         
+003A   1F24           00104         btfss an4, 6
+003B   1308           00105         bcf PORTD, 6
+003C   1B24           00106         btfsc an4, 6
+003D   1708           00107         bsf PORTD, 6
+                      00108         
+003E   1FA4           00109         btfss an4, 7
+003F   1388           00110         bcf PORTD, 7
+0040   1BA4           00111         btfsc an4, 7
+0041   1788           00112         bsf PORTD, 7
+                      00113         
+                      00114         
+                      00115         
+0042   3005           00116         movlw .5
+0043   00A1           00117         movwf r2
+0044   30C8           00118         movlw .200
+0045   00A2           00119         movwf r3
+0046   204D           00120         call w100c
+0047   0BA2           00121         decfsz r3, F
+0048   2846           00122         goto $-2
+0049   0BA1           00123         decfsz r2, F
+004A   2846           00124         goto $-4
+                      00125         
+                      00126         
+                      00127         
+                      00128         
+004B   281B           00129       goto start
+                      00130 
+                      00131 
+                      00132 
+                      00133 
+004C   0000           00134 inter   nop;
+                      00135 
+                      00136 
+                      00137 
+                      00138 
+                      00139 
+                      00140 
+                      00141         ;cekej cca 100 cyklu 40us  + u kazdeho cekani je 7 cyklu povinych
+004D   3050           00142 w100c   movlw .80
+004E   00A3           00143         movwf r4
+004F   0BA3           00144         decfsz r4, F
+0050   284F           00145         goto $-1
+0051   0008           00146         return
+                      00147 
+MPASM  5.35                      EASY_ADC.ASM   2-27-2012  15:08:09         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00148 
+                      00149         end                                           ; KONEC PROGRAMU
+MPASM  5.35                      EASY_ADC.ASM   2-27-2012  15:08:09         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CKE                               00000006
+CKP                               00000004
+CREN                              00000004
+CSRC                              00000007
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+D_A                               00000005
+EEADR                             0000010D
+MPASM  5.35                      EASY_ADC.ASM   2-27-2012  15:08:09         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+OPTION_REG                        00000081
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+MPASM  5.35                      EASY_ADC.ASM   2-27-2012  15:08:09         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+R                                 00000002
+RBIE                              00000003
+RBIF                              00000000
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_W                               00000002
+S                                 00000003
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+MPASM  5.35                      EASY_ADC.ASM   2-27-2012  15:08:09         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISB                             00000086
+TRISC                             00000087
+TRISD                             00000088
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+W                                 00000000
+MPASM  5.35                      EASY_ADC.ASM   2-27-2012  15:08:09         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00000FCF
+_CP_HALF                          00001FDF
+_CP_OFF                           00003FFF
+_CP_UPPER_256                     00002FEF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_HS_OSC                           00003FFE
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_ENABLE_OFF                   00003DFF
+_WRT_ENABLE_ON                    00003FFF
+_XT_OSC                           00003FFD
+__16F874A                         00000001
+an4                               00000024
+init                              00000005
+inter                             0000004C
+r1                                00000020
+r2                                00000021
+r3                                00000022
+r4                                00000023
+start                             0000001B
+w100c                             0000004D
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XX-------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    79
+Program Memory Words Free:  4017
+
+
+MPASM  5.35                      EASY_ADC.ASM   2-27-2012  15:08:09         PAGE 10
+
+
+
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     8 reported,     0 suppressed
+
+

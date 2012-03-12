@@ -89,10 +89,10 @@
 0000000D,3003,,        movlw b'00000011' ; PCON 000000XX POR, BOR
 0000000E,008E,,        movwf PCON
 ,,,
-0000000F,3040,,        movlw b'01000000' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogov√Ωch vst
+0000000F,3040,,        movlw b'01000000' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogov˝ch vstu
 00000010,009F,,        movwf ADCON1
 ,,,
-00000011,302F,,        movlw   b'00101111'; 1 znamen√° vstup, 0 v√Ωstup
+00000011,302F,,        movlw   b'00101111'; 1 znamen· vstup, 0 v˝stup
 00000012,0085,,        movwf   TRISA
 00000013,3001,,        movlw   b'00000001'
 00000014,0086,,        movwf   TRISB
@@ -108,7 +108,7 @@
 ,,,
 0000001D,1283,,        bcf STATUS, RP0 ;Bank 0
 ,,,
-0000001E,3046,,        movlw b'01000110' ; nastav√≠ control register timer2
+0000001E,3046,,        movlw b'01000110' ; nastavÌ control register timer2
 0000001F,0092,,        movwf T2CON
 ,,,
 ,,,        ; Zapne preruseni a to i pro com
@@ -125,9 +125,9 @@
 00000027,0008,,            return
 ,,,
 ,,,
-00000028,108B,inton,inton       bcf INTCON, INTF    ; nastaven√≠ p≈ôeru≈°en√≠ od RB0
+00000028,108B,inton,inton       bcf INTCON, INTF    ; nastavenÌ p¯eruöenÌ od RB0
 ,,,            ;bsf INTCON, INTE
-00000029,108C,,            bcf PIR1, TMR2IF ;nastaven√≠ p≈ôeru≈°en√≠ od Timer2
+00000029,108C,,            bcf PIR1, TMR2IF ;nastavenÌ p¯eruöenÌ od Timer2
 0000002A,1683,,            bsf STATUS, RP0  ;Bank 1
 0000002B,148C,,            bsf PIE1, TMR2IE
 0000002C,1283,,            bcf STATUS, RP0 ;Bank 0
@@ -157,17 +157,17 @@
 ,,,
 ,,,
 ,,,
-,,,;pokud p≈ôetekl timer2 pro watch
+,,,;pokud p¯etekl timer2 pro watch
 0000003F,157C,watchover,watchover   bsf conf, WATCHOVER
-00000040,108B,,            bcf INTCON, INTF    ; nastaven√≠ p≈ôeru≈°en√≠ od RB0
+00000040,108B,,            bcf INTCON, INTF    ; nastavenÌ p¯eruöenÌ od RB0
 00000041,160B,,            bsf INTCON, INTE
 ,,,            ;bsf INTCON, GIE
 00000042,0008,,            return
 ,,,
-,,,;Zapnut√≠ stopek pro kontrolu zacyklen√≠ - timer2
+,,,;ZapnutÌ stopek pro kontrolu zacyklenÌ - timer2
 00000043,117C,watchstart,watchstart  bcf conf, WATCHOVER ;nastavi jako nepreteceny
 00000044,108B,,            bcf INTCON, INTF
-00000045,108C,,            bcf PIR1, TMR2IF ;nastaven√≠ p≈ôeru≈°en√≠ od Timer2
+00000045,108C,,            bcf PIR1, TMR2IF ;nastavenÌ p¯eruöenÌ od Timer2
 00000046,1683,,            bsf STATUS, RP0  ;Bank 1
 00000047,148C,,            bsf PIE1, TMR2IE
 00000048,1283,,            bcf STATUS, RP0 ;Bank 0
@@ -182,7 +182,7 @@
 0000004F,0008,,            return
 ,,,
 ,,,
-,,,      ; Zaƒçne poƒç√≠tat ƒças pro procesor WATCH2
+,,,      ; ZaËne poËÌtat Ëas pro procesor WATCH2
 00000050,2043,prijem,prijem      call watchstart
 00000051,197C,,            btfsc conf, WATCHOVER
 00000052,289F,,            goto prijemerr
@@ -277,7 +277,7 @@
 ,,,            ;pokud 0 vysle sve registry nebo ceka X bitu pokud neni pro nej
 0000009E,216E,,            call vysilej
 ,,,
-,,,            ; ƒåek√° a≈æ dobƒõhne ƒças vyhrazen√Ω pro tento procesor WATCH2
+,,,            ; »ek· aû dobÏhne Ëas vyhrazen˝ pro tento procesor WATCH2
 ,,,            ;call watchwait
 ,,,
 0000009F,0000,prijemerr,prijemerr   nop
@@ -764,7 +764,7 @@
 00000234,00BE,,            movwf ran2 ; decrementator pro cykl
 00000235,00D0,,            movwf ran5 ; delitel pro vypocet prumeru
 00000236,083D,,            movf ran1, W
-00000237,00BF,,            movwf ran3 ; zachov√°ni ANx vstupu
+00000237,00BF,,            movwf ran3 ; zachov·ni ANx vstupu
 00000238,01BB,,            clrf CIS2_L
 00000239,01BC,,            clrf CIS2_H
 ,,,

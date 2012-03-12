@@ -1,0 +1,36 @@
+PIC16F690
+
+RA0	Potenciometr analog
+RA1	Tlaèítka analog
+RA2	Batery analog
+RA3	ON/OFF
+
+RB4	LED Batery
+RB5	RX Pøíjem
+RB6	LED Alarm + Buzzer + vibrate
+RB7	TX Odesílání
+
+RC0	LED0 RED
+RC1	LED1 RED
+RC2	LED2 RED
+RC3	LED3 RED
+RC4	LED4 RED
+RC5	LED5 RED
+RC6	LED6 RED
+RC7	LED7 BLUE
+
+
+
+
+Vysílaný signál 2 bajty B1h XXh
+
+10110001 76543210
+
+0	licha parita
+1	but 0
+2	but 1
+3	but 2 3bit 0-7
+4	pot 0
+5	pot 1
+6	pot 2 3bit 0-7
+7	suda parita

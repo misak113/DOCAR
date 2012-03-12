@@ -1,0 +1,149 @@
+,,,
+,,, LIST      P=16F874A, R=DEC
+,,, INCLUDE  <P16F874.INC>
+,,,
+,,,                  ;deklarace registru
+,,,r1      equ 20h
+,,,r2      equ 21h
+,,,r3      equ 22h
+,,,r4      equ 23h
+,,,an4         equ 24h
+,,,
+,,,
+,,,
+,,,
+,,,
+00000000,,,        org 000h        ;vektor zacatku
+00000000,2805,,        goto init
+,,,
+00000004,,,        org 004h        ;vektor preruseni
+00000004,284C,,        goto inter
+,,,
+,,,
+,,,
+,,,
+00000005,0000,init,init    nop
+00000006,0185,,      clrf PORTA      ;Init PORTS
+00000007,0186,,        clrf PORTB
+00000008,0187,,        clrf PORTC
+00000009,0188,,        clrf PORTD
+0000000A,0189,,        clrf PORTE
+,,,
+,,,
+0000000B,1683,,        bsf STATUS, RP0  ;Bank 1
+,,,
+0000000C,3040,,        movlw b'01000000' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogových vst
+0000000D,009F,,        movwf ADCON1
+,,,
+0000000E,302F,,        movlw   b'00101111'; 1 znamená vstup, 0 výstup
+0000000F,0085,,        movwf   TRISA
+00000010,3001,,        movlw   b'00000001'
+00000011,0086,,        movwf   TRISB
+00000012,3000,,        movlw b'00000000'
+00000013,0087,,        movwf TRISC
+00000014,3000,,        movlw b'00000000'
+00000015,0088,,        movwf TRISD
+00000016,3007,,        movlw b'00000111'
+00000017,0089,,        movwf TRISE
+,,,
+00000018,30C0,,        movlw b'11000000'
+00000019,0081,,        movwf OPTION_REG
+,,,
+0000001A,1283,,        bcf STATUS, RP0 ;Bank 0
+,,,
+,,,
+,,,
+,,,
+0000001B,0000,start,start  nop;
+,,,
+,,,
+0000001C,30A5,,        movlw b'10100101' ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
+0000001D,009F,,        movwf ADCON0
+0000001E,191F,,        btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+0000001F,281E,,        goto $-1
+00000020,081E,,        movf ADRESH, W    ;kontroluje zda je zmena od minule
+00000021,00A4,,        movwf an4
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,        ;;;;;;;;;;;;;;;; DEBUG
+00000022,1C24,,        btfss an4, 0
+00000023,1008,,        bcf PORTD, 0
+00000024,1824,,        btfsc an4, 0
+00000025,1408,,        bsf PORTD, 0
+,,,
+00000026,1CA4,,        btfss an4, 1
+00000027,1088,,        bcf PORTD, 1
+00000028,18A4,,        btfsc an4, 1
+00000029,1488,,        bsf PORTD, 1
+,,,
+0000002A,1D24,,        btfss an4, 2
+0000002B,1108,,        bcf PORTD, 2
+0000002C,1924,,        btfsc an4, 2
+0000002D,1508,,        bsf PORTD, 2
+,,,
+0000002E,1DA4,,        btfss an4, 3
+0000002F,1188,,        bcf PORTD, 3
+00000030,19A4,,        btfsc an4, 3
+00000031,1588,,        bsf PORTD, 3
+,,,
+00000032,1E24,,        btfss an4, 4
+00000033,1208,,        bcf PORTD, 4
+00000034,1A24,,        btfsc an4, 4
+00000035,1608,,        bsf PORTD, 4
+,,,
+00000036,1EA4,,        btfss an4, 5
+00000037,1288,,        bcf PORTD, 5
+00000038,1AA4,,        btfsc an4, 5
+00000039,1688,,        bsf PORTD, 5
+,,,
+0000003A,1F24,,        btfss an4, 6
+0000003B,1308,,        bcf PORTD, 6
+0000003C,1B24,,        btfsc an4, 6
+0000003D,1708,,        bsf PORTD, 6
+,,,
+0000003E,1FA4,,        btfss an4, 7
+0000003F,1388,,        bcf PORTD, 7
+00000040,1BA4,,        btfsc an4, 7
+00000041,1788,,        bsf PORTD, 7
+,,,
+,,,
+,,,
+00000042,3005,,        movlw .5
+00000043,00A1,,        movwf r2
+00000044,30C8,,        movlw .200
+00000045,00A2,,        movwf r3
+00000046,204D,,        call w100c
+00000047,0BA2,,        decfsz r3, F
+00000048,2846,,        goto $-2
+00000049,0BA1,,        decfsz r2, F
+0000004A,2846,,        goto $-4
+,,,
+,,,
+,,,
+,,,
+0000004B,281B,,      goto start
+,,,
+,,,
+,,,
+,,,
+0000004C,0000,inter,inter   nop;
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,        ;cekej cca 100 cyklu 40us  + u kazdeho cekani je 7 cyklu povinych
+0000004D,3050,w100c,w100c   movlw .80
+0000004E,00A3,,        movwf r4
+0000004F,0BA3,,        decfsz r4, F
+00000050,284F,,        goto $-1
+00000051,0008,,        return
+,,,
+,,,
+,,,        end                                           ; KONEC PROGRAMU

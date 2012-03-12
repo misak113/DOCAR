@@ -1,0 +1,10 @@
+Message[301] C:\USERS\MISAK113\PROGRA~1\ASSEMB~1\MPASM\P16F874.INC 39 : MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+Message[302] PRCS\RJCAR3.ASM 55 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] PRCS\RJCAR3.ASM 58 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] PRCS\RJCAR3.ASM 60 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] PRCS\RJCAR3.ASM 62 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] PRCS\RJCAR3.ASM 64 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] PRCS\RJCAR3.ASM 66 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] PRCS\RJCAR3.ASM 69 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] PRCS\RJCAR3.ASM 407 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] PRCS\RJCAR3.ASM 578 : Register in operand not in bank 0.  Ensure that bank bits are correct.

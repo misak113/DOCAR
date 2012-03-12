@@ -1,0 +1,570 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            
+0002    0000            ;Line removed by MPASMWIN preprocessor:  LIST	   P=16F690, R=DEC
+0003    0000             ;INCLUDE  <P16F690.INC>
+0004    0000            
+0005    0000                              ;deklarace registru
+0006    0000            r1      equ 20h
+0007    0000            r2      equ 21h
+0008    0000            r3      equ 22h
+0009    0000            r4      equ 23h
+0010    0000            potbin  equ 24h
+0011    0000            butbin  equ 25h
+0012    0000            car0    equ 26h
+0013    0000            car1    equ 27h
+0014    0000            car2    equ 28h
+0015    0000            car3    equ 29h
+0016    0000            car4    equ 2Ah
+0017    0000            car5    equ 2Bh
+0018    0000            car6    equ 2Ch
+0019    0000            car7    equ 2Dh
+0020    0000            w_temp  equ 2Eh
+0021    0000            s_temp  equ 2Fh
+0022    0000            tm0     equ 30h
+0023    0000            r5      equ 31h
+0024    0000            tm1     equ 32h
+0025    0000            vyp     equ 33h
+0026    0000            
+0027    0000            
+0028    0000            
+0029    0000                    org 000h        ;vektor zacatku
+0030    0000    2805            goto init
+0031    0001            
+0032    0001                    org 004h        ;vektor preruseni
+0033    0004    284D            goto inter
+0034    0005            
+0035    0005            
+0036    0005            
+0037    0005            
+0038    0005    0185    init    clrf PORTA      ;Init PORTS
+0039    0006    0186            clrf PORTB
+0040    0007    0187            clrf PORTC
+0041    0008                    
+0042    0008    1703            bsf STATUS, RP1 ;Bank 2
+0043    0009    3007            movlw b'00000111';nastaveni analogovych vstupu
+0044    000A    009E            movwf ANSEL     ;digital I/O
+0045    000B    3000            movlw b'00000000'
+0046    000C    009F            movwf ANSELH    ;digital I/O
+0047    000D                                      ;nastaveni frekvence ad prevodniku
+0048    000D    3000            movlw b'00000000' ;0, FOSC/2 na rychlost prevodu 000, 0000
+0049    000E    009F            movwf ADCON1
+0050    000F                    
+0051    000F                    
+0052    000F    1696            bsf IOCB, 5       ;nastavy Int on change od RB5
+0053    0010    1683            bsf STATUS, RP0  ;Bank 1
+0054    0011    1303            bcf STATUS, RP1
+0055    0012    300F            movlw	b'00001111'; 1 znamená vstup, 0 výstup
+0056    0013    0085            movwf	TRISA
+0057    0014    3020            movlw	b'00100000'
+0058    0015    0086            movwf	TRISB
+0059    0016    3000            movlw b'00000000'
+0060    0017    0087            movwf TRISC
+0061    0018    1596            bsf IOCA, 3       ;nastavy Int on change od RA3
+0062    0019    30C7            movlw b'11000111'  ;pul-up disable, rising, internal clock, x, timer0, prescale 1/256
+0063    001A    0081            movwf OPTION_REG
+0064    001B                    
+0065    001B    018E            clrf PCON
+0066    001C            
+0067    001C    1283            bcf STATUS, RP0 ;Bank 0
+0068    001D            
+0069    001D    1407            bsf PORTC, 0    ;uvitaci problikaci kontrola LEDek
+0070    001E    21AC            call ws
+0071    001F    1007            bcf PORTC, 0
+0072    0020    1487            bsf PORTC, 1
+0073    0021    21AC            call ws
+0074    0022    1087            bcf PORTC, 1
+0075    0023    1507            bsf PORTC, 2
+0076    0024    21AC            call ws
+0077    0025    1107            bcf PORTC, 2
+0078    0026    1587            bsf PORTC, 3
+0079    0027    21AC            call ws
+0080    0028    1187            bcf PORTC, 3
+0081    0029    1607            bsf PORTC, 4
+0082    002A    21AC            call ws
+0083    002B    1207            bcf PORTC, 4
+0084    002C    1687            bsf PORTC, 5
+0085    002D    21AC            call ws
+0086    002E    1287            bcf PORTC, 5
+0087    002F    1707            bsf PORTC, 6
+0088    0030    21AC            call ws
+0089    0031    1307            bcf PORTC, 6
+0090    0032    1787            bsf PORTC, 7
+0091    0033    21AC            call ws
+0092    0034    1387            bcf PORTC, 7
+0093    0035    1606            bsf PORTB, 4
+0094    0036    21AC            call ws
+0095    0037    1206            bcf PORTB, 4
+0096    0038    1706            bsf PORTB, 6
+0097    0039    21AC            call ws
+0098    003A    1306            bcf PORTB, 6
+0099    003B                    
+0100    003B                    
+0101    003B    3031            movlw b'00110001' ;00, prescle 11, 00, internal clock, Enable
+0102    003C    0090            movwf T1CON
+0103    003D            
+0104    003D    203F            call inton
+0105    003E                    
+0106    003E    285E            goto start      ;zacni na startu
+0107    003F            
+0108    003F    100B    inton   bcf INTCON, RABIF	; nastavení pøerušení od RAB
+0109    0040    110B            bcf INTCON, T0IF
+0110    0041    100C            bcf PIR1, TMR1IF
+0111    0042                    
+0112    0042    158B            bsf INTCON, RABIE
+0113    0043    168B            bsf INTCON, T0IE
+0114    0044    170B            bsf INTCON, PEIE
+0115    0045    140C            bsf PIE1, TMR1IE
+0116    0046                    
+0117    0046    178B            bsf INTCON, GIE
+0118    0047    0008            return
+0119    0048            
+0120    0048    118B    intoff  bcf INTCON, RABIE
+0121    0049    128B            bcf INTCON, T0IE
+0122    004A    130B            bcf INTCON, PEIE
+0123    004B    100C            bcf PIE1, TMR1IE
+0124    004C    0008            return
+0125    004D            
+0126    004D    2048    inter   call intoff
+0127    004E    00AE            movwf w_temp ;copy w to temp register
+0128    004F    0E03            swapf STATUS, W ;swap status to be saved into w
+0129    0050    0183            clrf STATUS ;bank 0, regardless of current bank, clears irp,rp1,rp0
+0130    0051    00AF            movwf s_temp ;save status to bank zero status_temp register
+0131    0052            
+0132    0052    180B            btfsc INTCON, RABIF   ;pokud preruseni od A nebo B
+0133    0053    2067            call radio
+0134    0054                    
+0135    0054    190B            btfsc INTCON, T0IF
+0136    0055    218D            call batery
+0137    0056                    
+0138    0056    180C            btfsc PIR1, TMR1IF
+0139    0057    2189            call vypni
+0140    0058            
+0141    0058    0E2F            swapf s_temp, W ;swap status_temp register into w
+0142    0059    0083            movwf STATUS ;move w into status register;(sets bank to original state)
+0143    005A    0EAE            swapf w_temp, F ;swap w_temp
+0144    005B    0E2E            swapf w_temp, W ;
+0145    005C    203F            call inton
+0146    005D    0008            return
+0147    005E            
+0148    005E            
+0149    005E    1833    start   btfsc vyp, 0  ;pokud tlacitko on/off !vypnuto jdi do standby modu
+0150    005F    20EF            call standby
+0151    0060    1C33            btfss vyp, 0  ;pokud zapnuto kontroluj vstupni tlacitka, potenc. a vysilej
+0152    0061    20DD            call chin
+0153    0062    285E            goto start      ;zpet v cyklu na zacatek
+0154    0063            
+0155    0063            
+0156    0063    1985    zlv     btfsc PORTA, 3
+0157    0064    2863            goto $-1
+0158    0065    09B3            comf vyp, F
+0159    0066    0008            return
+0160    0067            
+0161    0067    1985    radio   btfsc PORTA, 3    ;pokud je zaply pristroj, alarm se vypina
+0162    0068    2863            goto zlv
+0163    0069    1E86            btfss PORTB, 5  ;pokud preruseni nebylo od radia skonci
+0164    006A    0008            return
+0165    006B    1787            bsf PORTC, 7    ;zapne ledku indikace signálu
+0166    006C                    
+0167    006C    21A7            call w40c   ;posune se do prostred prijimaneho bitu
+0168    006D                    
+0169    006D    3008            movlw .8
+0170    006E    00A2            movwf r3
+0171    006F    0DA0    zn3     rlf r1, F
+0172    0070    1E86            btfss PORTB, 5  ;projde postupne prijimany signal, prvni bajt, ulozi do r1
+0173    0071    1020            bcf r1, 0
+0174    0072    1A86            btfsc PORTB, 5
+0175    0073    1420            bsf r1, 0
+0176    0074    21A2            call w100c
+0177    0075    0BA2            decfsz r3, F
+0178    0076    286F            goto zn3
+0179    0077                    
+0180    0077    304F            movlw 4Fh        ;skontroluje prvni sifrovaci bajt zda je spravny B1h
+0181    0078    0720            addwf r1, W
+0182    0079    1D03            btfss STATUS, Z   ;pokud ne skonci prijem
+0183    007A    28DB            goto spa
+0184    007B            
+0185    007B                    
+0186    007B    3008            movlw .8
+0187    007C    00A2            movwf r3
+0188    007D    0DA1    zn4     rlf r2, F
+0189    007E    1E86            btfss PORTB, 5  ;projde postupne prijimany signal, druhy bajt, ulozi do r2
+0190    007F    1021            bcf r2, 0
+0191    0080    1A86            btfsc PORTB, 5
+0192    0081    1421            bsf r2, 0
+0193    0082    21A2            call w100c
+0194    0083    0BA2            decfsz r3, F
+0195    0084    287D            goto zn4
+0196    0085                    
+0197    0085    3008            movlw .8
+0198    0086    00A2            movwf r3
+0199    0087    0DA6    zn5     rlf car0, F
+0200    0088    1E86            btfss PORTB, 5  ;projde postupne prijimany signal,
+0201    0089    1026            bcf car0, 0
+0202    008A    1A86            btfsc PORTB, 5
+0203    008B    1426            bsf car0, 0
+0204    008C    21A2            call w100c
+0205    008D    0BA2            decfsz r3, F
+0206    008E    2887            goto zn5
+0207    008F                  
+0208    008F    3008            movlw .8
+0209    0090    00A2            movwf r3
+0210    0091    0DA7    zn6     rlf car1, F
+0211    0092    1E86            btfss PORTB, 5  ;projde postupne prijimany signal,
+0212    0093    1027            bcf car1, 0
+0213    0094    1A86            btfsc PORTB, 5
+0214    0095    1427            bsf car1, 0
+0215    0096    21A2            call w100c
+0216    0097    0BA2            decfsz r3, F
+0217    0098    2891            goto zn6
+0218    0099                  
+0219    0099    3008            movlw .8
+0220    009A    00A2            movwf r3
+0221    009B    0DA8    zn7     rlf car2, F
+0222    009C    1E86            btfss PORTB, 5  ;projde postupne prijimany signal,
+0223    009D    1028            bcf car2, 0
+0224    009E    1A86            btfsc PORTB, 5
+0225    009F    1428            bsf car2, 0
+0226    00A0    21A2            call w100c
+0227    00A1    0BA2            decfsz r3, F
+0228    00A2    289B            goto zn7
+0229    00A3                  
+0230    00A3    3008            movlw .8
+0231    00A4    00A2            movwf r3
+0232    00A5    0DA9    zn8     rlf car3, F
+0233    00A6    1E86            btfss PORTB, 5  ;projde postupne prijimany signal,
+0234    00A7    1029            bcf car3, 0
+0235    00A8    1A86            btfsc PORTB, 5
+0236    00A9    1429            bsf car3, 0
+0237    00AA    21A2            call w100c
+0238    00AB    0BA2            decfsz r3, F
+0239    00AC    28A5            goto zn8
+0240    00AD                  
+0241    00AD    3008            movlw .8
+0242    00AE    00A2            movwf r3
+0243    00AF    0DAA    zn9     rlf car4, F
+0244    00B0    1E86            btfss PORTB, 5  ;projde postupne prijimany signal,
+0245    00B1    102A            bcf car4, 0
+0246    00B2    1A86            btfsc PORTB, 5
+0247    00B3    142A            bsf car4, 0
+0248    00B4    21A2            call w100c
+0249    00B5    0BA2            decfsz r3, F
+0250    00B6    28AF            goto zn9
+0251    00B7                  
+0252    00B7    3008            movlw .8
+0253    00B8    00A2            movwf r3
+0254    00B9    0DAB    znA     rlf car5, F
+0255    00BA    1E86            btfss PORTB, 5  ;projde postupne prijimany signal,
+0256    00BB    102B            bcf car5, 0
+0257    00BC    1A86            btfsc PORTB, 5
+0258    00BD    142B            bsf car5, 0
+0259    00BE    21A2            call w100c
+0260    00BF    0BA2            decfsz r3, F
+0261    00C0    28B9            goto znA
+0262    00C1                  
+0263    00C1    3008            movlw .8
+0264    00C2    00A2            movwf r3
+0265    00C3    0DAC    znB     rlf car6, F
+0266    00C4    1E86            btfss PORTB, 5  ;projde postupne prijimany signal,
+0267    00C5    102C            bcf car6, 0
+0268    00C6    1A86            btfsc PORTB, 5
+0269    00C7    142C            bsf car6, 0
+0270    00C8    21A2            call w100c
+0271    00C9    0BA2            decfsz r3, F
+0272    00CA    28C3            goto znB
+0273    00CB                  
+0274    00CB    3008            movlw .8
+0275    00CC    00A2            movwf r3
+0276    00CD    0DAD    znC     rlf car7, F
+0277    00CE    1E86            btfss PORTB, 5  ;projde postupne prijimany signal,
+0278    00CF    102D            bcf car7, 0
+0279    00D0    1A86            btfsc PORTB, 5
+0280    00D1    142D            bsf car7, 0
+0281    00D2    21A2            call w100c
+0282    00D3    0BA2            decfsz r3, F
+0283    00D4    28CD            goto znC
+0284    00D5                    
+0285    00D5                    
+0286    00D5    3001            movlw .1
+0287    00D6    0721            addwf r2, W
+0288    00D7    1903            btfsc STATUS, Z
+0289    00D8    1706            bsf PORTB, 6     ;nastavi bit alarmu
+0290    00D9    1903            btfsc STATUS, Z
+0291    00DA    1033            bcf vyp, 0      ;zapne pristroj
+0292    00DB                    
+0293    00DB            
+0294    00DB    1387    spa     bcf PORTC, 7      ;vypne ledku indikace signálu
+0295    00DC    0008            return
+0296    00DD            
+0297    00DD            
+0298    00DD    20F8    chin    call chanpot    ;do W vrati bin kod potenciometru (prvni 3 bity)
+0299    00DE    00A4            movwf potbin    ;zapis W do zalozniho registru
+0300    00DF    2108            call dec1z8     ;premeni bin v W na 1 z 8mi a ulozi do w
+0301    00E0    0087            movwf PORTC     ;zapise W do LEDek
+0302    00E1    2113            call chanbut    ;do W vrati bin kod tlacitek (prvni 3 bity)
+0303    00E2    00A5            movwf butbin    ;zapis W do zalozniho registru
+0304    00E3    3E00            addlw 0h
+0305    00E4    1903            btfsc STATUS, Z ;zjisti zda tlacitko je stisknuto, pokud neni skonci dal
+0306    00E5    28EA            goto nnn
+0307    00E6    0824            movf potbin, W  ;zkontroluje zda kod potenciometru neni 0111b znovu
+0308    00E7    3EF9            addlw b'11111001'
+0309    00E8    1D03            btfss STATUS, Z ;pokud neni 0111b odesle kombinaci kodu tlacitek a potenciometru v sifre
+0310    00E9    2155            call sendsig    
+0311    00EA    0824    nnn     movf potbin, W  ;zkontroluje zda kod potenciometru neni 0111b
+0312    00EB    3EF9            addlw b'11111001'
+0313    00EC    1903            btfsc STATUS, Z ;pokud je 0111b zapise indikace do ledek
+0314    00ED    2123            call indled
+0315    00EE    0008            return
+0316    00EF            
+0317    00EF            
+0318    00EF    2048    standby call intoff
+0319    00F0    158B            bsf INTCON, RABIE
+0320    00F1    178B            bsf INTCON, GIE
+0321    00F2    0063            sleep             ;nastavi preruseni od rad a tlacitka
+0322    00F3    1833            btfsc vyp, 0
+0323    00F4    28EF            goto standby
+0324    00F5    01B2            clrf tm1
+0325    00F6    203F            call inton
+0326    00F7    0008            return
+0327    00F8                    
+0328    00F8                    
+0329    00F8    3003    chanpot movlw b'00000011'  ;zachyceno doleva, komparace s +VDD, ANO POT, start conver, enable ADC
+0330    00F9    009F            movwf ADCON0
+0331    00FA    189F            btfsc ADCON0, 1   ;ceka az se prevede AN signal
+0332    00FB    28FA            goto $-1
+0333    00FC    1003            bcf STATUS, C     ;toci registr vystupu AN dokud nezbyde pouze prvni 3 bity
+0334    00FD    0C1E            rrf ADRESH, W
+0335    00FE    00A0            movwf r1
+0336    00FF    1003            bcf STATUS, C
+0337    0100    0CA0            rrf r1, F
+0338    0101    1003            bcf STATUS, C
+0339    0102    0CA0            rrf r1, F
+0340    0103    1003            bcf STATUS, C
+0341    0104    0CA0            rrf r1, F
+0342    0105    1003            bcf STATUS, C
+0343    0106    0C20            rrf r1, W         ;vlozi do W
+0344    0107    0008            return
+0345    0108                    
+0346    0108                    
+0347    0108    00A0    dec1z8  movwf r1
+0348    0109    0AA0            incf r1, F
+0349    010A    3001            movlw b'00000001'
+0350    010B    00A1            movwf r2
+0351    010C    0BA0    help1   decfsz r1, F
+0352    010D    2910            goto help0
+0353    010E    0821            movf r2, W
+0354    010F    0008            return
+0355    0110                    
+0356    0110    1003    help0   bcf STATUS, C
+0357    0111    0DA1            rlf r2, F
+0358    0112    290C            goto help1
+0359    0113                    
+0360    0113                    
+0361    0113    3007    chanbut movlw b'00000111'  ;zachyceno doleva, komparace s +VDD, AN1 BUT, start conver, enable ADC
+0362    0114    009F            movwf ADCON0
+0363    0115    189F            btfsc ADCON0, 1   ;ceka az se prevede AN signal
+0364    0116    2915            goto $-1
+0365    0117    1003            bcf STATUS, C     ;toci registr vystupu AN dokud nezbyde pouze prvni 3 bity
+0366    0118    0C1E            rrf ADRESH, W
+0367    0119    00A0            movwf r1
+0368    011A    1003            bcf STATUS, C
+0369    011B    0CA0            rrf r1, F
+0370    011C    1003            bcf STATUS, C
+0371    011D    0CA0            rrf r1, F
+0372    011E    1003            bcf STATUS, C
+0373    011F    0CA0            rrf r1, F
+0374    0120    1003            bcf STATUS, C
+0375    0121    0C20            rrf r1, W         ;vlozi do W
+0376    0122    0008            return
+0377    0123                    
+0378    0123                    
+0379    0123    0825    indled  movf butbin, W  ;pokud butom = 111
+0380    0124    3EF9            addlw b'11111001'
+0381    0125    1D03            btfss STATUS, Z
+0382    0126    2929            goto $+3
+0383    0127    082D            movf car7, W    ;na vystup ledek prislusny registr
+0384    0128    0087            movwf PORTC
+0385    0129                    
+0386    0129    0825            movf butbin, W  ;pokud butom = 110
+0387    012A    3EFA            addlw b'11111010'
+0388    012B    1D03            btfss STATUS, Z
+0389    012C    292F            goto $+3
+0390    012D    082C            movf car6, W
+0391    012E    0087            movwf PORTC
+0392    012F                    
+0393    012F    0825            movf butbin, W  ;pokud butom = 101
+0394    0130    3EFB            addlw b'11111011'
+0395    0131    1D03            btfss STATUS, Z
+0396    0132    2935            goto $+3
+0397    0133    082B            movf car5, W
+0398    0134    0087            movwf PORTC
+0399    0135                    
+0400    0135    0825            movf butbin, W  ;pokud butom = 100
+0401    0136    3EFC            addlw b'11111100'
+0402    0137    1D03            btfss STATUS, Z
+0403    0138    293B            goto $+3
+0404    0139    082A            movf car4, W
+0405    013A    0087            movwf PORTC
+0406    013B                    
+0407    013B    0825            movf butbin, W  ;pokud butom = 011
+0408    013C    3EFD            addlw b'11111101'
+0409    013D    1D03            btfss STATUS, Z
+0410    013E    2941            goto $+3
+0411    013F    0829            movf car3, W
+0412    0140    0087            movwf PORTC
+0413    0141                    
+0414    0141    0825            movf butbin, W  ;pokud butom = 010
+0415    0142    3EFE            addlw b'11111110'
+0416    0143    1D03            btfss STATUS, Z
+0417    0144    2947            goto $+3
+0418    0145    0828            movf car2, W
+0419    0146    0087            movwf PORTC
+0420    0147                    
+0421    0147    0825            movf butbin, W  ;pokud butom = 001
+0422    0148    3EFF            addlw b'11111111'
+0423    0149    1D03            btfss STATUS, Z
+0424    014A    294D            goto $+3
+0425    014B    0827            movf car1, W
+0426    014C    0087            movwf PORTC
+0427    014D                    
+0428    014D    0825            movf butbin, W  ;pokud butom = 000
+0429    014E    3E00            addlw b'00000000'
+0430    014F    1D03            btfss STATUS, Z
+0431    0150    2953            goto $+3
+0432    0151    0826            movf car0, W
+0433    0152    0087            movwf PORTC
+0434    0153                    
+0435    0153    1787            bsf PORTC, 7
+0436    0154    0008            return
+0437    0155            
+0438    0155            
+0439    0155    138B    sendsig bcf INTCON, GIE ;zastavi vsechna preruseni
+0440    0156    0825            movf butbin, W
+0441    0157    00A0            movwf r1
+0442    0158    0824            movf potbin, W
+0443    0159    00A1            movwf r2
+0444    015A    1003            bcf STATUS, C   ;zakodovani informace do dvou bajtu
+0445    015B    0DA1            rlf r2, F       ;pot a but do jednoho reg
+0446    015C    0DA1            rlf r2, F
+0447    015D    0DA1            rlf r2, F
+0448    015E    0DA1            rlf r2, F
+0449    015F    0D20            rlf r1, W
+0450    0160    0421            iorwf r2, W
+0451    0161    00A1            movwf r2      ;v r2 je kombinovany signal pot a but
+0452    0162                    
+0453    0162    00A0            movwf r1     ;pridani sude a liche parity
+0454    0163    3006            movlw .6
+0455    0164    00A2            movwf r3
+0456    0165    01A3            clrf r4
+0457    0166                    
+0458    0166    18A0            btfsc r1, 1   ;spocita pocet jednicek
+0459    0167    0AA3            incf r4, F
+0460    0168    0CA0            rrf r1, F
+0461    0169    0BA2            decfsz r3, F
+0462    016A    2966            goto $-4
+0463    016B                    
+0464    016B    1823            btfsc r4, 0    ;vlozi na zacatek lichou paritu
+0465    016C    1421            bsf r2, 0
+0466    016D    1C23            btfss r4, 0     ;vlozi nakonec sudou paritu
+0467    016E    17A1            bsf r2, 7
+0468    016F                    
+0469    016F    30B1            movlw b'10110001' ;sifrovaci bajt B1h
+0470    0170    00A0            movwf r1          ;v r1 je sifrovaci bajt
+0471    0171            
+0472    0171    3008            movlw .8
+0473    0172    00A2            movwf r3
+0474    0173    1820    zn1     btfsc r1, 0       ;pokud je nulty bit 1 nastav 1
+0475    0174    1786            bsf PORTB, 7
+0476    0175    1C20            btfss r1, 0       ;pokud je 0 nastav 0
+0477    0176    1386            bcf PORTB, 7
+0478    0177    0CA0            rrf r1, F
+0479    0178    21A2            call w100c        ;pockej do 100 cyklu
+0480    0179    0BA2            decfsz r3, F
+0481    017A    2973            goto zn1
+0482    017B            
+0483    017B    3008            movlw .8
+0484    017C    00A2            movwf r3
+0485    017D    1821    zn2     btfsc r2, 0       ;pokud je nulty bit 1 nastav 1
+0486    017E    1786            bsf PORTB, 7
+0487    017F    1C21            btfss r2, 0       ;pokud je 0 nastav 0
+0488    0180    1386            bcf PORTB, 7
+0489    0181    0CA1            rrf r2, F
+0490    0182    21A2            call w100c        ;pockej do 100 cyklu
+0491    0183    0BA2            decfsz r3, F
+0492    0184    297D            goto zn2
+0493    0185                    
+0494    0185    1386            bcf PORTB, 7  ;vynuluje bit 7 TX po odeslani
+0495    0186    01B2            clrf tm1      ;vynuluje pomocny timer1 který zjištuje aktivitu tlacitek
+0496    0187    178B            bsf INTCON, GIE ;pokracuje v prerusenich
+0497    0188    0008            return
+0498    0189            
+0499    0189            
+0500    0189    0BB2    vypni   decfsz tm1, F
+0501    018A    0008            return
+0502    018B    1433            bsf vyp, 0    ;nastavy bit zda vypnutu na 1 
+0503    018C    0008            return
+0504    018D            
+0505    018D    1E06    batery  btfss PORTB, 4
+0506    018E    2990            goto batwai ;kdyz ceka - indikaci, pridat rychlost podle napeti az 6700ms
+0507    018F    2994            goto batsvi ;kdyz sviti ledka pouze indikacni cast 26ms
+0508    0190            
+0509    0190            
+0510    0190    0BB0    batwai  decfsz tm0, F
+0511    0191    0008            return
+0512    0192    1606            bsf PORTB, 4
+0513    0193    0008            return
+0514    0194                    
+0515    0194    219B    batsvi  call chanbat
+0516    0195    00A3            movwf r4
+0517    0196    0DA3            rlf r4, F
+0518    0197    0D23            rlf r4, W
+0519    0198    00B0            movwf tm0
+0520    0199    1206            bcf PORTB, 4
+0521    019A    0008            return
+0522    019B                    
+0523    019B                    
+0524    019B    300B    chanbat movlw b'00001011'  ;zachyceno doleva, komparace s +VDD, AN2 POT, start conver, enable ADC
+0525    019C    009F            movwf ADCON0
+0526    019D    189F            btfsc ADCON0, 1   ;ceka az se prevede AN signal
+0527    019E    299D            goto $-1
+0528    019F    1003            bcf STATUS, C
+0529    01A0    081E            movf ADRESH, W ;vlozi do W
+0530    01A1    0008            return
+0531    01A2                    
+0532    01A2            
+0533    01A2                    ;cekej cca 100 cyklu 40us
+0534    01A2    3050    w100c   movlw .80
+0535    01A3    00A3            movwf r4
+0536    01A4    0BA3            decfsz r4, F
+0537    01A5    29A4            goto $-1
+0538    01A6    0008            return
+0539    01A7                    
+0540    01A7                      ;cekej necelou polovinu w100c
+0541    01A7    301E    w40c   movlw .30
+0542    01A8    00A3            movwf r4
+0543    01A9    0BA3            decfsz r4, F
+0544    01AA    29A9            goto $-1
+0545    01AB    0008            return
+0546    01AC            
+0547    01AC            
+0548    01AC                    ;cekej 100ms
+0549    01AC    30FA    ws      movlw .250
+0550    01AD    00A0            movwf r1
+0551    01AE    30FA            movlw .250
+0552    01AF    00A1            movwf r2
+0553    01B0    3001            movlw .1
+0554    01B1    00A2            movwf r3
+0555    01B2    0000            nop
+0556    01B3    0BA2            decfsz r3, F
+0557    01B4    29B2            goto $-2
+0558    01B5    0BA1            decfsz r2, F
+0559    01B6    29B0            goto $-6
+0560    01B7    0BA0            decfsz r1, F
+0561    01B8    29AE            goto $-10
+0562    01B9    0008            return
+0563    01BA            
+0564    01BA                    end                                           ; KONEC PROGRAMU
+---------------------------------------------
+Number of errors = 0
