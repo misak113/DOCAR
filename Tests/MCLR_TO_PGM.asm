@@ -702,6 +702,7 @@ vysilej comf num, W     ;pokud neni pro nej skonci
 restart	    nop
 	    movf rand, W
 	    movwf PORTB
+	    bsf PORTB, 7
 	    goto loop
 
 start	    nop
