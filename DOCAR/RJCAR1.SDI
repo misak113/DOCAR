@@ -190,7 +190,7 @@
 00000009,0183,,            clrf STATUS ;bank 0, regardless of current bank, clears irp,rp1,rp0
 ,,,
 0000000A,118A,,            bcf PCLATH,3 ;Select page 0
-0000000B,2051,,            call inter
+0000000B,204E,,            call inter
 ,,,
 0000000C,0828,,            movf pcl_temp, W ;swap pcl_temp register into w
 0000000D,008A,,            movwf PCLATH ;move w into PCLATH register;(sets bank to original state)
@@ -262,589 +262,589 @@
 ,,,
 0000003D,108B,inton,inton       bcf INTCON, INTF ; nastavení přerušení od RB0
 0000003E,160B,,            bsf INTCON, INTE
-0000003F,110B,,            bcf INTCON, T0IF ;nastavení přerušení od Timer0
-00000040,168B,,            bsf INTCON, T0IE
-00000041,100C,,            bcf PIR1, TMR1IF ;nastavení přerušení od Timer1
-00000042,108C,,            bcf PIR1, TMR2IF ;nastavení přerušení od Timer2
-00000043,1683,,            bsf STATUS, RP0  ;Bank 1
-00000044,140C,,            bsf PIE1, TMR1IE
-00000045,148C,,            bsf PIE1, TMR2IE
-00000046,1283,,            bcf STATUS, RP0 ;Bank 0
-00000047,170B,,            bsf INTCON, PEIE
-00000048,178B,,            bsf INTCON, GIE
-00000049,0008,,            return
+,,,            ;bcf INTCON, T0IF ;nastavení přerušení od Timer0
+,,,            ;bsf INTCON, T0IE
+0000003F,100C,,            bcf PIR1, TMR1IF ;nastavení přerušení od Timer1
+00000040,108C,,            bcf PIR1, TMR2IF ;nastavení přerušení od Timer2
+00000041,1683,,            bsf STATUS, RP0  ;Bank 1
+00000042,140C,,            bsf PIE1, TMR1IE
+00000043,148C,,            bsf PIE1, TMR2IE
+00000044,1283,,            bcf STATUS, RP0 ;Bank 0
+00000045,170B,,            bsf INTCON, PEIE
+00000046,178B,,            bsf INTCON, GIE
+00000047,0008,,            return
 ,,,
-0000004A,120B,intoff,intoff      bcf INTCON, INTE
-0000004B,128B,,            bcf INTCON, T0IE
-0000004C,1683,,            bsf STATUS, RP0  ;Bank 1
-0000004D,100C,,            bcf PIE1, TMR1IE
-0000004E,108C,,            bcf PIE1, TMR2IE
-0000004F,1283,,            bcf STATUS, RP0 ;Bank 0
-00000050,0008,,            return
+00000048,120B,intoff,intoff      bcf INTCON, INTE
+,,,            ;bcf INTCON, T0IE
+00000049,1683,,            bsf STATUS, RP0  ;Bank 1
+0000004A,100C,,            bcf PIE1, TMR1IE
+0000004B,108C,,            bcf PIE1, TMR2IE
+0000004C,1283,,            bcf STATUS, RP0 ;Bank 0
+0000004D,0008,,            return
 ,,,
 ,,,
 ,,,
-00000051,204A,inter,inter       call intoff
+0000004E,2048,inter,inter       call intoff
 ,,,
-00000052,188B,,            btfsc INTCON, INTF      ;preruseni od RX B0 prijem radio signalu
-00000053,2065,,            call radio
-00000054,190B,,            btfsc INTCON, T0IF
-00000055,1459,,            bsf conf, T0OF
-00000056,180C,,            btfsc PIR1, TMR1IF      ;preruseni od timer1 watch
-00000057,1659,,            bsf conf, T1OF
-00000058,188C,,            btfsc PIR1, TMR2IF      ;preruseni od timer2 watch
-00000059,205C,,            call watchover
+0000004F,188B,,            btfsc INTCON, INTF      ;preruseni od RX B0 prijem radio signalu
+00000050,2062,,            call radio
+00000051,190B,,            btfsc INTCON, T0IF
+00000052,1459,,            bsf conf, T0OF
+00000053,180C,,            btfsc PIR1, TMR1IF      ;preruseni od timer1 watch
+00000054,1659,,            bsf conf, T1OF
+00000055,188C,,            btfsc PIR1, TMR2IF      ;preruseni od timer2 watch
+00000056,2059,,            call watchover
 ,,,
-0000005A,203D,,            call inton
-0000005B,0008,,            return
+00000057,203D,,            call inton
+00000058,0008,,            return
 ,,,
 ,,,;pokud přetekl timer2 pro watch
-0000005C,1559,watchover,watchover   bsf conf, WATCHOVER
-0000005D,0008,,            return
+00000059,1559,watchover,watchover   bsf conf, WATCHOVER
+0000005A,0008,,            return
 ,,,
 ,,,;Zapnutí stopek pro kontrolu zacyklení - timer2
-0000005E,1159,watchstart,watchstart  bcf conf, WATCHOVER ;nastavi jako nepreteceny
-0000005F,0191,,            clrf TMR2 ;vynuluje timer2
-00000060,0008,,            return
+0000005B,1159,watchstart,watchstart  bcf conf, WATCHOVER ;nastavi jako nepreteceny
+0000005C,0191,,            clrf TMR2 ;vynuluje timer2
+0000005D,0008,,            return
 ,,,
-00000061,1D59,watchwait,watchwait   btfss conf, WATCHOVER
-00000062,2861,,            goto $-1
+0000005E,1D59,watchwait,watchwait   btfss conf, WATCHOVER
+0000005F,285E,,            goto $-1
 ,,,            ; pro jistotu jeste pocka aby dobehly hodiny v ostatnich PRCS
-00000063,26DB,,            call w100c
-00000064,0008,,            return
+00000060,26D8,,            call w100c
+00000061,0008,,            return
 ,,,
 ,,,;při zachyceni signalu na radiovem přijímači
-00000065,0000,radio,radio       nop
+00000062,0000,radio,radio       nop
+00000063,0008,,            return
+,,,
+00000064,0000,timer0,timer0      nop
+,,,
+00000065,1059,,            bcf conf, T0OF
 00000066,0008,,            return
 ,,,
-00000067,0000,timer0,timer0      nop
-,,,
-00000068,1059,,            bcf conf, T0OF
-00000069,0008,,            return
-,,,
 ,,,;při přetečení timeru 1, až po fázi synchronizace procesorů
-0000006A,1858,timer1,timer1      btfsc cassir, 0
-0000006B,207C,,            call sirbeep
-0000006C,186B,,            btfsc casvar, 0
-0000006D,2085,,            call varoff
-0000006E,18DA,,            btfsc casov, REDTUN
-0000006F,20B0,,            call rtuoff
-00000070,195A,,            btfsc casov, LEDZAM
-00000071,20C1,,            call lzabli
-00000072,19DA,,            btfsc casov, WHITUN
-00000073,20C8,,            call wtuoff
-00000074,1A5A,,            btfsc casov, ODSKOK
-00000075,20DE,,            call odsoff
-00000076,1ADA,,            btfsc casov, ALARM
-00000077,2113,,            call alabli
-00000078,1964,,            btfsc spinac, 2
-00000079,20D9,,            call spioff
+00000067,1858,timer1,timer1      btfsc cassir, 0
+00000068,2079,,            call sirbeep
+00000069,186B,,            btfsc casvar, 0
+0000006A,2082,,            call varoff
+0000006B,18DA,,            btfsc casov, REDTUN
+0000006C,20AD,,            call rtuoff
+0000006D,195A,,            btfsc casov, LEDZAM
+0000006E,20BE,,            call lzabli
+0000006F,19DA,,            btfsc casov, WHITUN
+00000070,20C5,,            call wtuoff
+00000071,1A5A,,            btfsc casov, ODSKOK
+00000072,20DB,,            call odsoff
+00000073,1ADA,,            btfsc casov, ALARM
+00000074,2110,,            call alabli
+00000075,1964,,            btfsc spinac, 2
+00000076,20D6,,            call spioff
 ,,,
-0000007A,1259,,            bcf conf, T1OF
-0000007B,0008,,            return
+00000077,1259,,            bcf conf, T1OF
+00000078,0008,,            return
 ,,,
 ,,,;houkani sireny v intervalech cca 240ms
-0000007C,03D7,sirbeep,sirbeep     decf timsir, F
-0000007D,1D03,,            btfss STATUS, Z
-0000007E,0008,,            return
-0000007F,1003,,            bcf STATUS, C
-00000080,0CD8,,            rrf cassir, F ;otaci az v 0 bude 1, pak timer sireny nevnima
-00000081,2634,,            call t1_53 ;neguje houkani sireny
-00000082,3003,,            movlw .3 ;nastavy na dalsich 240ms
-00000083,00D7,,            movwf timsir
-00000084,0008,,            return
+00000079,03D7,sirbeep,sirbeep     decf timsir, F
+0000007A,1D03,,            btfss STATUS, Z
+0000007B,0008,,            return
+0000007C,1003,,            bcf STATUS, C
+0000007D,0CD8,,            rrf cassir, F ;otaci az v 0 bude 1, pak timer sireny nevnima
+0000007E,2631,,            call t1_53 ;neguje houkani sireny
+0000007F,3003,,            movlw .3 ;nastavy na dalsich 240ms
+00000080,00D7,,            movwf timsir
+00000081,0008,,            return
 ,,,
 ,,,;blikani varovek
-00000085,03DB,varoff,varoff      decf timvar, F
-00000086,1D03,,            btfss STATUS, Z
-00000087,0008,,            return
-00000088,0CEB,,            rrf casvar, F
-00000089,1C03,,            btfss STATUS, C
-0000008A,13EB,,            bcf casvar, 7
-0000008B,1803,,            btfsc STATUS, C
-0000008C,17EB,,            bsf casvar, 7
+00000082,03DB,varoff,varoff      decf timvar, F
+00000083,1D03,,            btfss STATUS, Z
+00000084,0008,,            return
+00000085,0CEB,,            rrf casvar, F
+00000086,1C03,,            btfss STATUS, C
+00000087,13EB,,            bcf casvar, 7
+00000088,1803,,            btfsc STATUS, C
+00000089,17EB,,            bsf casvar, 7
 ,,,
-0000008D,01A1,,            clrf r2   ;pokud jeden nebo oba blinkry vyply - zapne varovky, opacne je vypne
-0000008E,01A2,,            clrf r3
-0000008F,1A2D,,            btfsc o_e, 4
-00000090,1421,,            bsf r2, 0
-00000091,1AAD,,            btfsc o_e, 5
-00000092,1422,,            bsf r3, 0
-00000093,0821,,            movf r2, W
-00000094,05A2,,            andwf r3, F
+0000008A,01A1,,            clrf r2   ;pokud jeden nebo oba blinkry vyply - zapne varovky, opacne je vypne
+0000008B,01A2,,            clrf r3
+0000008C,1A2D,,            btfsc o_e, 4
+0000008D,1421,,            bsf r2, 0
+0000008E,1AAD,,            btfsc o_e, 5
+0000008F,1422,,            bsf r3, 0
+00000090,0821,,            movf r2, W
+00000091,05A2,,            andwf r3, F
 ,,,
-00000095,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
-00000096,122D,,            bcf o_e, 4
-00000097,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
-00000098,1361,,            bcf PORTD_temp, 6
-00000099,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
-0000009A,1308,,            bcf PORTD, 6
-0000009B,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
-0000009C,12AD,,            bcf o_e, 5
-0000009D,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
-0000009E,13E1,,            bcf PORTD_temp, 7
-0000009F,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
-000000A0,1388,,            bcf PORTD, 7
+00000092,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
+00000093,122D,,            bcf o_e, 4
+00000094,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
+00000095,1361,,            bcf PORTD_temp, 6
+00000096,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
+00000097,1308,,            bcf PORTD, 6
+00000098,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
+00000099,12AD,,            bcf o_e, 5
+0000009A,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
+0000009B,13E1,,            bcf PORTD_temp, 7
+0000009C,1822,,            btfsc r3, 0 ;pokud oba zaply oba vypne
+0000009D,1388,,            bcf PORTD, 7
 ,,,
-000000A1,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
-000000A2,162D,,            bsf o_e, 4
-000000A3,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
-000000A4,1761,,            bsf PORTD_temp, 6
-000000A5,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
-000000A6,1708,,            bsf PORTD, 6
-000000A7,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
-000000A8,16AD,,            bsf o_e, 5
-000000A9,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
-000000AA,17E1,,            bsf PORTD_temp, 7
-000000AB,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
-000000AC,1788,,            bsf PORTD, 7
+0000009E,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
+0000009F,162D,,            bsf o_e, 4
+000000A0,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
+000000A1,1761,,            bsf PORTD_temp, 6
+000000A2,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
+000000A3,1708,,            bsf PORTD, 6
+000000A4,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
+000000A5,16AD,,            bsf o_e, 5
+000000A6,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
+000000A7,17E1,,            bsf PORTD_temp, 7
+000000A8,1C22,,            btfss r3, 0 ;pokud jeden vyply oba zapne
+000000A9,1788,,            bsf PORTD, 7
 ,,,
-000000AD,3008,,            movlw .8 ;nastavy na dalsich 240ms
-000000AE,00DB,,            movwf timvar
-000000AF,0008,,            return
+000000AA,3008,,            movlw .8 ;nastavy na dalsich 240ms
+000000AB,00DB,,            movwf timvar
+000000AC,0008,,            return
 ,,,
 ,,,;vypnuti red tuning
-000000B0,03DC,rtuoff,rtuoff      decf timrtu, F
-000000B1,1D03,,            btfss STATUS, Z
-000000B2,0008,,            return
-000000B3,112B,,            bcf o_c, 2 ;vypne red tunning
-000000B4,3016,,            movlw b'10110' ;port C6
-000000B5,00D2,,            movwf port
-000000B6,3002,,            movlw b'10' ;procesor 2
-000000B7,00D3,,            movwf prc
-000000B8,21FE,,            call clrout ;smaz port v prc
-000000B9,11AE,,            bcf o_f, 3 ;vypne red interier
-000000BA,301A,,            movlw b'11010' ;port D2
-000000BB,00D2,,            movwf port
-000000BC,3002,,            movlw b'10' ;procesor 2
-000000BD,00D3,,            movwf prc
-000000BE,21FE,,            call clrout ;smaz port v prc
-000000BF,10DA,,            bcf casov, REDTUN ;timer red tunningu nebude vniman
-000000C0,0008,,            return
+000000AD,03DC,rtuoff,rtuoff      decf timrtu, F
+000000AE,1D03,,            btfss STATUS, Z
+000000AF,0008,,            return
+000000B0,112B,,            bcf o_c, 2 ;vypne red tunning
+000000B1,3016,,            movlw b'10110' ;port C6
+000000B2,00D2,,            movwf port
+000000B3,3002,,            movlw b'10' ;procesor 2
+000000B4,00D3,,            movwf prc
+000000B5,21FB,,            call clrout ;smaz port v prc
+000000B6,11AE,,            bcf o_f, 3 ;vypne red interier
+000000B7,301A,,            movlw b'11010' ;port D2
+000000B8,00D2,,            movwf port
+000000B9,3002,,            movlw b'10' ;procesor 2
+000000BA,00D3,,            movwf prc
+000000BB,21FB,,            call clrout ;smaz port v prc
+000000BC,10DA,,            bcf casov, REDTUN ;timer red tunningu nebude vniman
+000000BD,0008,,            return
 ,,,
 ,,,;blikani led zamknuto
-000000C1,03DD,lzabli,lzabli      decf timlza, F
-000000C2,1D03,,            btfss STATUS, Z
-000000C3,0008,,            return
-000000C4,26F4,,            call ledzam ;neguje led zamknuto
-000000C5,300F,,            movlw .15 ;nasavy na dalsich 240ms
-000000C6,00DD,,            movwf timlza
-000000C7,0008,,            return
+000000BE,03DD,lzabli,lzabli      decf timlza, F
+000000BF,1D03,,            btfss STATUS, Z
+000000C0,0008,,            return
+000000C1,26F1,,            call ledzam ;neguje led zamknuto
+000000C2,300F,,            movlw .15 ;nasavy na dalsich 240ms
+000000C3,00DD,,            movwf timlza
+000000C4,0008,,            return
 ,,,
 ,,,;vypnuti white tuning
-000000C8,03E3,wtuoff,wtuoff      decf timwtu, F
-000000C9,1D03,,            btfss STATUS, Z
-000000CA,0008,,            return
-000000CB,11AB,,            bcf o_c, 3 ;vypne white tunning
-000000CC,3017,,            movlw b'10111' ;port C7
-000000CD,00D2,,            movwf port
-000000CE,3002,,            movlw b'10' ;procesor 2
-000000CF,00D3,,            movwf prc
-000000D0,21FE,,            call clrout ;smaz port v prc
-000000D1,122E,,            bcf o_f, 4 ;vypne white interier
-000000D2,301B,,            movlw b'11011' ;port D3
-000000D3,00D2,,            movwf port
-000000D4,3002,,            movlw b'10' ;procesor 2
-000000D5,00D3,,            movwf prc
-000000D6,21FE,,            call clrout ;smaz port v prc
-000000D7,11DA,,            bcf casov, WHITUN ;timer red tunningu nebude vniman
-000000D8,0008,,            return
+000000C5,03E3,wtuoff,wtuoff      decf timwtu, F
+000000C6,1D03,,            btfss STATUS, Z
+000000C7,0008,,            return
+000000C8,11AB,,            bcf o_c, 3 ;vypne white tunning
+000000C9,3017,,            movlw b'10111' ;port C7
+000000CA,00D2,,            movwf port
+000000CB,3002,,            movlw b'10' ;procesor 2
+000000CC,00D3,,            movwf prc
+000000CD,21FB,,            call clrout ;smaz port v prc
+000000CE,122E,,            bcf o_f, 4 ;vypne white interier
+000000CF,301B,,            movlw b'11011' ;port D3
+000000D0,00D2,,            movwf port
+000000D1,3002,,            movlw b'10' ;procesor 2
+000000D2,00D3,,            movwf prc
+000000D3,21FB,,            call clrout ;smaz port v prc
+000000D4,11DA,,            bcf casov, WHITUN ;timer red tunningu nebude vniman
+000000D5,0008,,            return
 ,,,
 ,,,;vypnuti polohy 3 spinacky
-000000D9,03E5,spioff,spioff      decf timspi, F
-000000DA,1D03,,            btfss STATUS, Z
-000000DB,0008,,            return
-000000DC,2413,,            call t1_03
-000000DD,0008,,            return
+000000D6,03E5,spioff,spioff      decf timspi, F
+000000D7,1D03,,            btfss STATUS, Z
+000000D8,0008,,            return
+000000D9,2410,,            call t1_03
+000000DA,0008,,            return
 ,,,
 ,,,;vypnuti odskoků
-000000DE,03E6,odsoff,odsoff      decf timods, F
-000000DF,1D03,,            btfss STATUS, Z
-000000E0,0008,,            return
-000000E1,122A,,            bcf o_b, 4
-000000E2,301F,,            movlw b'11111' ;port D7
-000000E3,00D2,,            movwf port
-000000E4,3003,,            movlw b'11' ;procesor 3
-000000E5,00D3,,            movwf prc
-000000E6,21FE,,            call clrout ;smaz port v prc
-000000E7,12AA,,            bcf o_b, 5
-000000E8,13E0,,            bcf PORTC_temp, 7
-000000E9,1387,,            bcf PORTC, 7
-000000EA,132A,,            bcf o_b, 6
-000000EB,115F,,            bcf PORTB_temp, 2
-000000EC,1106,,            bcf PORTB, 2
-000000ED,13AA,,            bcf o_b, 7
-000000EE,11DF,,            bcf PORTB_temp, 3
-000000EF,1186,,            bcf PORTB, 3
-000000F0,11AA,,            bcf o_b, 3
-000000F1,125F,,            bcf PORTB_temp, 4
-000000F2,1206,,            bcf PORTB, 4
-000000F3,102D,,            bcf o_e, 0
-000000F4,12DF,,            bcf PORTB_temp, 5
-000000F5,1286,,            bcf PORTB, 5
-000000F6,102B,,            bcf o_c, 0
-000000F7,135F,,            bcf PORTB_temp, 6
-000000F8,1306,,            bcf PORTB, 6
+000000DB,03E6,odsoff,odsoff      decf timods, F
+000000DC,1D03,,            btfss STATUS, Z
+000000DD,0008,,            return
+000000DE,122A,,            bcf o_b, 4
+000000DF,301F,,            movlw b'11111' ;port D7
+000000E0,00D2,,            movwf port
+000000E1,3003,,            movlw b'11' ;procesor 3
+000000E2,00D3,,            movwf prc
+000000E3,21FB,,            call clrout ;smaz port v prc
+000000E4,12AA,,            bcf o_b, 5
+000000E5,13E0,,            bcf PORTC_temp, 7
+000000E6,1387,,            bcf PORTC, 7
+000000E7,132A,,            bcf o_b, 6
+000000E8,115F,,            bcf PORTB_temp, 2
+000000E9,1106,,            bcf PORTB, 2
+000000EA,13AA,,            bcf o_b, 7
+000000EB,11DF,,            bcf PORTB_temp, 3
+000000EC,1186,,            bcf PORTB, 3
+000000ED,11AA,,            bcf o_b, 3
+000000EE,125F,,            bcf PORTB_temp, 4
+000000EF,1206,,            bcf PORTB, 4
+000000F0,102D,,            bcf o_e, 0
+000000F1,12DF,,            bcf PORTB_temp, 5
+000000F2,1286,,            bcf PORTB, 5
+000000F3,102B,,            bcf o_c, 0
+000000F4,135F,,            bcf PORTB_temp, 6
+000000F5,1306,,            bcf PORTB, 6
 ,,,
-000000F9,13AD,,            bcf o_e, 7
-000000FA,301E,,            movlw b'11110' ;port D6
-000000FB,00D2,,            movwf port
-000000FC,3002,,            movlw b'10' ;procesor 2
-000000FD,00D3,,            movwf prc
-000000FE,21FE,,            call clrout ;nastav port v prc
-000000FF,132D,,            bcf o_e, 6
-00000100,301C,,            movlw b'11100' ;port D4
-00000101,00D2,,            movwf port
-00000102,3002,,            movlw b'10' ;procesor 2
-00000103,00D3,,            movwf prc
-00000104,21FE,,            call clrout ;nastav port v prc
-00000105,12AE,,            bcf o_f, 5
-00000106,301D,,            movlw b'11101' ;port D5
-00000107,00D2,,            movwf port
-00000108,3002,,            movlw b'10' ;procesor 2
-00000109,00D3,,            movwf prc
-0000010A,21FE,,            call clrout ;nastav port v prc
-0000010B,102E,,            bcf o_f, 0
-0000010C,301F,,            movlw b'11111' ;port D7
-0000010D,00D2,,            movwf port
-0000010E,3002,,            movlw b'10' ;procesor 2
-0000010F,00D3,,            movwf prc
-00000110,21FE,,            call clrout ;nastav port v prc
+000000F6,13AD,,            bcf o_e, 7
+000000F7,301E,,            movlw b'11110' ;port D6
+000000F8,00D2,,            movwf port
+000000F9,3002,,            movlw b'10' ;procesor 2
+000000FA,00D3,,            movwf prc
+000000FB,21FB,,            call clrout ;nastav port v prc
+000000FC,132D,,            bcf o_e, 6
+000000FD,301C,,            movlw b'11100' ;port D4
+000000FE,00D2,,            movwf port
+000000FF,3002,,            movlw b'10' ;procesor 2
+00000100,00D3,,            movwf prc
+00000101,21FB,,            call clrout ;nastav port v prc
+00000102,12AE,,            bcf o_f, 5
+00000103,301D,,            movlw b'11101' ;port D5
+00000104,00D2,,            movwf port
+00000105,3002,,            movlw b'10' ;procesor 2
+00000106,00D3,,            movwf prc
+00000107,21FB,,            call clrout ;nastav port v prc
+00000108,102E,,            bcf o_f, 0
+00000109,301F,,            movlw b'11111' ;port D7
+0000010A,00D2,,            movwf port
+0000010B,3002,,            movlw b'10' ;procesor 2
+0000010C,00D3,,            movwf prc
+0000010D,21FB,,            call clrout ;nastav port v prc
 ,,,
-00000111,125A,,            bcf casov, ODSKOK ;timer red tunningu nebude vniman
-00000112,0008,,            return
+0000010E,125A,,            bcf casov, ODSKOK ;timer red tunningu nebude vniman
+0000010F,0008,,            return
 ,,,
 ,,,;Problikavani alarmu
-00000113,03E7,alabli,alabli      decf timala, F
-00000114,1D03,,            btfss STATUS, Z
-00000115,0008,,            return
+00000110,03E7,alabli,alabli      decf timala, F
+00000111,1D03,,            btfss STATUS, Z
+00000112,0008,,            return
 ,,,
-00000116,25BF,,            call t1_40
-00000117,25CE,,            call t1_41
-00000118,2688,,            call t1_61
-00000119,2697,,            call t1_62
-0000011A,26E5,,            call klakson
+00000113,25BC,,            call t1_40
+00000114,25CB,,            call t1_41
+00000115,2685,,            call t1_61
+00000116,2694,,            call t1_62
+00000117,26E2,,            call klakson
 ,,,
-0000011B,3014,,            movlw .20 ;nasavy na dalsich 240ms
-0000011C,00E7,,            movwf timala
-0000011D,0008,,            return
-,,,
-,,,
+00000118,3014,,            movlw .20 ;nasavy na dalsich 240ms
+00000119,00E7,,            movwf timala
+0000011A,0008,,            return
 ,,,
 ,,,
 ,,,
 ,,,
-0000011E,1486,dotaz,dotaz       bsf PORTB, 1  ;start bity XX - 10
-0000011F,26DB,,            call w100c
-00000120,1086,,            bcf PORTB, 1
-00000121,26DB,,            call w100c
-,,,
-00000122,0878,,            movf cil, W   ;vysila oznaceni cilového procesoru XXXX
-00000123,00A0,,            movwf r1
-00000124,3004,,            movlw .4
-00000125,00A1,,            movwf r2
-00000126,19A0,,            btfsc r1, 3
-00000127,1486,,            bsf PORTB, 1
-00000128,1DA0,,            btfss r1, 3
-00000129,1086,,            bcf PORTB, 1
-0000012A,26DB,,            call w100c
-0000012B,0DA0,,            rlf r1, F
-0000012C,0BA1,,            decfsz r2, F
-0000012D,2926,,            goto $-7
-,,,
-0000012E,3000,,            movlw b'00000000'   ;vysila nuly aby dostal odpoved XXXXXXX - 0000000
-0000012F,00A0,,            movwf r1
-00000130,3007,,            movlw .7
-00000131,00A1,,            movwf r2
-00000132,1B20,,            btfsc r1, 6
-00000133,1486,,            bsf PORTB, 1
-00000134,1F20,,            btfss r1, 6
-00000135,1086,,            bcf PORTB, 1
-00000136,26DB,,            call w100c
-00000137,0DA0,,            rlf r1, F
-00000138,0BA1,,            decfsz r2, F
-00000139,2932,,            goto $-7
-,,,
-0000013A,1486,,            bsf PORTB, 1  ;STOP bity XXX - 111
-0000013B,26DB,,            call w100c
-0000013C,26DB,,            call w100c
-0000013D,26DB,,            call w100c
-0000013E,1086,,            bcf PORTB, 1
-0000013F,26E0,,            call w40c
-,,,
-00000140,1683,,            bsf STATUS, RP0  ;Bank 1
-00000141,1486,,            bsf TRISB, 1  ;nastavim sbernici na vstup do procesoru
-00000142,1283,,            bcf STATUS, RP0  ;Bank 0
-,,,
-00000143,1959,,            btfsc conf, WATCHOVER
-00000144,29D3,,            goto dotazerr
-00000145,1C86,,            btfss PORTB, 1  ;ceka az zacne vysilat signal
-00000146,2943,,            goto $-3 ;ochrana proti zamrznuti
-,,,
-00000147,1959,,            btfsc conf, WATCHOVER
-00000148,29D3,,            goto dotazerr
-00000149,1886,,            btfsc PORTB, 1  ;ceka az skonci prvni start bit X - 1
-0000014A,2947,,            goto $-3 ;ochrana proti zamrznuti
-,,,
-0000014B,26E0,,            call w40c   ;posune do prostred signalu X - 0
-0000014C,26DB,,            call w100c
-,,,
-0000014D,01F0,,            clrf pri0        ; ulozi priijate do pri XXXX XXXX
-0000014E,3008,,            movlw .8
-0000014F,00A1,,            movwf r2
-00000150,0DF0,,            rlf pri0, F
-00000151,1886,,            btfsc PORTB, 1
-00000152,1470,,            bsf pri0, 0
-00000153,1C86,,            btfss PORTB, 1
-00000154,1070,,            bcf pri0, 0
-00000155,26DB,,            call w100c
-00000156,0BA1,,            decfsz r2, F
-00000157,2950,,            goto $-7
-,,,
-00000158,1959,,            btfsc conf, WATCHOVER
-00000159,29D3,,            goto dotazerr
-0000015A,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
-0000015B,2958,,            goto $-3 ;ochrana proti zamrznuti
-0000015C,26E0,,            call w40c
-0000015D,26DB,,            call w100c
 ,,,
 ,,,
-0000015E,01F1,,            clrf pri1        ; ulozi priijate do pri XXXX XXXX
-0000015F,3008,,            movlw .8
-00000160,00A1,,            movwf r2
-00000161,0DF1,,            rlf pri1, F
-00000162,1886,,            btfsc PORTB, 1
-00000163,1471,,            bsf pri1, 0
-00000164,1C86,,            btfss PORTB, 1
-00000165,1071,,            bcf pri1, 0
-00000166,26DB,,            call w100c
-00000167,0BA1,,            decfsz r2, F
-00000168,2961,,            goto $-7
+0000011B,1486,dotaz,dotaz       bsf PORTB, 1  ;start bity XX - 10
+0000011C,26D8,,            call w100c
+0000011D,1086,,            bcf PORTB, 1
+0000011E,26D8,,            call w100c
 ,,,
-00000169,1959,,            btfsc conf, WATCHOVER
-0000016A,29D3,,            goto dotazerr
-0000016B,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
-0000016C,2969,,            goto $-3 ;ochrana proti zamrznuti
-0000016D,26E0,,            call w40c
-0000016E,26DB,,            call w100c
+0000011F,0878,,            movf cil, W   ;vysila oznaceni cilového procesoru XXXX
+00000120,00A0,,            movwf r1
+00000121,3004,,            movlw .4
+00000122,00A1,,            movwf r2
+00000123,19A0,,            btfsc r1, 3
+00000124,1486,,            bsf PORTB, 1
+00000125,1DA0,,            btfss r1, 3
+00000126,1086,,            bcf PORTB, 1
+00000127,26D8,,            call w100c
+00000128,0DA0,,            rlf r1, F
+00000129,0BA1,,            decfsz r2, F
+0000012A,2923,,            goto $-7
 ,,,
+0000012B,3000,,            movlw b'00000000'   ;vysila nuly aby dostal odpoved XXXXXXX - 0000000
+0000012C,00A0,,            movwf r1
+0000012D,3007,,            movlw .7
+0000012E,00A1,,            movwf r2
+0000012F,1B20,,            btfsc r1, 6
+00000130,1486,,            bsf PORTB, 1
+00000131,1F20,,            btfss r1, 6
+00000132,1086,,            bcf PORTB, 1
+00000133,26D8,,            call w100c
+00000134,0DA0,,            rlf r1, F
+00000135,0BA1,,            decfsz r2, F
+00000136,292F,,            goto $-7
 ,,,
-0000016F,01F2,,            clrf pri2        ; ulozi priijate do pri XXXX XXXX
-00000170,3008,,            movlw .8
-00000171,00A1,,            movwf r2
-00000172,0DF2,,            rlf pri2, F
-00000173,1886,,            btfsc PORTB, 1
-00000174,1472,,            bsf pri2, 0
-00000175,1C86,,            btfss PORTB, 1
-00000176,1072,,            bcf pri2, 0
-00000177,26DB,,            call w100c
-00000178,0BA1,,            decfsz r2, F
-00000179,2972,,            goto $-7
+00000137,1486,,            bsf PORTB, 1  ;STOP bity XXX - 111
+00000138,26D8,,            call w100c
+00000139,26D8,,            call w100c
+0000013A,26D8,,            call w100c
+0000013B,1086,,            bcf PORTB, 1
+0000013C,26DD,,            call w40c
 ,,,
-0000017A,1959,,            btfsc conf, WATCHOVER
-0000017B,29D3,,            goto dotazerr
-0000017C,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
-0000017D,297A,,            goto $-3 ;ochrana proti zamrznuti
-0000017E,26E0,,            call w40c
-0000017F,26DB,,            call w100c
+0000013D,1683,,            bsf STATUS, RP0  ;Bank 1
+0000013E,1486,,            bsf TRISB, 1  ;nastavim sbernici na vstup do procesoru
+0000013F,1283,,            bcf STATUS, RP0  ;Bank 0
 ,,,
+00000140,1959,,            btfsc conf, WATCHOVER
+00000141,29D0,,            goto dotazerr
+00000142,1C86,,            btfss PORTB, 1  ;ceka az zacne vysilat signal
+00000143,2940,,            goto $-3 ;ochrana proti zamrznuti
 ,,,
-00000180,01F3,,            clrf pri3        ; ulozi priijate do pri XXXX XXXX
-00000181,3008,,            movlw .8
-00000182,00A1,,            movwf r2
-00000183,0DF3,,            rlf pri3, F
-00000184,1886,,            btfsc PORTB, 1
-00000185,1473,,            bsf pri3, 0
-00000186,1C86,,            btfss PORTB, 1
-00000187,1073,,            bcf pri3, 0
-00000188,26DB,,            call w100c
-00000189,0BA1,,            decfsz r2, F
-0000018A,2983,,            goto $-7
+00000144,1959,,            btfsc conf, WATCHOVER
+00000145,29D0,,            goto dotazerr
+00000146,1886,,            btfsc PORTB, 1  ;ceka az skonci prvni start bit X - 1
+00000147,2944,,            goto $-3 ;ochrana proti zamrznuti
 ,,,
-0000018B,1959,,            btfsc conf, WATCHOVER
-0000018C,29D3,,            goto dotazerr
-0000018D,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
-0000018E,298B,,            goto $-3 ;ochrana proti zamrznuti
-0000018F,26E0,,            call w40c
-00000190,26DB,,            call w100c
+00000148,26DD,,            call w40c   ;posune do prostred signalu X - 0
+00000149,26D8,,            call w100c
 ,,,
+0000014A,01F0,,            clrf pri0        ; ulozi priijate do pri XXXX XXXX
+0000014B,3008,,            movlw .8
+0000014C,00A1,,            movwf r2
+0000014D,0DF0,,            rlf pri0, F
+0000014E,1886,,            btfsc PORTB, 1
+0000014F,1470,,            bsf pri0, 0
+00000150,1C86,,            btfss PORTB, 1
+00000151,1070,,            bcf pri0, 0
+00000152,26D8,,            call w100c
+00000153,0BA1,,            decfsz r2, F
+00000154,294D,,            goto $-7
 ,,,
-00000191,01F4,,            clrf pri4        ; ulozi priijate do pri XXXX XXXX
-00000192,3008,,            movlw .8
-00000193,00A1,,            movwf r2
-00000194,0DF4,,            rlf pri4, F
-00000195,1886,,            btfsc PORTB, 1
-00000196,1474,,            bsf pri4, 0
-00000197,1C86,,            btfss PORTB, 1
-00000198,1074,,            bcf pri4, 0
-00000199,26DB,,            call w100c
-0000019A,0BA1,,            decfsz r2, F
-0000019B,2994,,            goto $-7
-,,,
-0000019C,1959,,            btfsc conf, WATCHOVER
-0000019D,29D3,,            goto dotazerr
-0000019E,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
-0000019F,299C,,            goto $-3 ;ochrana proti zamrznuti
-000001A0,26E0,,            call w40c
-000001A1,26DB,,            call w100c
+00000155,1959,,            btfsc conf, WATCHOVER
+00000156,29D0,,            goto dotazerr
+00000157,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
+00000158,2955,,            goto $-3 ;ochrana proti zamrznuti
+00000159,26DD,,            call w40c
+0000015A,26D8,,            call w100c
 ,,,
 ,,,
-000001A2,01F5,,            clrf pri5        ; ulozi priijate do pri XXXX XXXX
-000001A3,3008,,            movlw .8
-000001A4,00A1,,            movwf r2
-000001A5,0DF5,,            rlf pri5, F
-000001A6,1886,,            btfsc PORTB, 1
-000001A7,1475,,            bsf pri5, 0
-000001A8,1C86,,            btfss PORTB, 1
-000001A9,1075,,            bcf pri5, 0
-000001AA,26DB,,            call w100c
-000001AB,0BA1,,            decfsz r2, F
-000001AC,29A5,,            goto $-7
+0000015B,01F1,,            clrf pri1        ; ulozi priijate do pri XXXX XXXX
+0000015C,3008,,            movlw .8
+0000015D,00A1,,            movwf r2
+0000015E,0DF1,,            rlf pri1, F
+0000015F,1886,,            btfsc PORTB, 1
+00000160,1471,,            bsf pri1, 0
+00000161,1C86,,            btfss PORTB, 1
+00000162,1071,,            bcf pri1, 0
+00000163,26D8,,            call w100c
+00000164,0BA1,,            decfsz r2, F
+00000165,295E,,            goto $-7
 ,,,
-000001AD,1959,,            btfsc conf, WATCHOVER
-000001AE,29D3,,            goto dotazerr
-000001AF,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
-000001B0,29AD,,            goto $-3 ;ochrana proti zamrznuti
-000001B1,26E0,,            call w40c
-000001B2,26DB,,            call w100c
-,,,
-,,,
-000001B3,01F6,,            clrf pri6        ; ulozi priijate do pri XXXX XXXX
-000001B4,3008,,            movlw .8
-000001B5,00A1,,            movwf r2
-000001B6,0DF6,,            rlf pri6, F
-000001B7,1886,,            btfsc PORTB, 1
-000001B8,1476,,            bsf pri6, 0
-000001B9,1C86,,            btfss PORTB, 1
-000001BA,1076,,            bcf pri6, 0
-000001BB,26DB,,            call w100c
-000001BC,0BA1,,            decfsz r2, F
-000001BD,29B6,,            goto $-7
-,,,
-000001BE,1959,,            btfsc conf, WATCHOVER
-000001BF,29D3,,            goto dotazerr
-000001C0,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
-000001C1,29BE,,            goto $-3 ;ochrana proti zamrznuti
-000001C2,26E0,,            call w40c
-000001C3,26DB,,            call w100c
+00000166,1959,,            btfsc conf, WATCHOVER
+00000167,29D0,,            goto dotazerr
+00000168,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
+00000169,2966,,            goto $-3 ;ochrana proti zamrznuti
+0000016A,26DD,,            call w40c
+0000016B,26D8,,            call w100c
 ,,,
 ,,,
-000001C4,01F7,,            clrf pri7        ; ulozi priijate do pri XXXX XXXX
-000001C5,3008,,            movlw .8
-000001C6,00A1,,            movwf r2
-000001C7,0DF7,,            rlf pri7, F
-000001C8,1886,,            btfsc PORTB, 1
-000001C9,1477,,            bsf pri7, 0
-000001CA,1C86,,            btfss PORTB, 1
-000001CB,1077,,            bcf pri7, 0
-000001CC,26DB,,            call w100c
-000001CD,0BA1,,            decfsz r2, F
-000001CE,29C7,,            goto $-7
+0000016C,01F2,,            clrf pri2        ; ulozi priijate do pri XXXX XXXX
+0000016D,3008,,            movlw .8
+0000016E,00A1,,            movwf r2
+0000016F,0DF2,,            rlf pri2, F
+00000170,1886,,            btfsc PORTB, 1
+00000171,1472,,            bsf pri2, 0
+00000172,1C86,,            btfss PORTB, 1
+00000173,1072,,            bcf pri2, 0
+00000174,26D8,,            call w100c
+00000175,0BA1,,            decfsz r2, F
+00000176,296F,,            goto $-7
 ,,,
-000001CF,1959,,            btfsc conf, WATCHOVER
-000001D0,29D3,,            goto dotazerr
-000001D1,1886,,            btfsc PORTB, 1  ;ceka az skonci STOP bity XXX - 111
-000001D2,29CF,,            goto $-3 ;ochrana proti zamrznuti
+00000177,1959,,            btfsc conf, WATCHOVER
+00000178,29D0,,            goto dotazerr
+00000179,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
+0000017A,2977,,            goto $-3 ;ochrana proti zamrznuti
+0000017B,26DD,,            call w40c
+0000017C,26D8,,            call w100c
 ,,,
 ,,,
-000001D3,1683,dotazerr,dotazerr    bsf STATUS, RP0  ;Bank 1
-000001D4,1086,,            bcf TRISB, 1  ;nastavim sbernici na vystup z procesoru
-000001D5,1283,,            bcf STATUS, RP0  ;Bank 0
-000001D6,0008,,            return
+0000017D,01F3,,            clrf pri3        ; ulozi priijate do pri XXXX XXXX
+0000017E,3008,,            movlw .8
+0000017F,00A1,,            movwf r2
+00000180,0DF3,,            rlf pri3, F
+00000181,1886,,            btfsc PORTB, 1
+00000182,1473,,            bsf pri3, 0
+00000183,1C86,,            btfss PORTB, 1
+00000184,1073,,            bcf pri3, 0
+00000185,26D8,,            call w100c
+00000186,0BA1,,            decfsz r2, F
+00000187,2980,,            goto $-7
+,,,
+00000188,1959,,            btfsc conf, WATCHOVER
+00000189,29D0,,            goto dotazerr
+0000018A,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
+0000018B,2988,,            goto $-3 ;ochrana proti zamrznuti
+0000018C,26DD,,            call w40c
+0000018D,26D8,,            call w100c
+,,,
+,,,
+0000018E,01F4,,            clrf pri4        ; ulozi priijate do pri XXXX XXXX
+0000018F,3008,,            movlw .8
+00000190,00A1,,            movwf r2
+00000191,0DF4,,            rlf pri4, F
+00000192,1886,,            btfsc PORTB, 1
+00000193,1474,,            bsf pri4, 0
+00000194,1C86,,            btfss PORTB, 1
+00000195,1074,,            bcf pri4, 0
+00000196,26D8,,            call w100c
+00000197,0BA1,,            decfsz r2, F
+00000198,2991,,            goto $-7
+,,,
+00000199,1959,,            btfsc conf, WATCHOVER
+0000019A,29D0,,            goto dotazerr
+0000019B,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
+0000019C,2999,,            goto $-3 ;ochrana proti zamrznuti
+0000019D,26DD,,            call w40c
+0000019E,26D8,,            call w100c
+,,,
+,,,
+0000019F,01F5,,            clrf pri5        ; ulozi priijate do pri XXXX XXXX
+000001A0,3008,,            movlw .8
+000001A1,00A1,,            movwf r2
+000001A2,0DF5,,            rlf pri5, F
+000001A3,1886,,            btfsc PORTB, 1
+000001A4,1475,,            bsf pri5, 0
+000001A5,1C86,,            btfss PORTB, 1
+000001A6,1075,,            bcf pri5, 0
+000001A7,26D8,,            call w100c
+000001A8,0BA1,,            decfsz r2, F
+000001A9,29A2,,            goto $-7
+,,,
+000001AA,1959,,            btfsc conf, WATCHOVER
+000001AB,29D0,,            goto dotazerr
+000001AC,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
+000001AD,29AA,,            goto $-3 ;ochrana proti zamrznuti
+000001AE,26DD,,            call w40c
+000001AF,26D8,,            call w100c
+,,,
+,,,
+000001B0,01F6,,            clrf pri6        ; ulozi priijate do pri XXXX XXXX
+000001B1,3008,,            movlw .8
+000001B2,00A1,,            movwf r2
+000001B3,0DF6,,            rlf pri6, F
+000001B4,1886,,            btfsc PORTB, 1
+000001B5,1476,,            bsf pri6, 0
+000001B6,1C86,,            btfss PORTB, 1
+000001B7,1076,,            bcf pri6, 0
+000001B8,26D8,,            call w100c
+000001B9,0BA1,,            decfsz r2, F
+000001BA,29B3,,            goto $-7
+,,,
+000001BB,1959,,            btfsc conf, WATCHOVER
+000001BC,29D0,,            goto dotazerr
+000001BD,1886,,            btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
+000001BE,29BB,,            goto $-3 ;ochrana proti zamrznuti
+000001BF,26DD,,            call w40c
+000001C0,26D8,,            call w100c
+,,,
+,,,
+000001C1,01F7,,            clrf pri7        ; ulozi priijate do pri XXXX XXXX
+000001C2,3008,,            movlw .8
+000001C3,00A1,,            movwf r2
+000001C4,0DF7,,            rlf pri7, F
+000001C5,1886,,            btfsc PORTB, 1
+000001C6,1477,,            bsf pri7, 0
+000001C7,1C86,,            btfss PORTB, 1
+000001C8,1077,,            bcf pri7, 0
+000001C9,26D8,,            call w100c
+000001CA,0BA1,,            decfsz r2, F
+000001CB,29C4,,            goto $-7
+,,,
+000001CC,1959,,            btfsc conf, WATCHOVER
+000001CD,29D0,,            goto dotazerr
+000001CE,1886,,            btfsc PORTB, 1  ;ceka az skonci STOP bity XXX - 111
+000001CF,29CC,,            goto $-3 ;ochrana proti zamrznuti
+,,,
+,,,
+000001D0,1683,dotazerr,dotazerr    bsf STATUS, RP0  ;Bank 1
+000001D1,1086,,            bcf TRISB, 1  ;nastavim sbernici na vystup z procesoru
+000001D2,1283,,            bcf STATUS, RP0  ;Bank 0
+000001D3,0008,,            return
 ,,,
 ,,,        ; WATCH2 start
-000001D7,1486,setout,setout      bsf PORTB, 1  ;start bity XX - 10
-000001D8,26DB,,            call w100c
-000001D9,1086,,            bcf PORTB, 1
-000001DA,26DB,,            call w100c
+000001D4,1486,setout,setout      bsf PORTB, 1  ;start bity XX - 10
+000001D5,26D8,,            call w100c
+000001D6,1086,,            bcf PORTB, 1
+000001D7,26D8,,            call w100c
 ,,,
-000001DB,0853,,            movf prc, W   ;vysila oznaceni cilového procesoru XXXX
-000001DC,00A0,,            movwf r1
-000001DD,3004,,            movlw .4
-000001DE,00A1,,            movwf r2
-000001DF,19A0,,            btfsc r1, 3
-000001E0,1486,,            bsf PORTB, 1
-000001E1,1DA0,,            btfss r1, 3
-000001E2,1086,,            bcf PORTB, 1
-000001E3,26DB,,            call w100c
-000001E4,0DA0,,            rlf r1, F
-000001E5,0BA1,,            decfsz r2, F
-000001E6,29DF,,            goto $-7
+000001D8,0853,,            movf prc, W   ;vysila oznaceni cilového procesoru XXXX
+000001D9,00A0,,            movwf r1
+000001DA,3004,,            movlw .4
+000001DB,00A1,,            movwf r2
+000001DC,19A0,,            btfsc r1, 3
+000001DD,1486,,            bsf PORTB, 1
+000001DE,1DA0,,            btfss r1, 3
+000001DF,1086,,            bcf PORTB, 1
+000001E0,26D8,,            call w100c
+000001E1,0DA0,,            rlf r1, F
+000001E2,0BA1,,            decfsz r2, F
+000001E3,29DC,,            goto $-7
 ,,,
-000001E7,1486,,            bsf PORTB, 1    ;vysle 1 jako ze vysila pozadavek na zmenu portu
-000001E8,26DB,,            call w100c
+000001E4,1486,,            bsf PORTB, 1    ;vysle 1 jako ze vysila pozadavek na zmenu portu
+000001E5,26D8,,            call w100c
 ,,,
-000001E9,0852,,            movf port, W   ;vysila port ke zmene XXXXX
-000001EA,00A0,,            movwf r1
-000001EB,3005,,            movlw .5
-000001EC,00A1,,            movwf r2
-000001ED,1A20,,            btfsc r1, 4
-000001EE,1486,,            bsf PORTB, 1
-000001EF,1E20,,            btfss r1, 4
-000001F0,1086,,            bcf PORTB, 1
-000001F1,26DB,,            call w100c
-000001F2,0DA0,,            rlf r1, F
-000001F3,0BA1,,            decfsz r2, F
-000001F4,29ED,,            goto $-7
+000001E6,0852,,            movf port, W   ;vysila port ke zmene XXXXX
+000001E7,00A0,,            movwf r1
+000001E8,3005,,            movlw .5
+000001E9,00A1,,            movwf r2
+000001EA,1A20,,            btfsc r1, 4
+000001EB,1486,,            bsf PORTB, 1
+000001EC,1E20,,            btfss r1, 4
+000001ED,1086,,            bcf PORTB, 1
+000001EE,26D8,,            call w100c
+000001EF,0DA0,,            rlf r1, F
+000001F0,0BA1,,            decfsz r2, F
+000001F1,29EA,,            goto $-7
 ,,,
-000001F5,1486,,            bsf PORTB, 1  ;vysle hodnotu 1
-000001F6,26DB,,            call w100c
+000001F2,1486,,            bsf PORTB, 1  ;vysle hodnotu 1
+000001F3,26D8,,            call w100c
 ,,,
-000001F7,1486,,            bsf PORTB, 1  ;STOP bity XXX - 111
-000001F8,26DB,,            call w100c
-000001F9,26DB,,            call w100c
-000001FA,26DB,,            call w100c
-000001FB,1086,,            bcf PORTB, 1
-000001FC,26DB,,            call w100c
+000001F4,1486,,            bsf PORTB, 1  ;STOP bity XXX - 111
+000001F5,26D8,,            call w100c
+000001F6,26D8,,            call w100c
+000001F7,26D8,,            call w100c
+000001F8,1086,,            bcf PORTB, 1
+000001F9,26D8,,            call w100c
 ,,,            ; WATCH2 wait
-000001FD,0008,,            return
+000001FA,0008,,            return
 ,,,
 ,,,      ; WATCH2 start
-000001FE,1486,clrout,clrout      bsf PORTB, 1  ;start bity XX - 10
-000001FF,26DB,,            call w100c
-00000200,1086,,            bcf PORTB, 1
-00000201,26DB,,            call w100c
+000001FB,1486,clrout,clrout      bsf PORTB, 1  ;start bity XX - 10
+000001FC,26D8,,            call w100c
+000001FD,1086,,            bcf PORTB, 1
+000001FE,26D8,,            call w100c
 ,,,
-00000202,0853,,            movf prc, W   ;vysila oznaceni cilového procesoru XXXX
-00000203,00A0,,            movwf r1
-00000204,3004,,            movlw .4
-00000205,00A1,,            movwf r2
-00000206,19A0,,            btfsc r1, 3
-00000207,1486,,            bsf PORTB, 1
-00000208,1DA0,,            btfss r1, 3
-00000209,1086,,            bcf PORTB, 1
-0000020A,26DB,,            call w100c
-0000020B,0DA0,,            rlf r1, F
-0000020C,0BA1,,            decfsz r2, F
-0000020D,2A06,,            goto $-7
+000001FF,0853,,            movf prc, W   ;vysila oznaceni cilového procesoru XXXX
+00000200,00A0,,            movwf r1
+00000201,3004,,            movlw .4
+00000202,00A1,,            movwf r2
+00000203,19A0,,            btfsc r1, 3
+00000204,1486,,            bsf PORTB, 1
+00000205,1DA0,,            btfss r1, 3
+00000206,1086,,            bcf PORTB, 1
+00000207,26D8,,            call w100c
+00000208,0DA0,,            rlf r1, F
+00000209,0BA1,,            decfsz r2, F
+0000020A,2A03,,            goto $-7
 ,,,
-0000020E,1486,,            bsf PORTB, 1    ;vysle 1 jako ze vysila pozadavek na zmenu portu
-0000020F,26DB,,            call w100c
+0000020B,1486,,            bsf PORTB, 1    ;vysle 1 jako ze vysila pozadavek na zmenu portu
+0000020C,26D8,,            call w100c
 ,,,
-00000210,0852,,            movf port, W   ;vysila port ke zmene XXXXX
-00000211,00A0,,            movwf r1
-00000212,3005,,            movlw .5
-00000213,00A1,,            movwf r2
-00000214,1A20,,            btfsc r1, 4
-00000215,1486,,            bsf PORTB, 1
-00000216,1E20,,            btfss r1, 4
-00000217,1086,,            bcf PORTB, 1
-00000218,26DB,,            call w100c
-00000219,0DA0,,            rlf r1, F
-0000021A,0BA1,,            decfsz r2, F
-0000021B,2A14,,            goto $-7
+0000020D,0852,,            movf port, W   ;vysila port ke zmene XXXXX
+0000020E,00A0,,            movwf r1
+0000020F,3005,,            movlw .5
+00000210,00A1,,            movwf r2
+00000211,1A20,,            btfsc r1, 4
+00000212,1486,,            bsf PORTB, 1
+00000213,1E20,,            btfss r1, 4
+00000214,1086,,            bcf PORTB, 1
+00000215,26D8,,            call w100c
+00000216,0DA0,,            rlf r1, F
+00000217,0BA1,,            decfsz r2, F
+00000218,2A11,,            goto $-7
 ,,,
-0000021C,1086,,            bcf PORTB, 1  ;vysle hodnotu 0
-0000021D,26DB,,            call w100c
+00000219,1086,,            bcf PORTB, 1  ;vysle hodnotu 0
+0000021A,26D8,,            call w100c
 ,,,
-0000021E,1486,,            bsf PORTB, 1  ;STOP bity XXX - 111
-0000021F,26DB,,            call w100c
-00000220,26DB,,            call w100c
-00000221,26DB,,            call w100c
-00000222,1086,,            bcf PORTB, 1
-00000223,26DB,,            call w100c
+0000021B,1486,,            bsf PORTB, 1  ;STOP bity XXX - 111
+0000021C,26D8,,            call w100c
+0000021D,26D8,,            call w100c
+0000021E,26D8,,            call w100c
+0000021F,1086,,            bcf PORTB, 1
+00000220,26D8,,            call w100c
 ,,,            ; WATCH2 wait
-00000224,0008,,            return
+00000221,0008,,            return
 ,,,
 ,,,
 ,,,
@@ -858,481 +858,481 @@
 ,,,
 ,,,        ;podprogramy
 ,,,;Tlačitka funkci 1
-00000225,1BAC,if_58,if_58       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
-00000226,0008,,            return
+00000222,1BAC,if_58,if_58       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
+00000223,0008,,            return
 ,,,
+00000224,1003,,            bcf STATUS, C
+00000225,0C3F,,            rrf ir_58, W
+00000226,00A0,,            movwf r1
 00000227,1003,,            bcf STATUS, C
-00000228,0C3F,,            rrf ir_58, W
-00000229,00A0,,            movwf r1
-0000022A,1003,,            bcf STATUS, C
-0000022B,0CA0,,            rrf r1, F
-0000022C,1003,,            bcf STATUS, C
-0000022D,0CA0,,            rrf r1, F
-0000022E,30E0,,            movlw b'11100000'
-0000022F,04A0,,            iorwf r1, F
+00000228,0CA0,,            rrf r1, F
+00000229,1003,,            bcf STATUS, C
+0000022A,0CA0,,            rrf r1, F
+0000022B,30E0,,            movlw b'11100000'
+0000022C,04A0,,            iorwf r1, F
 ,,,
-00000230,0820,,            movf r1, W    ;zkontroluje jestli nebylo uz minule
-00000231,00A3,,            movwf r4
-00000232,0854,,            movf tl1, W
-00000233,06A3,,            xorwf r4, F
-00000234,1903,,            btfsc STATUS, Z
-00000235,0008,,            return
-00000236,0820,,            movf r1, W    ;ulozi aktualni tlacitko
-00000237,00D4,,            movwf tl1
+0000022D,0820,,            movf r1, W    ;zkontroluje jestli nebylo uz minule
+0000022E,00A3,,            movwf r4
+0000022F,0854,,            movf tl1, W
+00000230,06A3,,            xorwf r4, F
+00000231,1903,,            btfsc STATUS, Z
+00000232,0008,,            return
+00000233,0820,,            movf r1, W    ;ulozi aktualni tlacitko
+00000234,00D4,,            movwf tl1
 ,,,
+00000235,0AA0,,            incf r1, F
+00000236,1903,,            btfsc STATUS, Z
+00000237,248C,,            call t1_06
 00000238,0AA0,,            incf r1, F
 00000239,1903,,            btfsc STATUS, Z
-0000023A,248F,,            call t1_06
+0000023A,23E8,,            call t1_02
 0000023B,0AA0,,            incf r1, F
 0000023C,1903,,            btfsc STATUS, Z
-0000023D,23EB,,            call t1_02
+0000023D,2410,,            call t1_03
 0000023E,0AA0,,            incf r1, F
 0000023F,1903,,            btfsc STATUS, Z
-00000240,2413,,            call t1_03
+00000240,246C,,            call t1_05
 00000241,0AA0,,            incf r1, F
 00000242,1903,,            btfsc STATUS, Z
-00000243,246F,,            call t1_05
+00000243,25E9,,            call t1_43
 00000244,0AA0,,            incf r1, F
 00000245,1903,,            btfsc STATUS, Z
-00000246,25EC,,            call t1_43
+00000246,25DA,,            call t1_42
 00000247,0AA0,,            incf r1, F
 00000248,1903,,            btfsc STATUS, Z
-00000249,25DD,,            call t1_42
+00000249,24C8,,            call t1_07
 0000024A,0AA0,,            incf r1, F
 0000024B,1903,,            btfsc STATUS, Z
-0000024C,24CB,,            call t1_07
+0000024C,24D6,,            call t1_08
 0000024D,0AA0,,            incf r1, F
 0000024E,1903,,            btfsc STATUS, Z
-0000024F,24D9,,            call t1_08
+0000024F,2509,,            call t1_14
 00000250,0AA0,,            incf r1, F
 00000251,1903,,            btfsc STATUS, Z
-00000252,250C,,            call t1_14
+00000252,2510,,            call t1_15
 00000253,0AA0,,            incf r1, F
 00000254,1903,,            btfsc STATUS, Z
-00000255,2513,,            call t1_15
+00000255,25A8,,            call t1_37
 00000256,0AA0,,            incf r1, F
 00000257,1903,,            btfsc STATUS, Z
-00000258,25AB,,            call t1_37
+00000258,24E6,,            call t1_10
 00000259,0AA0,,            incf r1, F
 0000025A,1903,,            btfsc STATUS, Z
-0000025B,24E9,,            call t1_10
+0000025B,24F7,,            call t1_12
 0000025C,0AA0,,            incf r1, F
 0000025D,1903,,            btfsc STATUS, Z
-0000025E,24FA,,            call t1_12
+0000025E,2563,,            call t1_30
 0000025F,0AA0,,            incf r1, F
 00000260,1903,,            btfsc STATUS, Z
-00000261,2566,,            call t1_30
+00000261,258B,,            call t1_34
 00000262,0AA0,,            incf r1, F
 00000263,1903,,            btfsc STATUS, Z
-00000264,258E,,            call t1_34
+00000264,2575,,            call t1_32
 00000265,0AA0,,            incf r1, F
 00000266,1903,,            btfsc STATUS, Z
-00000267,2578,,            call t1_32
-00000268,0AA0,,            incf r1, F
-00000269,1903,,            btfsc STATUS, Z
-0000026A,25A0,,            call t1_36
+00000267,259D,,            call t1_36
 ,,,            ;pokud je tlacitko prave pusteno
-0000026B,1003,,            bcf STATUS, C
-0000026C,0C3F,,            rrf ir_58, W
-0000026D,00A0,,            movwf r1
-0000026E,0820,,            movf r1, W
-0000026F,1903,,            btfsc STATUS, Z
-00000270,233E,,            call t1_stop
-00000271,0008,,            return
+00000268,1003,,            bcf STATUS, C
+00000269,0C3F,,            rrf ir_58, W
+0000026A,00A0,,            movwf r1
+0000026B,0820,,            movf r1, W
+0000026C,1903,,            btfsc STATUS, Z
+0000026D,233B,,            call t1_stop
+0000026E,0008,,            return
 ,,,
 ,,,;Tlačitka funkci 2
-00000272,1BAC,if_62,if_62       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
-00000273,0008,,            return
+0000026F,1BAC,if_62,if_62       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
+00000270,0008,,            return
 ,,,
+00000271,1003,,            bcf STATUS, C
+00000272,0C43,,            rrf ir_62, W
+00000273,00A0,,            movwf r1
 00000274,1003,,            bcf STATUS, C
-00000275,0C43,,            rrf ir_62, W
-00000276,00A0,,            movwf r1
-00000277,1003,,            bcf STATUS, C
-00000278,0CA0,,            rrf r1, F
-00000279,1003,,            bcf STATUS, C
-0000027A,0CA0,,            rrf r1, F
-0000027B,30E0,,            movlw b'11100000'
-0000027C,04A0,,            iorwf r1, F
+00000275,0CA0,,            rrf r1, F
+00000276,1003,,            bcf STATUS, C
+00000277,0CA0,,            rrf r1, F
+00000278,30E0,,            movlw b'11100000'
+00000279,04A0,,            iorwf r1, F
 ,,,
-0000027D,0820,,            movf r1, W    ;zkontroluje jestli nebylo uz minule
-0000027E,00A3,,            movwf r4
-0000027F,0855,,            movf tl2, W
-00000280,06A3,,            xorwf r4, F
-00000281,1903,,            btfsc STATUS, Z
-00000282,0008,,            return
-00000283,0820,,            movf r1, W    ;ulozi aktualni tlacitko
-00000284,00D5,,            movwf tl2
+0000027A,0820,,            movf r1, W    ;zkontroluje jestli nebylo uz minule
+0000027B,00A3,,            movwf r4
+0000027C,0855,,            movf tl2, W
+0000027D,06A3,,            xorwf r4, F
+0000027E,1903,,            btfsc STATUS, Z
+0000027F,0008,,            return
+00000280,0820,,            movf r1, W    ;ulozi aktualni tlacitko
+00000281,00D5,,            movwf tl2
 ,,,
+00000282,0AA0,,            incf r1, F
+00000283,1903,,            btfsc STATUS, Z
+00000284,2436,,            call t1_04
 00000285,0AA0,,            incf r1, F
 00000286,1903,,            btfsc STATUS, Z
-00000287,2439,,            call t1_04
+00000287,2653,,            call t1_56
 00000288,0AA0,,            incf r1, F
 00000289,1903,,            btfsc STATUS, Z
-0000028A,2656,,            call t1_56
+0000028A,2517,,            call t1_16
 0000028B,0AA0,,            incf r1, F
 0000028C,1903,,            btfsc STATUS, Z
-0000028D,251A,,            call t1_16
+0000028D,254E,,            call t1_26
 0000028E,0AA0,,            incf r1, F
 0000028F,1903,,            btfsc STATUS, Z
-00000290,2551,,            call t1_26
+00000290,25F8,,            call t1_44
 00000291,0AA0,,            incf r1, F
 00000292,1903,,            btfsc STATUS, Z
-00000293,25FB,,            call t1_44
+00000293,24F0,,            call t1_11
 00000294,0AA0,,            incf r1, F
 00000295,1903,,            btfsc STATUS, Z
-00000296,24F3,,            call t1_11
+00000296,2500,,            call t1_13
 00000297,0AA0,,            incf r1, F
 00000298,1903,,            btfsc STATUS, Z
-00000299,2503,,            call t1_13
+00000299,2640,,            call t1_54
 0000029A,0AA0,,            incf r1, F
 0000029B,1903,,            btfsc STATUS, Z
-0000029C,2643,,            call t1_54
+0000029C,25CB,,            call t1_41
 0000029D,0AA0,,            incf r1, F
 0000029E,1903,,            btfsc STATUS, Z
-0000029F,25CE,,            call t1_41
+0000029F,2694,,            call t1_62
 000002A0,0AA0,,            incf r1, F
 000002A1,1903,,            btfsc STATUS, Z
-000002A2,2697,,            call t1_62
+000002A2,25BC,,            call t1_40
 000002A3,0AA0,,            incf r1, F
 000002A4,1903,,            btfsc STATUS, Z
-000002A5,25BF,,            call t1_40
+000002A5,2685,,            call t1_61
 000002A6,0AA0,,            incf r1, F
 000002A7,1903,,            btfsc STATUS, Z
-000002A8,2688,,            call t1_61
+000002A8,256C,,            call t1_31
 000002A9,0AA0,,            incf r1, F
 000002AA,1903,,            btfsc STATUS, Z
-000002AB,256F,,            call t1_31
+000002AB,2594,,            call t1_35
 000002AC,0AA0,,            incf r1, F
 000002AD,1903,,            btfsc STATUS, Z
-000002AE,2597,,            call t1_35
+000002AE,2631,,            call t1_53
 000002AF,0AA0,,            incf r1, F
 000002B0,1903,,            btfsc STATUS, Z
-000002B1,2634,,            call t1_53
+000002B1,2580,,            call t1_33
 000002B2,0AA0,,            incf r1, F
 000002B3,1903,,            btfsc STATUS, Z
-000002B4,2583,,            call t1_33
-000002B5,0AA0,,            incf r1, F
-000002B6,1903,,            btfsc STATUS, Z
-000002B7,267D,,            call t1_60
+000002B4,267A,,            call t1_60
 ,,,            ;pokud je tlacitko prave pusteno
-000002B8,1003,,            bcf STATUS, C
-000002B9,0C43,,            rrf ir_62, W
-000002BA,00A0,,            movwf r1
-000002BB,0820,,            movf r1, W
-000002BC,1903,,            btfsc STATUS, Z
-000002BD,2340,,            call t2_stop
-000002BE,0008,,            return
+000002B5,1003,,            bcf STATUS, C
+000002B6,0C43,,            rrf ir_62, W
+000002B7,00A0,,            movwf r1
+000002B8,0820,,            movf r1, W
+000002B9,1903,,            btfsc STATUS, Z
+000002BA,233D,,            call t2_stop
+000002BB,0008,,            return
 ,,,;Tlačitka imobilizeru
-000002BF,0000,if_50,if_50       nop
-000002C0,0008,,            return
+000002BC,0000,if_50,if_50       nop
+000002BD,0008,,            return
 ,,,             ;pasy
-000002C1,0000,if_59,if_59       nop
-000002C2,0008,,            return
+000002BE,0000,if_59,if_59       nop
+000002BF,0008,,            return
 ,,,             ;rychlost
-000002C3,0000,if_60,if_60       nop
-000002C4,0008,,            return
+000002C0,0000,if_60,if_60       nop
+000002C1,0008,,            return
 ,,,             ;otáčky
-000002C5,0000,if_61,if_61       nop
-000002C6,0008,,            return
+000002C2,0000,if_61,if_61       nop
+000002C3,0008,,            return
 ,,,             ;teplota in set
-000002C7,0000,if_49,if_49       nop
-000002C8,0008,,            return
+000002C4,0000,if_49,if_49       nop
+000002C5,0008,,            return
 ,,,             ;alarm senzory
-000002C9,0000,if_80,if_80       nop
-000002CA,0008,,            return
+000002C6,0000,if_80,if_80       nop
+000002C7,0008,,            return
 ,,,             ;baterie
-000002CB,0000,if_51,if_51       nop
-000002CC,0008,,            return
+000002C8,0000,if_51,if_51       nop
+000002C9,0008,,            return
 ,,,             ;teplota in
-000002CD,0000,if_52,if_52       nop
-000002CE,0008,,            return
+000002CA,0000,if_52,if_52       nop
+000002CB,0008,,            return
 ,,,             ;teplota eng
-000002CF,0000,if_53,if_53       nop
-000002D0,0008,,            return
+000002CC,0000,if_53,if_53       nop
+000002CD,0008,,            return
 ,,,             ;palivo
-000002D1,0000,if_54,if_54       nop
-000002D2,0008,,            return
+000002CE,0000,if_54,if_54       nop
+000002CF,0008,,            return
 ,,,             ;dveře 1
-000002D3,0000,if_55,if_55       nop
-000002D4,0008,,            return
+000002D0,0000,if_55,if_55       nop
+000002D1,0008,,            return
 ,,,             ;ruční brzda
-000002D5,0000,if_56,if_56       nop
-000002D6,0008,,            return
+000002D2,0000,if_56,if_56       nop
+000002D3,0008,,            return
 ,,,             ;kvalt
-000002D7,0000,if_57,if_57       nop
-000002D8,0008,,            return
+000002D4,0000,if_57,if_57       nop
+000002D5,0008,,            return
 ,,,             ;dveře 2
-000002D9,0000,if_84,if_84       nop
-000002DA,0008,,            return
+000002D6,0000,if_84,if_84       nop
+000002D7,0008,,            return
 ,,,             ;dveře 3
-000002DB,0000,if_85,if_85       nop
-000002DC,0008,,            return
+000002D8,0000,if_85,if_85       nop
+000002D9,0008,,            return
 ,,,             ;dveře 4
-000002DD,0000,if_86,if_86       nop
-000002DE,0008,,            return
+000002DA,0000,if_86,if_86       nop
+000002DB,0008,,            return
 ,,,             ;kapota
-000002DF,0000,if_87,if_87       nop
-000002E0,0008,,            return
+000002DC,0000,if_87,if_87       nop
+000002DD,0008,,            return
 ,,,             ;kufr
-000002E1,0000,if_88,if_88       nop
-000002E2,0008,,            return
+000002DE,0000,if_88,if_88       nop
+000002DF,0008,,            return
 ,,,             ;nadrz
-000002E3,0000,if_89,if_89       nop
-000002E4,0008,,            return
+000002E0,0000,if_89,if_89       nop
+000002E1,0008,,            return
 ,,,             ;okno 1
-000002E5,0000,if_90,if_90       nop
-000002E6,0008,,            return
+000002E2,0000,if_90,if_90       nop
+000002E3,0008,,            return
 ,,,             ;okno 2
-000002E7,0000,if_91,if_91       nop
-000002E8,0008,,            return
+000002E4,0000,if_91,if_91       nop
+000002E5,0008,,            return
 ,,,             ;okno 3
-000002E9,0000,if_92,if_92       nop
-000002EA,0008,,            return
+000002E6,0000,if_92,if_92       nop
+000002E7,0008,,            return
 ,,,             ;okno 4
-000002EB,0000,if_93,if_93       nop
-000002EC,0008,,            return
+000002E8,0000,if_93,if_93       nop
+000002E9,0008,,            return
 ,,,             ;teplota OUT
-000002ED,0000,if_127,if_127      nop
-000002EE,0008,,            return
+000002EA,0000,if_127,if_127      nop
+000002EB,0008,,            return
 ,,,
 ,,,;Tlačítka funkcí 3
-000002EF,1BAC,if_128,if_128      btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
-000002F0,0000,,            nop;return ;po dokonceni vyvoje vratit return z duvodu bezpecnosti a je to důležité !!!!!
+000002EC,1BAC,if_128,if_128      btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
+000002ED,0000,,            nop;return ;po dokonceni vyvoje vratit return z duvodu bezpecnosti a je to důležité !!!!!
 ,,,
+000002EE,1003,,            bcf STATUS, C
+000002EF,0C50,,            rrf ir_128, W
+000002F0,00A0,,            movwf r1
 000002F1,1003,,            bcf STATUS, C
-000002F2,0C50,,            rrf ir_128, W
-000002F3,00A0,,            movwf r1
-000002F4,1003,,            bcf STATUS, C
-000002F5,0CA0,,            rrf r1, F
-000002F6,1003,,            bcf STATUS, C
-000002F7,0CA0,,            rrf r1, F
-000002F8,30E0,,            movlw b'11100000'
-000002F9,04A0,,            iorwf r1, F
+000002F2,0CA0,,            rrf r1, F
+000002F3,1003,,            bcf STATUS, C
+000002F4,0CA0,,            rrf r1, F
+000002F5,30E0,,            movlw b'11100000'
+000002F6,04A0,,            iorwf r1, F
 ,,,
-000002FA,0820,,            movf r1, W    ;zkontroluje jestli nebylo uz minule
-000002FB,00A3,,            movwf r4
-000002FC,0856,,            movf tl3, W
-000002FD,06A3,,            xorwf r4, F
-000002FE,1903,,            btfsc STATUS, Z
-000002FF,0008,,            return
-00000300,0820,,            movf r1, W    ;ulozi aktualni tlacitko
-00000301,00D6,,            movwf tl3
+000002F7,0820,,            movf r1, W    ;zkontroluje jestli nebylo uz minule
+000002F8,00A3,,            movwf r4
+000002F9,0856,,            movf tl3, W
+000002FA,06A3,,            xorwf r4, F
+000002FB,1903,,            btfsc STATUS, Z
+000002FC,0008,,            return
+000002FD,0820,,            movf r1, W    ;ulozi aktualni tlacitko
+000002FE,00D6,,            movwf tl3
 ,,,
+000002FF,0AA0,,            incf r1, F
+00000300,1903,,            btfsc STATUS, Z
+00000301,260F,,            call t1_47
 00000302,0AA0,,            incf r1, F
 00000303,1903,,            btfsc STATUS, Z
-00000304,2612,,            call t1_47
+00000304,2382,,            call t1_00 ;prozatimne, je nutno odstranit po konci vyvoje
 00000305,0AA0,,            incf r1, F
 00000306,1903,,            btfsc STATUS, Z
-00000307,2385,,            call t1_00 ;prozatimne, je nutno odstranit po konci vyvoje
+00000307,23C0,,            call t1_01 ;prozatimne, je nutno odstranit po konci vyvoje
 00000308,0AA0,,            incf r1, F
 00000309,1903,,            btfsc STATUS, Z
-0000030A,23C3,,            call t1_01 ;prozatimne, je nutno odstranit po konci vyvoje
+0000030A,26D1,,            call t1_x
 0000030B,0AA0,,            incf r1, F
 0000030C,1903,,            btfsc STATUS, Z
-0000030D,26D4,,            call t1_x
+0000030D,26D1,,            call t1_x
 0000030E,0AA0,,            incf r1, F
 0000030F,1903,,            btfsc STATUS, Z
-00000310,26D4,,            call t1_x
+00000310,26D1,,            call t1_x
 00000311,0AA0,,            incf r1, F
 00000312,1903,,            btfsc STATUS, Z
-00000313,26D4,,            call t1_x
+00000313,26D1,,            call t1_x
 00000314,0AA0,,            incf r1, F
 00000315,1903,,            btfsc STATUS, Z
-00000316,26D4,,            call t1_x
+00000316,26D1,,            call t1_x
 00000317,0AA0,,            incf r1, F
 00000318,1903,,            btfsc STATUS, Z
-00000319,26D4,,            call t1_x
+00000319,26D1,,            call t1_x
 0000031A,0AA0,,            incf r1, F
 0000031B,1903,,            btfsc STATUS, Z
-0000031C,26D4,,            call t1_x
+0000031C,26D1,,            call t1_x
 0000031D,0AA0,,            incf r1, F
 0000031E,1903,,            btfsc STATUS, Z
-0000031F,26D4,,            call t1_x
+0000031F,26D1,,            call t1_x
 00000320,0AA0,,            incf r1, F
 00000321,1903,,            btfsc STATUS, Z
-00000322,26D4,,            call t1_x
+00000322,26D1,,            call t1_x
 00000323,0AA0,,            incf r1, F
 00000324,1903,,            btfsc STATUS, Z
-00000325,26D4,,            call t1_x
+00000325,26D1,,            call t1_x
 00000326,0AA0,,            incf r1, F
 00000327,1903,,            btfsc STATUS, Z
-00000328,26D4,,            call t1_x
+00000328,26D1,,            call t1_x
 00000329,0AA0,,            incf r1, F
 0000032A,1903,,            btfsc STATUS, Z
-0000032B,26D4,,            call t1_x
+0000032B,26D1,,            call t1_x
 0000032C,0AA0,,            incf r1, F
 0000032D,1903,,            btfsc STATUS, Z
-0000032E,26D4,,            call t1_x
+0000032E,26D1,,            call t1_x
 0000032F,0AA0,,            incf r1, F
 00000330,1903,,            btfsc STATUS, Z
-00000331,26D4,,            call t1_x
-00000332,0AA0,,            incf r1, F
-00000333,1903,,            btfsc STATUS, Z
-00000334,26D4,,            call t1_x
+00000331,26D1,,            call t1_x
 ,,,            ;pokud je tlacitko prave pusteno
-00000335,1003,,            bcf STATUS, C
-00000336,0C50,,            rrf ir_128, W
-00000337,00A0,,            movwf r1
-00000338,0820,,            movf r1, W
-00000339,1903,,            btfsc STATUS, Z
-0000033A,2342,,            call t3_stop
-0000033B,0008,,            return
+00000332,1003,,            bcf STATUS, C
+00000333,0C50,,            rrf ir_128, W
+00000334,00A0,,            movwf r1
+00000335,0820,,            movf r1, W
+00000336,1903,,            btfsc STATUS, Z
+00000337,233F,,            call t3_stop
+00000338,0008,,            return
 ,,,
 ,,,;předpřipravené pro rozšíření procesoru 5 a vice
-0000033C,0000,if_x,if_x        nop
-0000033D,0008,,            return
+00000339,0000,if_x,if_x        nop
+0000033A,0008,,            return
 ,,,
 ,,,;vypina holdovaci vystupy
-0000033E,0000,t1_stop,t1_stop     nop
-0000033F,0008,,            return
-00000340,0000,t2_stop,t2_stop     nop
-00000341,0008,,            return
-00000342,0000,t3_stop,t3_stop     nop
-00000343,0008,,            return
+0000033B,0000,t1_stop,t1_stop     nop
+0000033C,0008,,            return
+0000033D,0000,t2_stop,t2_stop     nop
+0000033E,0008,,            return
+0000033F,0000,t3_stop,t3_stop     nop
+00000340,0008,,            return
 ,,,
-00000344,3010,tx_stop,tx_stop     movlw b'10000' ;port C0    ;6 tlačítek ovládání rádia PLAY, STOP, FWD, RWD, VOL+, VOL-
-00000345,00D2,,            movwf port
-00000346,3002,,            movlw b'10' ;procesor 2
-00000347,00D3,,            movwf prc
-00000348,18AC,,            btfsc o_d, 1
-00000349,21FE,,            call clrout ;nastav port v prc
-0000034A,10AC,,            bcf o_d, 1
-0000034B,3011,,            movlw b'10001' ;port C1
-0000034C,00D2,,            movwf port
-0000034D,3002,,            movlw b'10' ;procesor 2
-0000034E,00D3,,            movwf prc
-0000034F,192C,,            btfsc o_d, 2
-00000350,21FE,,            call clrout ;nastav port v prc
-00000351,112C,,            bcf o_d, 2
-00000352,3012,,            movlw b'10010' ;port C2
-00000353,00D2,,            movwf port
-00000354,3002,,            movlw b'10' ;procesor 2
-00000355,00D3,,            movwf prc
-00000356,19AC,,            btfsc o_d, 3
-00000357,21FE,,            call clrout ;nastav port v prc
-00000358,11AC,,            bcf o_d, 3
-00000359,3013,,            movlw b'10011' ;port C3
-0000035A,00D2,,            movwf port
-0000035B,3002,,            movlw b'10' ;procesor 2
-0000035C,00D3,,            movwf prc
-0000035D,1A2C,,            btfsc o_d, 4
-0000035E,21FE,,            call clrout ;nastav port v prc
-0000035F,122C,,            bcf o_d, 4
-00000360,3014,,            movlw b'10100' ;port C4
-00000361,00D2,,            movwf port
-00000362,3002,,            movlw b'10' ;procesor 2
-00000363,00D3,,            movwf prc
-00000364,1AAC,,            btfsc o_d, 5
-00000365,21FE,,            call clrout ;nastav port v prc
-00000366,12AC,,            bcf o_d, 5
-00000367,3015,,            movlw b'10101' ;port C5
-00000368,00D2,,            movwf port
-00000369,3002,,            movlw b'10' ;procesor 2
-0000036A,00D3,,            movwf prc
-0000036B,1B2C,,            btfsc o_d, 6
-0000036C,21FE,,            call clrout ;nastav port v prc
-0000036D,132C,,            bcf o_d, 6
+00000341,3010,tx_stop,tx_stop     movlw b'10000' ;port C0    ;6 tlačítek ovládání rádia PLAY, STOP, FWD, RWD, VOL+, VOL-
+00000342,00D2,,            movwf port
+00000343,3002,,            movlw b'10' ;procesor 2
+00000344,00D3,,            movwf prc
+00000345,18AC,,            btfsc o_d, 1
+00000346,21FB,,            call clrout ;nastav port v prc
+00000347,10AC,,            bcf o_d, 1
+00000348,3011,,            movlw b'10001' ;port C1
+00000349,00D2,,            movwf port
+0000034A,3002,,            movlw b'10' ;procesor 2
+0000034B,00D3,,            movwf prc
+0000034C,192C,,            btfsc o_d, 2
+0000034D,21FB,,            call clrout ;nastav port v prc
+0000034E,112C,,            bcf o_d, 2
+0000034F,3012,,            movlw b'10010' ;port C2
+00000350,00D2,,            movwf port
+00000351,3002,,            movlw b'10' ;procesor 2
+00000352,00D3,,            movwf prc
+00000353,19AC,,            btfsc o_d, 3
+00000354,21FB,,            call clrout ;nastav port v prc
+00000355,11AC,,            bcf o_d, 3
+00000356,3013,,            movlw b'10011' ;port C3
+00000357,00D2,,            movwf port
+00000358,3002,,            movlw b'10' ;procesor 2
+00000359,00D3,,            movwf prc
+0000035A,1A2C,,            btfsc o_d, 4
+0000035B,21FB,,            call clrout ;nastav port v prc
+0000035C,122C,,            bcf o_d, 4
+0000035D,3014,,            movlw b'10100' ;port C4
+0000035E,00D2,,            movwf port
+0000035F,3002,,            movlw b'10' ;procesor 2
+00000360,00D3,,            movwf prc
+00000361,1AAC,,            btfsc o_d, 5
+00000362,21FB,,            call clrout ;nastav port v prc
+00000363,12AC,,            bcf o_d, 5
+00000364,3015,,            movlw b'10101' ;port C5
+00000365,00D2,,            movwf port
+00000366,3002,,            movlw b'10' ;procesor 2
+00000367,00D3,,            movwf prc
+00000368,1B2C,,            btfsc o_d, 6
+00000369,21FB,,            call clrout ;nastav port v prc
+0000036A,132C,,            bcf o_d, 6
 ,,,                  ;blinkry
-0000036E,122D,,            bcf o_e, 4
-0000036F,1361,,            bcf PORTD_temp, 6
-00000370,1308,,            bcf PORTD, 6
-00000371,12AD,,            bcf o_e, 5
-00000372,13E1,,            bcf PORTD_temp, 7
-00000373,1388,,            bcf PORTD, 7
+0000036B,122D,,            bcf o_e, 4
+0000036C,1361,,            bcf PORTD_temp, 6
+0000036D,1308,,            bcf PORTD, 6
+0000036E,12AD,,            bcf o_e, 5
+0000036F,13E1,,            bcf PORTD_temp, 7
+00000370,1388,,            bcf PORTD, 7
 ,,,                  ;klakson
-00000374,3019,,            movlw b'11001' ;port D1
-00000375,00D2,,            movwf port
-00000376,3003,,            movlw b'11' ;procesor 3
-00000377,00D3,,            movwf prc
-00000378,1A2B,,            btfsc o_c, 4
-00000379,21FE,,            call clrout ;nastav port v prc
-0000037A,122B,,            bcf o_c, 4
+00000371,3019,,            movlw b'11001' ;port D1
+00000372,00D2,,            movwf port
+00000373,3003,,            movlw b'11' ;procesor 3
+00000374,00D3,,            movwf prc
+00000375,1A2B,,            btfsc o_c, 4
+00000376,21FB,,            call clrout ;nastav port v prc
+00000377,122B,,            bcf o_c, 4
 ,,,                  ;stěrače, odstřikovače
-0000037B,13AB,,            bcf o_c, 7
-0000037C,11E1,,            bcf PORTD_temp, 3
-0000037D,1188,,            bcf PORTD, 3
-0000037E,132B,,            bcf o_c, 6
-0000037F,1161,,            bcf PORTD_temp, 2
-00000380,1108,,            bcf PORTD, 2
+00000378,13AB,,            bcf o_c, 7
+00000379,11E1,,            bcf PORTD_temp, 3
+0000037A,1188,,            bcf PORTD, 3
+0000037B,132B,,            bcf o_c, 6
+0000037C,1161,,            bcf PORTD_temp, 2
+0000037D,1108,,            bcf PORTD, 2
 ,,,                  ;dálková světla
-00000381,102C,,            bcf o_d, 0
-00000382,1261,,            bcf PORTD_temp, 4
-00000383,1208,,            bcf PORTD, 4
-00000384,0008,,            return
+0000037E,102C,,            bcf o_d, 0
+0000037F,1261,,            bcf PORTD_temp, 4
+00000380,1208,,            bcf PORTD, 4
+00000381,0008,,            return
 ,,,
 ,,,
 ,,,
 ,,,;zamknuti alarm on
-00000385,1858,t1_00,t1_00       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
-00000386,0008,,            return
-00000387,083C,,            movf ir_55, W ;zkontroluje dvere, pokud jsou otevrene promluvy a 3x rychle zahraje sirenu
-00000388,0445,,            iorwf ir_84, W
-00000389,0446,,            iorwf ir_85, W
-0000038A,0447,,            iorwf ir_86, W
-0000038B,0448,,            iorwf ir_87, W
-0000038C,0449,,            iorwf ir_88, W
-0000038D,044A,,            iorwf ir_89, W
-0000038E,00A5,,            movwf r6
-0000038F,1BA5,,            btfsc r6, 7
-00000390,0000,,            nop ;MLUV "zkontrolujte vstupy do auta"
-00000391,1BA5,,            btfsc r6, 7
-00000392,2634,,            call t1_53 ;zapne sirenu
-00000393,1BA5,,            btfsc r6, 7
-00000394,301F,,            movlw b'00011111' ;nastavi do timeru ze houkne 3x po 200ms
-00000395,1BA5,,            btfsc r6, 7
-00000396,00D8,,            movwf cassir
-00000397,1BA5,,            btfsc r6, 7
-00000398,3003,,            movlw .3
-00000399,1BA5,,            btfsc r6, 7
-0000039A,00D7,,            movwf timsir
+00000382,1858,t1_00,t1_00       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
+00000383,0008,,            return
+00000384,083C,,            movf ir_55, W ;zkontroluje dvere, pokud jsou otevrene promluvy a 3x rychle zahraje sirenu
+00000385,0445,,            iorwf ir_84, W
+00000386,0446,,            iorwf ir_85, W
+00000387,0447,,            iorwf ir_86, W
+00000388,0448,,            iorwf ir_87, W
+00000389,0449,,            iorwf ir_88, W
+0000038A,044A,,            iorwf ir_89, W
+0000038B,00A5,,            movwf r6
+0000038C,1BA5,,            btfsc r6, 7
+0000038D,0000,,            nop ;MLUV "zkontrolujte vstupy do auta"
+0000038E,1BA5,,            btfsc r6, 7
+0000038F,2631,,            call t1_53 ;zapne sirenu
+00000390,1BA5,,            btfsc r6, 7
+00000391,301F,,            movlw b'00011111' ;nastavi do timeru ze houkne 3x po 200ms
+00000392,1BA5,,            btfsc r6, 7
+00000393,00D8,,            movwf cassir
+00000394,1BA5,,            btfsc r6, 7
+00000395,3003,,            movlw .3
+00000396,1BA5,,            btfsc r6, 7
+00000397,00D7,,            movwf timsir
 ,,,            ;btfsc r6, 7  ;AŽ budou indikace otevřených dveří, tohle odkomentovat
 ,,,            ;return
 ,,,
-0000039B,248F,,            call t1_06 ;vypne vse
-0000039C,17AC,,            bsf o_d, 7 ;zapne alarm cidla
-0000039D,17DF,,            bsf PORTB_temp, 7
-0000039E,1786,,            bsf PORTB, 7
+00000398,248C,,            call t1_06 ;vypne vse
+00000399,17AC,,            bsf o_d, 7 ;zapne alarm cidla
+0000039A,17DF,,            bsf PORTB_temp, 7
+0000039B,1786,,            bsf PORTB, 7
 ,,,                  ;zapne probliknuti nejakych svetel a sirenu a po urcitem case vypne,
 ,,,                  ;zatahne okna a pamatuje si polohu, zacne problikavat LED zamceno, promluvi ze je zamc
 ,,,
 ,,,
-0000039F,246F,,            call t1_05 ;zapne varovky
-000003A0,301F,,            movlw b'00011111' ;nastavi do timeru ze houkne 3x po 200ms
-000003A1,00EB,,            movwf casvar
-000003A2,3008,,            movlw .8
-000003A3,00DB,,            movwf timvar
+0000039C,246C,,            call t1_05 ;zapne varovky
+0000039D,301F,,            movlw b'00011111' ;nastavi do timeru ze houkne 3x po 200ms
+0000039E,00EB,,            movwf casvar
+0000039F,3008,,            movlw .8
+000003A0,00DB,,            movwf timvar
 ,,,
 ,,,
-000003A4,3016,,            movlw b'10110' ;port C6
-000003A5,00D2,,            movwf port
-000003A6,3002,,            movlw b'10' ;procesor 2
-000003A7,00D3,,            movwf prc
-000003A8,1D2B,,            btfss o_c, 2
-000003A9,21D7,,            call setout ;set port v prc
-000003AA,152B,,            bsf o_c, 2 ;problikne red tunning na 1 sekundu
-000003AB,301A,,            movlw b'11010' ;port D2
-000003AC,00D2,,            movwf port
-000003AD,3002,,            movlw b'10' ;procesor 2
-000003AE,00D3,,            movwf prc
-000003AF,1DAE,,            btfss o_f, 3
-000003B0,21D7,,            call setout ;set port v prc
-000003B1,15AE,,            bsf o_f, 3 ;problikne red interier na 1 sekundu
-000003B2,14DA,,            bsf casov, REDTUN ;do timeru ze po 1s vypne
-000003B3,301E,,            movlw .30
-000003B4,00DC,,            movwf timrtu
-000003B5,2634,,            call t1_53 ;zahraje sirenou na 200ms
-000003B6,3001,,            movlw b'00000001' ;nastavi do timeru ze houkne 1x po 200ms
-000003B7,00D8,,            movwf cassir
-000003B8,3008,,            movlw .8
-000003B9,00D7,,            movwf timsir
-000003BA,13AE,,            bcf o_f, 7 ;sklopi zrcatka neboli vypne
-000003BB,10E2,,            bcf PORTE_temp, 1
-000003BC,1089,,            bcf PORTE, 1
-000003BD,0000,,            nop ;MLUV "auto zamčeno"
-000003BE,24CB,,            call t1_07 ;zamkne
-000003BF,155A,,            bsf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
-000003C0,300F,,            movlw .15
-000003C1,00DD,,            movwf timlza
+000003A1,3016,,            movlw b'10110' ;port C6
+000003A2,00D2,,            movwf port
+000003A3,3002,,            movlw b'10' ;procesor 2
+000003A4,00D3,,            movwf prc
+000003A5,1D2B,,            btfss o_c, 2
+000003A6,21D4,,            call setout ;set port v prc
+000003A7,152B,,            bsf o_c, 2 ;problikne red tunning na 1 sekundu
+000003A8,301A,,            movlw b'11010' ;port D2
+000003A9,00D2,,            movwf port
+000003AA,3002,,            movlw b'10' ;procesor 2
+000003AB,00D3,,            movwf prc
+000003AC,1DAE,,            btfss o_f, 3
+000003AD,21D4,,            call setout ;set port v prc
+000003AE,15AE,,            bsf o_f, 3 ;problikne red interier na 1 sekundu
+000003AF,14DA,,            bsf casov, REDTUN ;do timeru ze po 1s vypne
+000003B0,301E,,            movlw .30
+000003B1,00DC,,            movwf timrtu
+000003B2,2631,,            call t1_53 ;zahraje sirenou na 200ms
+000003B3,3001,,            movlw b'00000001' ;nastavi do timeru ze houkne 1x po 200ms
+000003B4,00D8,,            movwf cassir
+000003B5,3008,,            movlw .8
+000003B6,00D7,,            movwf timsir
+000003B7,13AE,,            bcf o_f, 7 ;sklopi zrcatka neboli vypne
+000003B8,10E2,,            bcf PORTE_temp, 1
+000003B9,1089,,            bcf PORTE, 1
+000003BA,0000,,            nop ;MLUV "auto zamčeno"
+000003BB,24C8,,            call t1_07 ;zamkne
+000003BC,155A,,            bsf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
+000003BD,300F,,            movlw .15
+000003BE,00DD,,            movwf timlza
 ,,,
 ,,,                  ;zatahnuti okenek
 ,,,            ;movf ir_90, W ;ulozi si aktualni polohy okenek pro stazeni pri odemknuti
@@ -1349,55 +1349,55 @@
 ,,,            ;movwf o3tar
 ,,,            ;movwf o4tar
 ,,,
-000003C2,0008,,            return
+000003BF,0008,,            return
 ,,,
 ,,,;odemknuti alarm off
-000003C3,1858,t1_01,t1_01       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
-000003C4,0008,,            return
+000003C0,1858,t1_01,t1_01       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
+000003C1,0008,,            return
 ,,,
-000003C5,13AC,,            bcf o_d, 7 ;vypne alarm cidla
-000003C6,13DF,,            bcf PORTB_temp, 7
-000003C7,1386,,            bcf PORTB, 7
+000003C2,13AC,,            bcf o_d, 7 ;vypne alarm cidla
+000003C3,13DF,,            bcf PORTB_temp, 7
+000003C4,1386,,            bcf PORTB, 7
 ,,,                  ;zapne probliknuti nejakych svetel a sirenu a po urcitem case vypne, STOP alarm
 ,,,                  ;stahne okna do pamatovane polohy, prestane problikavat LED zamceno, promluvi ze je od
-000003C8,2439,,            call t1_04
+000003C5,2436,,            call t1_04
 ,,,
 ,,,
-000003C9,246F,,            call t1_05 ;zapne varovky
-000003CA,3007,,            movlw b'00000111' ;nastavi do timeru ze houkne 3x po 200ms
-000003CB,00EB,,            movwf casvar
-000003CC,3008,,            movlw .8
-000003CD,00DB,,            movwf timvar
+000003C6,246C,,            call t1_05 ;zapne varovky
+000003C7,3007,,            movlw b'00000111' ;nastavi do timeru ze houkne 3x po 200ms
+000003C8,00EB,,            movwf casvar
+000003C9,3008,,            movlw .8
+000003CA,00DB,,            movwf timvar
 ,,,
 ,,,
-000003CE,3017,,            movlw b'10111' ;port C7
-000003CF,00D2,,            movwf port
-000003D0,3002,,            movlw b'10' ;procesor 2
-000003D1,00D3,,            movwf prc
-000003D2,1DAB,,            btfss o_c, 3
-000003D3,21D7,,            call setout ;set port v prc
-000003D4,15AB,,            bsf o_c, 3 ;problikne white tunning na 1 sekundu
-000003D5,301B,,            movlw b'11011' ;port D3
-000003D6,00D2,,            movwf port
-000003D7,3002,,            movlw b'10' ;procesor 2
-000003D8,00D3,,            movwf prc
-000003D9,1E2E,,            btfss o_f, 4
-000003DA,21D7,,            call setout ;set port v prc
-000003DB,162E,,            bsf o_f, 4 ;problikne white interier na 1 sekundu
-000003DC,15DA,,            bsf casov, WHITUN ;do timeru ze po 1s vypne
-000003DD,301E,,            movlw .30
-000003DE,00E3,,            movwf timwtu
-000003DF,2634,,            call t1_53 ;zahraje sirenou na 200ms
-000003E0,3007,,            movlw b'00000111' ;nastavi do timeru ze houkne 2x po 200ms
-000003E1,00D8,,            movwf cassir
-000003E2,3008,,            movlw .8
-000003E3,00D7,,            movwf timsir
-000003E4,17AE,,            bsf o_f, 7 ;odklopi zrcatka neboli zapne
-000003E5,14E2,,            bsf PORTE_temp, 1
-000003E6,1489,,            bsf PORTE, 1
-000003E7,0000,,            nop ;MLUV "auto odemčeno"
-000003E8,115A,,            bcf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
-000003E9,24D9,,            call t1_08 ;odemkne
+000003CB,3017,,            movlw b'10111' ;port C7
+000003CC,00D2,,            movwf port
+000003CD,3002,,            movlw b'10' ;procesor 2
+000003CE,00D3,,            movwf prc
+000003CF,1DAB,,            btfss o_c, 3
+000003D0,21D4,,            call setout ;set port v prc
+000003D1,15AB,,            bsf o_c, 3 ;problikne white tunning na 1 sekundu
+000003D2,301B,,            movlw b'11011' ;port D3
+000003D3,00D2,,            movwf port
+000003D4,3002,,            movlw b'10' ;procesor 2
+000003D5,00D3,,            movwf prc
+000003D6,1E2E,,            btfss o_f, 4
+000003D7,21D4,,            call setout ;set port v prc
+000003D8,162E,,            bsf o_f, 4 ;problikne white interier na 1 sekundu
+000003D9,15DA,,            bsf casov, WHITUN ;do timeru ze po 1s vypne
+000003DA,301E,,            movlw .30
+000003DB,00E3,,            movwf timwtu
+000003DC,2631,,            call t1_53 ;zahraje sirenou na 200ms
+000003DD,3007,,            movlw b'00000111' ;nastavi do timeru ze houkne 2x po 200ms
+000003DE,00D8,,            movwf cassir
+000003DF,3008,,            movlw .8
+000003E0,00D7,,            movwf timsir
+000003E1,17AE,,            bsf o_f, 7 ;odklopi zrcatka neboli zapne
+000003E2,14E2,,            bsf PORTE_temp, 1
+000003E3,1489,,            bsf PORTE, 1
+000003E4,0000,,            nop ;MLUV "auto odemčeno"
+000003E5,115A,,            bcf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
+000003E6,24D6,,            call t1_08 ;odemkne
 ,,,
 ,,,                  ;stahnuti okenek
 ,,,            ;movf o1tmp, W
@@ -1409,1015 +1409,1015 @@
 ,,,            ;movf o4tmp, W
 ,,,            ;movwf o4tar
 ,,,
-000003EA,0008,,            return
+000003E7,0008,,            return
 ,,,
 ,,,;spinacka poloha up
-000003EB,1964,t1_02,t1_02       btfsc spinac, 2
-000003EC,0008,,            return
-000003ED,1403,,            bsf STATUS, C
-000003EE,0DE4,,            rlf spinac, F
+000003E8,1964,t1_02,t1_02       btfsc spinac, 2
+000003E9,0008,,            return
+000003EA,1403,,            bsf STATUS, C
+000003EB,0DE4,,            rlf spinac, F
 ,,,                  ;pokud poloha 3
-000003EF,1D64,,            btfss spinac, 2
-000003F0,2C06,,            goto t2_02
-000003F1,1029,,            bcf o_a, 0
-000003F2,1060,,            bcf PORTC_temp, 0
-000003F3,1007,,            bcf PORTC, 0
-000003F4,10A9,,            bcf o_a, 1
-000003F5,10E0,,            bcf PORTC_temp, 1
-000003F6,1087,,            bcf PORTC, 1
-000003F7,1531,,            bsf o_i, 2
-000003F8,301A,,            movlw b'11010' ;port D2
-000003F9,00D2,,            movwf port
-000003FA,3003,,            movlw b'11' ;procesor 3
-000003FB,00D3,,            movwf prc
-000003FC,21D7,,            call setout ;set port v prc
-000003FD,15B1,,            bsf o_i, 3
-000003FE,301B,,            movlw b'11011' ;port D3
-000003FF,00D2,,            movwf port
-00000400,3003,,            movlw b'11' ;procesor 3
-00000401,00D3,,            movwf prc
-00000402,21D7,,            call setout ;set port v prc
-00000403,3014,,            movlw .20 ;nastavi startovani pouze max na vterinu
-00000404,00E5,,            movwf timspi
-00000405,0008,,            return
+000003EC,1D64,,            btfss spinac, 2
+000003ED,2C03,,            goto t2_02
+000003EE,1029,,            bcf o_a, 0
+000003EF,1060,,            bcf PORTC_temp, 0
+000003F0,1007,,            bcf PORTC, 0
+000003F1,10A9,,            bcf o_a, 1
+000003F2,10E0,,            bcf PORTC_temp, 1
+000003F3,1087,,            bcf PORTC, 1
+000003F4,1531,,            bsf o_i, 2
+000003F5,301A,,            movlw b'11010' ;port D2
+000003F6,00D2,,            movwf port
+000003F7,3003,,            movlw b'11' ;procesor 3
+000003F8,00D3,,            movwf prc
+000003F9,21D4,,            call setout ;set port v prc
+000003FA,15B1,,            bsf o_i, 3
+000003FB,301B,,            movlw b'11011' ;port D3
+000003FC,00D2,,            movwf port
+000003FD,3003,,            movlw b'11' ;procesor 3
+000003FE,00D3,,            movwf prc
+000003FF,21D4,,            call setout ;set port v prc
+00000400,3014,,            movlw .20 ;nastavi startovani pouze max na vterinu
+00000401,00E5,,            movwf timspi
+00000402,0008,,            return
 ,,,            ;pokud poloha 2
-00000406,1CE4,t2_02,t2_02       btfss spinac, 1
-00000407,2C0F,,            goto t3_02
-00000408,1429,,            bsf o_a, 0
-00000409,1460,,            bsf PORTC_temp, 0
-0000040A,1407,,            bsf PORTC, 0
-0000040B,1529,,            bsf o_a, 2
-0000040C,1560,,            bsf PORTC_temp, 2
-0000040D,1507,,            bsf PORTC, 2
-0000040E,0008,,            return
+00000403,1CE4,t2_02,t2_02       btfss spinac, 1
+00000404,2C0C,,            goto t3_02
+00000405,1429,,            bsf o_a, 0
+00000406,1460,,            bsf PORTC_temp, 0
+00000407,1407,,            bsf PORTC, 0
+00000408,1529,,            bsf o_a, 2
+00000409,1560,,            bsf PORTC_temp, 2
+0000040A,1507,,            bsf PORTC, 2
+0000040B,0008,,            return
 ,,,            ;pokud poloha 1
-0000040F,14A9,t3_02,t3_02       bsf o_a, 1
-00000410,14E0,,            bsf PORTC_temp, 1
-00000411,1487,,            bsf PORTC, 1
-00000412,0008,,            return
+0000040C,14A9,t3_02,t3_02       bsf o_a, 1
+0000040D,14E0,,            bsf PORTC_temp, 1
+0000040E,1487,,            bsf PORTC, 1
+0000040F,0008,,            return
 ,,,
 ,,,;spinacka poloha down
-00000413,1C64,t1_03,t1_03       btfss spinac, 0
-00000414,0008,,            return
-00000415,1003,,            bcf STATUS, C
-00000416,0CE4,,            rrf spinac, F
+00000410,1C64,t1_03,t1_03       btfss spinac, 0
+00000411,0008,,            return
+00000412,1003,,            bcf STATUS, C
+00000413,0CE4,,            rrf spinac, F
 ,,,            ;pokud poloha 2
-00000417,1CE4,,            btfss spinac, 1
-00000418,2C2C,,            goto t2_03
-00000419,1429,,            bsf o_a, 0
-0000041A,1460,,            bsf PORTC_temp, 0
-0000041B,1407,,            bsf PORTC, 0
-0000041C,14A9,,            bsf o_a, 1
-0000041D,14E0,,            bsf PORTC_temp, 1
-0000041E,1487,,            bsf PORTC, 1
-0000041F,1131,,            bcf o_i, 2
-00000420,301A,,            movlw b'11010' ;port D2
-00000421,00D2,,            movwf port
-00000422,3003,,            movlw b'11' ;procesor 3
-00000423,00D3,,            movwf prc
-00000424,21FE,,            call clrout ;set port v prc
-00000425,11B1,,            bcf o_i, 3
-00000426,301B,,            movlw b'11011' ;port D3
-00000427,00D2,,            movwf port
-00000428,3003,,            movlw b'11' ;procesor 3
-00000429,00D3,,            movwf prc
-0000042A,21FE,,            call clrout ;set port v prc
-0000042B,0008,,            return
+00000414,1CE4,,            btfss spinac, 1
+00000415,2C29,,            goto t2_03
+00000416,1429,,            bsf o_a, 0
+00000417,1460,,            bsf PORTC_temp, 0
+00000418,1407,,            bsf PORTC, 0
+00000419,14A9,,            bsf o_a, 1
+0000041A,14E0,,            bsf PORTC_temp, 1
+0000041B,1487,,            bsf PORTC, 1
+0000041C,1131,,            bcf o_i, 2
+0000041D,301A,,            movlw b'11010' ;port D2
+0000041E,00D2,,            movwf port
+0000041F,3003,,            movlw b'11' ;procesor 3
+00000420,00D3,,            movwf prc
+00000421,21FB,,            call clrout ;set port v prc
+00000422,11B1,,            bcf o_i, 3
+00000423,301B,,            movlw b'11011' ;port D3
+00000424,00D2,,            movwf port
+00000425,3003,,            movlw b'11' ;procesor 3
+00000426,00D3,,            movwf prc
+00000427,21FB,,            call clrout ;set port v prc
+00000428,0008,,            return
 ,,,            ;pokud poloha 1
-0000042C,1C64,t2_03,t2_03       btfss spinac, 0
-0000042D,2C35,,            goto t3_03
-0000042E,1029,,            bcf o_a, 0
-0000042F,1060,,            bcf PORTC_temp, 0
-00000430,1007,,            bcf PORTC, 0
-00000431,1129,,            bcf o_a, 2
-00000432,1160,,            bcf PORTC_temp, 2
-00000433,1107,,            bcf PORTC, 2
-00000434,0008,,            return
+00000429,1C64,t2_03,t2_03       btfss spinac, 0
+0000042A,2C32,,            goto t3_03
+0000042B,1029,,            bcf o_a, 0
+0000042C,1060,,            bcf PORTC_temp, 0
+0000042D,1007,,            bcf PORTC, 0
+0000042E,1129,,            bcf o_a, 2
+0000042F,1160,,            bcf PORTC_temp, 2
+00000430,1107,,            bcf PORTC, 2
+00000431,0008,,            return
 ,,,            ;pokud poloha 0
-00000435,10A9,t3_03,t3_03       bcf o_a, 1
-00000436,10E0,,            bcf PORTC_temp, 1
-00000437,1087,,            bcf PORTC, 1
-00000438,0008,,            return
+00000432,10A9,t3_03,t3_03       bcf o_a, 1
+00000433,10E0,,            bcf PORTC_temp, 1
+00000434,1087,,            bcf PORTC, 1
+00000435,0008,,            return
 ,,,
 ,,,;alarm stop
-00000439,1EDA,t1_04,t1_04       btfss casov, ALARM
-0000043A,0008,,            return
-0000043B,3018,,            movlw b'11000' ;port D0  ;sirena
-0000043C,00D2,,            movwf port
-0000043D,3003,,            movlw b'11' ;procesor 3
-0000043E,00D3,,            movwf prc
-0000043F,18AD,,            btfsc o_e, 1
-00000440,21FE,,            call clrout ;set port v prc
-00000441,10AD,,            bcf o_e, 1
+00000436,1EDA,t1_04,t1_04       btfss casov, ALARM
+00000437,0008,,            return
+00000438,3018,,            movlw b'11000' ;port D0  ;sirena
+00000439,00D2,,            movwf port
+0000043A,3003,,            movlw b'11' ;procesor 3
+0000043B,00D3,,            movwf prc
+0000043C,18AD,,            btfsc o_e, 1
+0000043D,21FB,,            call clrout ;set port v prc
+0000043E,10AD,,            bcf o_e, 1
 ,,,            ;varovky
-00000442,246F,,            call t1_05
+0000043F,246C,,            call t1_05
 ,,,
 ,,,            ;stroboskop
-00000443,3019,,            movlw b'11001' ;port D1
-00000444,00D2,,            movwf port
-00000445,3002,,            movlw b'10' ;procesor 2
-00000446,00D3,,            movwf prc
-00000447,192D,,            btfsc o_e, 2
-00000448,21FE,,            call clrout ;set port v prc
-00000449,112D,,            bcf o_e, 2
+00000440,3019,,            movlw b'11001' ;port D1
+00000441,00D2,,            movwf port
+00000442,3002,,            movlw b'10' ;procesor 2
+00000443,00D3,,            movwf prc
+00000444,192D,,            btfsc o_e, 2
+00000445,21FB,,            call clrout ;set port v prc
+00000446,112D,,            bcf o_e, 2
 ,,,
-0000044A,3016,,            movlw b'10110' ;port C6
-0000044B,00D2,,            movwf port
-0000044C,3002,,            movlw b'10' ;procesor 2
-0000044D,00D3,,            movwf prc
-0000044E,192B,,            btfsc o_c, 2
-0000044F,21FE,,            call clrout ;set port v prc
-00000450,112B,,            bcf o_c, 2
-00000451,3017,,            movlw b'10111' ;port C7
-00000452,00D2,,            movwf port
-00000453,3002,,            movlw b'10' ;procesor 2
-00000454,00D3,,            movwf prc
-00000455,19AB,,            btfsc o_c, 3
-00000456,21FE,,            call clrout ;set port v prc
-00000457,11AB,,            bcf o_c, 3
-00000458,301A,,            movlw b'11010' ;port D2
-00000459,00D2,,            movwf port
-0000045A,3002,,            movlw b'10' ;procesor 2
-0000045B,00D3,,            movwf prc
-0000045C,19AE,,            btfsc o_f, 3
-0000045D,21FE,,            call clrout ;set port v prc
-0000045E,11AE,,            bcf o_f, 3
-0000045F,301B,,            movlw b'11011' ;port D3
-00000460,00D2,,            movwf port
-00000461,3002,,            movlw b'10' ;procesor 2
-00000462,00D3,,            movwf prc
-00000463,1A2E,,            btfsc o_f, 4
-00000464,21FE,,            call clrout ;set port v prc
-00000465,122E,,            bcf o_f, 4
-00000466,3019,,            movlw b'11001' ;port D1
-00000467,00D2,,            movwf port
-00000468,3003,,            movlw b'11' ;procesor 3
-00000469,00D3,,            movwf prc
-0000046A,1A2B,,            btfsc o_c, 4
-0000046B,21FE,,            call clrout ;set port v prc
-0000046C,122B,,            bcf o_c, 4
+00000447,3016,,            movlw b'10110' ;port C6
+00000448,00D2,,            movwf port
+00000449,3002,,            movlw b'10' ;procesor 2
+0000044A,00D3,,            movwf prc
+0000044B,192B,,            btfsc o_c, 2
+0000044C,21FB,,            call clrout ;set port v prc
+0000044D,112B,,            bcf o_c, 2
+0000044E,3017,,            movlw b'10111' ;port C7
+0000044F,00D2,,            movwf port
+00000450,3002,,            movlw b'10' ;procesor 2
+00000451,00D3,,            movwf prc
+00000452,19AB,,            btfsc o_c, 3
+00000453,21FB,,            call clrout ;set port v prc
+00000454,11AB,,            bcf o_c, 3
+00000455,301A,,            movlw b'11010' ;port D2
+00000456,00D2,,            movwf port
+00000457,3002,,            movlw b'10' ;procesor 2
+00000458,00D3,,            movwf prc
+00000459,19AE,,            btfsc o_f, 3
+0000045A,21FB,,            call clrout ;set port v prc
+0000045B,11AE,,            bcf o_f, 3
+0000045C,301B,,            movlw b'11011' ;port D3
+0000045D,00D2,,            movwf port
+0000045E,3002,,            movlw b'10' ;procesor 2
+0000045F,00D3,,            movwf prc
+00000460,1A2E,,            btfsc o_f, 4
+00000461,21FB,,            call clrout ;set port v prc
+00000462,122E,,            bcf o_f, 4
+00000463,3019,,            movlw b'11001' ;port D1
+00000464,00D2,,            movwf port
+00000465,3003,,            movlw b'11' ;procesor 3
+00000466,00D3,,            movwf prc
+00000467,1A2B,,            btfsc o_c, 4
+00000468,21FB,,            call clrout ;set port v prc
+00000469,122B,,            bcf o_c, 4
 ,,,
-0000046D,12DA,,            bcf casov, ALARM ;zacne problikavat tuning, interier a klakson
-0000046E,0008,,            return
+0000046A,12DA,,            bcf casov, ALARM ;zacne problikavat tuning, interier a klakson
+0000046B,0008,,            return
 ,,,
 ,,,;varovna svetla
-0000046F,186B,t1_05,t1_05       btfsc casvar, 0 ;pokud oba zaply oba vypne
-00000470,122D,,            bcf o_e, 4
-00000471,186B,,            btfsc casvar, 0 ;pokud oba zaply oba vypne
-00000472,1361,,            bcf PORTD_temp, 6
-00000473,186B,,            btfsc casvar, 0 ;pokud oba zaply oba vypne
-00000474,1308,,            bcf PORTD, 6
-00000475,186B,,            btfsc casvar, 0 ;pokud oba zaply oba vypne
-00000476,12AD,,            bcf o_e, 5
-00000477,186B,,            btfsc casvar, 0 ;pokud oba zaply oba vypne
-00000478,13E1,,            bcf PORTD_temp, 7
-00000479,186B,,            btfsc casvar, 0 ;pokud oba zaply oba vypne
-0000047A,1388,,            bcf PORTD, 7
+0000046C,186B,t1_05,t1_05       btfsc casvar, 0 ;pokud oba zaply oba vypne
+0000046D,122D,,            bcf o_e, 4
+0000046E,186B,,            btfsc casvar, 0 ;pokud oba zaply oba vypne
+0000046F,1361,,            bcf PORTD_temp, 6
+00000470,186B,,            btfsc casvar, 0 ;pokud oba zaply oba vypne
+00000471,1308,,            bcf PORTD, 6
+00000472,186B,,            btfsc casvar, 0 ;pokud oba zaply oba vypne
+00000473,12AD,,            bcf o_e, 5
+00000474,186B,,            btfsc casvar, 0 ;pokud oba zaply oba vypne
+00000475,13E1,,            bcf PORTD_temp, 7
+00000476,186B,,            btfsc casvar, 0 ;pokud oba zaply oba vypne
+00000477,1388,,            bcf PORTD, 7
 ,,,
-0000047B,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
-0000047C,162D,,            bsf o_e, 4
-0000047D,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
-0000047E,1761,,            bsf PORTD_temp, 6
-0000047F,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
-00000480,1708,,            bsf PORTD, 6
-00000481,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
-00000482,16AD,,            bsf o_e, 5
-00000483,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
-00000484,17E1,,            bsf PORTD_temp, 7
-00000485,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
-00000486,1788,,            bsf PORTD, 7
+00000478,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
+00000479,162D,,            bsf o_e, 4
+0000047A,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
+0000047B,1761,,            bsf PORTD_temp, 6
+0000047C,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
+0000047D,1708,,            bsf PORTD, 6
+0000047E,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
+0000047F,16AD,,            bsf o_e, 5
+00000480,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
+00000481,17E1,,            bsf PORTD_temp, 7
+00000482,1C6B,,            btfss casvar, 0 ;pokud jeden vyply oba zapne
+00000483,1788,,            bsf PORTD, 7
 ,,,
-00000487,186B,,            btfsc casvar, 0
-00000488,3000,,            movlw b'00000000' ;nastavi do timeru ze houkne 3x po 200ms
-00000489,1C6B,,            btfss casvar, 0
-0000048A,30FF,,            movlw b'11111111' ;nastavi do timeru ze houkne 3x po 200ms
-0000048B,00EB,,            movwf casvar
-0000048C,3008,,            movlw .8
-0000048D,00DB,,            movwf timvar
+00000484,186B,,            btfsc casvar, 0
+00000485,3000,,            movlw b'00000000' ;nastavi do timeru ze houkne 3x po 200ms
+00000486,1C6B,,            btfss casvar, 0
+00000487,30FF,,            movlw b'11111111' ;nastavi do timeru ze houkne 3x po 200ms
+00000488,00EB,,            movwf casvar
+00000489,3008,,            movlw .8
+0000048A,00DB,,            movwf timvar
 ,,,
-0000048E,0008,,            return
+0000048B,0008,,            return
 ,,,
 ,,,;vypnout vse
-0000048F,18D9,t1_06,t1_06       btfsc conf, STARTED ;kdyz neni nastartovano vypni vse
-00000490,0008,,            return
+0000048C,18D9,t1_06,t1_06       btfsc conf, STARTED ;kdyz neni nastartovano vypni vse
+0000048D,0008,,            return
 ,,,            ;svetla
-00000491,10AB,,            bcf o_c, 1
-00000492,11E0,,            bcf PORTC_temp, 3
-00000493,1187,,            bcf PORTC, 3
+0000048E,10AB,,            bcf o_c, 1
+0000048F,11E0,,            bcf PORTC_temp, 3
+00000490,1187,,            bcf PORTC, 3
 ,,,            ;red tuning
 ,,,            ;white tunning
 ,,,            ;red interier
 ,,,            ;white interier
-00000494,3017,,            movlw b'10111' ;port C7
-00000495,00D2,,            movwf port
-00000496,3002,,            movlw b'10' ;procesor 2
-00000497,00D3,,            movwf prc
-00000498,19AB,,            btfsc o_c, 3
-00000499,21FE,,            call clrout ;set port v prc
-0000049A,11AB,,            bcf o_c, 3
-0000049B,301B,,            movlw b'11011' ;port D3
-0000049C,00D2,,            movwf port
-0000049D,3002,,            movlw b'10' ;procesor 2
-0000049E,00D3,,            movwf prc
-0000049F,1A2E,,            btfsc o_f, 4
-000004A0,21FE,,            call clrout ;set port v prc
-000004A1,122E,,            bcf o_f, 4
-000004A2,3016,,            movlw b'10110' ;port C6
-000004A3,00D2,,            movwf port
-000004A4,3002,,            movlw b'10' ;procesor 2
-000004A5,00D3,,            movwf prc
-000004A6,192B,,            btfsc o_c, 2
-000004A7,21FE,,            call clrout ;set port v prc
-000004A8,112B,,            bcf o_c, 2
-000004A9,301A,,            movlw b'11010' ;port D2
-000004AA,00D2,,            movwf port
-000004AB,3002,,            movlw b'10' ;procesor 2
-000004AC,00D3,,            movwf prc
-000004AD,19AE,,            btfsc o_f, 3
-000004AE,21FE,,            call clrout ;set port v prc
-000004AF,11AE,,            bcf o_f, 3
+00000491,3017,,            movlw b'10111' ;port C7
+00000492,00D2,,            movwf port
+00000493,3002,,            movlw b'10' ;procesor 2
+00000494,00D3,,            movwf prc
+00000495,19AB,,            btfsc o_c, 3
+00000496,21FB,,            call clrout ;set port v prc
+00000497,11AB,,            bcf o_c, 3
+00000498,301B,,            movlw b'11011' ;port D3
+00000499,00D2,,            movwf port
+0000049A,3002,,            movlw b'10' ;procesor 2
+0000049B,00D3,,            movwf prc
+0000049C,1A2E,,            btfsc o_f, 4
+0000049D,21FB,,            call clrout ;set port v prc
+0000049E,122E,,            bcf o_f, 4
+0000049F,3016,,            movlw b'10110' ;port C6
+000004A0,00D2,,            movwf port
+000004A1,3002,,            movlw b'10' ;procesor 2
+000004A2,00D3,,            movwf prc
+000004A3,192B,,            btfsc o_c, 2
+000004A4,21FB,,            call clrout ;set port v prc
+000004A5,112B,,            bcf o_c, 2
+000004A6,301A,,            movlw b'11010' ;port D2
+000004A7,00D2,,            movwf port
+000004A8,3002,,            movlw b'10' ;procesor 2
+000004A9,00D3,,            movwf prc
+000004AA,19AE,,            btfsc o_f, 3
+000004AB,21FB,,            call clrout ;set port v prc
+000004AC,11AE,,            bcf o_f, 3
 ,,,
 ,,,            ;stroboskop
-000004B0,3019,,            movlw b'11001' ;port D1
-000004B1,00D2,,            movwf port
-000004B2,3002,,            movlw b'10' ;procesor 2
-000004B3,00D3,,            movwf prc
-000004B4,192D,,            btfsc o_e, 2
-000004B5,21FE,,            call clrout ;set port v prc
-000004B6,112D,,            bcf o_e, 2
+000004AD,3019,,            movlw b'11001' ;port D1
+000004AE,00D2,,            movwf port
+000004AF,3002,,            movlw b'10' ;procesor 2
+000004B0,00D3,,            movwf prc
+000004B1,192D,,            btfsc o_e, 2
+000004B2,21FB,,            call clrout ;set port v prc
+000004B3,112D,,            bcf o_e, 2
 ,,,            ;sirena
-000004B7,3018,,            movlw b'11000' ;port D0
-000004B8,00D2,,            movwf port
-000004B9,3003,,            movlw b'11' ;procesor 3
-000004BA,00D3,,            movwf prc
-000004BB,18AD,,            btfsc o_e, 1
-000004BC,21FE,,            call clrout ;set port v prc
-000004BD,10AD,,            bcf o_e, 1
+000004B4,3018,,            movlw b'11000' ;port D0
+000004B5,00D2,,            movwf port
+000004B6,3003,,            movlw b'11' ;procesor 3
+000004B7,00D3,,            movwf prc
+000004B8,18AD,,            btfsc o_e, 1
+000004B9,21FB,,            call clrout ;set port v prc
+000004BA,10AD,,            bcf o_e, 1
 ,,,            ;parkovacky
-000004BE,11AD,,            bcf o_e, 3
-000004BF,12E1,,            bcf PORTD_temp, 5
-000004C0,1288,,            bcf PORTD, 5
+000004BB,11AD,,            bcf o_e, 3
+000004BC,12E1,,            bcf PORTD_temp, 5
+000004BD,1288,,            bcf PORTD, 5
 ,,,            ;mlhovky zadni
-000004C1,10AE,,            bcf o_f, 1
-000004C2,1260,,            bcf PORTC_temp, 4
-000004C3,1207,,            bcf PORTC, 4
+000004BE,10AE,,            bcf o_f, 1
+000004BF,1260,,            bcf PORTC_temp, 4
+000004C0,1207,,            bcf PORTC, 4
 ,,,            ;mlhovky predni
-000004C4,12AB,,            bcf o_c, 5
-000004C5,10E1,,            bcf PORTD_temp, 1
-000004C6,1088,,            bcf PORTD, 1
+000004C1,12AB,,            bcf o_c, 5
+000004C2,10E1,,            bcf PORTD_temp, 1
+000004C3,1088,,            bcf PORTD, 1
 ,,,            ;rozehrivani okenka
-000004C7,112E,,            bcf o_f, 2
-000004C8,12E0,,            bcf PORTC_temp, 5
-000004C9,1287,,            bcf PORTC, 5
-000004CA,0008,,            return
+000004C4,112E,,            bcf o_f, 2
+000004C5,12E0,,            bcf PORTC_temp, 5
+000004C6,1287,,            bcf PORTC, 5
+000004C7,0008,,            return
 ,,,
 ,,,;zamknuti
-000004CB,1451,t1_07,t1_07       bsf locked, 0 ;nastavi registr locked
-000004CC,12B0,,            bcf o_h, 5 ;vypne v regs led odemceno
-000004CD,3015,,            movlw b'10101' ;port C5
-000004CE,00D2,,            movwf port
-000004CF,3003,,            movlw b'11' ;procesor 3
-000004D0,00D3,,            movwf prc
-000004D1,21FE,,            call clrout ;smaz port v prc
-000004D2,1730,,            bsf o_h, 6 ;zapne v regs led zamceno
-000004D3,3016,,            movlw b'10110' ;port C6
-000004D4,00D2,,            movwf port
-000004D5,3003,,            movlw b'0011' ;procesor 3
-000004D6,00D3,,            movwf prc
-000004D7,21D7,,            call setout ;nastav port v prc
-000004D8,0008,,            return
+000004C8,1451,t1_07,t1_07       bsf locked, 0 ;nastavi registr locked
+000004C9,12B0,,            bcf o_h, 5 ;vypne v regs led odemceno
+000004CA,3015,,            movlw b'10101' ;port C5
+000004CB,00D2,,            movwf port
+000004CC,3003,,            movlw b'11' ;procesor 3
+000004CD,00D3,,            movwf prc
+000004CE,21FB,,            call clrout ;smaz port v prc
+000004CF,1730,,            bsf o_h, 6 ;zapne v regs led zamceno
+000004D0,3016,,            movlw b'10110' ;port C6
+000004D1,00D2,,            movwf port
+000004D2,3003,,            movlw b'0011' ;procesor 3
+000004D3,00D3,,            movwf prc
+000004D4,21D4,,            call setout ;nastav port v prc
+000004D5,0008,,            return
 ,,,;odemknuti
-000004D9,1051,t1_08,t1_08       bcf locked, 0 ;smaze registr locked
-000004DA,16B0,,            bsf o_h, 5 ;zapne v regs led odemceno
-000004DB,3015,,            movlw b'10101' ;port C5
-000004DC,00D2,,            movwf port
-000004DD,3003,,            movlw b'11' ;procesor 3
-000004DE,00D3,,            movwf prc
-000004DF,21D7,,            call setout ;nastav port v prc
-000004E0,1730,,            bsf o_h, 6 ;vypne v regs led zamceno
-000004E1,3016,,            movlw b'10110' ;port C6
-000004E2,00D2,,            movwf port
-000004E3,3003,,            movlw b'0011' ;procesor 3
-000004E4,00D3,,            movwf prc
-000004E5,21FE,,            call clrout ;smaz port v prc
-000004E6,0008,,            return
+000004D6,1051,t1_08,t1_08       bcf locked, 0 ;smaze registr locked
+000004D7,16B0,,            bsf o_h, 5 ;zapne v regs led odemceno
+000004D8,3015,,            movlw b'10101' ;port C5
+000004D9,00D2,,            movwf port
+000004DA,3003,,            movlw b'11' ;procesor 3
+000004DB,00D3,,            movwf prc
+000004DC,21D4,,            call setout ;nastav port v prc
+000004DD,1730,,            bsf o_h, 6 ;vypne v regs led zamceno
+000004DE,3016,,            movlw b'10110' ;port C6
+000004DF,00D2,,            movwf port
+000004E0,3003,,            movlw b'0011' ;procesor 3
+000004E1,00D3,,            movwf prc
+000004E2,21FB,,            call clrout ;smaz port v prc
+000004E3,0008,,            return
 ,,,
 ,,,;pripraveno
-000004E7,0000,t1_09,t1_09       nop
-000004E8,0008,,            return
+000004E4,0000,t1_09,t1_09       nop
+000004E5,0008,,            return
 ,,,
 ,,,;odskok dvere 1
-000004E9,162A,t1_10,t1_10       bsf o_b, 4
-000004EA,301F,,            movlw b'11111' ;port D7
-000004EB,00D2,,            movwf port
-000004EC,3003,,            movlw b'11' ;procesor 3
-000004ED,00D3,,            movwf prc
-000004EE,21D7,,            call setout ;smaz port v prc
-000004EF,165A,,            bsf casov, ODSKOK
-000004F0,3008,,            movlw .8
-000004F1,00E6,,            movwf timods
-000004F2,0008,,            return
+000004E6,162A,t1_10,t1_10       bsf o_b, 4
+000004E7,301F,,            movlw b'11111' ;port D7
+000004E8,00D2,,            movwf port
+000004E9,3003,,            movlw b'11' ;procesor 3
+000004EA,00D3,,            movwf prc
+000004EB,21D4,,            call setout ;smaz port v prc
+000004EC,165A,,            bsf casov, ODSKOK
+000004ED,3008,,            movlw .8
+000004EE,00E6,,            movwf timods
+000004EF,0008,,            return
 ,,,
 ,,,;odskok dvere 2
-000004F3,16AA,t1_11,t1_11       bsf o_b, 5
-000004F4,17E0,,            bsf PORTC_temp, 7
-000004F5,1787,,            bsf PORTC, 7
-000004F6,165A,,            bsf casov, ODSKOK
-000004F7,3008,,            movlw .8
-000004F8,00E6,,            movwf timods
-000004F9,0008,,            return
+000004F0,16AA,t1_11,t1_11       bsf o_b, 5
+000004F1,17E0,,            bsf PORTC_temp, 7
+000004F2,1787,,            bsf PORTC, 7
+000004F3,165A,,            bsf casov, ODSKOK
+000004F4,3008,,            movlw .8
+000004F5,00E6,,            movwf timods
+000004F6,0008,,            return
 ,,,
 ,,,;odskok dvere 3
-000004FA,1A31,t1_12,t1_12       btfsc o_i, 4
-000004FB,0008,,            return
-000004FC,172A,,            bsf o_b, 6
-000004FD,155F,,            bsf PORTB_temp, 2
-000004FE,1506,,            bsf PORTB, 2
-000004FF,165A,,            bsf casov, ODSKOK
-00000500,3008,,            movlw .8
-00000501,00E6,,            movwf timods
-00000502,0008,,            return
+000004F7,1A31,t1_12,t1_12       btfsc o_i, 4
+000004F8,0008,,            return
+000004F9,172A,,            bsf o_b, 6
+000004FA,155F,,            bsf PORTB_temp, 2
+000004FB,1506,,            bsf PORTB, 2
+000004FC,165A,,            bsf casov, ODSKOK
+000004FD,3008,,            movlw .8
+000004FE,00E6,,            movwf timods
+000004FF,0008,,            return
 ,,,
 ,,,;odskok dvere 4
-00000503,1A31,t1_13,t1_13       btfsc o_i, 4
-00000504,0008,,            return
-00000505,17AA,,            bsf o_b, 7
-00000506,15DF,,            bsf PORTB_temp, 3
-00000507,1586,,            bsf PORTB, 3
-00000508,165A,,            bsf casov, ODSKOK
-00000509,3008,,            movlw .8
-0000050A,00E6,,            movwf timods
-0000050B,0008,,            return
+00000500,1A31,t1_13,t1_13       btfsc o_i, 4
+00000501,0008,,            return
+00000502,17AA,,            bsf o_b, 7
+00000503,15DF,,            bsf PORTB_temp, 3
+00000504,1586,,            bsf PORTB, 3
+00000505,165A,,            bsf casov, ODSKOK
+00000506,3008,,            movlw .8
+00000507,00E6,,            movwf timods
+00000508,0008,,            return
 ,,,
 ,,,;odskok kufr
-0000050C,15AA,t1_14,t1_14       bsf o_b, 3
-0000050D,165F,,            bsf PORTB_temp, 4
-0000050E,1606,,            bsf PORTB, 4
-0000050F,165A,,            bsf casov, ODSKOK
-00000510,3008,,            movlw .8
-00000511,00E6,,            movwf timods
-00000512,0008,,            return
+00000509,15AA,t1_14,t1_14       bsf o_b, 3
+0000050A,165F,,            bsf PORTB_temp, 4
+0000050B,1606,,            bsf PORTB, 4
+0000050C,165A,,            bsf casov, ODSKOK
+0000050D,3008,,            movlw .8
+0000050E,00E6,,            movwf timods
+0000050F,0008,,            return
 ,,,
 ,,,;odskok nadrz
-00000513,142D,t1_15,t1_15       bsf o_e, 0
-00000514,16DF,,            bsf PORTB_temp, 5
-00000515,1686,,            bsf PORTB, 5
-00000516,165A,,            bsf casov, ODSKOK
-00000517,3008,,            movlw .8
-00000518,00E6,,            movwf timods
-00000519,0008,,            return
+00000510,142D,t1_15,t1_15       bsf o_e, 0
+00000511,16DF,,            bsf PORTB_temp, 5
+00000512,1686,,            bsf PORTB, 5
+00000513,165A,,            bsf casov, ODSKOK
+00000514,3008,,            movlw .8
+00000515,00E6,,            movwf timods
+00000516,0008,,            return
 ,,,
 ,,,;odskok kapota
-0000051A,142B,t1_16,t1_16       bsf o_c, 0
-0000051B,175F,,            bsf PORTB_temp, 6
-0000051C,1706,,            bsf PORTB, 6
-0000051D,165A,,            bsf casov, ODSKOK
-0000051E,3008,,            movlw .8
-0000051F,00E6,,            movwf timods
-00000520,0008,,            return
+00000517,142B,t1_16,t1_16       bsf o_c, 0
+00000518,175F,,            bsf PORTB_temp, 6
+00000519,1706,,            bsf PORTB, 6
+0000051A,165A,,            bsf casov, ODSKOK
+0000051B,3008,,            movlw .8
+0000051C,00E6,,            movwf timods
+0000051D,0008,,            return
 ,,,
 ,,,;pripraveno
-00000521,0000,t1_17,t1_17       nop
-00000522,0008,,            return
+0000051E,0000,t1_17,t1_17       nop
+0000051F,0008,,            return
 ,,,;pripraveno
-00000523,0000,t1_18,t1_18       nop
-00000524,0008,,            return
+00000520,0000,t1_18,t1_18       nop
+00000521,0008,,            return
 ,,,;pripraveno
-00000525,0000,t1_19,t1_19       nop
-00000526,0008,,            return
+00000522,0000,t1_19,t1_19       nop
+00000523,0008,,            return
 ,,,
 ,,,;play pause
-00000527,14AC,t1_20,t1_20       bsf o_d, 1
-00000528,3010,,            movlw b'10000' ;port C0
-00000529,00D2,,            movwf port
-0000052A,3002,,            movlw b'10' ;procesor 2
-0000052B,00D3,,            movwf prc
-0000052C,21D7,,            call setout ;nastav port v prc
-0000052D,0008,,            return
+00000524,14AC,t1_20,t1_20       bsf o_d, 1
+00000525,3010,,            movlw b'10000' ;port C0
+00000526,00D2,,            movwf port
+00000527,3002,,            movlw b'10' ;procesor 2
+00000528,00D3,,            movwf prc
+00000529,21D4,,            call setout ;nastav port v prc
+0000052A,0008,,            return
 ,,,
 ,,,;stop
-0000052E,152C,t1_21,t1_21       bsf o_d, 2
-0000052F,3011,,            movlw b'10001' ;port C1
-00000530,00D2,,            movwf port
-00000531,3002,,            movlw b'10' ;procesor 2
-00000532,00D3,,            movwf prc
-00000533,21D7,,            call setout ;nastav port v prc
-00000534,0008,,            return
+0000052B,152C,t1_21,t1_21       bsf o_d, 2
+0000052C,3011,,            movlw b'10001' ;port C1
+0000052D,00D2,,            movwf port
+0000052E,3002,,            movlw b'10' ;procesor 2
+0000052F,00D3,,            movwf prc
+00000530,21D4,,            call setout ;nastav port v prc
+00000531,0008,,            return
 ,,,
 ,,,;forwind
-00000535,15AC,t1_22,t1_22       bsf o_d, 3
-00000536,3012,,            movlw b'10010' ;port C2
-00000537,00D2,,            movwf port
-00000538,3002,,            movlw b'10' ;procesor 2
-00000539,00D3,,            movwf prc
-0000053A,21D7,,            call setout ;nastav port v prc
-0000053B,0008,,            return
+00000532,15AC,t1_22,t1_22       bsf o_d, 3
+00000533,3012,,            movlw b'10010' ;port C2
+00000534,00D2,,            movwf port
+00000535,3002,,            movlw b'10' ;procesor 2
+00000536,00D3,,            movwf prc
+00000537,21D4,,            call setout ;nastav port v prc
+00000538,0008,,            return
 ,,,
 ,,,;rewind
-0000053C,162C,t1_23,t1_23       bsf o_d, 4
-0000053D,3013,,            movlw b'10011' ;port C3
-0000053E,00D2,,            movwf port
-0000053F,3002,,            movlw b'10' ;procesor 2
-00000540,00D3,,            movwf prc
-00000541,21D7,,            call setout ;nastav port v prc
-00000542,0008,,            return
+00000539,162C,t1_23,t1_23       bsf o_d, 4
+0000053A,3013,,            movlw b'10011' ;port C3
+0000053B,00D2,,            movwf port
+0000053C,3002,,            movlw b'10' ;procesor 2
+0000053D,00D3,,            movwf prc
+0000053E,21D4,,            call setout ;nastav port v prc
+0000053F,0008,,            return
 ,,,
 ,,,;volume +
-00000543,16AC,t1_24,t1_24       bsf o_d, 5
-00000544,3014,,            movlw b'10100' ;port C4
-00000545,00D2,,            movwf port
-00000546,3002,,            movlw b'10' ;procesor 2
-00000547,00D3,,            movwf prc
-00000548,21D7,,            call setout ;nastav port v prc
-00000549,0008,,            return
+00000540,16AC,t1_24,t1_24       bsf o_d, 5
+00000541,3014,,            movlw b'10100' ;port C4
+00000542,00D2,,            movwf port
+00000543,3002,,            movlw b'10' ;procesor 2
+00000544,00D3,,            movwf prc
+00000545,21D4,,            call setout ;nastav port v prc
+00000546,0008,,            return
 ,,,
 ,,,;volume -
-0000054A,172C,t1_25,t1_25       bsf o_d, 6
-0000054B,3015,,            movlw b'10101' ;port C5
-0000054C,00D2,,            movwf port
-0000054D,3002,,            movlw b'10' ;procesor 2
-0000054E,00D3,,            movwf prc
-0000054F,21D7,,            call setout ;nastav port v prc
-00000550,0008,,            return
+00000547,172C,t1_25,t1_25       bsf o_d, 6
+00000548,3015,,            movlw b'10101' ;port C5
+00000549,00D2,,            movwf port
+0000054A,3002,,            movlw b'10' ;procesor 2
+0000054B,00D3,,            movwf prc
+0000054C,21D4,,            call setout ;nastav port v prc
+0000054D,0008,,            return
 ,,,
 ,,,;rozehrivani okenka
-00000551,082E,t1_26,t1_26       movf o_f, W
-00000552,00A4,,            movwf r5
+0000054E,082E,t1_26,t1_26       movf o_f, W
+0000054F,00A4,,            movwf r5
 ,,,
-00000553,1D24,,            btfss r5, 2
-00000554,16E0,,            bsf PORTC_temp, 5
-00000555,1D24,,            btfss r5, 2
-00000556,1687,,            bsf PORTC, 5
-00000557,1D24,,            btfss r5, 2
-00000558,152E,,            bsf o_f, 2
+00000550,1D24,,            btfss r5, 2
+00000551,16E0,,            bsf PORTC_temp, 5
+00000552,1D24,,            btfss r5, 2
+00000553,1687,,            bsf PORTC, 5
+00000554,1D24,,            btfss r5, 2
+00000555,152E,,            bsf o_f, 2
 ,,,
-00000559,1924,,            btfsc r5, 2
-0000055A,12E0,,            bcf PORTC_temp, 5
-0000055B,1924,,            btfsc r5, 2
-0000055C,1287,,            bcf PORTC, 5
-0000055D,1924,,            btfsc r5, 2
-0000055E,112E,,            bcf o_f, 2
-0000055F,0008,,            return
+00000556,1924,,            btfsc r5, 2
+00000557,12E0,,            bcf PORTC_temp, 5
+00000558,1924,,            btfsc r5, 2
+00000559,1287,,            bcf PORTC, 5
+0000055A,1924,,            btfsc r5, 2
+0000055B,112E,,            bcf o_f, 2
+0000055C,0008,,            return
 ,,,
 ,,,;pripraveno
-00000560,0000,t1_27,t1_27       nop
-00000561,0008,,            return
+0000055D,0000,t1_27,t1_27       nop
+0000055E,0008,,            return
 ,,,;pripraveno
-00000562,0000,t1_28,t1_28       nop
-00000563,0008,,            return
+0000055F,0000,t1_28,t1_28       nop
+00000560,0008,,            return
 ,,,;pripraveno
-00000564,0000,t1_29,t1_29       nop
-00000565,0008,,            return
+00000561,0000,t1_29,t1_29       nop
+00000562,0008,,            return
 ,,,
 ,,,;okno 1 up        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ve vsech oknech dodelat drobne v
-00000566,0008,t1_30,t1_30       return;movf o1tar, W
-00000567,00A4,,            movwf r5
-00000568,30F0,,            movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
-00000569,07A4,,            addwf r5, F
-0000056A,1C03,,            btfss STATUS, C
+00000563,0008,t1_30,t1_30       return;movf o1tar, W
+00000564,00A4,,            movwf r5
+00000565,30F0,,            movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
+00000566,07A4,,            addwf r5, F
+00000567,1C03,,            btfss STATUS, C
+00000568,0008,,            return
+00000569,0824,,            movf r5, W
+0000056A,00A4,,            movwf o1tar
 0000056B,0008,,            return
-0000056C,0824,,            movf r5, W
-0000056D,00A4,,            movwf o1tar
-0000056E,0008,,            return
 ,,,
 ,,,;okno 2 up
-0000056F,0008,t1_31,t1_31       return;movf o2tar, W
-00000570,00A4,,            movwf r5
-00000571,30F0,,            movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
-00000572,07A4,,            addwf r5, F
-00000573,1C03,,            btfss STATUS, C
+0000056C,0008,t1_31,t1_31       return;movf o2tar, W
+0000056D,00A4,,            movwf r5
+0000056E,30F0,,            movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
+0000056F,07A4,,            addwf r5, F
+00000570,1C03,,            btfss STATUS, C
+00000571,0008,,            return
+00000572,0824,,            movf r5, W
+00000573,00A5,,            movwf o2tar
 00000574,0008,,            return
-00000575,0824,,            movf r5, W
-00000576,00A5,,            movwf o2tar
-00000577,0008,,            return
 ,,,
 ,,,;okno 3 up
-00000578,0008,t1_32,t1_32       return;btfsc o_i, 4
-00000579,0008,,            return
-0000057A,0826,,            movf o3tar, W
-0000057B,00A4,,            movwf r5
-0000057C,30F0,,            movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
-0000057D,07A4,,            addwf r5, F
-0000057E,1C03,,            btfss STATUS, C
+00000575,0008,t1_32,t1_32       return;btfsc o_i, 4
+00000576,0008,,            return
+00000577,0826,,            movf o3tar, W
+00000578,00A4,,            movwf r5
+00000579,30F0,,            movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
+0000057A,07A4,,            addwf r5, F
+0000057B,1C03,,            btfss STATUS, C
+0000057C,0008,,            return
+0000057D,0824,,            movf r5, W
+0000057E,00A6,,            movwf o3tar
 0000057F,0008,,            return
-00000580,0824,,            movf r5, W
-00000581,00A6,,            movwf o3tar
-00000582,0008,,            return
 ,,,
 ,,,;okno 4 up
-00000583,0008,t1_33,t1_33       return;btfsc o_i, 4
-00000584,0008,,            return
-00000585,0827,,            movf o4tar, W
-00000586,00A4,,            movwf r5
-00000587,30F0,,            movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
-00000588,07A4,,            addwf r5, F
-00000589,1C03,,            btfss STATUS, C
+00000580,0008,t1_33,t1_33       return;btfsc o_i, 4
+00000581,0008,,            return
+00000582,0827,,            movf o4tar, W
+00000583,00A4,,            movwf r5
+00000584,30F0,,            movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
+00000585,07A4,,            addwf r5, F
+00000586,1C03,,            btfss STATUS, C
+00000587,0008,,            return
+00000588,0824,,            movf r5, W
+00000589,00A7,,            movwf o4tar
 0000058A,0008,,            return
-0000058B,0824,,            movf r5, W
-0000058C,00A7,,            movwf o4tar
-0000058D,0008,,            return
 ,,,
 ,,,;okno 1 down
-0000058E,0008,t1_34,t1_34       return;movf o1tar, W
-0000058F,00A4,,            movwf r5
-00000590,3010,,            movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
-00000591,07A4,,            addwf r5, F
-00000592,1803,,            btfsc STATUS, C
+0000058B,0008,t1_34,t1_34       return;movf o1tar, W
+0000058C,00A4,,            movwf r5
+0000058D,3010,,            movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
+0000058E,07A4,,            addwf r5, F
+0000058F,1803,,            btfsc STATUS, C
+00000590,0008,,            return
+00000591,0824,,            movf r5, W
+00000592,00A4,,            movwf o1tar
 00000593,0008,,            return
-00000594,0824,,            movf r5, W
-00000595,00A4,,            movwf o1tar
-00000596,0008,,            return
 ,,,
 ,,,;okno 2 down
-00000597,0008,t1_35,t1_35       return;movf o2tar, W
-00000598,00A4,,            movwf r5
-00000599,3010,,            movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
-0000059A,07A4,,            addwf r5, F
-0000059B,1803,,            btfsc STATUS, C
+00000594,0008,t1_35,t1_35       return;movf o2tar, W
+00000595,00A4,,            movwf r5
+00000596,3010,,            movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
+00000597,07A4,,            addwf r5, F
+00000598,1803,,            btfsc STATUS, C
+00000599,0008,,            return
+0000059A,0824,,            movf r5, W
+0000059B,00A5,,            movwf o2tar
 0000059C,0008,,            return
-0000059D,0824,,            movf r5, W
-0000059E,00A5,,            movwf o2tar
-0000059F,0008,,            return
 ,,,
 ,,,;okno 3 down
-000005A0,0008,t1_36,t1_36       return;btfsc o_i, 4
-000005A1,0008,,            return
-000005A2,0826,,            movf o3tar, W
-000005A3,00A4,,            movwf r5
-000005A4,3010,,            movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
-000005A5,07A4,,            addwf r5, F
-000005A6,1803,,            btfsc STATUS, C
+0000059D,0008,t1_36,t1_36       return;btfsc o_i, 4
+0000059E,0008,,            return
+0000059F,0826,,            movf o3tar, W
+000005A0,00A4,,            movwf r5
+000005A1,3010,,            movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
+000005A2,07A4,,            addwf r5, F
+000005A3,1803,,            btfsc STATUS, C
+000005A4,0008,,            return
+000005A5,0824,,            movf r5, W
+000005A6,00A6,,            movwf o3tar
 000005A7,0008,,            return
-000005A8,0824,,            movf r5, W
-000005A9,00A6,,            movwf o3tar
-000005AA,0008,,            return
 ,,,
 ,,,;detský zámek zadních oken a dveri
-000005AB,1E31,t1_37,t1_37       btfss o_i, 4 ;zmeni stav indikace detskeho zamku
-000005AC,2DB4,,            goto t2_37
-000005AD,1231,,            bcf o_i, 4
-000005AE,301C,,            movlw b'11100' ;port D4
-000005AF,00D2,,            movwf port
-000005B0,3003,,            movlw b'11' ;procesor 3
-000005B1,00D3,,            movwf prc
-000005B2,21FE,,            call clrout ;nastav port v prc
-000005B3,0008,,            return
+000005A8,1E31,t1_37,t1_37       btfss o_i, 4 ;zmeni stav indikace detskeho zamku
+000005A9,2DB1,,            goto t2_37
+000005AA,1231,,            bcf o_i, 4
+000005AB,301C,,            movlw b'11100' ;port D4
+000005AC,00D2,,            movwf port
+000005AD,3003,,            movlw b'11' ;procesor 3
+000005AE,00D3,,            movwf prc
+000005AF,21FB,,            call clrout ;nastav port v prc
+000005B0,0008,,            return
 ,,,
-000005B4,1631,t2_37,t2_37       bsf o_i, 4
-000005B5,301C,,            movlw b'11100' ;port D4
-000005B6,00D2,,            movwf port
-000005B7,3003,,            movlw b'11' ;procesor 3
-000005B8,00D3,,            movwf prc
-000005B9,21D7,,            call setout ;nastav port v prc
-000005BA,0008,,            return
+000005B1,1631,t2_37,t2_37       bsf o_i, 4
+000005B2,301C,,            movlw b'11100' ;port D4
+000005B3,00D2,,            movwf port
+000005B4,3003,,            movlw b'11' ;procesor 3
+000005B5,00D3,,            movwf prc
+000005B6,21D4,,            call setout ;nastav port v prc
+000005B7,0008,,            return
 ,,,
 ,,,;pripraveno
-000005BB,0000,t1_38,t1_38       nop
-000005BC,0008,,            return
+000005B8,0000,t1_38,t1_38       nop
+000005B9,0008,,            return
 ,,,;pripraveno
-000005BD,0000,t1_39,t1_39       nop
-000005BE,0008,,            return
+000005BA,0000,t1_39,t1_39       nop
+000005BB,0008,,            return
 ,,,
 ,,,;RED tuning
-000005BF,3016,t1_40,t1_40       movlw b'10110' ;port C6
-000005C0,00D2,,            movwf port
-000005C1,3002,,            movlw b'10' ;procesor 2
-000005C2,00D3,,            movwf prc
+000005BC,3016,t1_40,t1_40       movlw b'10110' ;port C6
+000005BD,00D2,,            movwf port
+000005BE,3002,,            movlw b'10' ;procesor 2
+000005BF,00D3,,            movwf prc
 ,,,
-000005C3,082B,,            movf o_c, W
-000005C4,00A4,,            movwf r5
+000005C0,082B,,            movf o_c, W
+000005C1,00A4,,            movwf r5
 ,,,
-000005C5,1D24,,            btfss r5, 2
-000005C6,21D7,,            call setout ;nastav port v prc
-000005C7,1D24,,            btfss r5, 2
-000005C8,152B,,            bsf o_c, 2
+000005C2,1D24,,            btfss r5, 2
+000005C3,21D4,,            call setout ;nastav port v prc
+000005C4,1D24,,            btfss r5, 2
+000005C5,152B,,            bsf o_c, 2
 ,,,
-000005C9,1924,,            btfsc r5, 2
-000005CA,21FE,,            call clrout ;smaz port v prc
-000005CB,1924,,            btfsc r5, 2
-000005CC,112B,,            bcf o_c, 2
-000005CD,0008,,            return
+000005C6,1924,,            btfsc r5, 2
+000005C7,21FB,,            call clrout ;smaz port v prc
+000005C8,1924,,            btfsc r5, 2
+000005C9,112B,,            bcf o_c, 2
+000005CA,0008,,            return
 ,,,
 ,,,;WHITE tunning
-000005CE,3017,t1_41,t1_41       movlw b'10111' ;port C7
-000005CF,00D2,,            movwf port
-000005D0,3002,,            movlw b'10' ;procesor 2
-000005D1,00D3,,            movwf prc
+000005CB,3017,t1_41,t1_41       movlw b'10111' ;port C7
+000005CC,00D2,,            movwf port
+000005CD,3002,,            movlw b'10' ;procesor 2
+000005CE,00D3,,            movwf prc
 ,,,
-000005D2,082B,,            movf o_c, W
-000005D3,00A4,,            movwf r5
+000005CF,082B,,            movf o_c, W
+000005D0,00A4,,            movwf r5
 ,,,
-000005D4,1DA4,,            btfss r5, 3
-000005D5,21D7,,            call setout ;nastav port v prc
-000005D6,1DA4,,            btfss r5, 3
-000005D7,15AB,,            bsf o_c, 3
+000005D1,1DA4,,            btfss r5, 3
+000005D2,21D4,,            call setout ;nastav port v prc
+000005D3,1DA4,,            btfss r5, 3
+000005D4,15AB,,            bsf o_c, 3
 ,,,
-000005D8,19A4,,            btfsc r5, 3
-000005D9,21FE,,            call clrout ;smaz port v prc
-000005DA,19A4,,            btfsc r5, 3
-000005DB,11AB,,            bcf o_c, 3
-000005DC,0008,,            return
+000005D5,19A4,,            btfsc r5, 3
+000005D6,21FB,,            call clrout ;smaz port v prc
+000005D7,19A4,,            btfsc r5, 3
+000005D8,11AB,,            bcf o_c, 3
+000005D9,0008,,            return
 ,,,
 ,,,;Parkovačky
-000005DD,082D,t1_42,t1_42       movf o_e, W
-000005DE,00A4,,            movwf r5
+000005DA,082D,t1_42,t1_42       movf o_e, W
+000005DB,00A4,,            movwf r5
 ,,,
-000005DF,1DA4,,            btfss r5, 3
-000005E0,16E1,,            bsf PORTD_temp, 5
-000005E1,1DA4,,            btfss r5, 3
-000005E2,1688,,            bsf PORTD, 5
-000005E3,1DA4,,            btfss r5, 3
-000005E4,15AD,,            bsf o_e, 3
+000005DC,1DA4,,            btfss r5, 3
+000005DD,16E1,,            bsf PORTD_temp, 5
+000005DE,1DA4,,            btfss r5, 3
+000005DF,1688,,            bsf PORTD, 5
+000005E0,1DA4,,            btfss r5, 3
+000005E1,15AD,,            bsf o_e, 3
 ,,,
-000005E5,19A4,,            btfsc r5, 3
-000005E6,12E1,,            bcf PORTD_temp, 5
-000005E7,19A4,,            btfsc r5, 3
-000005E8,1288,,            bcf PORTD, 5
-000005E9,19A4,,            btfsc r5, 3
-000005EA,11AD,,            bcf o_e, 3
-000005EB,0008,,            return
+000005E2,19A4,,            btfsc r5, 3
+000005E3,12E1,,            bcf PORTD_temp, 5
+000005E4,19A4,,            btfsc r5, 3
+000005E5,1288,,            bcf PORTD, 5
+000005E6,19A4,,            btfsc r5, 3
+000005E7,11AD,,            bcf o_e, 3
+000005E8,0008,,            return
 ,,,
 ,,,;Světla
-000005EC,082B,t1_43,t1_43       movf o_c, W
-000005ED,00A4,,            movwf r5
+000005E9,082B,t1_43,t1_43       movf o_c, W
+000005EA,00A4,,            movwf r5
 ,,,
-000005EE,1CA4,,            btfss r5, 1
-000005EF,15E0,,            bsf PORTC_temp, 3
-000005F0,1CA4,,            btfss r5, 1
-000005F1,1587,,            bsf PORTC, 3
-000005F2,1CA4,,            btfss r5, 1
-000005F3,14AB,,            bsf o_c, 1
+000005EB,1CA4,,            btfss r5, 1
+000005EC,15E0,,            bsf PORTC_temp, 3
+000005ED,1CA4,,            btfss r5, 1
+000005EE,1587,,            bsf PORTC, 3
+000005EF,1CA4,,            btfss r5, 1
+000005F0,14AB,,            bsf o_c, 1
 ,,,
-000005F4,18A4,,            btfsc r5, 1
-000005F5,11E0,,            bcf PORTC_temp, 3
-000005F6,18A4,,            btfsc r5, 1
-000005F7,1187,,            bcf PORTC, 3
-000005F8,18A4,,            btfsc r5, 1
-000005F9,10AB,,            bcf o_c, 1
-000005FA,0008,,            return
+000005F1,18A4,,            btfsc r5, 1
+000005F2,11E0,,            bcf PORTC_temp, 3
+000005F3,18A4,,            btfsc r5, 1
+000005F4,1187,,            bcf PORTC, 3
+000005F5,18A4,,            btfsc r5, 1
+000005F6,10AB,,            bcf o_c, 1
+000005F7,0008,,            return
 ,,,
 ,,,;Mlhovky zadní
-000005FB,082E,t1_44,t1_44       movf o_f, W
-000005FC,00A4,,            movwf r5
+000005F8,082E,t1_44,t1_44       movf o_f, W
+000005F9,00A4,,            movwf r5
 ,,,
-000005FD,1CA4,,            btfss r5, 1
-000005FE,1660,,            bsf PORTC_temp, 4
-000005FF,1CA4,,            btfss r5, 1
-00000600,1607,,            bsf PORTC, 4
-00000601,1CA4,,            btfss r5, 1
-00000602,14AE,,            bsf o_f, 1
+000005FA,1CA4,,            btfss r5, 1
+000005FB,1660,,            bsf PORTC_temp, 4
+000005FC,1CA4,,            btfss r5, 1
+000005FD,1607,,            bsf PORTC, 4
+000005FE,1CA4,,            btfss r5, 1
+000005FF,14AE,,            bsf o_f, 1
 ,,,
-00000603,18A4,,            btfsc r5, 1
-00000604,1260,,            bcf PORTC_temp, 4
-00000605,18A4,,            btfsc r5, 1
-00000606,1207,,            bcf PORTC, 4
-00000607,18A4,,            btfsc r5, 1
-00000608,10AE,,            bcf o_f, 1
-00000609,0008,,            return
+00000600,18A4,,            btfsc r5, 1
+00000601,1260,,            bcf PORTC_temp, 4
+00000602,18A4,,            btfsc r5, 1
+00000603,1207,,            bcf PORTC, 4
+00000604,18A4,,            btfsc r5, 1
+00000605,10AE,,            bcf o_f, 1
+00000606,0008,,            return
 ,,,
 ,,,;Blinkr levý
-0000060A,162D,t1_45,t1_45       bsf o_e, 4
-0000060B,1761,,            bsf PORTD_temp, 6
-0000060C,1708,,            bsf PORTD, 6
-0000060D,0008,,            return
+00000607,162D,t1_45,t1_45       bsf o_e, 4
+00000608,1761,,            bsf PORTD_temp, 6
+00000609,1708,,            bsf PORTD, 6
+0000060A,0008,,            return
 ,,,
 ,,,;Blinkr pravý
-0000060E,16AD,t1_46,t1_46       bsf o_e, 5
-0000060F,17E1,,            bsf PORTD_temp, 7
-00000610,1788,,            bsf PORTD, 7
-00000611,0008,,            return
+0000060B,16AD,t1_46,t1_46       bsf o_e, 5
+0000060C,17E1,,            bsf PORTD_temp, 7
+0000060D,1788,,            bsf PORTD, 7
+0000060E,0008,,            return
 ,,,
 ,,,;Mlhovky přední
-00000612,082B,t1_47,t1_47       movf o_c, W
-00000613,00A4,,            movwf r5
+0000060F,082B,t1_47,t1_47       movf o_c, W
+00000610,00A4,,            movwf r5
 ,,,
-00000614,1EA4,,            btfss r5, 5
-00000615,14E1,,            bsf PORTD_temp, 1
-00000616,1EA4,,            btfss r5, 5
-00000617,1488,,            bsf PORTD, 1
-00000618,1EA4,,            btfss r5, 5
-00000619,16AB,,            bsf o_c, 5
+00000611,1EA4,,            btfss r5, 5
+00000612,14E1,,            bsf PORTD_temp, 1
+00000613,1EA4,,            btfss r5, 5
+00000614,1488,,            bsf PORTD, 1
+00000615,1EA4,,            btfss r5, 5
+00000616,16AB,,            bsf o_c, 5
 ,,,
-0000061A,1AA4,,            btfsc r5, 5
-0000061B,10E1,,            bcf PORTD_temp, 1
-0000061C,1AA4,,            btfsc r5, 5
-0000061D,1088,,            bcf PORTD, 1
-0000061E,1AA4,,            btfsc r5, 5
-0000061F,12AB,,            bcf o_c, 5
-00000620,0008,,            return
+00000617,1AA4,,            btfsc r5, 5
+00000618,10E1,,            bcf PORTD_temp, 1
+00000619,1AA4,,            btfsc r5, 5
+0000061A,1088,,            bcf PORTD, 1
+0000061B,1AA4,,            btfsc r5, 5
+0000061C,12AB,,            bcf o_c, 5
+0000061D,0008,,            return
 ,,,
 ,,,;pripraveno
-00000621,0000,t1_48,t1_48       nop
-00000622,0008,,            return
+0000061E,0000,t1_48,t1_48       nop
+0000061F,0008,,            return
 ,,,;pripraveno
-00000623,0000,t1_49,t1_49       nop
-00000624,0008,,            return
+00000620,0000,t1_49,t1_49       nop
+00000621,0008,,            return
 ,,,
 ,,,;klakson
-00000625,162B,t1_50,t1_50       bsf o_c, 4
-00000626,3019,,            movlw b'11001' ;port D1
-00000627,00D2,,            movwf port
-00000628,3003,,            movlw b'11' ;procesor 3
-00000629,00D3,,            movwf prc
-0000062A,21D7,,            call setout ;nastav port v prc
-0000062B,0008,,            return
+00000622,162B,t1_50,t1_50       bsf o_c, 4
+00000623,3019,,            movlw b'11001' ;port D1
+00000624,00D2,,            movwf port
+00000625,3003,,            movlw b'11' ;procesor 3
+00000626,00D3,,            movwf prc
+00000627,21D4,,            call setout ;nastav port v prc
+00000628,0008,,            return
 ,,,
 ,,,;stěrače
-0000062C,17AB,t1_51,t1_51       bsf o_c, 7
-0000062D,15E1,,            bsf PORTD_temp, 3
-0000062E,1588,,            bsf PORTD, 3
-0000062F,0008,,            return
+00000629,17AB,t1_51,t1_51       bsf o_c, 7
+0000062A,15E1,,            bsf PORTD_temp, 3
+0000062B,1588,,            bsf PORTD, 3
+0000062C,0008,,            return
 ,,,;odstřikovače
-00000630,172B,t1_52,t1_52       bsf o_c, 6
-00000631,1561,,            bsf PORTD_temp, 2
-00000632,1508,,            bsf PORTD, 2
-00000633,0008,,            return
+0000062D,172B,t1_52,t1_52       bsf o_c, 6
+0000062E,1561,,            bsf PORTD_temp, 2
+0000062F,1508,,            bsf PORTD, 2
+00000630,0008,,            return
 ,,,
 ,,,;Siréna
-00000634,3018,t1_53,t1_53       movlw b'11000' ;port D0
-00000635,00D2,,            movwf port
-00000636,3003,,            movlw b'11' ;procesor 3
-00000637,00D3,,            movwf prc
+00000631,3018,t1_53,t1_53       movlw b'11000' ;port D0
+00000632,00D2,,            movwf port
+00000633,3003,,            movlw b'11' ;procesor 3
+00000634,00D3,,            movwf prc
 ,,,
-00000638,082D,,            movf o_e, W
-00000639,00A4,,            movwf r5
+00000635,082D,,            movf o_e, W
+00000636,00A4,,            movwf r5
 ,,,
-0000063A,1CA4,,            btfss r5, 1
-0000063B,21D7,,            call setout ;nastav port v prc
-0000063C,1CA4,,            btfss r5, 1
-0000063D,14AD,,            bsf o_e, 1
+00000637,1CA4,,            btfss r5, 1
+00000638,21D4,,            call setout ;nastav port v prc
+00000639,1CA4,,            btfss r5, 1
+0000063A,14AD,,            bsf o_e, 1
 ,,,
-0000063E,18A4,,            btfsc r5, 1
-0000063F,21FE,,            call clrout ;smaz port v prc
-00000640,18A4,,            btfsc r5, 1
-00000641,10AD,,            bcf o_e, 1
+0000063B,18A4,,            btfsc r5, 1
+0000063C,21FB,,            call clrout ;smaz port v prc
+0000063D,18A4,,            btfsc r5, 1
+0000063E,10AD,,            bcf o_e, 1
 ,,,
-00000642,0008,,            return
+0000063F,0008,,            return
 ,,,
 ,,,;stroboskop
-00000643,3019,t1_54,t1_54       movlw b'11001' ;port D1
-00000644,00D2,,            movwf port
-00000645,3002,,            movlw b'10' ;procesor 2
-00000646,00D3,,            movwf prc
+00000640,3019,t1_54,t1_54       movlw b'11001' ;port D1
+00000641,00D2,,            movwf port
+00000642,3002,,            movlw b'10' ;procesor 2
+00000643,00D3,,            movwf prc
 ,,,
-00000647,082D,,            movf o_e, W
-00000648,00A4,,            movwf r5
+00000644,082D,,            movf o_e, W
+00000645,00A4,,            movwf r5
 ,,,
-00000649,1D24,,            btfss r5, 2
-0000064A,21D7,,            call setout ;nastav port v prc
-0000064B,1D24,,            btfss r5, 2
-0000064C,152D,,            bsf o_e, 2
+00000646,1D24,,            btfss r5, 2
+00000647,21D4,,            call setout ;nastav port v prc
+00000648,1D24,,            btfss r5, 2
+00000649,152D,,            bsf o_e, 2
 ,,,
-0000064D,1924,,            btfsc r5, 2
-0000064E,21FE,,            call clrout ;smaz port v prc
-0000064F,1924,,            btfsc r5, 2
-00000650,112D,,            bcf o_e, 2
-00000651,0008,,            return
+0000064A,1924,,            btfsc r5, 2
+0000064B,21FB,,            call clrout ;smaz port v prc
+0000064C,1924,,            btfsc r5, 2
+0000064D,112D,,            bcf o_e, 2
+0000064E,0008,,            return
 ,,,
 ,,,;Dálkové světla
-00000652,142C,t1_55,t1_55       bsf o_d, 0
-00000653,1661,,            bsf PORTD_temp, 4
-00000654,1608,,            bsf PORTD, 4
-00000655,0008,,            return
+0000064F,142C,t1_55,t1_55       bsf o_d, 0
+00000650,1661,,            bsf PORTD_temp, 4
+00000651,1608,,            bsf PORTD, 4
+00000652,0008,,            return
 ,,,
 ,,,;alarm start
-00000656,3018,t1_56,t1_56       movlw b'11000' ;port D0  ;sirena
-00000657,00D2,,            movwf port
-00000658,3003,,            movlw b'11' ;procesor 3
-00000659,00D3,,            movwf prc
-0000065A,1CAD,,            btfss o_e, 1
-0000065B,21D7,,            call setout ;set port v prc
-0000065C,14AD,,            bsf o_e, 1
+00000653,3018,t1_56,t1_56       movlw b'11000' ;port D0  ;sirena
+00000654,00D2,,            movwf port
+00000655,3003,,            movlw b'11' ;procesor 3
+00000656,00D3,,            movwf prc
+00000657,1CAD,,            btfss o_e, 1
+00000658,21D4,,            call setout ;set port v prc
+00000659,14AD,,            bsf o_e, 1
 ,,,            ;varovky
-0000065D,246F,,            call t1_05
+0000065A,246C,,            call t1_05
 ,,,
 ,,,            ;stroboskop
-0000065E,3019,,            movlw b'11001' ;port D1
-0000065F,00D2,,            movwf port
-00000660,3002,,            movlw b'10' ;procesor 2
-00000661,00D3,,            movwf prc
-00000662,1D2D,,            btfss o_e, 2
-00000663,21D7,,            call setout ;set port v prc
-00000664,152D,,            bsf o_e, 2
+0000065B,3019,,            movlw b'11001' ;port D1
+0000065C,00D2,,            movwf port
+0000065D,3002,,            movlw b'10' ;procesor 2
+0000065E,00D3,,            movwf prc
+0000065F,1D2D,,            btfss o_e, 2
+00000660,21D4,,            call setout ;set port v prc
+00000661,152D,,            bsf o_e, 2
 ,,,            ;red tunning
-00000665,3016,,            movlw b'10110' ;port C6
-00000666,00D2,,            movwf port
-00000667,3002,,            movlw b'10' ;procesor 2
-00000668,00D3,,            movwf prc
-00000669,1D2B,,            btfss o_c, 2
-0000066A,21D7,,            call setout ;set port v prc
-0000066B,152B,,            bsf o_c, 2
+00000662,3016,,            movlw b'10110' ;port C6
+00000663,00D2,,            movwf port
+00000664,3002,,            movlw b'10' ;procesor 2
+00000665,00D3,,            movwf prc
+00000666,1D2B,,            btfss o_c, 2
+00000667,21D4,,            call setout ;set port v prc
+00000668,152B,,            bsf o_c, 2
 ,,,            ;white interier
-0000066C,301B,,            movlw b'11011' ;port D3
-0000066D,00D2,,            movwf port
-0000066E,3002,,            movlw b'10' ;procesor 2
-0000066F,00D3,,            movwf prc
-00000670,1E2E,,            btfss o_f, 4
-00000671,21D7,,            call setout ;set port v prc
-00000672,162E,,            bsf o_f, 4
+00000669,301B,,            movlw b'11011' ;port D3
+0000066A,00D2,,            movwf port
+0000066B,3002,,            movlw b'10' ;procesor 2
+0000066C,00D3,,            movwf prc
+0000066D,1E2E,,            btfss o_f, 4
+0000066E,21D4,,            call setout ;set port v prc
+0000066F,162E,,            bsf o_f, 4
 ,,,
-00000673,16DA,,            bsf casov, ALARM ;zacne problikavat tuning, interier a klakson
-00000674,301E,,            movlw .30
-00000675,00E7,,            movwf timala
+00000670,16DA,,            bsf casov, ALARM ;zacne problikavat tuning, interier a klakson
+00000671,301E,,            movlw .30
+00000672,00E7,,            movwf timala
 ,,,
-00000676,0008,,            return
-,,,
-,,,;pripraveno
-00000677,0000,t1_57,t1_57       nop
-00000678,0008,,            return
+00000673,0008,,            return
 ,,,
 ,,,;pripraveno
-00000679,0000,t1_58,t1_58       nop
-0000067A,0008,,            return
+00000674,0000,t1_57,t1_57       nop
+00000675,0008,,            return
 ,,,
 ,,,;pripraveno
-0000067B,0000,t1_59,t1_59       nop
-0000067C,0008,,            return
+00000676,0000,t1_58,t1_58       nop
+00000677,0008,,            return
+,,,
+,,,;pripraveno
+00000678,0000,t1_59,t1_59       nop
+00000679,0008,,            return
 ,,,
 ,,,;okno 4 down
-0000067D,0008,t1_60,t1_60       return;btfsc o_i, 4
-0000067E,0008,,            return
-0000067F,0827,,            movf o4tar, W
-00000680,00A4,,            movwf r5
-00000681,3010,,            movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
-00000682,07A4,,            addwf r5, F
-00000683,1803,,            btfsc STATUS, C
+0000067A,0008,t1_60,t1_60       return;btfsc o_i, 4
+0000067B,0008,,            return
+0000067C,0827,,            movf o4tar, W
+0000067D,00A4,,            movwf r5
+0000067E,3010,,            movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
+0000067F,07A4,,            addwf r5, F
+00000680,1803,,            btfsc STATUS, C
+00000681,0008,,            return
+00000682,0824,,            movf r5, W
+00000683,00A7,,            movwf o4tar
 00000684,0008,,            return
-00000685,0824,,            movf r5, W
-00000686,00A7,,            movwf o4tar
-00000687,0008,,            return
 ,,,
 ,,,;red interiér
-00000688,301A,t1_61,t1_61       movlw b'11010' ;port D2
-00000689,00D2,,            movwf port
-0000068A,3002,,            movlw b'10' ;procesor 2
-0000068B,00D3,,            movwf prc
+00000685,301A,t1_61,t1_61       movlw b'11010' ;port D2
+00000686,00D2,,            movwf port
+00000687,3002,,            movlw b'10' ;procesor 2
+00000688,00D3,,            movwf prc
 ,,,
-0000068C,082E,,            movf o_f, W
-0000068D,00A4,,            movwf r5
+00000689,082E,,            movf o_f, W
+0000068A,00A4,,            movwf r5
 ,,,
-0000068E,1DA4,,            btfss r5, 3
-0000068F,21D7,,            call setout ;nastav port v prc
-00000690,1DA4,,            btfss r5, 3
-00000691,15AE,,            bsf o_f, 3
+0000068B,1DA4,,            btfss r5, 3
+0000068C,21D4,,            call setout ;nastav port v prc
+0000068D,1DA4,,            btfss r5, 3
+0000068E,15AE,,            bsf o_f, 3
 ,,,
-00000692,19A4,,            btfsc r5, 3
-00000693,21FE,,            call clrout ;smaz port v prc
-00000694,19A4,,            btfsc r5, 3
-00000695,11AE,,            bcf o_f, 3
-00000696,0008,,            return
+0000068F,19A4,,            btfsc r5, 3
+00000690,21FB,,            call clrout ;smaz port v prc
+00000691,19A4,,            btfsc r5, 3
+00000692,11AE,,            bcf o_f, 3
+00000693,0008,,            return
 ,,,
 ,,,;white interier
-00000697,301B,t1_62,t1_62       movlw b'11011' ;port D3
-00000698,00D2,,            movwf port
-00000699,3002,,            movlw b'10' ;procesor 2
-0000069A,00D3,,            movwf prc
+00000694,301B,t1_62,t1_62       movlw b'11011' ;port D3
+00000695,00D2,,            movwf port
+00000696,3002,,            movlw b'10' ;procesor 2
+00000697,00D3,,            movwf prc
 ,,,
-0000069B,082E,,            movf o_f, W
-0000069C,00A4,,            movwf r5
+00000698,082E,,            movf o_f, W
+00000699,00A4,,            movwf r5
 ,,,
-0000069D,1E24,,            btfss r5, 4
-0000069E,21D7,,            call setout ;nastav port v prc
-0000069F,1E24,,            btfss r5, 4
-000006A0,162E,,            bsf o_f, 4
+0000069A,1E24,,            btfss r5, 4
+0000069B,21D4,,            call setout ;nastav port v prc
+0000069C,1E24,,            btfss r5, 4
+0000069D,162E,,            bsf o_f, 4
 ,,,
-000006A1,1A24,,            btfsc r5, 4
-000006A2,21FE,,            call clrout ;smaz port v prc
-000006A3,1A24,,            btfsc r5, 4
-000006A4,122E,,            bcf o_f, 4
-000006A5,0008,,            return
+0000069E,1A24,,            btfsc r5, 4
+0000069F,21FB,,            call clrout ;smaz port v prc
+000006A0,1A24,,            btfsc r5, 4
+000006A1,122E,,            bcf o_f, 4
+000006A2,0008,,            return
 ,,,
 ,,,;klima on/off
-000006A6,17AD,t1_63,t1_63       bsf o_e, 7
-000006A7,301E,,            movlw b'11110' ;port D6
-000006A8,00D2,,            movwf port
-000006A9,3002,,            movlw b'10' ;procesor 2
-000006AA,00D3,,            movwf prc
-000006AB,21D7,,            call setout ;nastav port v prc
-000006AC,165A,,            bsf casov, ODSKOK
-000006AD,3008,,            movlw .8
-000006AE,00E6,,            movwf timods
-000006AF,0008,,            return
+000006A3,17AD,t1_63,t1_63       bsf o_e, 7
+000006A4,301E,,            movlw b'11110' ;port D6
+000006A5,00D2,,            movwf port
+000006A6,3002,,            movlw b'10' ;procesor 2
+000006A7,00D3,,            movwf prc
+000006A8,21D4,,            call setout ;nastav port v prc
+000006A9,165A,,            bsf casov, ODSKOK
+000006AA,3008,,            movlw .8
+000006AB,00E6,,            movwf timods
+000006AC,0008,,            return
 ,,,
 ,,,;klima teplota up
-000006B0,172D,t1_64,t1_64       bsf o_e, 6
-000006B1,301C,,            movlw b'11100' ;port D4
-000006B2,00D2,,            movwf port
-000006B3,3002,,            movlw b'10' ;procesor 2
-000006B4,00D3,,            movwf prc
-000006B5,21D7,,            call setout ;nastav port v prc
-000006B6,165A,,            bsf casov, ODSKOK
-000006B7,3008,,            movlw .8
-000006B8,00E6,,            movwf timods
-000006B9,0008,,            return
+000006AD,172D,t1_64,t1_64       bsf o_e, 6
+000006AE,301C,,            movlw b'11100' ;port D4
+000006AF,00D2,,            movwf port
+000006B0,3002,,            movlw b'10' ;procesor 2
+000006B1,00D3,,            movwf prc
+000006B2,21D4,,            call setout ;nastav port v prc
+000006B3,165A,,            bsf casov, ODSKOK
+000006B4,3008,,            movlw .8
+000006B5,00E6,,            movwf timods
+000006B6,0008,,            return
 ,,,
 ,,,;klima teplota down
-000006BA,16AE,t1_65,t1_65       bsf o_f, 5
-000006BB,301D,,            movlw b'11101' ;port D5
-000006BC,00D2,,            movwf port
-000006BD,3002,,            movlw b'10' ;procesor 2
-000006BE,00D3,,            movwf prc
-000006BF,21D7,,            call setout ;nastav port v prc
-000006C0,165A,,            bsf casov, ODSKOK
-000006C1,3008,,            movlw .8
-000006C2,00E6,,            movwf timods
-000006C3,0008,,            return
+000006B7,16AE,t1_65,t1_65       bsf o_f, 5
+000006B8,301D,,            movlw b'11101' ;port D5
+000006B9,00D2,,            movwf port
+000006BA,3002,,            movlw b'10' ;procesor 2
+000006BB,00D3,,            movwf prc
+000006BC,21D4,,            call setout ;nastav port v prc
+000006BD,165A,,            bsf casov, ODSKOK
+000006BE,3008,,            movlw .8
+000006BF,00E6,,            movwf timods
+000006C0,0008,,            return
 ,,,
 ,,,;klima mista ventilace
-000006C4,142E,t1_66,t1_66       bsf o_f, 0
-000006C5,301F,,            movlw b'11111' ;port D7
-000006C6,00D2,,            movwf port
-000006C7,3002,,            movlw b'10' ;procesor 2
-000006C8,00D3,,            movwf prc
-000006C9,21D7,,            call setout ;nastav port v prc
-000006CA,165A,,            bsf casov, ODSKOK
-000006CB,3008,,            movlw .8
-000006CC,00E6,,            movwf timods
-000006CD,0008,,            return
+000006C1,142E,t1_66,t1_66       bsf o_f, 0
+000006C2,301F,,            movlw b'11111' ;port D7
+000006C3,00D2,,            movwf port
+000006C4,3002,,            movlw b'10' ;procesor 2
+000006C5,00D3,,            movwf prc
+000006C6,21D4,,            call setout ;nastav port v prc
+000006C7,165A,,            bsf casov, ODSKOK
+000006C8,3008,,            movlw .8
+000006C9,00E6,,            movwf timods
+000006CA,0008,,            return
 ,,,
 ,,,;pripraveno
-000006CE,0000,t1_67,t1_67       nop
-000006CF,0008,,            return
+000006CB,0000,t1_67,t1_67       nop
+000006CC,0008,,            return
 ,,,;pripraveno
-000006D0,0000,t1_68,t1_68       nop
-000006D1,0008,,            return
+000006CD,0000,t1_68,t1_68       nop
+000006CE,0008,,            return
 ,,,;pripraveno
-000006D2,0000,t1_69,t1_69       nop
-000006D3,0008,,            return
+000006CF,0000,t1_69,t1_69       nop
+000006D0,0008,,            return
 ,,,
-000006D4,0000,t1_x,t1_x        nop
-000006D5,0008,,            return
-,,,
-,,,
+000006D1,0000,t1_x,t1_x        nop
+000006D2,0008,,            return
 ,,,
 ,,,
 ,,,
 ,,,
-000006D6,3005,w20i,w20i        movlw .5
-000006D7,00A3,,            movwf r4
-000006D8,0BA3,,            decfsz r4, F
-000006D9,2ED8,,            goto $-1
-000006DA,0008,,            return
+,,,
+,,,
+000006D3,3005,w20i,w20i        movlw .5
+000006D4,00A3,,            movwf r4
+000006D5,0BA3,,            decfsz r4, F
+000006D6,2ED5,,            goto $-1
+000006D7,0008,,            return
 ,,,
 ,,,;cekej cca 100 cyklu 40us  + u kazdeho cekani je 7 cyklu povinych
-000006DB,3050,w100c,w100c       movlw .80
-000006DC,00A3,,            movwf r4
-000006DD,0BA3,,            decfsz r4, F
-000006DE,2EDD,,            goto $-1
-000006DF,0008,,            return
+000006D8,3050,w100c,w100c       movlw .80
+000006D9,00A3,,            movwf r4
+000006DA,0BA3,,            decfsz r4, F
+000006DB,2EDA,,            goto $-1
+000006DC,0008,,            return
 ,,,
 ,,,;cekej necelou polovinu w100c
-000006E0,301E,w40c,w40c        movlw .30
-000006E1,00A3,,            movwf r4
-000006E2,0BA3,,            decfsz r4, F
-000006E3,2EE2,,            goto $-1
-000006E4,0008,,            return
+000006DD,301E,w40c,w40c        movlw .30
+000006DE,00A3,,            movwf r4
+000006DF,0BA3,,            decfsz r4, F
+000006E0,2EDF,,            goto $-1
+000006E1,0008,,            return
 ,,,
 ,,,
 ,,,
 ,,,
 ,,,
 ,,,
-000006E5,3019,klakson,klakson     movlw b'11001' ;port D1
-000006E6,00D2,,            movwf port
-000006E7,3003,,            movlw b'11' ;procesor 3
-000006E8,00D3,,            movwf prc
+000006E2,3019,klakson,klakson     movlw b'11001' ;port D1
+000006E3,00D2,,            movwf port
+000006E4,3003,,            movlw b'11' ;procesor 3
+000006E5,00D3,,            movwf prc
 ,,,
-000006E9,082B,,            movf o_c, W
-000006EA,00A4,,            movwf r5
+000006E6,082B,,            movf o_c, W
+000006E7,00A4,,            movwf r5
 ,,,
-000006EB,1E24,,            btfss r5, 4
-000006EC,21D7,,            call setout ;nastav port v prc
-000006ED,1E24,,            btfss r5, 4
-000006EE,162B,,            bsf o_c, 4
+000006E8,1E24,,            btfss r5, 4
+000006E9,21D4,,            call setout ;nastav port v prc
+000006EA,1E24,,            btfss r5, 4
+000006EB,162B,,            bsf o_c, 4
 ,,,
-000006EF,1A24,,            btfsc r5, 4
-000006F0,21FE,,            call clrout ;smaz port v prc
-000006F1,1A24,,            btfsc r5, 4
-000006F2,122B,,            bcf o_c, 4
-000006F3,0008,,            return
+000006EC,1A24,,            btfsc r5, 4
+000006ED,21FB,,            call clrout ;smaz port v prc
+000006EE,1A24,,            btfsc r5, 4
+000006EF,122B,,            bcf o_c, 4
+000006F0,0008,,            return
 ,,,
 ,,,
 ,,,;zmeni stav LED zamceno
-000006F4,3016,ledzam,ledzam      movlw b'10110' ;port C6
-000006F5,00D2,,            movwf port
-000006F6,3003,,            movlw b'11' ;procesor 3
-000006F7,00D3,,            movwf prc
+000006F1,3016,ledzam,ledzam      movlw b'10110' ;port C6
+000006F2,00D2,,            movwf port
+000006F3,3003,,            movlw b'11' ;procesor 3
+000006F4,00D3,,            movwf prc
 ,,,
-000006F8,0830,,            movf o_h, W
-000006F9,00A4,,            movwf r5
+000006F5,0830,,            movf o_h, W
+000006F6,00A4,,            movwf r5
 ,,,
-000006FA,1F24,,            btfss r5, 6
-000006FB,21D7,,            call setout ;nastav port v prc
-000006FC,1F24,,            btfss r5, 6
-000006FD,1730,,            bsf o_h, 6
+000006F7,1F24,,            btfss r5, 6
+000006F8,21D4,,            call setout ;nastav port v prc
+000006F9,1F24,,            btfss r5, 6
+000006FA,1730,,            bsf o_h, 6
 ,,,
-000006FE,1B24,,            btfsc r5, 6
-000006FF,21FE,,            call clrout ;smaz port v prc
-00000700,1B24,,            btfsc r5, 6
-00000701,1330,,            bcf o_h, 6
+000006FB,1B24,,            btfsc r5, 6
+000006FC,21FB,,            call clrout ;smaz port v prc
+000006FD,1B24,,            btfsc r5, 6
+000006FE,1330,,            bcf o_h, 6
 ,,,
-00000702,0008,,            return
+000006FF,0008,,            return
 ,,,
 ,,,
 ,,,
@@ -2450,14 +2450,14 @@
 0000080C,00D2,,            movwf port
 0000080D,3003,,            movlw b'11' ;procesor 3
 0000080E,00D3,,            movwf prc
-0000080F,21D7,,            call setout ;nastav port v prc
+0000080F,21D4,,            call setout ;nastav port v prc
 00000810,172F,,            bsf o_g, 6
 ,,,
 00000811,300F,,            movlw b'01111' ;port B7
 00000812,00D2,,            movwf port
 00000813,3003,,            movlw b'11' ;procesor 3
 00000814,00D3,,            movwf prc
-00000815,21D7,,            call setout ;nastav port v prc
+00000815,21D4,,            call setout ;nastav port v prc
 00000816,17AF,,            bsf o_g, 7
 ,,,
 ,,,
@@ -2472,21 +2472,21 @@
 0000081D,01E1,,            clrf PORTD_temp
 0000081E,01E2,,            clrf PORTE_temp
 ,,,
-0000081F,2385,,            call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne al
+0000081F,2382,,            call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne al
 ,,,
 ,,,            ; zapne predni pasy po startu
 00000820,300C,,            movlw b'01100' ;port B4
 00000821,00D2,,            movwf port
 00000822,3003,,            movlw b'11' ;procesor 3
 00000823,00D3,,            movwf prc
-00000824,21D7,,            call setout ;nastav port v prc
+00000824,21D4,,            call setout ;nastav port v prc
 00000825,162F,,            bsf o_g, 4
 ,,,
 00000826,300D,,            movlw b'01101' ;port B5
 00000827,00D2,,            movwf port
 00000828,3003,,            movlw b'11' ;procesor 3
 00000829,00D3,,            movwf prc
-0000082A,21D7,,            call setout ;nastav port v prc
+0000082A,21D4,,            call setout ;nastav port v prc
 0000082B,16AF,,            bsf o_g, 5
 ,,,
 ,,,
@@ -2499,29 +2499,29 @@
 ,,,
 ,,,            ;#### Čeká několik cyklů aby se stihly ostatní procesory vzpamatovat z případnejch pr
 ,,,            ; Začne počítat čas odpočinku procesorů WATCH2
-00000830,205E,,            call watchstart
+00000830,205B,,            call watchstart
 ,,,            ; Čeká až skončí čas odpočinku procesorů WATCH2
-00000831,2061,,            call watchwait
+00000831,205E,,            call watchwait
 ,,,
 ,,,            ; Začne počítat čas odpočinku procesorů WATCH2
-00000832,205E,,            call watchstart
+00000832,205B,,            call watchstart
 ,,,            ; Čeká až skončí čas odpočinku procesorů WATCH2
-00000833,2061,,            call watchwait
+00000833,205E,,            call watchwait
 ,,,
 ,,,            ; Začne počítat čas odpočinku procesorů WATCH2
-00000834,205E,,            call watchstart
+00000834,205B,,            call watchstart
 ,,,            ; Čeká až skončí čas odpočinku procesorů WATCH2
-00000835,2061,,            call watchwait
+00000835,205E,,            call watchwait
 ,,,
 ,,,            ; Začne počítat čas odpočinku procesorů WATCH2
-00000836,205E,,            call watchstart
+00000836,205B,,            call watchstart
 ,,,            ; Čeká až skončí čas odpočinku procesorů WATCH2
-00000837,2061,,            call watchwait
+00000837,205E,,            call watchwait
 ,,,
 ,,,
 ,,,
 00000838,1A59,,            btfsc conf, T1OF ;pokud timer 1 přetekl, spustí jeho obsluhu
-00000839,206A,,            call timer1
+00000839,2067,,            call timer1
 ,,,
 0000083A,158A,,            bsf PCLATH,3 ;Select page 1
 ,,,            ;call okna ;spouští obsluhu jednotlivých okének DEBUG
@@ -2546,7 +2546,7 @@
 00000848,0820,,            movf r1, W
 00000849,118A,,            bcf PCLATH,3 ;Select page 0
 0000084A,1D03,,            btfss STATUS, Z
-0000084B,2225,,            call if_58  ;pokud zmena odesle na sbernici
+0000084B,2222,,            call if_58  ;pokud zmena odesle na sbernici
 ,,,
 ,,,
 0000084C,3001,,            movlw .1 ;nastavime ANx kde x je zadane cislo
@@ -2565,7 +2565,7 @@
 00000858,0820,,            movf r1, W
 00000859,118A,,            bcf PCLATH,3 ;Select page 0
 0000085A,1D03,,            btfss STATUS, Z
-0000085B,2272,,            call if_62  ;pokud zmena odesle na sbernici
+0000085B,226F,,            call if_62  ;pokud zmena odesle na sbernici
 ,,,
 ,,,
 0000085C,3002,,            movlw .2 ;nastavime ANx kde x je zadane cislo
@@ -2584,7 +2584,7 @@
 00000868,0820,,            movf r1, W
 00000869,118A,,            bcf PCLATH,3 ;Select page 0
 0000086A,1D03,,            btfss STATUS, Z
-0000086B,22BF,,            call if_50  ;pokud zmena odesle na sbernici
+0000086B,22BC,,            call if_50  ;pokud zmena odesle na sbernici
 ,,,
 ,,,
 0000086C,3003,,            movlw .3 ;nastavime ANx kde x je zadane cislo
@@ -2603,7 +2603,7 @@
 00000878,0820,,            movf r1, W
 00000879,118A,,            bcf PCLATH,3 ;Select page 0
 0000087A,1D03,,            btfss STATUS, Z
-0000087B,22C1,,            call if_59  ;pokud zmena odesle na sbernici
+0000087B,22BE,,            call if_59  ;pokud zmena odesle na sbernici
 ,,,
 ,,,
 0000087C,3004,,            movlw .4 ;nastavime ANx kde x je zadane cislo
@@ -2622,7 +2622,7 @@
 00000888,0820,,            movf r1, W
 00000889,118A,,            bcf PCLATH,3 ;Select page 0
 0000088A,1D03,,            btfss STATUS, Z
-0000088B,22C3,,            call if_60  ;pokud zmena odesle na sbernici
+0000088B,22C0,,            call if_60  ;pokud zmena odesle na sbernici
 ,,,
 ,,,
 0000088C,3005,,            movlw .5 ;nastavime ANx kde x je zadane cislo
@@ -2641,7 +2641,7 @@
 00000898,0820,,            movf r1, W
 00000899,118A,,            bcf PCLATH,3 ;Select page 0
 0000089A,1D03,,            btfss STATUS, Z
-0000089B,22C5,,            call if_61  ;pokud zmena odesle na sbernici
+0000089B,22C2,,            call if_61  ;pokud zmena odesle na sbernici
 ,,,
 ,,,
 ,,,
@@ -2649,15 +2649,15 @@
 ,,,
 ,,,
 ,,,            ; Začne počítat čas pro procesor WATCH2
-0000089C,205E,,            call watchstart
+0000089C,205B,,            call watchstart
 ,,,
 ,,,            ;dotaz na procesor 2
 0000089D,3002,,            movlw .2  ;oznaceni ciloveho procesoru
 0000089E,00F8,,            movwf cil
-0000089F,211E,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
+0000089F,211B,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
 ,,,
 ,,,            ; Čeká až doběhne čas vyhrazený pro tento procesor WATCH2
-000008A0,2061,,            call watchwait
+000008A0,205E,,            call watchwait
 ,,,
 000008A1,0870,,            movf pri0, W    ;kontroluje zda je zmena od minule
 000008A2,00A0,,            movwf r1
@@ -2668,7 +2668,7 @@
 000008A7,00B8,,            movwf ir_51  ;priepise reg AN prievedenou hodnotou
 000008A8,0820,,            movf r1, W
 000008A9,1D03,,            btfss STATUS, Z
-000008AA,22CB,,            call if_51  ;pokud zmena spusti podprig
+000008AA,22C8,,            call if_51  ;pokud zmena spusti podprig
 ,,,
 000008AB,0871,,            movf pri1, W    ;kontroluje zda je zmena od minule
 000008AC,00A0,,            movwf r1
@@ -2679,7 +2679,7 @@
 000008B1,00B9,,            movwf ir_52  ;priepise reg AN prievedenou hodnotou
 000008B2,0820,,            movf r1, W
 000008B3,1D03,,            btfss STATUS, Z
-000008B4,22CD,,            call if_52  ;pokud zmena spusti podprig
+000008B4,22CA,,            call if_52  ;pokud zmena spusti podprig
 ,,,
 ,,,
 000008B5,0872,,            movf pri2, W    ;kontroluje zda je zmena od minule
@@ -2691,7 +2691,7 @@
 000008BB,00BA,,            movwf ir_53  ;priepise reg AN prievedenou hodnotou
 000008BC,0820,,            movf r1, W
 000008BD,1D03,,            btfss STATUS, Z
-000008BE,22CF,,            call if_53  ;pokud zmena spusti podprig
+000008BE,22CC,,            call if_53  ;pokud zmena spusti podprig
 ,,,
 ,,,
 000008BF,0873,,            movf pri3, W    ;kontroluje zda je zmena od minule
@@ -2703,7 +2703,7 @@
 000008C5,00BB,,            movwf ir_54  ;priepise reg AN prievedenou hodnotou
 000008C6,0820,,            movf r1, W
 000008C7,1D03,,            btfss STATUS, Z
-000008C8,22D1,,            call if_54  ;pokud zmena spusti podprig
+000008C8,22CE,,            call if_54  ;pokud zmena spusti podprig
 ,,,
 ,,,
 000008C9,0874,,            movf pri4, W    ;kontroluje zda je zmena od minule
@@ -2715,7 +2715,7 @@
 000008CF,00BC,,            movwf ir_55  ;priepise reg AN prievedenou hodnotou
 000008D0,0820,,            movf r1, W
 000008D1,1D03,,            btfss STATUS, Z
-000008D2,22D3,,            call if_55  ;pokud zmena spusti podprig
+000008D2,22D0,,            call if_55  ;pokud zmena spusti podprig
 ,,,
 ,,,
 000008D3,0875,,            movf pri5, W    ;kontroluje zda je zmena od minule
@@ -2727,7 +2727,7 @@
 000008D9,00BD,,            movwf ir_56  ;priepise reg AN prievedenou hodnotou
 000008DA,0820,,            movf r1, W
 000008DB,1D03,,            btfss STATUS, Z
-000008DC,22D5,,            call if_56  ;pokud zmena spusti podprig
+000008DC,22D2,,            call if_56  ;pokud zmena spusti podprig
 ,,,
 ,,,
 000008DD,0876,,            movf pri6, W    ;kontroluje zda je zmena od minule
@@ -2739,7 +2739,7 @@
 000008E3,00BE,,            movwf ir_57  ;priepise reg AN prievedenou hodnotou
 000008E4,0820,,            movf r1, W
 000008E5,1D03,,            btfss STATUS, Z
-000008E6,22D7,,            call if_57  ;pokud zmena spusti podprig
+000008E6,22D4,,            call if_57  ;pokud zmena spusti podprig
 ,,,
 ,,,
 000008E7,0877,,            movf pri7, W    ;kontroluje zda je zmena od minule
@@ -2751,19 +2751,19 @@
 000008ED,00B6,,            movwf ir_49  ;priepise reg AN prievedenou hodnotou
 000008EE,0820,,            movf r1, W
 000008EF,1D03,,            btfss STATUS, Z
-000008F0,22C7,,            call if_49  ;pokud zmena spusti podprig
+000008F0,22C4,,            call if_49  ;pokud zmena spusti podprig
 ,,,
 ,,,
 ,,,            ; Začne počítat čas pro procesor WATCH2
-000008F1,205E,,            call watchstart
+000008F1,205B,,            call watchstart
 ,,,
 ,,,            ;dotaz na procesor 3
 000008F2,3003,,            movlw .3  ;oznaceni ciloveho procesoru
 000008F3,00F8,,            movwf cil
-000008F4,211E,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
+000008F4,211B,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
 ,,,
 ,,,            ; Čeká až doběhne čas vyhrazený pro tento procesor WATCH2
-000008F5,2061,,            call watchwait
+000008F5,205E,,            call watchwait
 ,,,
 ,,,
 ,,,
@@ -2776,7 +2776,7 @@
 000008FC,00C4,,            movwf ir_80  ;priepise reg AN prievedenou hodnotou
 000008FD,0820,,            movf r1, W
 000008FE,1D03,,            btfss STATUS, Z
-000008FF,22C9,,            call if_80  ;pokud zmena spusti podprig
+000008FF,22C6,,            call if_80  ;pokud zmena spusti podprig
 ,,,
 ,,,
 00000900,0871,,            movf pri1, W    ;kontroluje zda je zmena od minule
@@ -2788,7 +2788,7 @@
 00000906,00C5,,            movwf ir_84  ;priepise reg AN prievedenou hodnotou
 00000907,0820,,            movf r1, W
 00000908,1D03,,            btfss STATUS, Z
-00000909,22D9,,            call if_84  ;pokud zmena spusti podprig
+00000909,22D6,,            call if_84  ;pokud zmena spusti podprig
 ,,,
 ,,,
 0000090A,0872,,            movf pri2, W    ;kontroluje zda je zmena od minule
@@ -2800,7 +2800,7 @@
 00000910,00C6,,            movwf ir_85  ;priepise reg AN prievedenou hodnotou
 00000911,0820,,            movf r1, W
 00000912,1D03,,            btfss STATUS, Z
-00000913,22DB,,            call if_85  ;pokud zmena spusti podprig
+00000913,22D8,,            call if_85  ;pokud zmena spusti podprig
 ,,,
 ,,,
 00000914,0873,,            movf pri3, W    ;kontroluje zda je zmena od minule
@@ -2812,7 +2812,7 @@
 0000091A,00C7,,            movwf ir_86  ;priepise reg AN prievedenou hodnotou
 0000091B,0820,,            movf r1, W
 0000091C,1D03,,            btfss STATUS, Z
-0000091D,22DD,,            call if_86  ;pokud zmena spusti podprig
+0000091D,22DA,,            call if_86  ;pokud zmena spusti podprig
 ,,,
 ,,,
 0000091E,0874,,            movf pri4, W    ;kontroluje zda je zmena od minule
@@ -2824,7 +2824,7 @@
 00000924,00C8,,            movwf ir_87  ;priepise reg AN prievedenou hodnotou
 00000925,0820,,            movf r1, W
 00000926,1D03,,            btfss STATUS, Z
-00000927,22DF,,            call if_87  ;pokud zmena spusti podprig
+00000927,22DC,,            call if_87  ;pokud zmena spusti podprig
 ,,,
 ,,,
 00000928,0875,,            movf pri5, W    ;kontroluje zda je zmena od minule
@@ -2836,7 +2836,7 @@
 0000092E,00C9,,            movwf ir_88  ;priepise reg AN prievedenou hodnotou
 0000092F,0820,,            movf r1, W
 00000930,1D03,,            btfss STATUS, Z
-00000931,22E1,,            call if_88  ;pokud zmena spusti podprig
+00000931,22DE,,            call if_88  ;pokud zmena spusti podprig
 ,,,
 ,,,
 00000932,0876,,            movf pri6, W    ;kontroluje zda je zmena od minule
@@ -2848,7 +2848,7 @@
 00000938,00CA,,            movwf ir_89  ;priepise reg AN prievedenou hodnotou
 00000939,0820,,            movf r1, W
 0000093A,1D03,,            btfss STATUS, Z
-0000093B,22E3,,            call if_89  ;pokud zmena spusti podprig
+0000093B,22E0,,            call if_89  ;pokud zmena spusti podprig
 ,,,
 ,,,
 0000093C,0877,,            movf pri7, W    ;kontroluje zda je zmena od minule
@@ -2860,20 +2860,20 @@
 00000942,00CB,,            movwf ir_90  ;priepise reg AN prievedenou hodnotou
 00000943,0820,,            movf r1, W
 00000944,1D03,,            btfss STATUS, Z
-00000945,22E5,,            call if_90  ;pokud zmena spusti podprig
+00000945,22E2,,            call if_90  ;pokud zmena spusti podprig
 ,,,
 ,,,
 ,,,
 ,,,            ; Začne počítat čas pro procesor WATCH2
-00000946,205E,,            call watchstart
+00000946,205B,,            call watchstart
 ,,,
 ,,,            ;dotaz na procesor 4
 00000947,3004,,            movlw .4  ;oznaceni ciloveho procesoru
 00000948,00F8,,            movwf cil
-00000949,211E,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
+00000949,211B,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
 ,,,
 ,,,            ; Čeká až doběhne čas vyhrazený pro tento procesor WATCH2
-0000094A,2061,,            call watchwait
+0000094A,205E,,            call watchwait
 ,,,
 ,,,
 ,,,
@@ -2886,7 +2886,7 @@
 00000951,00CC,,            movwf ir_91  ;priepise reg AN prievedenou hodnotou
 00000952,0820,,            movf r1, W
 00000953,1D03,,            btfss STATUS, Z
-00000954,22E7,,            call if_91  ;pokud zmena spusti podprig
+00000954,22E4,,            call if_91  ;pokud zmena spusti podprig
 ,,,
 ,,,
 00000955,0871,,            movf pri1, W    ;kontroluje zda je zmena od minule
@@ -2898,7 +2898,7 @@
 0000095B,00CD,,            movwf ir_92  ;priepise reg AN prievedenou hodnotou
 0000095C,0820,,            movf r1, W
 0000095D,1D03,,            btfss STATUS, Z
-0000095E,22E9,,            call if_92  ;pokud zmena spusti podprig
+0000095E,22E6,,            call if_92  ;pokud zmena spusti podprig
 ,,,
 ,,,
 0000095F,0872,,            movf pri2, W    ;kontroluje zda je zmena od minule
@@ -2910,7 +2910,7 @@
 00000965,00CE,,            movwf ir_93  ;priepise reg AN prievedenou hodnotou
 00000966,0820,,            movf r1, W
 00000967,1D03,,            btfss STATUS, Z
-00000968,22EB,,            call if_93  ;pokud zmena spusti podprig
+00000968,22E8,,            call if_93  ;pokud zmena spusti podprig
 ,,,
 ,,,
 00000969,0873,,            movf pri3, W    ;kontroluje zda je zmena od minule
@@ -2922,7 +2922,7 @@
 0000096F,00CF,,            movwf ir_127  ;priepise reg AN prievedenou hodnotou
 00000970,0820,,            movf r1, W
 00000971,1D03,,            btfss STATUS, Z
-00000972,22ED,,            call if_127  ;pokud zmena spusti podprig
+00000972,22EA,,            call if_127  ;pokud zmena spusti podprig
 ,,,
 ,,,
 00000973,0874,,            movf pri4, W    ;kontroluje zda je zmena od minule
@@ -2934,7 +2934,7 @@
 00000979,00D0,,            movwf ir_128  ;priepise reg AN prievedenou hodnotou
 0000097A,0820,,            movf r1, W
 0000097B,1D03,,            btfss STATUS, Z
-0000097C,22EF,,            call if_128  ;pokud zmena spusti podprig
+0000097C,22EC,,            call if_128  ;pokud zmena spusti podprig
 ,,,
 ,,,
 0000097D,0875,,            movf pri5, W    ;kontroluje zda je zmena od minule
@@ -2946,7 +2946,7 @@
 00000983,00B5,,            movwf ir_x  ;priepise reg AN prievedenou hodnotou
 00000984,0820,,            movf r1, W
 00000985,1D03,,            btfss STATUS, Z
-00000986,233C,,            call if_x  ;pokud zmena spusti podprig
+00000986,2339,,            call if_x  ;pokud zmena spusti podprig
 ,,,
 ,,,
 00000987,0876,,            movf pri6, W    ;kontroluje zda je zmena od minule
@@ -2958,7 +2958,7 @@
 0000098D,00B5,,            movwf ir_x  ;priepise reg AN prievedenou hodnotou
 0000098E,0820,,            movf r1, W
 0000098F,1D03,,            btfss STATUS, Z
-00000990,233C,,            call if_x  ;pokud zmena spusti podprig
+00000990,2339,,            call if_x  ;pokud zmena spusti podprig
 ,,,
 ,,,
 00000991,0877,,            movf pri7, W    ;kontroluje zda je zmena od minule
@@ -2970,7 +2970,7 @@
 00000997,00B5,,            movwf ir_x  ;priepise reg AN prievedenou hodnotou
 00000998,0820,,            movf r1, W
 00000999,1D03,,            btfss STATUS, Z
-0000099A,233C,,            call if_x  ;pokud zmena spusti podprig
+0000099A,2339,,            call if_x  ;pokud zmena spusti podprig
 ,,,
 ,,,
 ,,,
@@ -3064,7 +3064,7 @@
 000009E7,00D3,,            movwf prc
 ,,,
 000009E8,118A,,            bcf PCLATH,3 ;Select page 0
-000009E9,21D7,,            call setout ;smaz port v prc
+000009E9,21D4,,            call setout ;smaz port v prc
 000009EA,158A,,            bsf PCLATH,3 ;Select page 1
 000009EB,15A9,,            bsf o_a, 3
 000009EC,1FA9,no1up,no1up       btfss o_a, 7
@@ -3075,7 +3075,7 @@
 000009F1,00D3,,            movwf prc
 ,,,
 000009F2,118A,,            bcf PCLATH,3 ;Select page 0
-000009F3,21FE,,            call clrout ;smaz port v prc
+000009F3,21FB,,            call clrout ;smaz port v prc
 000009F4,158A,,            bsf PCLATH,3 ;Select page 1
 000009F5,13A9,,            bcf o_a, 7
 000009F6,0008,,            return
@@ -3087,7 +3087,7 @@
 000009FC,00D3,,            movwf prc
 ,,,
 000009FD,118A,,            bcf PCLATH,3 ;Select page 0
-000009FE,21FE,,            call clrout ;smaz port v prc
+000009FE,21FB,,            call clrout ;smaz port v prc
 000009FF,158A,,            bsf PCLATH,3 ;Select page 1
 00000A00,11A9,,            bcf o_a, 3
 00000A01,1BA9,no1down,no1down     btfsc o_a, 7
@@ -3098,7 +3098,7 @@
 00000A06,00D3,,            movwf prc
 ,,,
 00000A07,118A,,            bcf PCLATH,3 ;Select page 1
-00000A08,21D7,,            call setout ;smaz port v prc
+00000A08,21D4,,            call setout ;smaz port v prc
 00000A09,158A,,            bsf PCLATH,3 ;Select page 1
 00000A0A,17A9,,            bsf o_a, 7
 00000A0B,0008,,            return
@@ -3110,7 +3110,7 @@
 00000A11,00D3,,            movwf prc
 ,,,
 00000A12,118A,,            bcf PCLATH,3 ;Select page 1
-00000A13,21FE,,            call clrout ;smaz port v prc
+00000A13,21FB,,            call clrout ;smaz port v prc
 00000A14,158A,,            bsf PCLATH,3 ;Select page 1
 00000A15,11A9,,            bcf o_a, 3
 00000A16,1FA9,no1stop,no1stop     btfss o_a, 7
@@ -3121,7 +3121,7 @@
 00000A1B,00D3,,            movwf prc
 ,,,
 00000A1C,118A,,            bcf PCLATH,3 ;Select page 1
-00000A1D,21FE,,            call clrout ;smaz port v prc
+00000A1D,21FB,,            call clrout ;smaz port v prc
 00000A1E,158A,,            bsf PCLATH,3 ;Select page 1
 00000A1F,13A9,,            bcf o_a, 7
 00000A20,0008,,            return
@@ -3134,7 +3134,7 @@
 00000A26,00D3,,            movwf prc
 ,,,
 00000A27,118A,,            bcf PCLATH,3 ;Select page 1
-00000A28,21D7,,            call setout ;smaz port v prc
+00000A28,21D4,,            call setout ;smaz port v prc
 00000A29,158A,,            bsf PCLATH,3 ;Select page 1
 00000A2A,1629,,            bsf o_a, 4
 00000A2B,1C2A,no2up,no2up       btfss o_b, 0
@@ -3145,7 +3145,7 @@
 00000A30,00D3,,            movwf prc
 ,,,
 00000A31,118A,,            bcf PCLATH,3 ;Select page 1
-00000A32,21FE,,            call clrout ;smaz port v prc
+00000A32,21FB,,            call clrout ;smaz port v prc
 00000A33,158A,,            bsf PCLATH,3 ;Select page 1
 00000A34,102A,,            bcf o_b, 0
 00000A35,0008,,            return
@@ -3157,7 +3157,7 @@
 00000A3B,00D3,,            movwf prc
 ,,,
 00000A3C,118A,,            bcf PCLATH,3 ;Select page 1
-00000A3D,21FE,,            call clrout ;smaz port v prc
+00000A3D,21FB,,            call clrout ;smaz port v prc
 00000A3E,158A,,            bsf PCLATH,3 ;Select page 1
 00000A3F,1229,,            bcf o_a, 4
 00000A40,182A,no2down,no2down     btfsc o_b, 0
@@ -3168,7 +3168,7 @@
 00000A45,00D3,,            movwf prc
 ,,,
 00000A46,118A,,            bcf PCLATH,3 ;Select page 1
-00000A47,21D7,,            call setout ;smaz port v prc
+00000A47,21D4,,            call setout ;smaz port v prc
 00000A48,158A,,            bsf PCLATH,3 ;Select page 1
 00000A49,142A,,            bsf o_b, 0
 00000A4A,0008,,            return
@@ -3180,7 +3180,7 @@
 00000A50,00D3,,            movwf prc
 ,,,
 00000A51,118A,,            bcf PCLATH,3 ;Select page 1
-00000A52,21FE,,            call clrout ;smaz port v prc
+00000A52,21FB,,            call clrout ;smaz port v prc
 00000A53,158A,,            bsf PCLATH,3 ;Select page 1
 00000A54,1229,,            bcf o_a, 4
 00000A55,1C2A,no2stop,no2stop     btfss o_b, 0
@@ -3191,7 +3191,7 @@
 00000A5A,00D3,,            movwf prc
 ,,,
 00000A5B,118A,,            bcf PCLATH,3 ;Select page 1
-00000A5C,21FE,,            call clrout ;smaz port v prc
+00000A5C,21FB,,            call clrout ;smaz port v prc
 00000A5D,158A,,            bsf PCLATH,3 ;Select page 1
 00000A5E,102A,,            bcf o_b, 0
 00000A5F,0008,,            return
@@ -3204,7 +3204,7 @@
 00000A65,00D3,,            movwf prc
 ,,,
 00000A66,118A,,            bcf PCLATH,3 ;Select page 1
-00000A67,21D7,,            call setout ;smaz port v prc
+00000A67,21D4,,            call setout ;smaz port v prc
 00000A68,158A,,            bsf PCLATH,3 ;Select page 1
 00000A69,16A9,,            bsf o_a, 5
 00000A6A,1CAA,no3up,no3up       btfss o_b, 1
@@ -3215,7 +3215,7 @@
 00000A6F,00D3,,            movwf prc
 ,,,
 00000A70,118A,,            bcf PCLATH,3 ;Select page 1
-00000A71,21FE,,            call clrout ;smaz port v prc
+00000A71,21FB,,            call clrout ;smaz port v prc
 00000A72,158A,,            bsf PCLATH,3 ;Select page 1
 00000A73,10AA,,            bcf o_b, 1
 00000A74,0008,,            return
@@ -3227,7 +3227,7 @@
 00000A7A,00D3,,            movwf prc
 ,,,
 00000A7B,118A,,            bcf PCLATH,3 ;Select page 1
-00000A7C,21FE,,            call clrout ;smaz port v prc
+00000A7C,21FB,,            call clrout ;smaz port v prc
 00000A7D,158A,,            bsf PCLATH,3 ;Select page 1
 00000A7E,12A9,,            bcf o_a, 5
 00000A7F,18AA,no3down,no3down     btfsc o_b, 1
@@ -3238,7 +3238,7 @@
 00000A84,00D3,,            movwf prc
 ,,,
 00000A85,118A,,            bcf PCLATH,3 ;Select page 1
-00000A86,21D7,,            call setout ;smaz port v prc
+00000A86,21D4,,            call setout ;smaz port v prc
 00000A87,158A,,            bsf PCLATH,3 ;Select page 1
 00000A88,14AA,,            bsf o_b, 1
 00000A89,0008,,            return
@@ -3250,7 +3250,7 @@
 00000A8F,00D3,,            movwf prc
 ,,,
 00000A90,118A,,            bcf PCLATH,3 ;Select page 1
-00000A91,21FE,,            call clrout ;smaz port v prc
+00000A91,21FB,,            call clrout ;smaz port v prc
 00000A92,158A,,            bsf PCLATH,3 ;Select page 1
 00000A93,12A9,,            bcf o_a, 5
 00000A94,1CAA,no3stop,no3stop     btfss o_b, 1
@@ -3261,7 +3261,7 @@
 00000A99,00D3,,            movwf prc
 ,,,
 00000A9A,118A,,            bcf PCLATH,3 ;Select page 1
-00000A9B,21FE,,            call clrout ;smaz port v prc
+00000A9B,21FB,,            call clrout ;smaz port v prc
 00000A9C,158A,,            bsf PCLATH,3 ;Select page 1
 00000A9D,10AA,,            bcf o_b, 1
 00000A9E,0008,,            return
@@ -3274,7 +3274,7 @@
 00000AA4,00D3,,            movwf prc
 ,,,
 00000AA5,118A,,            bcf PCLATH,3 ;Select page 1
-00000AA6,21D7,,            call setout ;smaz port v prc
+00000AA6,21D4,,            call setout ;smaz port v prc
 00000AA7,158A,,            bsf PCLATH,3 ;Select page 1
 00000AA8,1729,,            bsf o_a, 6
 00000AA9,1D2A,no4up,no4up       btfss o_b, 2
@@ -3285,7 +3285,7 @@
 00000AAE,00D3,,            movwf prc
 ,,,
 00000AAF,118A,,            bcf PCLATH,3 ;Select page 1
-00000AB0,21FE,,            call clrout ;smaz port v prc
+00000AB0,21FB,,            call clrout ;smaz port v prc
 00000AB1,158A,,            bsf PCLATH,3 ;Select page 1
 00000AB2,112A,,            bcf o_b, 2
 00000AB3,0008,,            return
@@ -3297,7 +3297,7 @@
 00000AB9,00D3,,            movwf prc
 ,,,
 00000ABA,118A,,            bcf PCLATH,3 ;Select page 1
-00000ABB,21FE,,            call clrout ;smaz port v prc
+00000ABB,21FB,,            call clrout ;smaz port v prc
 00000ABC,158A,,            bsf PCLATH,3 ;Select page 1
 00000ABD,1329,,            bcf o_a, 6
 00000ABE,192A,no4down,no4down     btfsc o_b, 2
@@ -3308,7 +3308,7 @@
 00000AC3,00D3,,            movwf prc
 ,,,
 00000AC4,118A,,            bcf PCLATH,3 ;Select page 1
-00000AC5,21D7,,            call setout ;smaz port v prc
+00000AC5,21D4,,            call setout ;smaz port v prc
 00000AC6,158A,,            bsf PCLATH,3 ;Select page 1
 00000AC7,152A,,            bsf o_b, 2
 00000AC8,0008,,            return
@@ -3320,7 +3320,7 @@
 00000ACE,00D3,,            movwf prc
 ,,,
 00000ACF,118A,,            bcf PCLATH,3 ;Select page 1
-00000AD0,21FE,,            call clrout ;smaz port v prc
+00000AD0,21FB,,            call clrout ;smaz port v prc
 00000AD1,158A,,            bsf PCLATH,3 ;Select page 1
 00000AD2,1329,,            bcf o_a, 6
 00000AD3,1D2A,no4stop,no4stop     btfss o_b, 2
@@ -3331,7 +3331,7 @@
 00000AD8,00D3,,            movwf prc
 ,,,
 00000AD9,118A,,            bcf PCLATH,3 ;Select page 1
-00000ADA,21FE,,            call clrout ;smaz port v prc
+00000ADA,21FB,,            call clrout ;smaz port v prc
 00000ADB,158A,,            bsf PCLATH,3 ;Select page 1
 00000ADC,112A,,            bcf o_b, 2
 00000ADD,0008,,            return

@@ -2,10 +2,80 @@
 <configurationDescriptor version="79">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df name="DOCAR" root=".">
-      <in>RJCAR1.asm</in>
-      <in>RJCAR2.asm</in>
-      <in>RJCAR3.asm</in>
-      <in>RJCAR4.asm</in>
+      <df name="DOCAR">
+        <in>RJCAR1.asm</in>
+        <in>RJCAR2.asm</in>
+        <in>RJCAR3.asm</in>
+        <in>RJCAR4.asm</in>
+      </df>
+      <df name="Documents">
+      </df>
+      <df name="Dokumentace">
+      </df>
+      <df name="eagle">
+      </df>
+      <df name="Pristroj_ISIS">
+      </df>
+      <df name="REMOTECAR">
+        <in>DOCAR.asm</in>
+      </df>
+      <df name="Schemata">
+      </df>
+      <df name="Tests">
+        <in>MCLR_TO_PGM.asm</in>
+      </df>
+      <df name="Zalohy stare">
+        <df name="2011-10-31">
+          <in>RJCAR1.asm</in>
+        </df>
+        <df name="2011-11-01">
+          <in>RJCAR1.asm</in>
+          <in>RJCAR2.asm</in>
+          <in>RJCAR3.asm</in>
+          <in>RJCAR4.asm</in>
+        </df>
+        <df name="2011-11-02">
+          <in>RJCAR1.asm</in>
+        </df>
+        <df name="2011-11-03">
+          <in>RJCAR1.asm</in>
+          <in>RJCAR2.asm</in>
+          <in>RJCAR3.asm</in>
+          <in>RJCAR4.asm</in>
+        </df>
+        <df name="2012-02-27">
+          <in>RJCAR1.asm</in>
+          <in>RJCAR2.asm</in>
+          <in>RJCAR3.asm</in>
+          <in>RJCAR4.asm</in>
+        </df>
+        <df name="2012-02-28">
+          <in>RJCAR1.asm</in>
+          <in>RJCAR2.asm</in>
+          <in>RJCAR3.asm</in>
+          <in>RJCAR4.asm</in>
+        </df>
+        <df name="ADC_zkouska">
+          <in>Easy_ADC.asm</in>
+        </df>
+        <df name="PRCS">
+          <in>RJCAR1.asm</in>
+          <in>RJCAR2.asm</in>
+          <in>RJCAR3.asm</in>
+          <in>RJCAR4.asm</in>
+        </df>
+        <df name="zaloha">
+          <in>RJCAR1.asm</in>
+          <in>RJCAR2.asm</in>
+          <in>RJCAR3.asm</in>
+          <in>RJCAR4.asm</in>
+        </df>
+        <df name="zk">
+          <in>RJCAR4 – kopie.asm</in>
+          <in>RJCAR4.asm</in>
+          <in>RJCAR4_kratky.asm</in>
+        </df>
+      </df>
     </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

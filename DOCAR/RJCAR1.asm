@@ -262,8 +262,8 @@ init        bcf PCLATH,3 ;Select page 0
 
 inton       bcf INTCON, INTF ; nastavení přerušení od RB0        
             bsf INTCON, INTE
-            bcf INTCON, T0IF ;nastavení přerušení od Timer0
-            bsf INTCON, T0IE
+            ;bcf INTCON, T0IF ;nastavení přerušení od Timer0
+            ;bsf INTCON, T0IE
             bcf PIR1, TMR1IF ;nastavení přerušení od Timer1
             bcf PIR1, TMR2IF ;nastavení přerušení od Timer2
             bsf STATUS, RP0  ;Bank 1
@@ -275,7 +275,7 @@ inton       bcf INTCON, INTF ; nastavení přerušení od RB0
             return
         
 intoff      bcf INTCON, INTE
-            bcf INTCON, T0IE
+            ;bcf INTCON, T0IE
             bsf STATUS, RP0  ;Bank 1
             bcf PIE1, TMR1IE
             bcf PIE1, TMR2IE
@@ -288,8 +288,8 @@ inter       call intoff
       
             btfsc INTCON, INTF      ;preruseni od RX B0 prijem radio signalu
             call radio
-            btfsc INTCON, T0IF
-            bsf conf, T0OF
+            ;btfsc INTCON, T0IF
+            ;bsf conf, T0OF
             btfsc PIR1, TMR1IF      ;preruseni od timer1 watch
             bsf conf, T1OF
 	    btfsc PIR1, TMR2IF      ;preruseni od timer2 watch
