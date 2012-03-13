@@ -56,6 +56,18 @@ FL    equ 4Fh
 ran5  equ 50h
 OUT_L equ 51h
 OUT_H equ 52h
+pcl_temp    equ 53h
+
+; zaloha vystupnich portu
+    cblock 0x65
+PORTA_temp
+PORTB_temp
+PORTC_temp
+PORTD_temp
+PORTE_temp
+    endc
+
+
 
 conf        equ 7Ch
 
@@ -71,7 +83,26 @@ POR	    equ .1
         goto init
 
         org 004h        ;vektor preruseni
-        goto inter
+        movwf w_temp ;copy w to temp register
+            movf STATUS, W ;swap status to be saved into w
+            movwf s_temp ;save status to bank zero s_temp register
+            movf PCLATH, W ;swap pclath to be saved into w
+            movwf pcl_temp ;save status to bank zero pclath_temp register
+            clrf STATUS ;bank 0, regardless of current bank, clears irp,rp1,rp0
+            
+            bcf PCLATH,3 ;Select page 0
+            call inter
+        
+            movf pcl_temp, W ;swap pcl_temp register into w
+            movwf PCLATH ;move w into PCLATH register;(sets bank to original state)
+            movf s_temp, W ;swap status_temp register into w
+            movwf STATUS ;move w into status register;(sets bank to original state)
+            movf w_temp, W ;
+	    btfss s_temp, Z
+	    bcf STATUS, Z
+            btfsc s_temp, Z
+	    bsf STATUS, Z
+            return
 
 
 
@@ -148,21 +179,12 @@ inton       bcf INTCON, INTF	; nastavení přerušení od RB0
         
 
 inter   call intoff
-        movwf w_temp ;copy w to temp register
-        swapf STATUS, W ;swap status to be saved into w
-        clrf STATUS ;bank 0, regardless of current bank, clears irp,rp1,rp0
-        movwf s_temp ;save status to bank zero status_temp register
         
         btfsc PIR1, TMR2IF      ;preruseni od timer2 watch
         call watchover
-
         btfsc INTCON, INTF   ;pokud preruseni od B0
         call prijem
         
-        swapf s_temp, W ;swap status_temp register into w
-        movwf STATUS ;move w into status register;(sets bank to original state)
-        swapf w_temp, F ;swap w_temp
-        swapf w_temp, W ;
         call inton
         return
         
@@ -306,6 +328,10 @@ pra     movf cislo, W
         
 
 na4     btfss r5, 1
+        bcf PORTA_temp, 4
+        btfsc r5, 1
+        bsf PORTA_temp, 4
+	btfss r5, 1
         bcf PORTA, 4
         btfsc r5, 1
         bsf PORTA, 4
@@ -339,36 +365,64 @@ prb     movf cislo, W
         
 
 nb1     btfss r5, 1
+        bcf PORTB_temp, 1
+        btfsc r5, 1
+        bsf PORTB_temp, 1
+        btfss r5, 1
         bcf PORTB, 1
         btfsc r5, 1
         bsf PORTB, 1
         return
 nb2     btfss r5, 1
+        bcf PORTB_temp, 2
+        btfsc r5, 1
+        bsf PORTB_temp, 2
+        btfss r5, 1
         bcf PORTB, 2
         btfsc r5, 1
         bsf PORTB, 2
         return
 nb3     btfss r5, 1
+        bcf PORTB_temp, 3
+        btfsc r5, 1
+        bsf PORTB_temp, 3
+        btfss r5, 1
         bcf PORTB, 3
         btfsc r5, 1
         bsf PORTB, 3
         return
 nb4     btfss r5, 1
+        bcf PORTB_temp, 4
+        btfsc r5, 1
+        bsf PORTB_temp, 4
+        btfss r5, 1
         bcf PORTB, 4
         btfsc r5, 1
         bsf PORTB, 4
         return
 nb5     btfss r5, 1
+        bcf PORTB_temp, 5
+        btfsc r5, 1
+        bsf PORTB_temp, 5
+        btfss r5, 1
         bcf PORTB, 5
         btfsc r5, 1
         bsf PORTB, 5
         return
 nb6     btfss r5, 1
+        bcf PORTB_temp, 6
+        btfsc r5, 1
+        bsf PORTB_temp, 6
+        btfss r5, 1
         bcf PORTB, 6
         btfsc r5, 1
         bsf PORTB, 6
         return
 nb7     btfss r5, 1
+        bcf PORTB_temp, 7
+        btfsc r5, 1
+        bsf PORTB_temp, 7
+        btfss r5, 1
         bcf PORTB, 7
         btfsc r5, 1
         bsf PORTB, 7
@@ -403,41 +457,73 @@ prc     movf cislo, W
         return
         
 nc0     btfss r5, 1
+        bcf PORTC_temp, 0
+        btfsc r5, 1
+        bsf PORTC_temp, 0
+        btfss r5, 1
         bcf PORTC, 0
         btfsc r5, 1
         bsf PORTC, 0
         return
 nc1     btfss r5, 1
+        bcf PORTC_temp, 1
+        btfsc r5, 1
+        bsf PORTC_temp, 1
+        btfss r5, 1
         bcf PORTC, 1
         btfsc r5, 1
         bsf PORTC, 1
         return
 nc2     btfss r5, 1
+        bcf PORTC_temp, 2
+        btfsc r5, 1
+        bsf PORTC_temp, 2
+        btfss r5, 1
         bcf PORTC, 2
         btfsc r5, 1
         bsf PORTC, 2
         return
 nc3     btfss r5, 1
+        bcf PORTC_temp, 3
+        btfsc r5, 1
+        bsf PORTC_temp, 3
+        btfss r5, 1
         bcf PORTC, 3
         btfsc r5, 1
         bsf PORTC, 3
         return
 nc4     btfss r5, 1
+        bcf PORTC_temp, 4
+        btfsc r5, 1
+        bsf PORTC_temp, 4
+        btfss r5, 1
         bcf PORTC, 4
         btfsc r5, 1
         bsf PORTC, 4
         return
 nc5     btfss r5, 1
+        bcf PORTC_temp, 5
+        btfsc r5, 1
+        bsf PORTC_temp, 5
+        btfss r5, 1
         bcf PORTC, 5
         btfsc r5, 1
         bsf PORTC, 5
         return
 nc6     btfss r5, 1
+        bcf PORTC_temp, 6
+        btfsc r5, 1
+        bsf PORTC_temp, 6
+        btfss r5, 1
         bcf PORTC, 6
         btfsc r5, 1
         bsf PORTC, 6
         return
 nc7     btfss r5, 1
+        bcf PORTC_temp, 7
+        btfsc r5, 1
+        bsf PORTC_temp, 7
+        btfss r5, 1
         bcf PORTC, 7
         btfsc r5, 1
         bsf PORTC, 7
@@ -472,41 +558,73 @@ prd     movf cislo, W
         return
         
 nd0     btfss r5, 1
+        bcf PORTD_temp, 0
+        btfsc r5, 1
+        bsf PORTD_temp, 0
+        btfss r5, 1
         bcf PORTD, 0
         btfsc r5, 1
         bsf PORTD, 0
         return
 nd1     btfss r5, 1
+        bcf PORTD_temp, 1
+        btfsc r5, 1
+        bsf PORTD_temp, 1
+        btfss r5, 1
         bcf PORTD, 1
         btfsc r5, 1
         bsf PORTD, 1
         return
 nd2     btfss r5, 1
+        bcf PORTD_temp, 2
+        btfsc r5, 1
+        bsf PORTD_temp, 2
+        btfss r5, 1
         bcf PORTD, 2
         btfsc r5, 1
         bsf PORTD, 2
         return
 nd3     btfss r5, 1
+        bcf PORTD_temp, 3
+        btfsc r5, 1
+        bsf PORTD_temp, 3
+        btfss r5, 1
         bcf PORTD, 3
         btfsc r5, 1
         bsf PORTD, 3
         return
 nd4     btfss r5, 1
+        bcf PORTD_temp, 4
+        btfsc r5, 1
+        bsf PORTD_temp, 4
+        btfss r5, 1
         bcf PORTD, 4
         btfsc r5, 1
         bsf PORTD, 4
         return
 nd5     btfss r5, 1
+        bcf PORTD_temp, 5
+        btfsc r5, 1
+        bsf PORTD_temp, 5
+        btfss r5, 1
         bcf PORTD, 5
         btfsc r5, 1
         bsf PORTD, 5
         return
 nd6     btfss r5, 1
+        bcf PORTD_temp, 6
+        btfsc r5, 1
+        bsf PORTD_temp, 6
+        btfss r5, 1
         bcf PORTD, 6
         btfsc r5, 1
         bsf PORTD, 6
         return
 nd7     btfss r5, 1
+        bcf PORTD_temp, 7
+        btfsc r5, 1
+        bsf PORTD_temp, 7
+        btfss r5, 1
         bcf PORTD, 7
         btfsc r5, 1
         bsf PORTD, 7
@@ -697,10 +815,25 @@ vysilej comf num, W     ;pokud neni pro nej skonci
         return
         
 
-restart	    nop
+restart	    movf PORTA_temp, W
+	    movwf PORTA
+	    movf PORTB_temp, W
+	    movwf PORTB
+	    movf PORTC_temp, W
+	    movwf PORTC
+	    movf PORTD_temp, W
+	    movwf PORTD
+	    movf PORTE_temp, W
+	    movwf PORTE
+
 	    goto loop
 
-start	    nop
+start	    clrf PORTA_temp
+	    clrf PORTB_temp
+	    clrf PORTC_temp
+	    clrf PORTD_temp
+	    clrf PORTE_temp
+
 	    goto loop
 
 loop        movlw .0 ;nastavime ANx kde x je zadane cislo   

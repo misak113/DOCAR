@@ -56,6 +56,18 @@
 ,,,ran5  equ 50h
 ,,,OUT_L equ 51h
 ,,,OUT_H equ 52h
+,,,pcl_temp    equ 53h
+,,,
+,,,; zaloha vystupnich portu
+,,,    cblock 0x65
+,,,PORTA_temp
+,,,PORTB_temp
+,,,PORTC_temp
+,,,PORTD_temp
+,,,PORTE_temp
+,,,    endc
+,,,
+,,,
 ,,,
 ,,,conf        equ 7Ch
 ,,,
@@ -68,707 +80,828 @@
 ,,,POR         equ .1
 ,,,
 00000000,,,        org 000h        ;vektor zacatku
-00000000,2805,,        goto init
+00000000,2816,,        goto init
 ,,,
 00000004,,,        org 004h        ;vektor preruseni
-00000004,2836,,        goto inter
+00000004,00AB,,        movwf w_temp ;copy w to temp register
+00000005,0803,,            movf STATUS, W ;swap status to be saved into w
+00000006,00AC,,            movwf s_temp ;save status to bank zero s_temp register
+00000007,080A,,            movf PCLATH, W ;swap pclath to be saved into w
+00000008,00D3,,            movwf pcl_temp ;save status to bank zero pclath_temp register
+00000009,0183,,            clrf STATUS ;bank 0, regardless of current bank, clears irp,rp1,rp0
+,,,
+0000000A,118A,,            bcf PCLATH,3 ;Select page 0
+0000000B,2047,,            call inter
+,,,
+0000000C,0853,,            movf pcl_temp, W ;swap pcl_temp register into w
+0000000D,008A,,            movwf PCLATH ;move w into PCLATH register;(sets bank to original state)
+0000000E,082C,,            movf s_temp, W ;swap status_temp register into w
+0000000F,0083,,            movwf STATUS ;move w into status register;(sets bank to original state)
+00000010,082B,,            movf w_temp, W ;
+00000011,1D2C,,            btfss s_temp, Z
+00000012,1103,,            bcf STATUS, Z
+00000013,192C,,            btfsc s_temp, Z
+00000014,1503,,            bsf STATUS, Z
+00000015,0008,,            return
 ,,,
 ,,,
 ,,,
 ,,,
-00000005,3003,init,init    movlw .3    ;oznaceni tohoto procesoru
-00000006,00B0,,        movwf num
+00000016,3003,init,init    movlw .3    ;oznaceni tohoto procesoru
+00000017,00B0,,        movwf num
 ,,,
-00000007,0185,,        clrf PORTA      ;Init PORTS
-00000008,0186,,        clrf PORTB
-00000009,0187,,        clrf PORTC
-0000000A,0188,,        clrf PORTD
-0000000B,0189,,        clrf PORTE
-,,,
-,,,
-0000000C,1683,,        bsf STATUS, RP0  ;Bank 1
-,,,
-0000000D,3040,,        movlw b'01000000' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogových vst
-0000000E,009F,,        movwf ADCON1
-,,,
-0000000F,302F,,        movlw   b'00101111'; 1 znamená vstup, 0 výstup
-00000010,0085,,        movwf   TRISA
-00000011,3001,,        movlw   b'00000001'
-00000012,0086,,        movwf   TRISB
-00000013,3000,,        movlw b'00000000'
-00000014,0087,,        movwf TRISC
-00000015,3000,,        movlw b'00000000'
-00000016,0088,,        movwf TRISD
-00000017,3007,,        movlw b'00000111'
-00000018,0089,,        movwf TRISE
-,,,
-00000019,30C0,,        movlw b'11000000'
-0000001A,0081,,        movwf OPTION_REG
+00000018,0185,,        clrf PORTA      ;Init PORTS
+00000019,0186,,        clrf PORTB
+0000001A,0187,,        clrf PORTC
+0000001B,0188,,        clrf PORTD
+0000001C,0189,,        clrf PORTE
 ,,,
 ,,,
-0000001B,080E,,        movf PCON, W
-0000001C,148E,,        bsf PCON, POR
+0000001D,1683,,        bsf STATUS, RP0  ;Bank 1
 ,,,
-0000001D,1283,,        bcf STATUS, RP0 ;Bank 0
+0000001E,3040,,        movlw b'01000000' ;0 left justifed, FOSC/2 na rychlost prevodu 0, 00, nastaveni analogových vst
+0000001F,009F,,        movwf ADCON1
 ,,,
-0000001E,00A0,,        movwf r1
-0000001F,11FC,,        bcf conf, PCON_POR
-00000020,18A0,,        btfsc r1, POR ;pokud neni zapnuto, obnovi stare registry
-00000021,15FC,,        bsf conf, PCON_POR
+00000020,302F,,        movlw   b'00101111'; 1 znamená vstup, 0 výstup
+00000021,0085,,        movwf   TRISA
+00000022,3001,,        movlw   b'00000001'
+00000023,0086,,        movwf   TRISB
+00000024,3000,,        movlw b'00000000'
+00000025,0087,,        movwf TRISC
+00000026,3000,,        movlw b'00000000'
+00000027,0088,,        movwf TRISD
+00000028,3007,,        movlw b'00000111'
+00000029,0089,,        movwf TRISE
 ,,,
-00000022,3046,,        movlw b'01000110' ; nastaví control register timer2
-00000023,0092,,        movwf T2CON
+0000002A,30C0,,        movlw b'11000000'
+0000002B,0081,,        movwf OPTION_REG
+,,,
+,,,
+0000002C,080E,,        movf PCON, W
+0000002D,148E,,        bsf PCON, POR
+,,,
+0000002E,1283,,        bcf STATUS, RP0 ;Bank 0
+,,,
+0000002F,00A0,,        movwf r1
+00000030,11FC,,        bcf conf, PCON_POR
+00000031,18A0,,        btfsc r1, POR ;pokud neni zapnuto, obnovi stare registry
+00000032,15FC,,        bsf conf, PCON_POR
+,,,
+00000033,3046,,        movlw b'01000110' ; nastaví control register timer2
+00000034,0092,,        movwf T2CON
 ,,,
 ,,,        ; Zapne preruseni a to i pro com
-00000024,160B,,        bsf INTCON, INTE
-00000025,202E,,        call inton
+00000035,160B,,        bsf INTCON, INTE
+00000036,203F,,        call inton
 ,,,
-00000026,19FC,,        btfsc conf, PCON_POR ;pokud neni zapnuto, obnovi stare registry
-00000027,2A06,,        goto restart
+00000037,19FC,,        btfsc conf, PCON_POR ;pokud neni zapnuto, obnovi stare registry
+00000038,2A6F,,        goto restart
 ,,,
-00000028,2A08,,        goto start      ;zacni na startu
-,,,
-,,,
-00000029,120B,intoff,intoff      bcf INTCON, INTE
-0000002A,1683,,            bsf STATUS, RP0  ;Bank 1
-0000002B,108C,,            bcf PIE1, TMR2IE
-0000002C,1283,,            bcf STATUS, RP0 ;Bank 0
-0000002D,0008,,            return
+00000039,2A7A,,        goto start      ;zacni na startu
 ,,,
 ,,,
-0000002E,108B,inton,inton       bcf INTCON, INTF    ; nastavení přerušení od RB0
+0000003A,120B,intoff,intoff      bcf INTCON, INTE
+0000003B,1683,,            bsf STATUS, RP0  ;Bank 1
+0000003C,108C,,            bcf PIE1, TMR2IE
+0000003D,1283,,            bcf STATUS, RP0 ;Bank 0
+0000003E,0008,,            return
+,,,
+,,,
+0000003F,108B,inton,inton       bcf INTCON, INTF    ; nastavení přerušení od RB0
 ,,,            ;bsf INTCON, INTE
-0000002F,108C,,            bcf PIR1, TMR2IF ;nastavení přerušení od Timer2
-00000030,1683,,            bsf STATUS, RP0  ;Bank 1
-00000031,148C,,            bsf PIE1, TMR2IE
-00000032,1283,,            bcf STATUS, RP0 ;Bank 0
-00000033,170B,,            bsf INTCON, PEIE
-00000034,178B,,            bsf INTCON, GIE
-00000035,0008,,            return
+00000040,108C,,            bcf PIR1, TMR2IF ;nastavení přerušení od Timer2
+00000041,1683,,            bsf STATUS, RP0  ;Bank 1
+00000042,148C,,            bsf PIE1, TMR2IE
+00000043,1283,,            bcf STATUS, RP0 ;Bank 0
+00000044,170B,,            bsf INTCON, PEIE
+00000045,178B,,            bsf INTCON, GIE
+00000046,0008,,            return
 ,,,
 ,,,
-00000036,2029,inter,inter   call intoff
-00000037,00AB,,        movwf w_temp ;copy w to temp register
-00000038,0E03,,        swapf STATUS, W ;swap status to be saved into w
-00000039,0183,,        clrf STATUS ;bank 0, regardless of current bank, clears irp,rp1,rp0
-0000003A,00AC,,        movwf s_temp ;save status to bank zero status_temp register
+00000047,203A,inter,inter   call intoff
 ,,,
-0000003B,188C,,        btfsc PIR1, TMR2IF      ;preruseni od timer2 watch
-0000003C,2045,,        call watchover
+00000048,188C,,        btfsc PIR1, TMR2IF      ;preruseni od timer2 watch
+00000049,204E,,        call watchover
+0000004A,188B,,        btfsc INTCON, INTF   ;pokud preruseni od B0
+0000004B,205F,,        call prijem
 ,,,
-0000003D,188B,,        btfsc INTCON, INTF   ;pokud preruseni od B0
-0000003E,2056,,        call prijem
-,,,
-0000003F,0E2C,,        swapf s_temp, W ;swap status_temp register into w
-00000040,0083,,        movwf STATUS ;move w into status register;(sets bank to original state)
-00000041,0EAB,,        swapf w_temp, F ;swap w_temp
-00000042,0E2B,,        swapf w_temp, W ;
-00000043,202E,,        call inton
-00000044,0008,,        return
+0000004C,203F,,        call inton
+0000004D,0008,,        return
 ,,,
 ,,,
 ,,,
 ,,,;pokud přetekl timer2 pro watch
-00000045,157C,watchover,watchover   bsf conf, WATCHOVER
-00000046,108B,,            bcf INTCON, INTF    ; nastavení přerušení od RB0
-00000047,160B,,            bsf INTCON, INTE
+0000004E,157C,watchover,watchover   bsf conf, WATCHOVER
+0000004F,108B,,            bcf INTCON, INTF    ; nastavení přerušení od RB0
+00000050,160B,,            bsf INTCON, INTE
 ,,,            ;bsf INTCON, GIE
-00000048,0008,,            return
+00000051,0008,,            return
 ,,,
 ,,,;Zapnutí stopek pro kontrolu zacyklení - timer2
-00000049,117C,watchstart,watchstart  bcf conf, WATCHOVER ;nastavi jako nepreteceny
-0000004A,108B,,            bcf INTCON, INTF
-0000004B,108C,,            bcf PIR1, TMR2IF ;nastavení přerušení od Timer2
-0000004C,1683,,            bsf STATUS, RP0  ;Bank 1
-0000004D,148C,,            bsf PIE1, TMR2IE
-0000004E,1283,,            bcf STATUS, RP0 ;Bank 0
-0000004F,170B,,            bsf INTCON, PEIE
-00000050,178B,,            bsf INTCON, GIE
-00000051,0191,,            clrf TMR2 ;vynuluje timer2
-00000052,0008,,            return
+00000052,117C,watchstart,watchstart  bcf conf, WATCHOVER ;nastavi jako nepreteceny
+00000053,108B,,            bcf INTCON, INTF
+00000054,108C,,            bcf PIR1, TMR2IF ;nastavení přerušení od Timer2
+00000055,1683,,            bsf STATUS, RP0  ;Bank 1
+00000056,148C,,            bsf PIE1, TMR2IE
+00000057,1283,,            bcf STATUS, RP0 ;Bank 0
+00000058,170B,,            bsf INTCON, PEIE
+00000059,178B,,            bsf INTCON, GIE
+0000005A,0191,,            clrf TMR2 ;vynuluje timer2
+0000005B,0008,,            return
 ,,,
-00000053,1D7C,watchwait,watchwait   btfss conf, WATCHOVER
-00000054,2853,,            goto $-1
+0000005C,1D7C,watchwait,watchwait   btfss conf, WATCHOVER
+0000005D,285C,,            goto $-1
 ,,,            ; pro jistotu jeste pocka aby dobehly hodiny v ostatnich PRCS
-00000055,0008,,            return
+0000005E,0008,,            return
 ,,,
 ,,,
 ,,,      ; Začne počítat čas pro procesor WATCH2
-00000056,2049,prijem,prijem      call watchstart
-00000057,197C,,            btfsc conf, WATCHOVER
-00000058,28A5,,            goto prijemerr
-00000059,1806,,            btfsc PORTB, 0  ;ceka az skonci prvni start bit
-0000005A,2857,,            goto $-3 ;ochrana proti zamrznuti
-0000005B,2238,,            call w40c   ;posune do prostred prijimaneho bitu
-0000005C,2233,,            call w100c  ;odbije druhy startbit
+0000005F,2052,prijem,prijem      call watchstart
+00000060,197C,,            btfsc conf, WATCHOVER
+00000061,28AE,,            goto prijemerr
+00000062,1806,,            btfsc PORTB, 0  ;ceka az skonci prvni start bit
+00000063,2860,,            goto $-3 ;ochrana proti zamrznuti
+00000064,22AE,,            call w40c   ;posune do prostred prijimaneho bitu
+00000065,22A9,,            call w100c  ;odbije druhy startbit
 ,,,
-0000005D,01A4,,            clrf cil        ; ulozi prijate oznaceni do cil XXXX
-0000005E,3004,,            movlw .4
-0000005F,00A1,,            movwf r2
-00000060,0DA4,,            rlf cil, F
-00000061,1806,,            btfsc PORTB, 0
-00000062,1424,,            bsf cil, 0
-00000063,1C06,,            btfss PORTB, 0
-00000064,1024,,            bcf cil, 0
-00000065,2233,,            call w100c
-00000066,0BA1,,            decfsz r2, F
-00000067,2860,,            goto $-7
+00000066,01A4,,            clrf cil        ; ulozi prijate oznaceni do cil XXXX
+00000067,3004,,            movlw .4
+00000068,00A1,,            movwf r2
+00000069,0DA4,,            rlf cil, F
+0000006A,1806,,            btfsc PORTB, 0
+0000006B,1424,,            bsf cil, 0
+0000006C,1C06,,            btfss PORTB, 0
+0000006D,1024,,            bcf cil, 0
+0000006E,22A9,,            call w100c
+0000006F,0BA1,,            decfsz r2, F
+00000070,2869,,            goto $-7
 ,,,
-00000068,1806,,            btfsc PORTB, 0  ;zkontroluje pokud (r5, 0) = 0 vysle sve registry, naopak zapise do svych re
-00000069,1427,,            bsf r5, 0
-0000006A,1C06,,            btfss PORTB, 0
-0000006B,1027,,            bcf r5, 0
-0000006C,2233,,            call w100c
-,,,
-0000006D,01A5,,            clrf port        ; ulozi prijate do port XX
-0000006E,3002,,            movlw .2
-0000006F,00A1,,            movwf r2
-00000070,0DA5,,            rlf port, F
-00000071,1806,,            btfsc PORTB, 0
-00000072,1425,,            bsf port, 0
+00000071,1806,,            btfsc PORTB, 0  ;zkontroluje pokud (r5, 0) = 0 vysle sve registry, naopak zapise do svych re
+00000072,1427,,            bsf r5, 0
 00000073,1C06,,            btfss PORTB, 0
-00000074,1025,,            bcf port, 0
-00000075,2233,,            call w100c
-00000076,0BA1,,            decfsz r2, F
-00000077,2870,,            goto $-7
+00000074,1027,,            bcf r5, 0
+00000075,22A9,,            call w100c
 ,,,
-00000078,01A6,,            clrf cislo        ; ulozi prijate do cislo portu XXX
-00000079,3003,,            movlw .3
-0000007A,00A1,,            movwf r2
-0000007B,0DA6,,            rlf cislo, F
-0000007C,1806,,            btfsc PORTB, 0
-0000007D,1426,,            bsf cislo, 0
-0000007E,1C06,,            btfss PORTB, 0
-0000007F,1026,,            bcf cislo, 0
-00000080,2233,,            call w100c
-00000081,0BA1,,            decfsz r2, F
-00000082,287B,,            goto $-7
+00000076,01A5,,            clrf port        ; ulozi prijate do port XX
+00000077,3002,,            movlw .2
+00000078,00A1,,            movwf r2
+00000079,0DA5,,            rlf port, F
+0000007A,1806,,            btfsc PORTB, 0
+0000007B,1425,,            bsf port, 0
+0000007C,1C06,,            btfss PORTB, 0
+0000007D,1025,,            bcf port, 0
+0000007E,22A9,,            call w100c
+0000007F,0BA1,,            decfsz r2, F
+00000080,2879,,            goto $-7
 ,,,
-00000083,1806,,            btfsc PORTB, 0  ;zkontroluje (r5, 1) = hodnota ciloveho registru
-00000084,14A7,,            bsf r5, 1
-00000085,1C06,,            btfss PORTB, 0
-00000086,10A7,,            bcf r5, 1
-00000087,2233,,            call w100c
+00000081,01A6,,            clrf cislo        ; ulozi prijate do cislo portu XXX
+00000082,3003,,            movlw .3
+00000083,00A1,,            movwf r2
+00000084,0DA6,,            rlf cislo, F
+00000085,1806,,            btfsc PORTB, 0
+00000086,1426,,            bsf cislo, 0
+00000087,1C06,,            btfss PORTB, 0
+00000088,1026,,            bcf cislo, 0
+00000089,22A9,,            call w100c
+0000008A,0BA1,,            decfsz r2, F
+0000008B,2884,,            goto $-7
 ,,,
-00000088,197C,,            btfsc conf, WATCHOVER
-00000089,28A5,,            goto prijemerr
-0000008A,1806,,            btfsc PORTB, 0  ;ceka az skonci prvni stop bity
-0000008B,2888,,            goto $-3 ;ochrana proti zamrznuti
+0000008C,1806,,            btfsc PORTB, 0  ;zkontroluje (r5, 1) = hodnota ciloveho registru
+0000008D,14A7,,            bsf r5, 1
+0000008E,1C06,,            btfss PORTB, 0
+0000008F,10A7,,            bcf r5, 1
+00000090,22A9,,            call w100c
+,,,
+00000091,197C,,            btfsc conf, WATCHOVER
+00000092,28AE,,            goto prijemerr
+00000093,1806,,            btfsc PORTB, 0  ;ceka az skonci prvni stop bity
+00000094,2891,,            goto $-3 ;ochrana proti zamrznuti
 ,,,
 ,,,
 ,,,
-0000008C,1C27,,            btfss r5, 0  ;pokud 1 tak chce poslat zdejsi registry
-0000008D,28A0,,            goto ende
+00000095,1C27,,            btfss r5, 0  ;pokud 1 tak chce poslat zdejsi registry
+00000096,28A9,,            goto ende
 ,,,
-0000008E,0930,,            comf num, W     ;pokud neni pro nej zkonci
-0000008F,0724,,            addwf cil, W
-00000090,00A0,,            movwf r1
-00000091,0FA0,,            incfsz r1, F
-00000092,28A0,,            goto ende
+00000097,0930,,            comf num, W     ;pokud neni pro nej zkonci
+00000098,0724,,            addwf cil, W
+00000099,00A0,,            movwf r1
+0000009A,0FA0,,            incfsz r1, F
+0000009B,28A9,,            goto ende
 ,,,
-00000093,0825,,            movf port, W      ;podle port, cislo, hodno - nastavy prislusny port na danou hodnotu napr.:
-00000094,00A0,,            movwf r1          ;zdrzuje cca 46 instrukci
-00000095,1903,,            btfsc STATUS, Z
-00000096,20A7,,            call pra
-00000097,03A0,,            decf r1, F
-00000098,1903,,            btfsc STATUS, Z
-00000099,20B5,,            call prb
-0000009A,03A0,,            decf r1, F
-0000009B,1903,,            btfsc STATUS, Z
-0000009C,20F0,,            call prc
-0000009D,03A0,,            decf r1, F
+0000009C,0825,,            movf port, W      ;podle port, cislo, hodno - nastavy prislusny port na danou hodnotu napr.:
+0000009D,00A0,,            movwf r1          ;zdrzuje cca 46 instrukci
 0000009E,1903,,            btfsc STATUS, Z
-0000009F,2132,,            call prd
+0000009F,20B0,,            call pra
+000000A0,03A0,,            decf r1, F
+000000A1,1903,,            btfsc STATUS, Z
+000000A2,20C2,,            call prb
+000000A3,03A0,,            decf r1, F
+000000A4,1903,,            btfsc STATUS, Z
+000000A5,2119,,            call prc
+000000A6,03A0,,            decf r1, F
+000000A7,1903,,            btfsc STATUS, Z
+000000A8,217B,,            call prd
 ,,,
-000000A0,1827,ende,ende        btfsc r5, 0 ;pokud r5, 1, tedy je pouze nastavovan registr v tomto prc tak skonci bez ohledu
-000000A1,2045,,            call watchover
-000000A2,1827,,            btfsc r5, 0
-000000A3,0008,,            return
+000000A9,1827,ende,ende        btfsc r5, 0 ;pokud r5, 1, tedy je pouze nastavovan registr v tomto prc tak skonci bez ohledu
+000000AA,204E,,            call watchover
+000000AB,1827,,            btfsc r5, 0
+000000AC,0008,,            return
 ,,,
 ,,,            ;pokud 0 vysle sve registry nebo ceka X bitu pokud neni pro nej
-000000A4,2174,,            call vysilej
+000000AD,21DD,,            call vysilej
 ,,,
 ,,,            ; Čeká až doběhne čas vyhrazený pro tento procesor WATCH2
 ,,,            ;call watchwait
 ,,,
-000000A5,0000,prijemerr,prijemerr   nop
-000000A6,0008,,            return
+000000AE,0000,prijemerr,prijemerr   nop
+000000AF,0008,,            return
 ,,,
-000000A7,0826,pra,pra     movf cislo, W
-000000A8,00A1,,        movwf r2
-000000A9,03A1,,        decf r2, F
-000000AA,03A1,,        decf r2, F
-000000AB,03A1,,        decf r2, F
-000000AC,03A1,,        decf r2, F
-000000AD,1903,,        btfsc STATUS, Z
-000000AE,28B0,,        goto na4
-000000AF,0008,,        return
-,,,
-,,,
-000000B0,1CA7,na4,na4     btfss r5, 1
-000000B1,1205,,        bcf PORTA, 4
-000000B2,18A7,,        btfsc r5, 1
-000000B3,1605,,        bsf PORTA, 4
-000000B4,0008,,        return
+000000B0,0826,pra,pra     movf cislo, W
+000000B1,00A1,,        movwf r2
+000000B2,03A1,,        decf r2, F
+000000B3,03A1,,        decf r2, F
+000000B4,03A1,,        decf r2, F
+000000B5,03A1,,        decf r2, F
+000000B6,1903,,        btfsc STATUS, Z
+000000B7,28B9,,        goto na4
+000000B8,0008,,        return
 ,,,
 ,,,
-000000B5,0826,prb,prb     movf cislo, W
-000000B6,00A1,,        movwf r2
-000000B7,03A1,,        decf r2, F
-000000B8,1903,,        btfsc STATUS, Z
-000000B9,28CD,,        goto nb1
-000000BA,03A1,,        decf r2, F
-000000BB,1903,,        btfsc STATUS, Z
-000000BC,28D2,,        goto nb2
-000000BD,03A1,,        decf r2, F
-000000BE,1903,,        btfsc STATUS, Z
-000000BF,28D7,,        goto nb3
-000000C0,03A1,,        decf r2, F
-000000C1,1903,,        btfsc STATUS, Z
-000000C2,28DC,,        goto nb4
-000000C3,03A1,,        decf r2, F
-000000C4,1903,,        btfsc STATUS, Z
-000000C5,28E1,,        goto nb5
-000000C6,03A1,,        decf r2, F
-000000C7,1903,,        btfsc STATUS, Z
-000000C8,28E6,,        goto nb6
-000000C9,03A1,,        decf r2, F
-000000CA,1903,,        btfsc STATUS, Z
-000000CB,28EB,,        goto nb7
-000000CC,0008,,        return
+000000B9,1CA7,na4,na4     btfss r5, 1
+000000BA,1265,,        bcf PORTA_temp, 4
+000000BB,18A7,,        btfsc r5, 1
+000000BC,1665,,        bsf PORTA_temp, 4
+000000BD,1CA7,,        btfss r5, 1
+000000BE,1205,,        bcf PORTA, 4
+000000BF,18A7,,        btfsc r5, 1
+000000C0,1605,,        bsf PORTA, 4
+000000C1,0008,,        return
 ,,,
 ,,,
-000000CD,1CA7,nb1,nb1     btfss r5, 1
-000000CE,1086,,        bcf PORTB, 1
-000000CF,18A7,,        btfsc r5, 1
-000000D0,1486,,        bsf PORTB, 1
-000000D1,0008,,        return
-000000D2,1CA7,nb2,nb2     btfss r5, 1
-000000D3,1106,,        bcf PORTB, 2
-000000D4,18A7,,        btfsc r5, 1
-000000D5,1506,,        bsf PORTB, 2
-000000D6,0008,,        return
-000000D7,1CA7,nb3,nb3     btfss r5, 1
-000000D8,1186,,        bcf PORTB, 3
-000000D9,18A7,,        btfsc r5, 1
-000000DA,1586,,        bsf PORTB, 3
-000000DB,0008,,        return
-000000DC,1CA7,nb4,nb4     btfss r5, 1
-000000DD,1206,,        bcf PORTB, 4
-000000DE,18A7,,        btfsc r5, 1
-000000DF,1606,,        bsf PORTB, 4
-000000E0,0008,,        return
-000000E1,1CA7,nb5,nb5     btfss r5, 1
-000000E2,1286,,        bcf PORTB, 5
-000000E3,18A7,,        btfsc r5, 1
-000000E4,1686,,        bsf PORTB, 5
-000000E5,0008,,        return
-000000E6,1CA7,nb6,nb6     btfss r5, 1
-000000E7,1306,,        bcf PORTB, 6
-000000E8,18A7,,        btfsc r5, 1
-000000E9,1706,,        bsf PORTB, 6
-000000EA,0008,,        return
-000000EB,1CA7,nb7,nb7     btfss r5, 1
-000000EC,1386,,        bcf PORTB, 7
-000000ED,18A7,,        btfsc r5, 1
-000000EE,1786,,        bsf PORTB, 7
-000000EF,0008,,        return
+000000C2,0826,prb,prb     movf cislo, W
+000000C3,00A1,,        movwf r2
+000000C4,03A1,,        decf r2, F
+000000C5,1903,,        btfsc STATUS, Z
+000000C6,28DA,,        goto nb1
+000000C7,03A1,,        decf r2, F
+000000C8,1903,,        btfsc STATUS, Z
+000000C9,28E3,,        goto nb2
+000000CA,03A1,,        decf r2, F
+000000CB,1903,,        btfsc STATUS, Z
+000000CC,28EC,,        goto nb3
+000000CD,03A1,,        decf r2, F
+000000CE,1903,,        btfsc STATUS, Z
+000000CF,28F5,,        goto nb4
+000000D0,03A1,,        decf r2, F
+000000D1,1903,,        btfsc STATUS, Z
+000000D2,28FE,,        goto nb5
+000000D3,03A1,,        decf r2, F
+000000D4,1903,,        btfsc STATUS, Z
+000000D5,2907,,        goto nb6
+000000D6,03A1,,        decf r2, F
+000000D7,1903,,        btfsc STATUS, Z
+000000D8,2910,,        goto nb7
+000000D9,0008,,        return
 ,,,
 ,,,
-000000F0,0826,prc,prc     movf cislo, W
-000000F1,00A1,,        movwf r2
-000000F2,1903,,        btfsc STATUS, Z
-000000F3,290A,,        goto nc0
-000000F4,03A1,,        decf r2, F
-000000F5,1903,,        btfsc STATUS, Z
-000000F6,290F,,        goto nc1
-000000F7,03A1,,        decf r2, F
-000000F8,1903,,        btfsc STATUS, Z
-000000F9,2914,,        goto nc2
-000000FA,03A1,,        decf r2, F
-000000FB,1903,,        btfsc STATUS, Z
-000000FC,2919,,        goto nc3
-000000FD,03A1,,        decf r2, F
-000000FE,1903,,        btfsc STATUS, Z
-000000FF,291E,,        goto nc4
-00000100,03A1,,        decf r2, F
-00000101,1903,,        btfsc STATUS, Z
-00000102,2923,,        goto nc5
-00000103,03A1,,        decf r2, F
-00000104,1903,,        btfsc STATUS, Z
-00000105,2928,,        goto nc6
-00000106,03A1,,        decf r2, F
-00000107,1903,,        btfsc STATUS, Z
-00000108,292D,,        goto nc7
-00000109,0008,,        return
-,,,
-0000010A,1CA7,nc0,nc0     btfss r5, 1
-0000010B,1007,,        bcf PORTC, 0
-0000010C,18A7,,        btfsc r5, 1
-0000010D,1407,,        bsf PORTC, 0
-0000010E,0008,,        return
-0000010F,1CA7,nc1,nc1     btfss r5, 1
-00000110,1087,,        bcf PORTC, 1
-00000111,18A7,,        btfsc r5, 1
-00000112,1487,,        bsf PORTC, 1
-00000113,0008,,        return
-00000114,1CA7,nc2,nc2     btfss r5, 1
-00000115,1107,,        bcf PORTC, 2
+000000DA,1CA7,nb1,nb1     btfss r5, 1
+000000DB,10E6,,        bcf PORTB_temp, 1
+000000DC,18A7,,        btfsc r5, 1
+000000DD,14E6,,        bsf PORTB_temp, 1
+000000DE,1CA7,,        btfss r5, 1
+000000DF,1086,,        bcf PORTB, 1
+000000E0,18A7,,        btfsc r5, 1
+000000E1,1486,,        bsf PORTB, 1
+000000E2,0008,,        return
+000000E3,1CA7,nb2,nb2     btfss r5, 1
+000000E4,1166,,        bcf PORTB_temp, 2
+000000E5,18A7,,        btfsc r5, 1
+000000E6,1566,,        bsf PORTB_temp, 2
+000000E7,1CA7,,        btfss r5, 1
+000000E8,1106,,        bcf PORTB, 2
+000000E9,18A7,,        btfsc r5, 1
+000000EA,1506,,        bsf PORTB, 2
+000000EB,0008,,        return
+000000EC,1CA7,nb3,nb3     btfss r5, 1
+000000ED,11E6,,        bcf PORTB_temp, 3
+000000EE,18A7,,        btfsc r5, 1
+000000EF,15E6,,        bsf PORTB_temp, 3
+000000F0,1CA7,,        btfss r5, 1
+000000F1,1186,,        bcf PORTB, 3
+000000F2,18A7,,        btfsc r5, 1
+000000F3,1586,,        bsf PORTB, 3
+000000F4,0008,,        return
+000000F5,1CA7,nb4,nb4     btfss r5, 1
+000000F6,1266,,        bcf PORTB_temp, 4
+000000F7,18A7,,        btfsc r5, 1
+000000F8,1666,,        bsf PORTB_temp, 4
+000000F9,1CA7,,        btfss r5, 1
+000000FA,1206,,        bcf PORTB, 4
+000000FB,18A7,,        btfsc r5, 1
+000000FC,1606,,        bsf PORTB, 4
+000000FD,0008,,        return
+000000FE,1CA7,nb5,nb5     btfss r5, 1
+000000FF,12E6,,        bcf PORTB_temp, 5
+00000100,18A7,,        btfsc r5, 1
+00000101,16E6,,        bsf PORTB_temp, 5
+00000102,1CA7,,        btfss r5, 1
+00000103,1286,,        bcf PORTB, 5
+00000104,18A7,,        btfsc r5, 1
+00000105,1686,,        bsf PORTB, 5
+00000106,0008,,        return
+00000107,1CA7,nb6,nb6     btfss r5, 1
+00000108,1366,,        bcf PORTB_temp, 6
+00000109,18A7,,        btfsc r5, 1
+0000010A,1766,,        bsf PORTB_temp, 6
+0000010B,1CA7,,        btfss r5, 1
+0000010C,1306,,        bcf PORTB, 6
+0000010D,18A7,,        btfsc r5, 1
+0000010E,1706,,        bsf PORTB, 6
+0000010F,0008,,        return
+00000110,1CA7,nb7,nb7     btfss r5, 1
+00000111,13E6,,        bcf PORTB_temp, 7
+00000112,18A7,,        btfsc r5, 1
+00000113,17E6,,        bsf PORTB_temp, 7
+00000114,1CA7,,        btfss r5, 1
+00000115,1386,,        bcf PORTB, 7
 00000116,18A7,,        btfsc r5, 1
-00000117,1507,,        bsf PORTC, 2
+00000117,1786,,        bsf PORTB, 7
 00000118,0008,,        return
-00000119,1CA7,nc3,nc3     btfss r5, 1
-0000011A,1187,,        bcf PORTC, 3
-0000011B,18A7,,        btfsc r5, 1
-0000011C,1587,,        bsf PORTC, 3
-0000011D,0008,,        return
-0000011E,1CA7,nc4,nc4     btfss r5, 1
-0000011F,1207,,        bcf PORTC, 4
-00000120,18A7,,        btfsc r5, 1
-00000121,1607,,        bsf PORTC, 4
-00000122,0008,,        return
-00000123,1CA7,nc5,nc5     btfss r5, 1
-00000124,1287,,        bcf PORTC, 5
-00000125,18A7,,        btfsc r5, 1
-00000126,1687,,        bsf PORTC, 5
-00000127,0008,,        return
-00000128,1CA7,nc6,nc6     btfss r5, 1
-00000129,1307,,        bcf PORTC, 6
-0000012A,18A7,,        btfsc r5, 1
-0000012B,1707,,        bsf PORTC, 6
-0000012C,0008,,        return
-0000012D,1CA7,nc7,nc7     btfss r5, 1
-0000012E,1387,,        bcf PORTC, 7
-0000012F,18A7,,        btfsc r5, 1
-00000130,1787,,        bsf PORTC, 7
-00000131,0008,,        return
 ,,,
 ,,,
-00000132,0826,prd,prd     movf cislo, W
-00000133,00A1,,        movwf r2
-00000134,1903,,        btfsc STATUS, Z
-00000135,294C,,        goto nd0
-00000136,03A1,,        decf r2, F
-00000137,1903,,        btfsc STATUS, Z
-00000138,2951,,        goto nd1
-00000139,03A1,,        decf r2, F
-0000013A,1903,,        btfsc STATUS, Z
-0000013B,2956,,        goto nd2
-0000013C,03A1,,        decf r2, F
-0000013D,1903,,        btfsc STATUS, Z
-0000013E,295B,,        goto nd3
-0000013F,03A1,,        decf r2, F
-00000140,1903,,        btfsc STATUS, Z
-00000141,2960,,        goto nd4
-00000142,03A1,,        decf r2, F
-00000143,1903,,        btfsc STATUS, Z
-00000144,2965,,        goto nd5
-00000145,03A1,,        decf r2, F
-00000146,1903,,        btfsc STATUS, Z
-00000147,296A,,        goto nd6
-00000148,03A1,,        decf r2, F
-00000149,1903,,        btfsc STATUS, Z
-0000014A,296F,,        goto nd7
-0000014B,0008,,        return
+00000119,0826,prc,prc     movf cislo, W
+0000011A,00A1,,        movwf r2
+0000011B,1903,,        btfsc STATUS, Z
+0000011C,2933,,        goto nc0
+0000011D,03A1,,        decf r2, F
+0000011E,1903,,        btfsc STATUS, Z
+0000011F,293C,,        goto nc1
+00000120,03A1,,        decf r2, F
+00000121,1903,,        btfsc STATUS, Z
+00000122,2945,,        goto nc2
+00000123,03A1,,        decf r2, F
+00000124,1903,,        btfsc STATUS, Z
+00000125,294E,,        goto nc3
+00000126,03A1,,        decf r2, F
+00000127,1903,,        btfsc STATUS, Z
+00000128,2957,,        goto nc4
+00000129,03A1,,        decf r2, F
+0000012A,1903,,        btfsc STATUS, Z
+0000012B,2960,,        goto nc5
+0000012C,03A1,,        decf r2, F
+0000012D,1903,,        btfsc STATUS, Z
+0000012E,2969,,        goto nc6
+0000012F,03A1,,        decf r2, F
+00000130,1903,,        btfsc STATUS, Z
+00000131,2972,,        goto nc7
+00000132,0008,,        return
 ,,,
-0000014C,1CA7,nd0,nd0     btfss r5, 1
-0000014D,1008,,        bcf PORTD, 0
-0000014E,18A7,,        btfsc r5, 1
-0000014F,1408,,        bsf PORTD, 0
-00000150,0008,,        return
-00000151,1CA7,nd1,nd1     btfss r5, 1
-00000152,1088,,        bcf PORTD, 1
-00000153,18A7,,        btfsc r5, 1
-00000154,1488,,        bsf PORTD, 1
-00000155,0008,,        return
-00000156,1CA7,nd2,nd2     btfss r5, 1
-00000157,1108,,        bcf PORTD, 2
-00000158,18A7,,        btfsc r5, 1
-00000159,1508,,        bsf PORTD, 2
-0000015A,0008,,        return
-0000015B,1CA7,nd3,nd3     btfss r5, 1
-0000015C,1188,,        bcf PORTD, 3
+00000133,1CA7,nc0,nc0     btfss r5, 1
+00000134,1067,,        bcf PORTC_temp, 0
+00000135,18A7,,        btfsc r5, 1
+00000136,1467,,        bsf PORTC_temp, 0
+00000137,1CA7,,        btfss r5, 1
+00000138,1007,,        bcf PORTC, 0
+00000139,18A7,,        btfsc r5, 1
+0000013A,1407,,        bsf PORTC, 0
+0000013B,0008,,        return
+0000013C,1CA7,nc1,nc1     btfss r5, 1
+0000013D,10E7,,        bcf PORTC_temp, 1
+0000013E,18A7,,        btfsc r5, 1
+0000013F,14E7,,        bsf PORTC_temp, 1
+00000140,1CA7,,        btfss r5, 1
+00000141,1087,,        bcf PORTC, 1
+00000142,18A7,,        btfsc r5, 1
+00000143,1487,,        bsf PORTC, 1
+00000144,0008,,        return
+00000145,1CA7,nc2,nc2     btfss r5, 1
+00000146,1167,,        bcf PORTC_temp, 2
+00000147,18A7,,        btfsc r5, 1
+00000148,1567,,        bsf PORTC_temp, 2
+00000149,1CA7,,        btfss r5, 1
+0000014A,1107,,        bcf PORTC, 2
+0000014B,18A7,,        btfsc r5, 1
+0000014C,1507,,        bsf PORTC, 2
+0000014D,0008,,        return
+0000014E,1CA7,nc3,nc3     btfss r5, 1
+0000014F,11E7,,        bcf PORTC_temp, 3
+00000150,18A7,,        btfsc r5, 1
+00000151,15E7,,        bsf PORTC_temp, 3
+00000152,1CA7,,        btfss r5, 1
+00000153,1187,,        bcf PORTC, 3
+00000154,18A7,,        btfsc r5, 1
+00000155,1587,,        bsf PORTC, 3
+00000156,0008,,        return
+00000157,1CA7,nc4,nc4     btfss r5, 1
+00000158,1267,,        bcf PORTC_temp, 4
+00000159,18A7,,        btfsc r5, 1
+0000015A,1667,,        bsf PORTC_temp, 4
+0000015B,1CA7,,        btfss r5, 1
+0000015C,1207,,        bcf PORTC, 4
 0000015D,18A7,,        btfsc r5, 1
-0000015E,1588,,        bsf PORTD, 3
+0000015E,1607,,        bsf PORTC, 4
 0000015F,0008,,        return
-00000160,1CA7,nd4,nd4     btfss r5, 1
-00000161,1208,,        bcf PORTD, 4
+00000160,1CA7,nc5,nc5     btfss r5, 1
+00000161,12E7,,        bcf PORTC_temp, 5
 00000162,18A7,,        btfsc r5, 1
-00000163,1608,,        bsf PORTD, 4
-00000164,0008,,        return
-00000165,1CA7,nd5,nd5     btfss r5, 1
-00000166,1288,,        bcf PORTD, 5
-00000167,18A7,,        btfsc r5, 1
-00000168,1688,,        bsf PORTD, 5
-00000169,0008,,        return
-0000016A,1CA7,nd6,nd6     btfss r5, 1
-0000016B,1308,,        bcf PORTD, 6
-0000016C,18A7,,        btfsc r5, 1
-0000016D,1708,,        bsf PORTD, 6
-0000016E,0008,,        return
-0000016F,1CA7,nd7,nd7     btfss r5, 1
-00000170,1388,,        bcf PORTD, 7
-00000171,18A7,,        btfsc r5, 1
-00000172,1788,,        bsf PORTD, 7
-00000173,0008,,        return
+00000163,16E7,,        bsf PORTC_temp, 5
+00000164,1CA7,,        btfss r5, 1
+00000165,1287,,        bcf PORTC, 5
+00000166,18A7,,        btfsc r5, 1
+00000167,1687,,        bsf PORTC, 5
+00000168,0008,,        return
+00000169,1CA7,nc6,nc6     btfss r5, 1
+0000016A,1367,,        bcf PORTC_temp, 6
+0000016B,18A7,,        btfsc r5, 1
+0000016C,1767,,        bsf PORTC_temp, 6
+0000016D,1CA7,,        btfss r5, 1
+0000016E,1307,,        bcf PORTC, 6
+0000016F,18A7,,        btfsc r5, 1
+00000170,1707,,        bsf PORTC, 6
+00000171,0008,,        return
+00000172,1CA7,nc7,nc7     btfss r5, 1
+00000173,13E7,,        bcf PORTC_temp, 7
+00000174,18A7,,        btfsc r5, 1
+00000175,17E7,,        bsf PORTC_temp, 7
+00000176,1CA7,,        btfss r5, 1
+00000177,1387,,        bcf PORTC, 7
+00000178,18A7,,        btfsc r5, 1
+00000179,1787,,        bsf PORTC, 7
+0000017A,0008,,        return
 ,,,
 ,,,
-00000174,0930,vysilej,vysilej comf num, W     ;pokud neni pro nej skonci
-00000175,0724,,        addwf cil, W
-00000176,00A0,,        movwf r1
-00000177,0FA0,,        incfsz r1, F
-00000178,0008,,        return
+0000017B,0826,prd,prd     movf cislo, W
+0000017C,00A1,,        movwf r2
+0000017D,1903,,        btfsc STATUS, Z
+0000017E,2995,,        goto nd0
+0000017F,03A1,,        decf r2, F
+00000180,1903,,        btfsc STATUS, Z
+00000181,299E,,        goto nd1
+00000182,03A1,,        decf r2, F
+00000183,1903,,        btfsc STATUS, Z
+00000184,29A7,,        goto nd2
+00000185,03A1,,        decf r2, F
+00000186,1903,,        btfsc STATUS, Z
+00000187,29B0,,        goto nd3
+00000188,03A1,,        decf r2, F
+00000189,1903,,        btfsc STATUS, Z
+0000018A,29B9,,        goto nd4
+0000018B,03A1,,        decf r2, F
+0000018C,1903,,        btfsc STATUS, Z
+0000018D,29C2,,        goto nd5
+0000018E,03A1,,        decf r2, F
+0000018F,1903,,        btfsc STATUS, Z
+00000190,29CB,,        goto nd6
+00000191,03A1,,        decf r2, F
+00000192,1903,,        btfsc STATUS, Z
+00000193,29D4,,        goto nd7
+00000194,0008,,        return
 ,,,
-00000179,1683,,        bsf STATUS, RP0  ;Bank 1
-0000017A,1006,,        bcf TRISB, 0  ;nastavim sbernici na vystup z procesoru
-0000017B,1283,,        bcf STATUS, RP0  ;Bank 0
-,,,
-0000017C,1406,,        bsf PORTB, 0  ;vysle start bity XX - 10
-0000017D,2233,,        call w100c
-0000017E,1006,,        bcf PORTB, 0
-0000017F,2233,,        call w100c
-,,,
-,,,                ; vysle bajt AN XXXX XXXX
-00000180,0831,,        movf an0, W
-00000181,00A0,,        movwf r1
-00000182,3008,,        movlw .8
-00000183,00A1,,        movwf r2
-00000184,1BA0,,        btfsc r1, 7
-00000185,1406,,        bsf PORTB, 0
-00000186,1FA0,,        btfss r1, 7
-00000187,1006,,        bcf PORTB, 0
-00000188,2233,,        call w100c
-00000189,0DA0,,        rlf r1, F
-0000018A,0BA1,,        decfsz r2, F
-0000018B,2984,,        goto $-7
-,,,
-0000018C,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
-0000018D,2233,,        call w100c
-0000018E,1006,,        bcf PORTB, 0
-0000018F,2233,,        call w100c
-,,,
-,,,
-,,,                ; vysle bajt AN XXXX XXXX
-00000190,0832,,        movf an1, W
-00000191,00A0,,        movwf r1
-00000192,3008,,        movlw .8
-00000193,00A1,,        movwf r2
-00000194,1BA0,,        btfsc r1, 7
-00000195,1406,,        bsf PORTB, 0
-00000196,1FA0,,        btfss r1, 7
-00000197,1006,,        bcf PORTB, 0
-00000198,2233,,        call w100c
-00000199,0DA0,,        rlf r1, F
-0000019A,0BA1,,        decfsz r2, F
-0000019B,2994,,        goto $-7
-,,,
-0000019C,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
-0000019D,2233,,        call w100c
-0000019E,1006,,        bcf PORTB, 0
-0000019F,2233,,        call w100c
-,,,
-,,,
-,,,                ; vysle bajt AN XXXX XXXX
-000001A0,0833,,        movf an2, W
-000001A1,00A0,,        movwf r1
-000001A2,3008,,        movlw .8
-000001A3,00A1,,        movwf r2
-000001A4,1BA0,,        btfsc r1, 7
-000001A5,1406,,        bsf PORTB, 0
-000001A6,1FA0,,        btfss r1, 7
-000001A7,1006,,        bcf PORTB, 0
-000001A8,2233,,        call w100c
-000001A9,0DA0,,        rlf r1, F
-000001AA,0BA1,,        decfsz r2, F
-000001AB,29A4,,        goto $-7
-,,,
-000001AC,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
-000001AD,2233,,        call w100c
-000001AE,1006,,        bcf PORTB, 0
-000001AF,2233,,        call w100c
-,,,
-,,,
-,,,                ; vysle bajt AN XXXX XXXX
-000001B0,0834,,        movf an3, W
-000001B1,00A0,,        movwf r1
-000001B2,3008,,        movlw .8
-000001B3,00A1,,        movwf r2
-000001B4,1BA0,,        btfsc r1, 7
-000001B5,1406,,        bsf PORTB, 0
-000001B6,1FA0,,        btfss r1, 7
-000001B7,1006,,        bcf PORTB, 0
-000001B8,2233,,        call w100c
-000001B9,0DA0,,        rlf r1, F
-000001BA,0BA1,,        decfsz r2, F
-000001BB,29B4,,        goto $-7
-,,,
-000001BC,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
-000001BD,2233,,        call w100c
-000001BE,1006,,        bcf PORTB, 0
-000001BF,2233,,        call w100c
-,,,
-,,,
-,,,                ; vysle bajt AN XXXX XXXX
-000001C0,0835,,        movf an4, W
-000001C1,00A0,,        movwf r1
-000001C2,3008,,        movlw .8
-000001C3,00A1,,        movwf r2
-000001C4,1BA0,,        btfsc r1, 7
-000001C5,1406,,        bsf PORTB, 0
-000001C6,1FA0,,        btfss r1, 7
-000001C7,1006,,        bcf PORTB, 0
-000001C8,2233,,        call w100c
-000001C9,0DA0,,        rlf r1, F
-000001CA,0BA1,,        decfsz r2, F
-000001CB,29C4,,        goto $-7
-,,,
-000001CC,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
-000001CD,2233,,        call w100c
-000001CE,1006,,        bcf PORTB, 0
-000001CF,2233,,        call w100c
+00000195,1CA7,nd0,nd0     btfss r5, 1
+00000196,1068,,        bcf PORTD_temp, 0
+00000197,18A7,,        btfsc r5, 1
+00000198,1468,,        bsf PORTD_temp, 0
+00000199,1CA7,,        btfss r5, 1
+0000019A,1008,,        bcf PORTD, 0
+0000019B,18A7,,        btfsc r5, 1
+0000019C,1408,,        bsf PORTD, 0
+0000019D,0008,,        return
+0000019E,1CA7,nd1,nd1     btfss r5, 1
+0000019F,10E8,,        bcf PORTD_temp, 1
+000001A0,18A7,,        btfsc r5, 1
+000001A1,14E8,,        bsf PORTD_temp, 1
+000001A2,1CA7,,        btfss r5, 1
+000001A3,1088,,        bcf PORTD, 1
+000001A4,18A7,,        btfsc r5, 1
+000001A5,1488,,        bsf PORTD, 1
+000001A6,0008,,        return
+000001A7,1CA7,nd2,nd2     btfss r5, 1
+000001A8,1168,,        bcf PORTD_temp, 2
+000001A9,18A7,,        btfsc r5, 1
+000001AA,1568,,        bsf PORTD_temp, 2
+000001AB,1CA7,,        btfss r5, 1
+000001AC,1108,,        bcf PORTD, 2
+000001AD,18A7,,        btfsc r5, 1
+000001AE,1508,,        bsf PORTD, 2
+000001AF,0008,,        return
+000001B0,1CA7,nd3,nd3     btfss r5, 1
+000001B1,11E8,,        bcf PORTD_temp, 3
+000001B2,18A7,,        btfsc r5, 1
+000001B3,15E8,,        bsf PORTD_temp, 3
+000001B4,1CA7,,        btfss r5, 1
+000001B5,1188,,        bcf PORTD, 3
+000001B6,18A7,,        btfsc r5, 1
+000001B7,1588,,        bsf PORTD, 3
+000001B8,0008,,        return
+000001B9,1CA7,nd4,nd4     btfss r5, 1
+000001BA,1268,,        bcf PORTD_temp, 4
+000001BB,18A7,,        btfsc r5, 1
+000001BC,1668,,        bsf PORTD_temp, 4
+000001BD,1CA7,,        btfss r5, 1
+000001BE,1208,,        bcf PORTD, 4
+000001BF,18A7,,        btfsc r5, 1
+000001C0,1608,,        bsf PORTD, 4
+000001C1,0008,,        return
+000001C2,1CA7,nd5,nd5     btfss r5, 1
+000001C3,12E8,,        bcf PORTD_temp, 5
+000001C4,18A7,,        btfsc r5, 1
+000001C5,16E8,,        bsf PORTD_temp, 5
+000001C6,1CA7,,        btfss r5, 1
+000001C7,1288,,        bcf PORTD, 5
+000001C8,18A7,,        btfsc r5, 1
+000001C9,1688,,        bsf PORTD, 5
+000001CA,0008,,        return
+000001CB,1CA7,nd6,nd6     btfss r5, 1
+000001CC,1368,,        bcf PORTD_temp, 6
+000001CD,18A7,,        btfsc r5, 1
+000001CE,1768,,        bsf PORTD_temp, 6
+000001CF,1CA7,,        btfss r5, 1
+000001D0,1308,,        bcf PORTD, 6
+000001D1,18A7,,        btfsc r5, 1
+000001D2,1708,,        bsf PORTD, 6
+000001D3,0008,,        return
+000001D4,1CA7,nd7,nd7     btfss r5, 1
+000001D5,13E8,,        bcf PORTD_temp, 7
+000001D6,18A7,,        btfsc r5, 1
+000001D7,17E8,,        bsf PORTD_temp, 7
+000001D8,1CA7,,        btfss r5, 1
+000001D9,1388,,        bcf PORTD, 7
+000001DA,18A7,,        btfsc r5, 1
+000001DB,1788,,        bsf PORTD, 7
+000001DC,0008,,        return
 ,,,
 ,,,
-,,,                ; vysle bajt AN XXXX XXXX
-000001D0,0836,,        movf an5, W
-000001D1,00A0,,        movwf r1
-000001D2,3008,,        movlw .8
-000001D3,00A1,,        movwf r2
-000001D4,1BA0,,        btfsc r1, 7
-000001D5,1406,,        bsf PORTB, 0
-000001D6,1FA0,,        btfss r1, 7
-000001D7,1006,,        bcf PORTB, 0
-000001D8,2233,,        call w100c
-000001D9,0DA0,,        rlf r1, F
-000001DA,0BA1,,        decfsz r2, F
-000001DB,29D4,,        goto $-7
+000001DD,0930,vysilej,vysilej comf num, W     ;pokud neni pro nej skonci
+000001DE,0724,,        addwf cil, W
+000001DF,00A0,,        movwf r1
+000001E0,0FA0,,        incfsz r1, F
+000001E1,0008,,        return
 ,,,
-000001DC,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
-000001DD,2233,,        call w100c
-000001DE,1006,,        bcf PORTB, 0
-000001DF,2233,,        call w100c
+000001E2,1683,,        bsf STATUS, RP0  ;Bank 1
+000001E3,1006,,        bcf TRISB, 0  ;nastavim sbernici na vystup z procesoru
+000001E4,1283,,        bcf STATUS, RP0  ;Bank 0
 ,,,
-,,,
-,,,                ; vysle bajt AN XXXX XXXX
-000001E0,0837,,        movf an6, W
-000001E1,00A0,,        movwf r1
-000001E2,3008,,        movlw .8
-000001E3,00A1,,        movwf r2
-000001E4,1BA0,,        btfsc r1, 7
-000001E5,1406,,        bsf PORTB, 0
-000001E6,1FA0,,        btfss r1, 7
+000001E5,1406,,        bsf PORTB, 0  ;vysle start bity XX - 10
+000001E6,22A9,,        call w100c
 000001E7,1006,,        bcf PORTB, 0
-000001E8,2233,,        call w100c
-000001E9,0DA0,,        rlf r1, F
-000001EA,0BA1,,        decfsz r2, F
-000001EB,29E4,,        goto $-7
+000001E8,22A9,,        call w100c
 ,,,
-000001EC,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
-000001ED,2233,,        call w100c
-000001EE,1006,,        bcf PORTB, 0
-000001EF,2233,,        call w100c
+,,,                ; vysle bajt AN XXXX XXXX
+000001E9,0831,,        movf an0, W
+000001EA,00A0,,        movwf r1
+000001EB,3008,,        movlw .8
+000001EC,00A1,,        movwf r2
+000001ED,1BA0,,        btfsc r1, 7
+000001EE,1406,,        bsf PORTB, 0
+000001EF,1FA0,,        btfss r1, 7
+000001F0,1006,,        bcf PORTB, 0
+000001F1,22A9,,        call w100c
+000001F2,0DA0,,        rlf r1, F
+000001F3,0BA1,,        decfsz r2, F
+000001F4,29ED,,        goto $-7
+,,,
+000001F5,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+000001F6,22A9,,        call w100c
+000001F7,1006,,        bcf PORTB, 0
+000001F8,22A9,,        call w100c
 ,,,
 ,,,
 ,,,                ; vysle bajt AN XXXX XXXX
-000001F0,0838,,        movf an7, W
-000001F1,00A0,,        movwf r1
-000001F2,3008,,        movlw .8
-000001F3,00A1,,        movwf r2
-000001F4,1BA0,,        btfsc r1, 7
-000001F5,1406,,        bsf PORTB, 0
-000001F6,1FA0,,        btfss r1, 7
-000001F7,1006,,        bcf PORTB, 0
-000001F8,2233,,        call w100c
-000001F9,0DA0,,        rlf r1, F
-000001FA,0BA1,,        decfsz r2, F
-000001FB,29F4,,        goto $-7
-,,,
-000001FC,1406,,        bsf PORTB, 0  ;vysle stop bity XXX - 111
-000001FD,2233,,        call w100c
-000001FE,2233,,        call w100c
-000001FF,2233,,        call w100c
+000001F9,0832,,        movf an1, W
+000001FA,00A0,,        movwf r1
+000001FB,3008,,        movlw .8
+000001FC,00A1,,        movwf r2
+000001FD,1BA0,,        btfsc r1, 7
+000001FE,1406,,        bsf PORTB, 0
+000001FF,1FA0,,        btfss r1, 7
 00000200,1006,,        bcf PORTB, 0
-00000201,2238,,        call w40c
+00000201,22A9,,        call w100c
+00000202,0DA0,,        rlf r1, F
+00000203,0BA1,,        decfsz r2, F
+00000204,29FD,,        goto $-7
+,,,
+00000205,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+00000206,22A9,,        call w100c
+00000207,1006,,        bcf PORTB, 0
+00000208,22A9,,        call w100c
 ,,,
 ,,,
-00000202,1683,,        bsf STATUS, RP0  ;Bank 1
-00000203,1406,,        bsf TRISB, 0  ;nastavim sbernici na vstup do procesoru
-00000204,1283,,        bcf STATUS, RP0  ;Bank 0
+,,,                ; vysle bajt AN XXXX XXXX
+00000209,0833,,        movf an2, W
+0000020A,00A0,,        movwf r1
+0000020B,3008,,        movlw .8
+0000020C,00A1,,        movwf r2
+0000020D,1BA0,,        btfsc r1, 7
+0000020E,1406,,        bsf PORTB, 0
+0000020F,1FA0,,        btfss r1, 7
+00000210,1006,,        bcf PORTB, 0
+00000211,22A9,,        call w100c
+00000212,0DA0,,        rlf r1, F
+00000213,0BA1,,        decfsz r2, F
+00000214,2A0D,,        goto $-7
 ,,,
-00000205,0008,,        return
+00000215,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+00000216,22A9,,        call w100c
+00000217,1006,,        bcf PORTB, 0
+00000218,22A9,,        call w100c
 ,,,
 ,,,
-00000206,0000,restart,restart     nop
-00000207,2A0A,,            goto loop
+,,,                ; vysle bajt AN XXXX XXXX
+00000219,0834,,        movf an3, W
+0000021A,00A0,,        movwf r1
+0000021B,3008,,        movlw .8
+0000021C,00A1,,        movwf r2
+0000021D,1BA0,,        btfsc r1, 7
+0000021E,1406,,        bsf PORTB, 0
+0000021F,1FA0,,        btfss r1, 7
+00000220,1006,,        bcf PORTB, 0
+00000221,22A9,,        call w100c
+00000222,0DA0,,        rlf r1, F
+00000223,0BA1,,        decfsz r2, F
+00000224,2A1D,,        goto $-7
 ,,,
-00000208,0000,start,start       nop
-00000209,2A0A,,            goto loop
+00000225,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+00000226,22A9,,        call w100c
+00000227,1006,,        bcf PORTB, 0
+00000228,22A9,,        call w100c
 ,,,
-0000020A,3000,loop,loop        movlw .0 ;nastavime ANx kde x je zadane cislo
-0000020B,00BD,,            movwf ran1
-0000020C,223D,,            call adconv
-0000020D,083D,,            movf ran1, W
-0000020E,00B1,,            movwf an0
 ,,,
-0000020F,3001,,            movlw .1 ;nastavime ANx kde x je zadane cislo
-00000210,00BD,,            movwf ran1
-00000211,223D,,            call adconv
-00000212,083D,,            movf ran1, W
-00000213,00B2,,            movwf an1
+,,,                ; vysle bajt AN XXXX XXXX
+00000229,0835,,        movf an4, W
+0000022A,00A0,,        movwf r1
+0000022B,3008,,        movlw .8
+0000022C,00A1,,        movwf r2
+0000022D,1BA0,,        btfsc r1, 7
+0000022E,1406,,        bsf PORTB, 0
+0000022F,1FA0,,        btfss r1, 7
+00000230,1006,,        bcf PORTB, 0
+00000231,22A9,,        call w100c
+00000232,0DA0,,        rlf r1, F
+00000233,0BA1,,        decfsz r2, F
+00000234,2A2D,,        goto $-7
 ,,,
-00000214,3002,,            movlw .2 ;nastavime ANx kde x je zadane cislo
-00000215,00BD,,            movwf ran1
-00000216,223D,,            call adconv
-00000217,083D,,            movf ran1, W
-00000218,00B3,,            movwf an2
+00000235,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+00000236,22A9,,        call w100c
+00000237,1006,,        bcf PORTB, 0
+00000238,22A9,,        call w100c
 ,,,
-00000219,3003,,            movlw .3 ;nastavime ANx kde x je zadane cislo
-0000021A,00BD,,            movwf ran1
-0000021B,223D,,            call adconv
-0000021C,083D,,            movf ran1, W
-0000021D,00B4,,            movwf an3
 ,,,
-0000021E,3004,,            movlw .4 ;nastavime ANx kde x je zadane cislo
-0000021F,00BD,,            movwf ran1
-00000220,223D,,            call adconv
-00000221,083D,,            movf ran1, W
-00000222,00B5,,            movwf an4
+,,,                ; vysle bajt AN XXXX XXXX
+00000239,0836,,        movf an5, W
+0000023A,00A0,,        movwf r1
+0000023B,3008,,        movlw .8
+0000023C,00A1,,        movwf r2
+0000023D,1BA0,,        btfsc r1, 7
+0000023E,1406,,        bsf PORTB, 0
+0000023F,1FA0,,        btfss r1, 7
+00000240,1006,,        bcf PORTB, 0
+00000241,22A9,,        call w100c
+00000242,0DA0,,        rlf r1, F
+00000243,0BA1,,        decfsz r2, F
+00000244,2A3D,,        goto $-7
 ,,,
-00000223,3005,,            movlw .5 ;nastavime ANx kde x je zadane cislo
-00000224,00BD,,            movwf ran1
-00000225,223D,,            call adconv
-00000226,083D,,            movf ran1, W
-00000227,00B6,,            movwf an5
+00000245,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+00000246,22A9,,        call w100c
+00000247,1006,,        bcf PORTB, 0
+00000248,22A9,,        call w100c
 ,,,
-00000228,3006,,            movlw .6 ;nastavime ANx kde x je zadane cislo
-00000229,00BD,,            movwf ran1
-0000022A,223D,,            call adconv
-0000022B,083D,,            movf ran1, W
-0000022C,00B7,,            movwf an6
 ,,,
-0000022D,3007,,            movlw .7 ;nastavime ANx kde x je zadane cislo
-0000022E,00BD,,            movwf ran1
-0000022F,223D,,            call adconv
-00000230,083D,,            movf ran1, W
-00000231,00B8,,            movwf an7
+,,,                ; vysle bajt AN XXXX XXXX
+00000249,0837,,        movf an6, W
+0000024A,00A0,,        movwf r1
+0000024B,3008,,        movlw .8
+0000024C,00A1,,        movwf r2
+0000024D,1BA0,,        btfsc r1, 7
+0000024E,1406,,        bsf PORTB, 0
+0000024F,1FA0,,        btfss r1, 7
+00000250,1006,,        bcf PORTB, 0
+00000251,22A9,,        call w100c
+00000252,0DA0,,        rlf r1, F
+00000253,0BA1,,        decfsz r2, F
+00000254,2A4D,,        goto $-7
 ,,,
-00000232,2A0A,,            goto loop      ;zpet v cyklu na zacatek
+00000255,1406,,        bsf PORTB, 0  ;vysle synchronizacni bity XX - 10
+00000256,22A9,,        call w100c
+00000257,1006,,        bcf PORTB, 0
+00000258,22A9,,        call w100c
+,,,
+,,,
+,,,                ; vysle bajt AN XXXX XXXX
+00000259,0838,,        movf an7, W
+0000025A,00A0,,        movwf r1
+0000025B,3008,,        movlw .8
+0000025C,00A1,,        movwf r2
+0000025D,1BA0,,        btfsc r1, 7
+0000025E,1406,,        bsf PORTB, 0
+0000025F,1FA0,,        btfss r1, 7
+00000260,1006,,        bcf PORTB, 0
+00000261,22A9,,        call w100c
+00000262,0DA0,,        rlf r1, F
+00000263,0BA1,,        decfsz r2, F
+00000264,2A5D,,        goto $-7
+,,,
+00000265,1406,,        bsf PORTB, 0  ;vysle stop bity XXX - 111
+00000266,22A9,,        call w100c
+00000267,22A9,,        call w100c
+00000268,22A9,,        call w100c
+00000269,1006,,        bcf PORTB, 0
+0000026A,22AE,,        call w40c
+,,,
+,,,
+0000026B,1683,,        bsf STATUS, RP0  ;Bank 1
+0000026C,1406,,        bsf TRISB, 0  ;nastavim sbernici na vstup do procesoru
+0000026D,1283,,        bcf STATUS, RP0  ;Bank 0
+,,,
+0000026E,0008,,        return
+,,,
+,,,
+0000026F,0865,restart,restart     movf PORTA_temp, W
+00000270,0085,,            movwf PORTA
+00000271,0866,,            movf PORTB_temp, W
+00000272,0086,,            movwf PORTB
+00000273,0867,,            movf PORTC_temp, W
+00000274,0087,,            movwf PORTC
+00000275,0868,,            movf PORTD_temp, W
+00000276,0088,,            movwf PORTD
+00000277,0869,,            movf PORTE_temp, W
+00000278,0089,,            movwf PORTE
+,,,
+00000279,2A80,,            goto loop
+,,,
+0000027A,01E5,start,start       clrf PORTA_temp
+0000027B,01E6,,            clrf PORTB_temp
+0000027C,01E7,,            clrf PORTC_temp
+0000027D,01E8,,            clrf PORTD_temp
+0000027E,01E9,,            clrf PORTE_temp
+,,,
+0000027F,2A80,,            goto loop
+,,,
+00000280,3000,loop,loop        movlw .0 ;nastavime ANx kde x je zadane cislo
+00000281,00BD,,            movwf ran1
+00000282,22B3,,            call adconv
+00000283,083D,,            movf ran1, W
+00000284,00B1,,            movwf an0
+,,,
+00000285,3001,,            movlw .1 ;nastavime ANx kde x je zadane cislo
+00000286,00BD,,            movwf ran1
+00000287,22B3,,            call adconv
+00000288,083D,,            movf ran1, W
+00000289,00B2,,            movwf an1
+,,,
+0000028A,3002,,            movlw .2 ;nastavime ANx kde x je zadane cislo
+0000028B,00BD,,            movwf ran1
+0000028C,22B3,,            call adconv
+0000028D,083D,,            movf ran1, W
+0000028E,00B3,,            movwf an2
+,,,
+0000028F,3003,,            movlw .3 ;nastavime ANx kde x je zadane cislo
+00000290,00BD,,            movwf ran1
+00000291,22B3,,            call adconv
+00000292,083D,,            movf ran1, W
+00000293,00B4,,            movwf an3
+,,,
+00000294,3004,,            movlw .4 ;nastavime ANx kde x je zadane cislo
+00000295,00BD,,            movwf ran1
+00000296,22B3,,            call adconv
+00000297,083D,,            movf ran1, W
+00000298,00B5,,            movwf an4
+,,,
+00000299,3005,,            movlw .5 ;nastavime ANx kde x je zadane cislo
+0000029A,00BD,,            movwf ran1
+0000029B,22B3,,            call adconv
+0000029C,083D,,            movf ran1, W
+0000029D,00B6,,            movwf an5
+,,,
+0000029E,3006,,            movlw .6 ;nastavime ANx kde x je zadane cislo
+0000029F,00BD,,            movwf ran1
+000002A0,22B3,,            call adconv
+000002A1,083D,,            movf ran1, W
+000002A2,00B7,,            movwf an6
+,,,
+000002A3,3007,,            movlw .7 ;nastavime ANx kde x je zadane cislo
+000002A4,00BD,,            movwf ran1
+000002A5,22B3,,            call adconv
+000002A6,083D,,            movf ran1, W
+000002A7,00B8,,            movwf an7
+,,,
+000002A8,2A80,,            goto loop      ;zpet v cyklu na zacatek
 ,,,
 ,,,
 ,,,
 ,,,
 ,,,        ;cekej cca 100 cyklu 40us  + u kazdeho cekani je 7 cyklu povinych
-00000233,3050,w100c,w100c   movlw .80
-00000234,00A3,,        movwf r4
-00000235,0BA3,,        decfsz r4, F
-00000236,2A35,,        goto $-1
-00000237,0008,,        return
+000002A9,3050,w100c,w100c   movlw .80
+000002AA,00A3,,        movwf r4
+000002AB,0BA3,,        decfsz r4, F
+000002AC,2AAB,,        goto $-1
+000002AD,0008,,        return
 ,,,
 ,,,          ;cekej necelou polovinu w100c
-00000238,301E,w40c,w40c   movlw .30
-00000239,00A3,,        movwf r4
-0000023A,0BA3,,        decfsz r4, F
-0000023B,2A3A,,        goto $-1
-0000023C,0008,,        return
+000002AE,301E,w40c,w40c   movlw .30
+000002AF,00A3,,        movwf r4
+000002B0,0BA3,,        decfsz r4, F
+000002B1,2AB0,,        goto $-1
+000002B2,0008,,        return
 ,,,
 ,,,
 ,,,
@@ -776,87 +909,87 @@
 ,,,
 ,,,
 ,,,
-0000023D,3032,adconv,adconv      movlw .50 ; kolikrat se ma merit vstup
-0000023E,00BE,,            movwf ran2 ; decrementator pro cykl
-0000023F,00D0,,            movwf ran5 ; delitel pro vypocet prumeru
-00000240,083D,,            movf ran1, W
-00000241,00BF,,            movwf ran3 ; zachováni ANx vstupu
-00000242,01BB,,            clrf CIS2_L
-00000243,01BC,,            clrf CIS2_H
+000002B3,3032,adconv,adconv      movlw .50 ; kolikrat se ma merit vstup
+000002B4,00BE,,            movwf ran2 ; decrementator pro cykl
+000002B5,00D0,,            movwf ran5 ; delitel pro vypocet prumeru
+000002B6,083D,,            movf ran1, W
+000002B7,00BF,,            movwf ran3 ; zachováni ANx vstupu
+000002B8,01BB,,            clrf CIS2_L
+000002B9,01BC,,            clrf CIS2_H
 ,,,
-00000244,083F,adconv2,adconv2     movf ran3, W
-00000245,00BD,,            movwf ran1 ; nasteni znova ANx vstupu
-00000246,2265,,            call adconv_one
+000002BA,083F,adconv2,adconv2     movf ran3, W
+000002BB,00BD,,            movwf ran1 ; nasteni znova ANx vstupu
+000002BC,22DB,,            call adconv_one
 ,,,
 ,,,            ; pripraveni cisla 1 k pricteni
-00000247,01BA,,            clrf CIS1_H
-00000248,083D,,            movf ran1, W
-00000249,00B9,,            movwf CIS1_L
+000002BD,01BA,,            clrf CIS1_H
+000002BE,083D,,            movf ran1, W
+000002BF,00B9,,            movwf CIS1_L
 ,,,
 ,,,            ; Secte dve 16-bitova cisla do max. hodnoty vysledku FFFFh (65535d)
 ,,,            ; CIS1_H, CIS1_L + CIS2_H, CIS2_L -> OUT_H a OUT_L
 ,,,
-0000024A,0839,,                movf    CIS1_L,W        ; CIS1_L do W
-0000024B,073B,,                addwf   CIS2_L,W        ; W + CIS2_L do W
-0000024C,00D1,,                movwf   OUT_L           ; W do OUT_L
+000002C0,0839,,                movf    CIS1_L,W        ; CIS1_L do W
+000002C1,073B,,                addwf   CIS2_L,W        ; W + CIS2_L do W
+000002C2,00D1,,                movwf   OUT_L           ; W do OUT_L
 ,,,
-0000024D,083A,,                movf    CIS1_H,W        ; CIS1_H do W
-0000024E,1803,,                btfsc   STATUS,C
-0000024F,3E01,,                addlw   0x01            ; C=1, scitani preteklo tak uloz 1 do W
-00000250,073C,,                addwf   CIS2_H,W
-00000251,00D2,,                movwf   OUT_H           ; W do OUT_H
+000002C3,083A,,                movf    CIS1_H,W        ; CIS1_H do W
+000002C4,1803,,                btfsc   STATUS,C
+000002C5,3E01,,                addlw   0x01            ; C=1, scitani preteklo tak uloz 1 do W
+000002C6,073C,,                addwf   CIS2_H,W
+000002C7,00D2,,                movwf   OUT_H           ; W do OUT_H
 ,,,
 ,,,                ; ulozi OUT do CIS2
-00000252,0851,,            movf OUT_L, W
-00000253,00BB,,            movwf CIS2_L
-00000254,0852,,            movf OUT_H, W
-00000255,00BC,,            movwf CIS2_H
+000002C8,0851,,            movf OUT_L, W
+000002C9,00BB,,            movwf CIS2_L
+000002CA,0852,,            movf OUT_H, W
+000002CB,00BC,,            movwf CIS2_H
 ,,,
 ,,,
-00000256,0BBE,,            decfsz ran2, F
-00000257,2A44,,            goto adconv2
+000002CC,0BBE,,            decfsz ran2, F
+000002CD,2ABA,,            goto adconv2
 ,,,
 ,,,            ; vydeli poctem mereni
-00000258,083B,,            movf CIS2_L, W
-00000259,00C1,,            movwf A1
-0000025A,083C,,            movf CIS2_H, W
-0000025B,00C2,,            movwf A2
-0000025C,01C3,,            clrf A3
+000002CE,083B,,            movf CIS2_L, W
+000002CF,00C1,,            movwf A1
+000002D0,083C,,            movf CIS2_H, W
+000002D1,00C2,,            movwf A2
+000002D2,01C3,,            clrf A3
 ,,,
-0000025D,0850,,            movf ran5, W
-0000025E,00C4,,            movwf B1
-0000025F,01C5,,            clrf B2
-00000260,01C6,,            clrf B3
+000002D3,0850,,            movf ran5, W
+000002D4,00C4,,            movwf B1
+000002D5,01C5,,            clrf B2
+000002D6,01C6,,            clrf B3
 ,,,
-00000261,2274,,            call LOMENO24
-00000262,0847,,            movf C1, W
-00000263,00BD,,            movwf ran1
+000002D7,22EA,,            call LOMENO24
+000002D8,0847,,            movf C1, W
+000002D9,00BD,,            movwf ran1
 ,,,
-00000264,0008,,            return
+000002DA,0008,,            return
 ,,,
-00000265,1003,adconv_one,adconv_one  bcf STATUS, C
-00000266,0DBD,,            rlf ran1, F
-00000267,0DBD,,            rlf ran1, F
-00000268,0DBD,,            rlf ran1, F
+000002DB,1003,adconv_one,adconv_one  bcf STATUS, C
+000002DC,0DBD,,            rlf ran1, F
+000002DD,0DBD,,            rlf ran1, F
+000002DE,0DBD,,            rlf ran1, F
 ,,,
 ,,,            ; ADCON0 REG     ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
-00000269,13BD,,            bcf ran1, 7
-0000026A,173D,,            bsf ran1, 6
+000002DF,13BD,,            bcf ran1, 7
+000002E0,173D,,            bsf ran1, 6
 ,,,            ; 5
 ,,,            ; 4
 ,,,            ; 3
-0000026B,153D,,            bsf ran1, 2
+000002E1,153D,,            bsf ran1, 2
 ,,,            ; 1
-0000026C,143D,,            bsf ran1, 0
+000002E2,143D,,            bsf ran1, 0
 ,,,
-0000026D,083D,,            movf ran1, W
-0000026E,009F,,            movwf ADCON0
+000002E3,083D,,            movf ran1, W
+000002E4,009F,,            movwf ADCON0
 ,,,
-0000026F,191F,,            btfsc ADCON0, 2   ;ceka nez skonci AD prevod
-00000270,2A6F,,            goto $-1
-00000271,081E,,            movf ADRESH, W    ;kontroluje zda je zmena od minule
-00000272,00BD,,            movwf ran1
-00000273,0008,,            return
+000002E5,191F,,            btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+000002E6,2AE5,,            goto $-1
+000002E7,081E,,            movf ADRESH, W    ;kontroluje zda je zmena od minule
+000002E8,00BD,,            movwf ran1
+000002E9,0008,,            return
 ,,,
 ,,,
 ,,,
@@ -868,90 +1001,90 @@
 ,,,;SZ=1=deleni nulou (B1,2,3=0)
 ,,,;B se nezmeni, v A bude zbytek
 ,,,;pouziva D1,2,3; X1
-00000274,,LOMENO24,LOMENO24
+000002EA,,LOMENO24,LOMENO24
 ,,,;test B na nulu; sZ=1=ANO
-00000274,08C4,,        MOVF    B1,F
-00000275,1903,,        BTFSC   STATUS,Z        ;nenulove?
-00000276,08C5,,        MOVF    B2,F
-00000277,1903,,        BTFSC   STATUS,Z        ;nenulove?
-00000278,08C6,,        MOVF    B3,F
-00000279,1903,,        BTFSC   STATUS,Z        ;nenulove?
-0000027A,0008,,        RETURN                  ;B1,2,3=0
+000002EA,08C4,,        MOVF    B1,F
+000002EB,1903,,        BTFSC   STATUS,Z        ;nenulove?
+000002EC,08C5,,        MOVF    B2,F
+000002ED,1903,,        BTFSC   STATUS,Z        ;nenulove?
+000002EE,08C6,,        MOVF    B3,F
+000002EF,1903,,        BTFSC   STATUS,Z        ;nenulove?
+000002F0,0008,,        RETURN                  ;B1,2,3=0
 ,,,;priprava pro deleni
-0000027B,0841,LOM24,LOM24   MOVF    A1,W            ;A do D
-0000027C,00CA,,        MOVWF   D1              ;
-0000027D,0842,,        MOVF    A2,W            ;
-0000027E,00CB,,        MOVWF   D2              ;
-0000027F,0843,,        MOVF    A3,W            ;
-00000280,00CC,,        MOVWF   D3              ;
-00000281,01C1,,        CLRF    A1              ;nulovat
-00000282,01C2,,        CLRF    A2              ;
-00000283,01C3,,        CLRF    A3              ;
-00000284,3018,,        MOVLW   24              ;pocet bitu
-00000285,00CD,,        MOVWF   X1              ;
-00000286,1003,,        BCF     STATUS,C        ;SC=0
+000002F1,0841,LOM24,LOM24   MOVF    A1,W            ;A do D
+000002F2,00CA,,        MOVWF   D1              ;
+000002F3,0842,,        MOVF    A2,W            ;
+000002F4,00CB,,        MOVWF   D2              ;
+000002F5,0843,,        MOVF    A3,W            ;
+000002F6,00CC,,        MOVWF   D3              ;
+000002F7,01C1,,        CLRF    A1              ;nulovat
+000002F8,01C2,,        CLRF    A2              ;
+000002F9,01C3,,        CLRF    A3              ;
+000002FA,3018,,        MOVLW   24              ;pocet bitu
+000002FB,00CD,,        MOVWF   X1              ;
+000002FC,1003,,        BCF     STATUS,C        ;SC=0
 ,,,;deleni
-00000287,2299,LDalsi,LDalsi  CALL    x2M             ;D,A posun vlevo, A-B=C
-00000288,1C03,,        BTFSS   STATUS,C        ;kladny vysledek?
-00000289,2A8F,,        GOTO    LZapor          ;NE
+000002FD,230F,LDalsi,LDalsi  CALL    x2M             ;D,A posun vlevo, A-B=C
+000002FE,1C03,,        BTFSS   STATUS,C        ;kladny vysledek?
+000002FF,2B05,,        GOTO    LZapor          ;NE
 ,,,;LKlad
-0000028A,00C3,,        MOVWF   A3              ;C do A
-0000028B,0848,,        MOVF    C2,W            ;
-0000028C,00C2,,        MOVWF   A2              ;
-0000028D,0847,,        MOVF    C1,W            ;
-0000028E,00C1,,        MOVWF   A1              ;
+00000300,00C3,,        MOVWF   A3              ;C do A
+00000301,0848,,        MOVF    C2,W            ;
+00000302,00C2,,        MOVWF   A2              ;
+00000303,0847,,        MOVF    C1,W            ;
+00000304,00C1,,        MOVWF   A1              ;
 ,,,
-0000028F,0BCD,LZapor,LZapor  DECFSZ  X1,F            ;-1=0?
-00000290,2A87,,        GOTO    LDalsi          ;jeste neni konec
+00000305,0BCD,LZapor,LZapor  DECFSZ  X1,F            ;-1=0?
+00000306,2AFD,,        GOTO    LDalsi          ;jeste neni konec
 ,,,;vysledek
-00000291,0D4A,,        RLF     D1,W            ;posledni x2
-00000292,00C7,,        MOVWF   C1              ; a W do C
-00000293,0D4B,,        RLF     D2,W            ;
-00000294,00C8,,        MOVWF   C2              ;
-00000295,0D4C,,        RLF     D3,W            ;
-00000296,00C9,,        MOVWF   C3              ;
+00000307,0D4A,,        RLF     D1,W            ;posledni x2
+00000308,00C7,,        MOVWF   C1              ; a W do C
+00000309,0D4B,,        RLF     D2,W            ;
+0000030A,00C8,,        MOVWF   C2              ;
+0000030B,0D4C,,        RLF     D3,W            ;
+0000030C,00C9,,        MOVWF   C3              ;
 ,,,
-00000297,1103,,        BCF     STATUS,Z        ;SZ=0
-00000298,0008,,        RETURN
+0000030D,1103,,        BCF     STATUS,Z        ;SZ=0
+0000030E,0008,,        RETURN
 ,,,
 ,,,
 ,,,;................................
 ,,,; D1,2,3 A1,2,3 * 2 a Minus
-00000299,0DCA,x2M,x2M     RLF     D1,F            ;posuv vlevo
-0000029A,0DCB,,        RLF     D2,F            ;
-0000029B,0DCC,,        RLF     D3,F            ;
-0000029C,0DC1,,        RLF     A1,F            ;
-0000029D,0DC2,,        RLF     A2,F            ;
-0000029E,0DC3,,        RLF     A3,F            ;
+0000030F,0DCA,x2M,x2M     RLF     D1,F            ;posuv vlevo
+00000310,0DCB,,        RLF     D2,F            ;
+00000311,0DCC,,        RLF     D3,F            ;
+00000312,0DC1,,        RLF     A1,F            ;
+00000313,0DC2,,        RLF     A2,F            ;
+00000314,0DC3,,        RLF     A3,F            ;
 ,,,                                ;pokracuje MINUS
 ,,,;--------------------------------
 ,,,; A1,2,3 - B1,2,3 = C1,2,3
 ,,,;SC=0=zaporny vysledek
 ,,,;A,B se nezmeni
-0000029F,0844,MINUS,MINUS   MOVF    B1,W            ;W=B1
-000002A0,0241,,        SUBWF   A1,W            ;A1-B1=W
-000002A1,00C7,,        MOVWF   C1              ;C1=W=vysledek1
-000002A2,0103,,        CLRW                    ;W=0
-000002A3,1C03,,        BTFSS   STATUS,C        ;SUB kladne?
-000002A4,3001,,        MOVLW   1               ;W=1
-000002A5,0745,,        ADDWF   B2,W            ;B2+W=W
-000002A6,01C9,,        CLRF    C3              ;C3=0
-000002A7,1803,,        BTFSC   STATUS,C        ;ADD nepreteklo?
-000002A8,1449,,        BSF     C3,0            ;C3=1
-000002A9,0242,,        SUBWF   A2,W            ;A2-W=W
-000002AA,00C8,,        MOVWF   C2              ;C2=w=vysledek2
-000002AB,0849,,        MOVF    C3,W            ;W=C3
-000002AC,1C03,,        BTFSS   STATUS,C        ;SUB kladne?
-000002AD,3001,,        MOVLW   1               ;W=1
-000002AE,0746,,        ADDWF   B3,W            ;B3+W=W
-000002AF,01C9,,        CLRF    C3              ;C3=0
-000002B0,1803,,        BTFSC   STATUS,C        ;ADD nepreteklo?
-000002B1,1449,,        BSF     C3,0            ;C3=1
-000002B2,0243,,        SUBWF   A3,W            ;A3-W=W
-000002B3,1849,,        BTFSC   C3,0            ;C3=0?
-000002B4,1003,,        BCF     STATUS,C        ;SC=0
-000002B5,00C9,,        MOVWF   C3              ;C3=W=vysledek3
-000002B6,0008,,        RETURN
+00000315,0844,MINUS,MINUS   MOVF    B1,W            ;W=B1
+00000316,0241,,        SUBWF   A1,W            ;A1-B1=W
+00000317,00C7,,        MOVWF   C1              ;C1=W=vysledek1
+00000318,0103,,        CLRW                    ;W=0
+00000319,1C03,,        BTFSS   STATUS,C        ;SUB kladne?
+0000031A,3001,,        MOVLW   1               ;W=1
+0000031B,0745,,        ADDWF   B2,W            ;B2+W=W
+0000031C,01C9,,        CLRF    C3              ;C3=0
+0000031D,1803,,        BTFSC   STATUS,C        ;ADD nepreteklo?
+0000031E,1449,,        BSF     C3,0            ;C3=1
+0000031F,0242,,        SUBWF   A2,W            ;A2-W=W
+00000320,00C8,,        MOVWF   C2              ;C2=w=vysledek2
+00000321,0849,,        MOVF    C3,W            ;W=C3
+00000322,1C03,,        BTFSS   STATUS,C        ;SUB kladne?
+00000323,3001,,        MOVLW   1               ;W=1
+00000324,0746,,        ADDWF   B3,W            ;B3+W=W
+00000325,01C9,,        CLRF    C3              ;C3=0
+00000326,1803,,        BTFSC   STATUS,C        ;ADD nepreteklo?
+00000327,1449,,        BSF     C3,0            ;C3=1
+00000328,0243,,        SUBWF   A3,W            ;A3-W=W
+00000329,1849,,        BTFSC   C3,0            ;C3=0?
+0000032A,1003,,        BCF     STATUS,C        ;SC=0
+0000032B,00C9,,        MOVWF   C3              ;C3=W=vysledek3
+0000032C,0008,,        RETURN
 ,,,
 ,,,
 ,,,

@@ -1,5 +1,5 @@
 
-; CONFIG BITS: 0x3F3A
+; CONFIG BITS: 0x3F3E
 
       LIST        P=16F874A, R=DEC
       INCLUDE     <P16F874.INC>
@@ -77,14 +77,12 @@ timvar
 timrtu      
 timlza      
 
-o1tmp       
-o2tmp       
-o3tmp       
-o4tmp       
-o1tar       
-o2tar       
-o3tar       
-o4tar       
+PORTA_temp
+PORTB_temp
+PORTC_temp
+PORTD_temp
+PORTE_temp
+
 
 timwtu      
 spinac      
@@ -97,6 +95,19 @@ x1
 x2          
 casvar
       ; registr 79/96
+      endc
+
+; BANK 1
+      cblock	0x20
+
+o1tmp       
+o2tmp       
+o3tmp       
+o4tmp       
+o1tar       
+o2tar       
+o3tar       
+o4tar       
       endc
 
 
@@ -153,6 +164,7 @@ T0OF        equ .0
 STARTED     equ .1
 WATCHOVER   equ .2
 PCON_POR    equ .3
+T1OF	    equ .4
 ;casov constant
 ;VAROV       equ .0
 REDTUN      equ .1
@@ -171,20 +183,24 @@ POR	    equ .1
 
             org 004h        ;vektor preruseni
             movwf w_temp ;copy w to temp register
-            swapf PCLATH, W ;swap pclath to be saved into w
-            movwf pcl_temp ;save status to bank zero pclath_temp register
-            swapf STATUS, W ;swap status to be saved into w
+            movf STATUS, W ;swap status to be saved into w
             movwf s_temp ;save status to bank zero s_temp register
+            movf PCLATH, W ;swap pclath to be saved into w
+            movwf pcl_temp ;save status to bank zero pclath_temp register
             clrf STATUS ;bank 0, regardless of current bank, clears irp,rp1,rp0
             
             bcf PCLATH,3 ;Select page 0
             call inter
         
-            swapf s_temp, W ;swap status_temp register into w
-            movwf STATUS ;move w into status register;(sets bank to original state)
-            swapf pcl_temp, W ;swap pcl_temp register into w
+            movf pcl_temp, W ;swap pcl_temp register into w
             movwf PCLATH ;move w into PCLATH register;(sets bank to original state)
-            swapf w_temp, W ;
+            movf s_temp, W ;swap status_temp register into w
+            movwf STATUS ;move w into status register;(sets bank to original state)
+            movf w_temp, W ;
+	    btfss s_temp, Z
+	    bcf STATUS, Z
+            btfsc s_temp, Z
+	    bsf STATUS, Z
             return
 
 init        bcf PCLATH,3 ;Select page 0
@@ -212,7 +228,8 @@ init        bcf PCLATH,3 ;Select page 0
             movlw b'00000001'
             movwf TRISE
             
-            movlw b'11000111' ; timer0 control
+	    clrwdt
+            movlw b'11001100' ; timer0 control, WDT prescaler '100' -> 288ms
             movwf OPTION_REG
             
 	    movf PCON, W
@@ -226,6 +243,8 @@ init        bcf PCLATH,3 ;Select page 0
 	    bsf conf, PCON_POR
 
 
+            movlw b'00100001' ; nastaví control register timer1
+            movwf T1CON
             movlw b'01000110' ; nastaví control register timer2
             movwf T2CON
             
@@ -245,8 +264,10 @@ inton       bcf INTCON, INTF ; nastavení přerušení od RB0
             bsf INTCON, INTE
             bcf INTCON, T0IF ;nastavení přerušení od Timer0
             bsf INTCON, T0IE
+            bcf PIR1, TMR1IF ;nastavení přerušení od Timer1
             bcf PIR1, TMR2IF ;nastavení přerušení od Timer2
             bsf STATUS, RP0  ;Bank 1
+            bsf PIE1, TMR1IE
             bsf PIE1, TMR2IE
             bcf STATUS, RP0 ;Bank 0
             bsf INTCON, PEIE
@@ -256,6 +277,7 @@ inton       bcf INTCON, INTF ; nastavení přerušení od RB0
 intoff      bcf INTCON, INTE
             bcf INTCON, T0IE
             bsf STATUS, RP0  ;Bank 1
+            bcf PIE1, TMR1IE
             bcf PIE1, TMR2IE
             bcf STATUS, RP0 ;Bank 0
             return
@@ -268,9 +290,11 @@ inter       call intoff
             call radio
             btfsc INTCON, T0IF
             bsf conf, T0OF
-            btfsc PIR1, TMR2IF      ;preruseni od timer2 watch
+            btfsc PIR1, TMR1IF      ;preruseni od timer1 watch
+            bsf conf, T1OF
+	    btfsc PIR1, TMR2IF      ;preruseni od timer2 watch
             call watchover
-    
+	    
             call inton
             return
 
@@ -292,9 +316,14 @@ watchwait   btfss conf, WATCHOVER
 ;při zachyceni signalu na radiovem přijímači        
 radio       nop
             return
-            
-;při přetečení timeru 0, až po fázi synchronizace procesorů    
-timer0      btfsc cassir, 0
+
+timer0	    nop
+	    
+	    bcf conf, T0OF
+	    return
+
+;při přetečení timeru 1, až po fázi synchronizace procesorů   
+timer1      btfsc cassir, 0
             call sirbeep
             btfsc casvar, 0
             call varoff
@@ -311,7 +340,7 @@ timer0      btfsc cassir, 0
             btfsc spinac, 2
             call spioff
 
-            bcf conf, T0OF
+            bcf conf, T1OF
             return
             
 ;houkani sireny v intervalech cca 240ms        
@@ -347,18 +376,26 @@ varoff      decf timvar, F
             btfsc r3, 0 ;pokud oba zaply oba vypne
             bcf o_e, 4
             btfsc r3, 0 ;pokud oba zaply oba vypne
+            bcf PORTD_temp, 6
+            btfsc r3, 0 ;pokud oba zaply oba vypne
             bcf PORTD, 6
             btfsc r3, 0 ;pokud oba zaply oba vypne
             bcf o_e, 5
             btfsc r3, 0 ;pokud oba zaply oba vypne
+            bcf PORTD_temp, 7
+	    btfsc r3, 0 ;pokud oba zaply oba vypne
             bcf PORTD, 7
     
             btfss r3, 0 ;pokud jeden vyply oba zapne
             bsf o_e, 4
             btfss r3, 0 ;pokud jeden vyply oba zapne
+            bsf PORTD_temp, 6
+            btfss r3, 0 ;pokud jeden vyply oba zapne
             bsf PORTD, 6
             btfss r3, 0 ;pokud jeden vyply oba zapne
             bsf o_e, 5
+            btfss r3, 0 ;pokud jeden vyply oba zapne
+            bsf PORTD_temp, 7
             btfss r3, 0 ;pokud jeden vyply oba zapne
             bsf PORTD, 7
             
@@ -431,17 +468,23 @@ odsoff      decf timods, F
             movwf prc
             call clrout ;smaz port v prc
             bcf o_b, 5
+            bcf PORTC_temp, 7
             bcf PORTC, 7
             bcf o_b, 6
+            bcf PORTB_temp, 2
             bcf PORTB, 2
             bcf o_b, 7
+            bcf PORTB_temp, 3
             bcf PORTB, 3
             bcf o_b, 3
+            bcf PORTB_temp, 4
             bcf PORTB, 4
             bcf o_e, 0
+            bcf PORTB_temp, 5
             bcf PORTB, 5
             bcf o_c, 0
-            bcf PORTB, 6
+            bcf PORTB_temp, 6
+	    bcf PORTB, 6
 
             bcf o_e, 7
             movlw b'11110' ;port D6
@@ -1191,8 +1234,10 @@ tx_stop     movlw b'10000' ;port C0    ;6 tlačítek ovládání rádia PLAY, ST
             bcf o_d, 6
                   ;blinkry
             bcf o_e, 4
+            bcf PORTD_temp, 6
             bcf PORTD, 6
             bcf o_e, 5
+            bcf PORTD_temp, 7
             bcf PORTD, 7
                   ;klakson
             movlw b'11001' ;port D1
@@ -1204,11 +1249,14 @@ tx_stop     movlw b'10000' ;port C0    ;6 tlačítek ovládání rádia PLAY, ST
             bcf o_c, 4
                   ;stěrače, odstřikovače
             bcf o_c, 7
+            bcf PORTD_temp, 3
             bcf PORTD, 3
             bcf o_c, 6
+            bcf PORTD_temp, 2
             bcf PORTD, 2
                   ;dálková světla
             bcf o_d, 0
+            bcf PORTD_temp, 4
             bcf PORTD, 4
             return
         
@@ -1242,17 +1290,11 @@ t1_00       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
 
             call t1_06 ;vypne vse 
             bsf o_d, 7 ;zapne alarm cidla
+            bsf PORTB_temp, 7
             bsf PORTB, 7
                   ;zapne probliknuti nejakych svetel a sirenu a po urcitem case vypne, 
                   ;zatahne okna a pamatuje si polohu, zacne problikavat LED zamceno, promluvi ze je zamceno
             
-            ;bsf o_e, 4 ;zapne levy i pravy blinkr a ty vypne po 2 sekundach - realizovano timerem
-            ;bsf PORTD, 6
-            ;bsf o_e, 5
-            ;bsf PORTD, 7
-            ;bsf casov, VAROV
-            ;movlw .80
-            ;movwf timvar
             
             call t1_05 ;zapne varovky
             movlw b'00011111' ;nastavi do timeru ze houkne 3x po 200ms
@@ -1284,6 +1326,7 @@ t1_00       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
             movlw .8
             movwf timsir
             bcf o_f, 7 ;sklopi zrcatka neboli vypne
+            bcf PORTE_temp, 1
             bcf PORTE, 1
             nop ;MLUV "auto zamčeno"
             call t1_07 ;zamkne
@@ -1292,19 +1335,19 @@ t1_00       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
             movwf timlza
 
                   ;zatahnuti okenek
-            movf ir_90, W ;ulozi si aktualni polohy okenek pro stazeni pri odemknuti
-            movwf o1tmp
-            movf ir_91, W
-            movwf o2tmp
-            movf ir_92, W
-            movwf o3tmp
-            movf ir_93, W
-            movwf o4tmp
-            movlw b'00000000' ;nastavy vyslednou polohu vsech okenek na same nuly (vytazene)
-            movwf o1tar
-            movwf o2tar
-            movwf o3tar
-            movwf o4tar
+            ;movf ir_90, W ;ulozi si aktualni polohy okenek pro stazeni pri odemknuti
+            ;movwf o1tmp
+            ;movf ir_91, W
+            ;movwf o2tmp
+            ;movf ir_92, W
+            ;movwf o3tmp
+            ;movf ir_93, W
+            ;movwf o4tmp
+            ;movlw b'00000000' ;nastavy vyslednou polohu vsech okenek na same nuly (vytazene)
+            ;movwf o1tar
+            ;movwf o2tar
+            ;movwf o3tar
+            ;movwf o4tar
  
             return
             
@@ -1313,18 +1356,12 @@ t1_01       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
             return
             
             bcf o_d, 7 ;vypne alarm cidla
+            bcf PORTB_temp, 7
             bcf PORTB, 7
                   ;zapne probliknuti nejakych svetel a sirenu a po urcitem case vypne, STOP alarm
                   ;stahne okna do pamatovane polohy, prestane problikavat LED zamceno, promluvi ze je odemceno
             call t1_04
             
-            ;bsf o_e, 4 ;zapne levy i pravy blinkr a ty vypne po 2 sekundach - realizovano timerem
-            ;bsf PORTD, 6
-            ;bsf o_e, 5
-            ;bsf PORTD, 7
-            ;bsf casov, VAROV
-            ;movlw .80
-            ;movwf timvar
             
             call t1_05 ;zapne varovky
             movlw b'00000111' ;nastavi do timeru ze houkne 3x po 200ms
@@ -1356,20 +1393,21 @@ t1_01       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
             movlw .8
             movwf timsir
             bsf o_f, 7 ;odklopi zrcatka neboli zapne
+            bsf PORTE_temp, 1
             bsf PORTE, 1
             nop ;MLUV "auto odemčeno"
             bcf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
             call t1_08 ;odemkne
 
                   ;stahnuti okenek
-            movf o1tmp, W
-            movwf o1tar
-            movf o2tmp, W
-            movwf o2tar
-            movf o3tmp, W
-            movwf o3tar
-            movf o4tmp, W
-            movwf o4tar
+            ;movf o1tmp, W
+            ;movwf o1tar
+            ;movf o2tmp, W
+            ;movwf o2tar
+            ;movf o3tmp, W
+            ;movwf o3tar
+            ;movf o4tmp, W
+            ;movwf o4tar
  
             return
             
@@ -1382,8 +1420,10 @@ t1_02       btfsc spinac, 2
             btfss spinac, 2
             goto t2_02
             bcf o_a, 0
+            bcf PORTC_temp, 0
             bcf PORTC, 0
             bcf o_a, 1
+            bcf PORTC_temp, 1
             bcf PORTC, 1
             bsf o_i, 2
             movlw b'11010' ;port D2
@@ -1404,12 +1444,15 @@ t1_02       btfsc spinac, 2
 t2_02       btfss spinac, 1
             goto t3_02
             bsf o_a, 0
+            bsf PORTC_temp, 0
             bsf PORTC, 0
             bsf o_a, 2
+            bsf PORTC_temp, 2
             bsf PORTC, 2
             return
             ;pokud poloha 1
 t3_02       bsf o_a, 1
+            bsf PORTC_temp, 1
             bsf PORTC, 1
             return
             
@@ -1422,8 +1465,10 @@ t1_03       btfss spinac, 0
             btfss spinac, 1
             goto t2_03
             bsf o_a, 0
+            bsf PORTC_temp, 0
             bsf PORTC, 0
             bsf o_a, 1
+            bsf PORTC_temp, 1
             bsf PORTC, 1
             bcf o_i, 2
             movlw b'11010' ;port D2
@@ -1442,12 +1487,15 @@ t1_03       btfss spinac, 0
 t2_03       btfss spinac, 0
             goto t3_03
             bcf o_a, 0
+            bcf PORTC_temp, 0
             bcf PORTC, 0
             bcf o_a, 2
+            bcf PORTC_temp, 2
             bcf PORTC, 2
             return
             ;pokud poloha 0
 t3_03       bcf o_a, 1
+            bcf PORTC_temp, 1
             bcf PORTC, 1
             return
             
@@ -1462,10 +1510,6 @@ t1_04       btfss casov, ALARM
             call clrout ;set port v prc
             bcf o_e, 1
             ;varovky
-            ;bcf o_e, 4
-            ;bcf PORTD, 6
-            ;bcf o_e, 5
-            ;bcf PORTD, 7
             call t1_05
             
             ;stroboskop
@@ -1520,18 +1564,26 @@ t1_04       btfss casov, ALARM
 t1_05       btfsc casvar, 0 ;pokud oba zaply oba vypne
             bcf o_e, 4
             btfsc casvar, 0 ;pokud oba zaply oba vypne
+            bcf PORTD_temp, 6
+            btfsc casvar, 0 ;pokud oba zaply oba vypne
             bcf PORTD, 6
             btfsc casvar, 0 ;pokud oba zaply oba vypne
             bcf o_e, 5
             btfsc casvar, 0 ;pokud oba zaply oba vypne
+            bcf PORTD_temp, 7
+	    btfsc casvar, 0 ;pokud oba zaply oba vypne
             bcf PORTD, 7
     
             btfss casvar, 0 ;pokud jeden vyply oba zapne
             bsf o_e, 4
             btfss casvar, 0 ;pokud jeden vyply oba zapne
+            bsf PORTD_temp, 6
+            btfss casvar, 0 ;pokud jeden vyply oba zapne
             bsf PORTD, 6
             btfss casvar, 0 ;pokud jeden vyply oba zapne
             bsf o_e, 5
+            btfss casvar, 0 ;pokud jeden vyply oba zapne
+            bsf PORTD_temp, 7
             btfss casvar, 0 ;pokud jeden vyply oba zapne
             bsf PORTD, 7
             
@@ -1550,6 +1602,7 @@ t1_06       btfsc conf, STARTED ;kdyz neni nastartovano vypni vse
             return
             ;svetla 
             bcf o_c, 1
+            bcf PORTC_temp, 3
             bcf PORTC, 3
             ;red tuning
             ;white tunning
@@ -1602,15 +1655,19 @@ t1_06       btfsc conf, STARTED ;kdyz neni nastartovano vypni vse
             bcf o_e, 1
             ;parkovacky
             bcf o_e, 3
+            bcf PORTD_temp, 5
             bcf PORTD, 5
             ;mlhovky zadni
             bcf o_f, 1
+            bcf PORTC_temp, 4
             bcf PORTC, 4
             ;mlhovky predni
             bcf o_c, 5
+            bcf PORTD_temp, 1
             bcf PORTD, 1
             ;rozehrivani okenka
             bcf o_f, 2
+            bcf PORTC_temp, 5
             bcf PORTC, 5
             return
             
@@ -1663,6 +1720,7 @@ t1_10       bsf o_b, 4
             
 ;odskok dvere 2
 t1_11       bsf o_b, 5
+            bsf PORTC_temp, 7
             bsf PORTC, 7
             bsf casov, ODSKOK
             movlw .8
@@ -1673,6 +1731,7 @@ t1_11       bsf o_b, 5
 t1_12       btfsc o_i, 4
             return
             bsf o_b, 6
+            bsf PORTB_temp, 2
             bsf PORTB, 2
             bsf casov, ODSKOK
             movlw .8
@@ -1683,6 +1742,7 @@ t1_12       btfsc o_i, 4
 t1_13       btfsc o_i, 4
             return
             bsf o_b, 7
+            bsf PORTB_temp, 3
             bsf PORTB, 3
             bsf casov, ODSKOK
             movlw .8
@@ -1691,6 +1751,7 @@ t1_13       btfsc o_i, 4
             
 ;odskok kufr
 t1_14       bsf o_b, 3
+            bsf PORTB_temp, 4
             bsf PORTB, 4
             bsf casov, ODSKOK
             movlw .8
@@ -1699,6 +1760,7 @@ t1_14       bsf o_b, 3
             
 ;odskok nadrz
 t1_15       bsf o_e, 0
+            bsf PORTB_temp, 5
             bsf PORTB, 5
             bsf casov, ODSKOK
             movlw .8
@@ -1707,6 +1769,7 @@ t1_15       bsf o_e, 0
             
 ;odskok kapota
 t1_16       bsf o_c, 0
+            bsf PORTB_temp, 6
             bsf PORTB, 6
             bsf casov, ODSKOK
             movlw .8
@@ -1782,10 +1845,14 @@ t1_26       movf o_f, W
             movwf r5
 
             btfss r5, 2
+            bsf PORTC_temp, 5
+            btfss r5, 2
             bsf PORTC, 5
             btfss r5, 2
             bsf o_f, 2 
         
+            btfsc r5, 2
+            bcf PORTC_temp, 5
             btfsc r5, 2
             bcf PORTC, 5
             btfsc r5, 2
@@ -1803,7 +1870,7 @@ t1_29       nop
             return
 
 ;okno 1 up        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ve vsech oknech dodelat drobne veci typu pokud je uplne nahore, tak se prepne dolu
-t1_30       movf o1tar, W
+t1_30       return;movf o1tar, W
             movwf r5
             movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
             addwf r5, F
@@ -1814,7 +1881,7 @@ t1_30       movf o1tar, W
             return
             
 ;okno 2 up
-t1_31       movf o2tar, W
+t1_31       return;movf o2tar, W
             movwf r5
             movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
             addwf r5, F
@@ -1825,7 +1892,7 @@ t1_31       movf o2tar, W
             return
             
 ;okno 3 up
-t1_32       btfsc o_i, 4
+t1_32       return;btfsc o_i, 4
             return
             movf o3tar, W
             movwf r5
@@ -1838,7 +1905,7 @@ t1_32       btfsc o_i, 4
             return
             
 ;okno 4 up
-t1_33       btfsc o_i, 4
+t1_33       return;btfsc o_i, 4
             return
             movf o4tar, W
             movwf r5
@@ -1851,7 +1918,7 @@ t1_33       btfsc o_i, 4
             return
             
 ;okno 1 down
-t1_34       movf o1tar, W
+t1_34       return;movf o1tar, W
             movwf r5
             movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
             addwf r5, F
@@ -1862,7 +1929,7 @@ t1_34       movf o1tar, W
             return
             
 ;okno 2 down
-t1_35       movf o2tar, W
+t1_35       return;movf o2tar, W
             movwf r5
             movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
             addwf r5, F
@@ -1873,7 +1940,7 @@ t1_35       movf o2tar, W
             return
             
 ;okno 3 down
-t1_36       btfsc o_i, 4
+t1_36       return;btfsc o_i, 4
             return
             movf o3tar, W
             movwf r5
@@ -1956,10 +2023,14 @@ t1_42       movf o_e, W
             movwf r5
 
             btfss r5, 3
+            bsf PORTD_temp, 5
+            btfss r5, 3
             bsf PORTD, 5
             btfss r5, 3
             bsf o_e, 3 
         
+            btfsc r5, 3
+            bcf PORTD_temp, 5
             btfsc r5, 3
             bcf PORTD, 5
             btfsc r5, 3
@@ -1971,10 +2042,14 @@ t1_43       movf o_c, W
             movwf r5
 
             btfss r5, 1
+            bsf PORTC_temp, 3
+            btfss r5, 1
             bsf PORTC, 3
             btfss r5, 1
             bsf o_c, 1 
         
+            btfsc r5, 1
+            bcf PORTC_temp, 3
             btfsc r5, 1
             bcf PORTC, 3
             btfsc r5, 1
@@ -1986,10 +2061,14 @@ t1_44       movf o_f, W
             movwf r5
 
             btfss r5, 1
+            bsf PORTC_temp, 4
+            btfss r5, 1
             bsf PORTC, 4
             btfss r5, 1
             bsf o_f, 1 
         
+            btfsc r5, 1
+            bcf PORTC_temp, 4
             btfsc r5, 1
             bcf PORTC, 4
             btfsc r5, 1
@@ -1998,11 +2077,13 @@ t1_44       movf o_f, W
             
 ;Blinkr levý
 t1_45       bsf o_e, 4
+            bsf PORTD_temp, 6
             bsf PORTD, 6
             return
             
 ;Blinkr pravý
 t1_46       bsf o_e, 5
+            bsf PORTD_temp, 7
             bsf PORTD, 7
             return
             
@@ -2011,10 +2092,14 @@ t1_47       movf o_c, W
             movwf r5
 
             btfss r5, 5
+            bsf PORTD_temp, 1
+            btfss r5, 5
             bsf PORTD, 1
             btfss r5, 5
             bsf o_c, 5 
         
+            btfsc r5, 5
+            bcf PORTD_temp, 1
             btfsc r5, 5
             bcf PORTD, 1
             btfsc r5, 5
@@ -2039,10 +2124,12 @@ t1_50       bsf o_c, 4
             
 ;stěrače
 t1_51       bsf o_c, 7
+            bsf PORTD_temp, 3
             bsf PORTD, 3
             return
 ;odstřikovače
 t1_52       bsf o_c, 6
+            bsf PORTD_temp, 2
             bsf PORTD, 2
             return
             
@@ -2088,7 +2175,8 @@ t1_54       movlw b'11001' ;port D1
             return
             
 ;Dálkové světla
-t1_55   bsf o_d, 0
+t1_55	    bsf o_d, 0
+            bsf PORTD_temp, 4
             bsf PORTD, 4
             return
             
@@ -2101,10 +2189,6 @@ t1_56       movlw b'11000' ;port D0  ;sirena
             call setout ;set port v prc
             bsf o_e, 1
             ;varovky
-            ;bsf o_e, 4
-            ;bsf PORTD, 6
-            ;bsf o_e, 5
-            ;bsf PORTD, 7
             call t1_05
             
             ;stroboskop
@@ -2151,7 +2235,7 @@ t1_59       nop
             return
         
 ;okno 4 down
-t1_60       btfsc o_i, 4
+t1_60       return;btfsc o_i, 4
             return
             movf o4tar, W
             movwf r5
@@ -2348,7 +2432,18 @@ ledzam      movlw b'10110' ;port C6
 
             org 800h ;zacina druha stranka programu
 restart	    bcf PCLATH,3 ;Select page 0
-	    nop ;Po restartu se obnovi stare registry PORTU
+	    ;Po restartu se obnovi stare registry PORTU
+
+	    movf PORTA_temp, W
+	    movwf PORTA
+	    movf PORTB_temp, W
+	    movwf PORTB
+	    movf PORTC_temp, W
+	    movwf PORTC
+	    movf PORTD_temp, W
+	    movwf PORTD
+	    movf PORTE_temp, W
+	    movwf PORTE
 
 	    ;zapne zadni pasy po restartu
 	    movlw b'01110' ;port B6
@@ -2370,6 +2465,13 @@ restart	    bcf PCLATH,3 ;Select page 0
 	    goto loop
     
 start       bcf PCLATH,3 ;Select page 0
+	    
+	    clrf PORTA_temp
+	    clrf PORTB_temp
+	    clrf PORTC_temp
+	    clrf PORTD_temp
+	    clrf PORTE_temp
+	    
 	    call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne alarm
 	    
 	    ; zapne predni pasy po startu
@@ -2392,8 +2494,9 @@ start       bcf PCLATH,3 ;Select page 0
 	    goto loop
 
 loop	    bcf PCLATH,3 ;Select page 0
-
-
+	    
+	    clrwdt
+   
             ;#### Čeká několik cyklů aby se stihly ostatní procesory vzpamatovat z případnejch problémů
             ; Začne počítat čas odpočinku procesorů WATCH2
             call watchstart
@@ -2417,8 +2520,8 @@ loop	    bcf PCLATH,3 ;Select page 0
       
       
       
-            btfsc conf, T0OF ;pokud timer 0 přetekl, spustí jeho obsluhu
-            call timer0
+            btfsc conf, T1OF ;pokud timer 1 přetekl, spustí jeho obsluhu
+            call timer1
 
             bsf PCLATH,3 ;Select page 1
             ;call okna ;spouští obsluhu jednotlivých okének DEBUG
