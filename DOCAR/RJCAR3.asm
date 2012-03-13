@@ -1,62 +1,66 @@
 
-; CONFIG BITS: 0x3F3A
+; CONFIG BITS: 0x3F3E
 
  LIST	   P=16F874A, R=DEC
  INCLUDE  <P16F874.INC>
 
                   ;deklarace registru
-r1      equ 20h
-r2      equ 21h
-r3      equ 22h
-r4      equ 23h
+	cblock 0x20
+r1      
+r2      
+r3      
+r4      
 
-cil     equ 24h
-port    equ 25h
-cislo   equ 26h
+cil     
+port    
+cislo   
 
-r5      equ 27h
+r5      
 
-w_temp  equ 2Bh
-s_temp  equ 2Ch
+w_temp  
+s_temp  
 
-num     equ 30h
+num     
 
-an0     equ 31h
-an1     equ 32h
-an2     equ 33h
-an3     equ 34h
-an4     equ 35h
-an5     equ 36h
-an6     equ 37h
-an7     equ 38h
+an0     
+an1     
+an2     
+an3     
+an4     
+an5     
+an6     
+an7     
 
-CIS1_L      equ 39h
-CIS1_H      equ 3Ah
-CIS2_L      equ 3Bh
-CIS2_H      equ 3Ch
-ran1      equ 3Dh
-ran2      equ 3Eh
-ran3       equ 3Fh
-ran4       equ 40h
-A1    equ 41h
-A2    equ 42h
-A3    equ 43h
-B1    equ 44h
-B2    equ 45h
-B3    equ 46h
-C1    equ 47h
-C2    equ 48h
-C3    equ 49h
-D1    equ 4Ah
-D2    equ 4Bh
-D3    equ 4Ch
-X1    equ 4Dh
-X2    equ 4Eh
-FL    equ 4Fh
-ran5  equ 50h
-OUT_L equ 51h
-OUT_H equ 52h
-pcl_temp    equ 53h
+CIS1_L      
+CIS1_H      
+CIS2_L      
+CIS2_H      
+ran1      
+ran2      
+ran3       
+ran4       
+A1    
+A2    
+A3    
+B1    
+B2    
+B3    
+C1    
+C2    
+C3   
+D1    
+D2    
+D3    
+X1    
+X2   
+FL    
+ran5  
+OUT_L 
+OUT_H
+pcl_temp    
+conf        
+
+	endc
 
 ; zaloha vystupnich portu
     cblock 0x65
@@ -69,7 +73,6 @@ PORTE_temp
 
 
 
-conf        equ 7Ch
 
 ;KONSTANTY
 ;conf constant
@@ -79,11 +82,13 @@ PCON_POR    equ .3
 ;system constants
 POR	    equ .1
 
-        org 000h        ;vektor zacatku
-        goto init
 
-        org 004h        ;vektor preruseni
-        movwf w_temp ;copy w to temp register
+
+	    org 000h        ;vektor zacatku
+	    goto init
+
+	    org 004h        ;vektor preruseni
+	    movwf w_temp ;copy w to temp register
             movf STATUS, W ;swap status to be saved into w
             movwf s_temp ;save status to bank zero s_temp register
             movf PCLATH, W ;swap pclath to be saved into w
@@ -133,7 +138,8 @@ init    movlw .3    ;oznaceni tohoto procesoru
         movlw b'00000111'
         movwf TRISE
         
-        movlw b'11000000'
+        clrwdt
+        movlw b'11001100' ; timer0 control, WDT prescaler '100' -> 288ms
         movwf OPTION_REG
 
 	
@@ -836,7 +842,9 @@ start	    clrf PORTA_temp
 
 	    goto loop
 
-loop        movlw .0 ;nastavime ANx kde x je zadane cislo   
+loop        clrwdt
+	    
+	    movlw .0 ;nastavime ANx kde x je zadane cislo   
             movwf ran1
             call adconv
             movf ran1, W

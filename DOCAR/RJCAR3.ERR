@@ -1,15 +1,15 @@
 Message[301] C:\PROGRA~2\LABCEN~1\PROTEU~1\TOOLS\MPASM\P16F874.INC 39 : MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
-Message[302] DOCAR\RJCAR3.ASM 123 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 126 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] DOCAR\RJCAR3.ASM 128 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 130 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 132 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 134 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 131 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 133 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 135 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] DOCAR\RJCAR3.ASM 137 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 140 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 141 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 165 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 174 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 205 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 641 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] DOCAR\RJCAR3.ASM 812 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 139 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 143 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 146 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 147 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 171 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 180 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 211 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 647 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] DOCAR\RJCAR3.ASM 818 : Register in operand not in bank 0.  Ensure that bank bits are correct.

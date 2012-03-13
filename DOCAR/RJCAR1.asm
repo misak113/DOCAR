@@ -94,6 +94,7 @@ x0
 x1          
 x2          
 casvar
+vterina
       ; registr 79/96
       endc
 
@@ -317,10 +318,10 @@ watchwait   btfss conf, WATCHOVER
 radio       nop
             return
 
-timer0	    nop
+;timer0	    nop
 	    
-	    bcf conf, T0OF
-	    return
+	    ;bcf conf, T0OF
+	    ;return
 
 ;při přetečení timeru 1, až po fázi synchronizace procesorů   
 timer1      btfsc cassir, 0
@@ -340,9 +341,53 @@ timer1      btfsc cassir, 0
             btfsc spinac, 2
             call spioff
 
+	    decf vterina, F
+            btfsc STATUS, Z
+	    call vterinka
+
             bcf conf, T1OF
             return
             
+vterinka    nop
+
+;Ledky blikajici kdyz je PC zaply
+ledPCRun    movf o_g, W
+	    movwf r5
+	    movlw b'01100' ;port B4
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+	    btfsc r5, 5
+            call setout ;nastav port v prc
+            btfsc r5, 5
+            bsf o_g, 4 
+	    btfss r5, 5
+            call clrout ;nastav port v prc
+            btfss r5, 5
+            bcf o_g, 4 
+	    
+	    movf o_g, W
+	    movwf r5
+	    movlw b'01101' ;port B5
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+            btfss r5, 4
+            call setout ;nastav port v prc
+            btfss r5, 4
+            bsf o_g, 5 
+	    btfsc r5, 4
+            call clrout ;nastav port v prc
+            btfsc r5, 4
+            bcf o_g, 5 
+
+
+	    ; nastaveni nove vterinky
+	    movlw .9 ;nastavy na dalsich 240ms
+            movwf vterina
+	    return
+
+
 ;houkani sireny v intervalech cca 240ms        
 sirbeep     decf timsir, F
             btfss STATUS, Z
@@ -2460,6 +2505,21 @@ restart	    bcf PCLATH,3 ;Select page 0
             call setout ;nastav port v prc
             bsf o_g, 7 
 
+	    ; zapne predni pasy po startu
+	    movlw b'01100' ;port B4
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+            call clrout ;nastav port v prc
+            bcf o_g, 4 
+	    
+	    movlw b'01101' ;port B5
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+            call clrout ;nastav port v prc
+            bcf o_g, 5 
+
 
 	    bsf PCLATH,3 ;Select page 0
 	    goto loop
@@ -2488,6 +2548,24 @@ start       bcf PCLATH,3 ;Select page 0
             movwf prc
             call setout ;nastav port v prc
             bsf o_g, 5 
+
+	    ;zapne zadni pasy po restartu
+	    movlw b'01110' ;port B6
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+            call clrout ;nastav port v prc
+            bcf o_g, 6 
+	    
+	    movlw b'01111' ;port B7
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+            call clrout ;nastav port v prc
+            bcf o_g, 7 
+
+	    movlw .25
+	    movwf vterina
         
 
 	    bsf PCLATH,3 ;Select page 0
