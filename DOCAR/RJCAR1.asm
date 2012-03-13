@@ -1308,28 +1308,28 @@ tx_stop     movlw b'10000' ;port C0    ;6 tlačítek ovládání rádia PLAY, ST
         
         
 ;zamknuti alarm on
-t1_00       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
-            return
-            movf ir_55, W ;zkontroluje dvere, pokud jsou otevrene promluvy a 3x rychle zahraje sirenu
-            iorwf ir_84, W
-            iorwf ir_85, W
-            iorwf ir_86, W
-            iorwf ir_87, W
-            iorwf ir_88, W
-            iorwf ir_89, W
-            movwf r6
-            btfsc r6, 7
-            nop ;MLUV "zkontrolujte vstupy do auta"
-            btfsc r6, 7
-            call t1_53 ;zapne sirenu
-            btfsc r6, 7
-            movlw b'00011111' ;nastavi do timeru ze houkne 3x po 200ms
-            btfsc r6, 7
-            movwf cassir
-            btfsc r6, 7
-            movlw .3
-            btfsc r6, 7
-            movwf timsir
+t1_00       nop;btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
+            ;return
+            ;movf ir_55, W ;zkontroluje dvere, pokud jsou otevrene promluvy a 3x rychle zahraje sirenu
+            ;iorwf ir_84, W
+            ;iorwf ir_85, W
+            ;iorwf ir_86, W
+            ;iorwf ir_87, W
+            ;iorwf ir_88, W
+            ;iorwf ir_89, W
+            ;movwf r6
+            ;btfsc r6, 7
+            ;nop ;MLUV "zkontrolujte vstupy do auta"
+            ;btfsc r6, 7
+            ;call t1_53 ;zapne sirenu
+            ;btfsc r6, 7
+            ;movlw b'00011111' ;nastavi do timeru ze houkne 3x po 200ms
+            ;btfsc r6, 7
+            ;movwf cassir
+            ;btfsc r6, 7
+            ;movlw .3
+            ;btfsc r6, 7
+            ;movwf timsir
             ;btfsc r6, 7  ;AŽ budou indikace otevřených dveří, tohle odkomentovat
             ;return
 
@@ -1355,26 +1355,32 @@ t1_00       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
             btfss o_c, 2
             call setout ;set port v prc
             bsf o_c, 2 ;problikne red tunning na 1 sekundu
-            movlw b'11010' ;port D2
-            movwf port
-            movlw b'10' ;procesor 2
-            movwf prc 
-            btfss o_f, 3
-            call setout ;set port v prc
-            bsf o_f, 3 ;problikne red interier na 1 sekundu
+
+            ;movlw b'11010' ;port D2
+            ;movwf port
+            ;movlw b'10' ;procesor 2
+            ;movwf prc 
+            ;btfss o_f, 3
+            ;call setout ;set port v prc
+            ;bsf o_f, 3 ;problikne red interier na 1 sekundu
+
             bsf casov, REDTUN ;do timeru ze po 1s vypne
-            movlw .30
+            movlw .20
             movwf timrtu
+
             call t1_53 ;zahraje sirenou na 200ms
             movlw b'00000001' ;nastavi do timeru ze houkne 1x po 200ms
             movwf cassir
             movlw .8
             movwf timsir
+
             bcf o_f, 7 ;sklopi zrcatka neboli vypne
             bcf PORTE_temp, 1
             bcf PORTE, 1
+
             nop ;MLUV "auto zamčeno"
             call t1_07 ;zamkne
+
             bsf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
             movlw .15
             movwf timlza
@@ -1397,8 +1403,8 @@ t1_00       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
             return
             
 ;odemknuti alarm off
-t1_01       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
-            return
+t1_01       nop;btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
+            ;return
             
             bcf o_d, 7 ;vypne alarm cidla
             bcf PORTB_temp, 7
@@ -1422,26 +1428,32 @@ t1_01       btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet o
             btfss o_c, 3
             call setout ;set port v prc
             bsf o_c, 3 ;problikne white tunning na 1 sekundu
-            movlw b'11011' ;port D3
-            movwf port
-            movlw b'10' ;procesor 2
-            movwf prc 
-            btfss o_f, 4
-            call setout ;set port v prc
-            bsf o_f, 4 ;problikne white interier na 1 sekundu
+
+            ;movlw b'11011' ;port D3
+            ;movwf port
+            ;movlw b'10' ;procesor 2
+            ;movwf prc 
+            ;btfss o_f, 4
+            ;call setout ;set port v prc
+            ;bsf o_f, 4 ;problikne white interier na 1 sekundu
+
             bsf casov, WHITUN ;do timeru ze po 1s vypne
-            movlw .30
+            movlw .20
             movwf timwtu
+
             call t1_53 ;zahraje sirenou na 200ms
             movlw b'00000111' ;nastavi do timeru ze houkne 2x po 200ms
             movwf cassir
             movlw .8
             movwf timsir
+
             bsf o_f, 7 ;odklopi zrcatka neboli zapne
             bsf PORTE_temp, 1
             bsf PORTE, 1
+
             nop ;MLUV "auto odemčeno"
             bcf casov, LEDZAM ;zapne problikavani LED zamceno po 500ms
+
             call t1_08 ;odemkne
 
                   ;stahnuti okenek
@@ -1482,7 +1494,7 @@ t1_02       btfsc spinac, 2
             movlw b'11' ;procesor 3
             movwf prc 
             call setout ;set port v prc
-            movlw .20 ;nastavi startovani pouze max na vterinu
+            movlw .15 ;nastavi startovani pouze max na vterinu
             movwf timspi
             return
             ;pokud poloha 2
@@ -2531,6 +2543,8 @@ start       bcf PCLATH,3 ;Select page 0
 	    clrf PORTC_temp
 	    clrf PORTD_temp
 	    clrf PORTE_temp
+
+	    call w100c
 	    
 	    call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne alarm
 	    
