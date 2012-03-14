@@ -381,6 +381,22 @@ ledPCRun    movf o_g, W
             btfsc r5, 4
             bcf o_g, 5 
 
+	    ;vypne zadni pasy po restartu
+	    movlw b'01110' ;port B6
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+	    btfsc o_g, 6
+            call clrout ;nastav port v prc
+            bcf o_g, 6 
+	    
+	    movlw b'01111' ;port B7
+            movwf port
+            movlw b'11' ;procesor 3
+            movwf prc
+            btfsc o_g, 7
+            call clrout ;nastav port v prc
+            bcf o_g, 7 
 
 	    ; nastaveni nove vterinky
 	    movlw .9 ;nastavy na dalsich 240ms
@@ -2532,6 +2548,9 @@ restart	    bcf PCLATH,3 ;Select page 0
             call clrout ;nastav port v prc
             bcf o_g, 5 
 
+	    movlw .30 ;trochu delsi vterina
+	    movwf vterina
+        
 
 	    bsf PCLATH,3 ;Select page 0
 	    goto loop
@@ -2578,7 +2597,7 @@ start       bcf PCLATH,3 ;Select page 0
             call clrout ;nastav port v prc
             bcf o_g, 7 
 
-	    movlw .25
+	    movlw .30
 	    movwf vterina
         
 
