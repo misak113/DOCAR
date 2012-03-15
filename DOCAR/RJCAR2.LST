@@ -1,4 +1,4 @@
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE  1
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ Message[301]: MESSAGE: (Processor-header file mismatch.  Verify selected process
   00000040            00047 B3    
   00000041            00048 C1    
   00000042            00049 C2    
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE  2
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,7 +116,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00100         
 000C   084D           00101             movf pcl_temp, W ;swap pcl_temp register into w
 000D   008A           00102             movwf PCLATH ;move w into PCLATH register;(sets bank to original state)
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE  3
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -175,7 +175,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00145         
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 002D   080E           00146         movf PCON, W
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE  4
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -234,7 +234,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 004D   2040           00194         call inton
 004E   0008           00195         return
                       00196         
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE  5
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -293,7 +293,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                             g
 0073   1427           00246             bsf r5, 0
 0074   1C06           00247             btfss PORTB, 0
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE  6
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -352,7 +352,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                              RC3:=1
 009E   00A0           00298             movwf r1          ;zdrzuje cca 46 instrukci
 009F   1903           00299             btfsc STATUS, Z
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE  7
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -411,7 +411,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00C5   03A1           00349         decf r2, F
 00C6   1903           00350         btfsc STATUS, Z
 00C7   28DB           00351         goto nb1
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE  8
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -470,7 +470,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00F8   18A7           00402         btfsc r5, 1
 00F9   1666           00403         bsf PORTB_temp, 4
 00FA   1CA7           00404         btfss r5, 1
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE  9
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -529,7 +529,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 012B   1903           00455         btfsc STATUS, Z
 012C   2961           00456         goto nc5
 012D   03A1           00457         decf r2, F
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 10
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -588,7 +588,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 015F   1607           00508         bsf PORTC, 4
 0160   0008           00509         return
 0161   1CA7           00510 nc5     btfss r5, 1
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 11
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -647,7 +647,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0192   03A1           00561         decf r2, F
 0193   1903           00562         btfsc STATUS, Z
 0194   29D5           00563         goto nd7
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 12
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -706,7 +706,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 01C6   16E8           00614         bsf PORTD_temp, 5
 01C7   1CA7           00615         btfss r5, 1
 01C8   1288           00616         bcf PORTD, 5
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 13
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 13
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -765,7 +765,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 01F4   0BA1           00666         decfsz r2, F
 01F5   29EE           00667         goto $-7
                       00668         
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 14
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 14
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -824,7 +824,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 021D   00A1           00719         movwf r2
 021E   1BA0           00720         btfsc r1, 7
 021F   1406           00721         bsf PORTB, 0
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 15
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 15
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -883,7 +883,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0249   22AB           00772         call w100c
                       00773         
                       00774 
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 16
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 16
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -942,7 +942,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0270   0865           00824 restart     movf PORTA_temp, W
 0271   0085           00825             movwf PORTA
 0272   0866           00826             movf PORTB_temp, W
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 17
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 17
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1001,7 +1001,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 029B   3005           00877             movlw .5 ;nastavime ANx kde x je zadane cislo
 029C   00B7           00878             movwf ran1
 029D   22B5           00879             call adconv
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 18
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 18
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1060,7 +1060,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 02BE   22DD           00930             call adconv_one
                       00931             
                       00932             ; pripraveni cisla 1 k pricteni
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 19
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 19
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1119,7 +1119,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00983             ; ADCON0 REG     ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
 02E1   13B7           00984             bcf ran1, 7
 02E2   1737           00985             bsf ran1, 6
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 20
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 20
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1178,7 +1178,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0300   1C03           01036         BTFSS   STATUS,C        ;kladny vysledek?
 0301   2B07           01037         GOTO    LZapor          ;NE
                       01038 ;LKlad
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 21
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 21
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1237,7 +1237,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0328   1803           01089         BTFSC   STATUS,C        ;ADD nepreteklo?
 0329   1443           01090         BSF     C3,0            ;C3=1
 032A   023D           01091         SUBWF   A3,W            ;A3-W=W
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 22
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 22
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1252,7 +1252,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       01098 
                       01099 
                       01100         end                                           ; KONEC PROGRAMU
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 23
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 23
 
 
 SYMBOL TABLE
@@ -1311,7 +1311,7 @@ CCPR2L                            0000001B
 CHS0                              00000003
 CHS1                              00000004
 CHS2                              00000005
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 24
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 24
 
 
 SYMBOL TABLE
@@ -1370,7 +1370,7 @@ NOT_A                             00000005
 NOT_ADDRESS                       00000005
 NOT_BO                            00000000
 NOT_BOR                           00000000
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 25
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 25
 
 
 SYMBOL TABLE
@@ -1429,7 +1429,7 @@ R                                 00000002
 RBIE                              00000003
 RBIF                              00000000
 RC8_9                             00000006
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 26
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 26
 
 
 SYMBOL TABLE
@@ -1488,7 +1488,7 @@ TMR0                              00000001
 TMR1CS                            00000001
 TMR1H                             0000000F
 TMR1IE                            00000000
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 27
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 27
 
 
 SYMBOL TABLE
@@ -1547,7 +1547,7 @@ _HS_OSC                           00003FFE
 _LP_OSC                           00003FFC
 _LVP_OFF                          00003F7F
 _LVP_ON                           00003FFF
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 28
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 28
 
 
 SYMBOL TABLE
@@ -1606,7 +1606,7 @@ nd4                               000001BA
 nd5                               000001C3
 nd6                               000001CC
 nd7                               000001D5
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 29
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 29
 
 
 SYMBOL TABLE
@@ -1658,7 +1658,7 @@ MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 0240 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0280 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 02C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-MPASM  5.35                        RJCAR2.ASM   3-14-2012  8:36:36         PAGE 30
+MPASM  5.35                        RJCAR2.ASM   3-14-2012  23:24:21         PAGE 30
 
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)

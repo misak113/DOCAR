@@ -583,7 +583,7 @@ alabli      decf timala, F
             call t1_40
             call t1_41
             call t1_61
-            call t1_62
+            ;call t1_62 ;Baterie nebliká
             call klakson
             
             movlw .20 ;nasavy na dalsich 240ms
@@ -1324,7 +1324,9 @@ tx_stop     movlw b'10000' ;port C0    ;6 tlačítek ovládání rádia PLAY, ST
         
         
 ;zamknuti alarm on
-t1_00       nop;btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
+t1_00       btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
+            return
+	    ;btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
             ;return
             ;movf ir_55, W ;zkontroluje dvere, pokud jsou otevrene promluvy a 3x rychle zahraje sirenu
             ;iorwf ir_84, W
@@ -1419,7 +1421,9 @@ t1_00       nop;btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provad
             return
             
 ;odemknuti alarm off
-t1_01       nop;btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
+t1_01       btfss o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
+            return
+	    ;btfsc cassir, 0 ;pokud nyni pulsne houka sirena tak nelze provadet operaci
             ;return
             
             bcf o_d, 7 ;vypne alarm cidla
@@ -1615,13 +1619,13 @@ t1_04       btfss casov, ALARM
             btfsc o_f, 3
             call clrout ;set port v prc
             bcf o_f, 3
-            movlw b'11011' ;port D3
-            movwf port
-            movlw b'10' ;procesor 2
-            movwf prc 
-            btfsc o_f, 4
-            call clrout ;set port v prc
-            bcf o_f, 4
+            ;movlw b'11011' ;port D3
+            ;movwf port
+            ;movlw b'10' ;procesor 2
+            ;movwf prc
+            ;btfsc o_f, 4
+            ;call clrout ;set port v prc
+            ;bcf o_f, 4
             movlw b'11001' ;port D1
             movwf port
             movlw b'11' ;procesor 3
@@ -1661,9 +1665,9 @@ t1_05       btfsc casvar, 0 ;pokud oba zaply oba vypne
             bsf PORTD, 7
             
             btfsc casvar, 0
-            movlw b'00000000' ;nastavi do timeru ze houkne 3x po 200ms
+            movlw b'00000000' ;nastavi do timeru ze prestane blikat porad
             btfss casvar, 0
-            movlw b'11111111' ;nastavi do timeru ze houkne 3x po 200ms
+            movlw b'11111111' ;nastavi do timeru ze bude blikat porad
             movwf casvar
             movlw .8
             movwf timvar
@@ -2281,13 +2285,13 @@ t1_56       movlw b'11000' ;port D0  ;sirena
             call setout ;set port v prc
             bsf o_c, 2
             ;white interier
-            movlw b'11011' ;port D3
-            movwf port
-            movlw b'10' ;procesor 2
-            movwf prc 
-            btfss o_f, 4
-            call setout ;set port v prc
-            bsf o_f, 4
+            ;movlw b'11011' ;port D3
+            ;movwf port
+            ;movlw b'10' ;procesor 2
+            ;movwf prc
+            ;btfss o_f, 4
+            ;call setout ;set port v prc
+            ;bsf o_f, 4
             
             bsf casov, ALARM ;zacne problikavat tuning, interier a klakson
             movlw .30
@@ -2340,7 +2344,7 @@ t1_61       movlw b'11010' ;port D2
             bcf o_f, 3 
             return
             
-;white interier
+;white interier (Baterie na budíkách)
 t1_62       movlw b'11011' ;port D3
             movwf port
             movlw b'10' ;procesor 2
