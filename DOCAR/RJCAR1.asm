@@ -1184,7 +1184,7 @@ if_128      btfsc o_d, 7 ;pokud alarm zapnut nefungujou tlacitka
             call t1_47
             incf r1, F
             btfsc STATUS, Z
-            call t1_00 ;prozatimne, je nutno odstranit po konci vyvoje
+            nop;call t1_00 ;prozatimne, je nutno odstranit po konci vyvoje
             incf r1, F
             btfsc STATUS, Z
             call t1_01 ;prozatimne, je nutno odstranit po konci vyvoje
@@ -2569,7 +2569,7 @@ start       bcf PCLATH,3 ;Select page 0
 
 	    call w100c
 	    
-	    call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne alarm
+	    ;call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne alarm
 	    
 	    ; zapne predni pasy po startu
 	    movlw b'01100' ;port B4

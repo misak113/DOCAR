@@ -2557,7 +2557,7 @@
 ,,,
 ,,,
 00000825,158A,,            bsf PCLATH,3 ;Select page 0
-00000826,284B,,            goto loop
+00000826,284A,,            goto loop
 ,,,
 00000827,118A,start,start       bcf PCLATH,3 ;Select page 0
 ,,,
@@ -2569,194 +2569,194 @@
 ,,,
 0000082D,26D3,,            call w100c
 ,,,
-0000082E,23AD,,            call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne al
+,,,            ;call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne a
 ,,,
 ,,,            ; zapne predni pasy po startu
-0000082F,300C,,            movlw b'01100' ;port B4
-00000830,00D2,,            movwf port
-00000831,3003,,            movlw b'11' ;procesor 3
-00000832,00D3,,            movwf prc
-00000833,21FF,,            call setout ;nastav port v prc
-00000834,162F,,            bsf o_g, 4
+0000082E,300C,,            movlw b'01100' ;port B4
+0000082F,00D2,,            movwf port
+00000830,3003,,            movlw b'11' ;procesor 3
+00000831,00D3,,            movwf prc
+00000832,21FF,,            call setout ;nastav port v prc
+00000833,162F,,            bsf o_g, 4
 ,,,
-00000835,300D,,            movlw b'01101' ;port B5
-00000836,00D2,,            movwf port
-00000837,3003,,            movlw b'11' ;procesor 3
-00000838,00D3,,            movwf prc
-00000839,21FF,,            call setout ;nastav port v prc
-0000083A,16AF,,            bsf o_g, 5
+00000834,300D,,            movlw b'01101' ;port B5
+00000835,00D2,,            movwf port
+00000836,3003,,            movlw b'11' ;procesor 3
+00000837,00D3,,            movwf prc
+00000838,21FF,,            call setout ;nastav port v prc
+00000839,16AF,,            bsf o_g, 5
 ,,,
 ,,,            ;zapne zadni pasy po restartu
-0000083B,300E,,            movlw b'01110' ;port B6
-0000083C,00D2,,            movwf port
-0000083D,3003,,            movlw b'11' ;procesor 3
-0000083E,00D3,,            movwf prc
-0000083F,2226,,            call clrout ;nastav port v prc
-00000840,132F,,            bcf o_g, 6
+0000083A,300E,,            movlw b'01110' ;port B6
+0000083B,00D2,,            movwf port
+0000083C,3003,,            movlw b'11' ;procesor 3
+0000083D,00D3,,            movwf prc
+0000083E,2226,,            call clrout ;nastav port v prc
+0000083F,132F,,            bcf o_g, 6
 ,,,
-00000841,300F,,            movlw b'01111' ;port B7
-00000842,00D2,,            movwf port
-00000843,3003,,            movlw b'11' ;procesor 3
-00000844,00D3,,            movwf prc
-00000845,2226,,            call clrout ;nastav port v prc
-00000846,13AF,,            bcf o_g, 7
+00000840,300F,,            movlw b'01111' ;port B7
+00000841,00D2,,            movwf port
+00000842,3003,,            movlw b'11' ;procesor 3
+00000843,00D3,,            movwf prc
+00000844,2226,,            call clrout ;nastav port v prc
+00000845,13AF,,            bcf o_g, 7
 ,,,
-00000847,301E,,            movlw .30
-00000848,00EC,,            movwf vterina
+00000846,301E,,            movlw .30
+00000847,00EC,,            movwf vterina
 ,,,
 ,,,
-00000849,158A,,            bsf PCLATH,3 ;Select page 0
-0000084A,284B,,            goto loop
+00000848,158A,,            bsf PCLATH,3 ;Select page 0
+00000849,284A,,            goto loop
 ,,,
-0000084B,118A,loop,loop        bcf PCLATH,3 ;Select page 0
+0000084A,118A,loop,loop        bcf PCLATH,3 ;Select page 0
 ,,,
-0000084C,0064,,            clrwdt
+0000084B,0064,,            clrwdt
 ,,,
 ,,,            ;#### Čeká několik cyklů aby se stihly ostatní procesory vzpamatovat z případnejch pr
 ,,,            ; Začne počítat čas odpočinku procesorů WATCH2
-0000084D,2059,,            call watchstart
+0000084C,2059,,            call watchstart
 ,,,            ; Čeká až skončí čas odpočinku procesorů WATCH2
-0000084E,205C,,            call watchwait
+0000084D,205C,,            call watchwait
 ,,,
 ,,,            ; Začne počítat čas odpočinku procesorů WATCH2
-0000084F,2059,,            call watchstart
+0000084E,2059,,            call watchstart
 ,,,            ; Čeká až skončí čas odpočinku procesorů WATCH2
-00000850,205C,,            call watchwait
+0000084F,205C,,            call watchwait
 ,,,
 ,,,            ; Začne počítat čas odpočinku procesorů WATCH2
-00000851,2059,,            call watchstart
+00000850,2059,,            call watchstart
 ,,,            ; Čeká až skončí čas odpočinku procesorů WATCH2
-00000852,205C,,            call watchwait
+00000851,205C,,            call watchwait
 ,,,
 ,,,            ; Začne počítat čas odpočinku procesorů WATCH2
-00000853,2059,,            call watchstart
+00000852,2059,,            call watchstart
 ,,,            ; Čeká až skončí čas odpočinku procesorů WATCH2
-00000854,205C,,            call watchwait
+00000853,205C,,            call watchwait
 ,,,
 ,,,
 ,,,
-00000855,1A59,,            btfsc conf, T1OF ;pokud timer 1 přetekl, spustí jeho obsluhu
-00000856,2062,,            call timer1
+00000854,1A59,,            btfsc conf, T1OF ;pokud timer 1 přetekl, spustí jeho obsluhu
+00000855,2062,,            call timer1
 ,,,
-00000857,158A,,            bsf PCLATH,3 ;Select page 1
+00000856,158A,,            bsf PCLATH,3 ;Select page 1
 ,,,            ;call okna ;spouští obsluhu jednotlivých okének DEBUG
-00000858,118A,,            bcf PCLATH,3 ;Select page 0
+00000857,118A,,            bcf PCLATH,3 ;Select page 0
 ,,,
 ,,,
 ,,,
 ,,,
-00000859,3000,,            movlw .0 ;nastavime ANx kde x je zadane cislo
-0000085A,00F6,,            movwf ran1
-0000085B,158A,,            bsf PCLATH,3 ;Select page 1
-0000085C,22FB,,            call adconv
-0000085D,118A,,            bcf PCLATH,3 ;Select page 0
-0000085E,0876,,            movf ran1, W
-0000085F,00A0,,            movwf r1
+00000858,3000,,            movlw .0 ;nastavime ANx kde x je zadane cislo
+00000859,00F6,,            movwf ran1
+0000085A,158A,,            bsf PCLATH,3 ;Select page 1
+0000085B,22FA,,            call adconv
+0000085C,118A,,            bcf PCLATH,3 ;Select page 0
+0000085D,0876,,            movf ran1, W
+0000085E,00A0,,            movwf r1
 ,,,
-00000860,093F,,            comf ir_58, W
-00000861,07A0,,            addwf r1, F
-00000862,081E,,            movf ADRESH, W
-00000863,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000864,00BF,,            movwf ir_58  ;prepise reg AN prevedenou hodnotou
-00000865,0820,,            movf r1, W
-00000866,118A,,            bcf PCLATH,3 ;Select page 0
-00000867,1D03,,            btfss STATUS, Z
-00000868,224D,,            call if_58  ;pokud zmena odesle na sbernici
-,,,
-,,,
-00000869,3001,,            movlw .1 ;nastavime ANx kde x je zadane cislo
-0000086A,00F6,,            movwf ran1
-0000086B,158A,,            bsf PCLATH,3 ;Select page 1
-0000086C,22FB,,            call adconv
-0000086D,118A,,            bcf PCLATH,3 ;Select page 0
-0000086E,0876,,            movf ran1, W
-0000086F,00A0,,            movwf r1
-,,,
-00000870,0943,,            comf ir_62, W
-00000871,07A0,,            addwf r1, F
-00000872,081E,,            movf ADRESH, W
-00000873,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000874,00C3,,            movwf ir_62  ;prepise reg AN prevedenou hodnotou
-00000875,0820,,            movf r1, W
-00000876,118A,,            bcf PCLATH,3 ;Select page 0
-00000877,1D03,,            btfss STATUS, Z
-00000878,229A,,            call if_62  ;pokud zmena odesle na sbernici
+0000085F,093F,,            comf ir_58, W
+00000860,07A0,,            addwf r1, F
+00000861,081E,,            movf ADRESH, W
+00000862,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000863,00BF,,            movwf ir_58  ;prepise reg AN prevedenou hodnotou
+00000864,0820,,            movf r1, W
+00000865,118A,,            bcf PCLATH,3 ;Select page 0
+00000866,1D03,,            btfss STATUS, Z
+00000867,224D,,            call if_58  ;pokud zmena odesle na sbernici
 ,,,
 ,,,
-00000879,3002,,            movlw .2 ;nastavime ANx kde x je zadane cislo
-0000087A,00F6,,            movwf ran1
-0000087B,158A,,            bsf PCLATH,3 ;Select page 1
-0000087C,22FB,,            call adconv
-0000087D,118A,,            bcf PCLATH,3 ;Select page 0
-0000087E,0876,,            movf ran1, W
-0000087F,00A0,,            movwf r1
+00000868,3001,,            movlw .1 ;nastavime ANx kde x je zadane cislo
+00000869,00F6,,            movwf ran1
+0000086A,158A,,            bsf PCLATH,3 ;Select page 1
+0000086B,22FA,,            call adconv
+0000086C,118A,,            bcf PCLATH,3 ;Select page 0
+0000086D,0876,,            movf ran1, W
+0000086E,00A0,,            movwf r1
 ,,,
-00000880,0937,,            comf ir_50, W
-00000881,07A0,,            addwf r1, F
-00000882,081E,,            movf ADRESH, W
-00000883,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000884,00B7,,            movwf ir_50  ;prepise reg AN prevedenou hodnotou
-00000885,0820,,            movf r1, W
-00000886,118A,,            bcf PCLATH,3 ;Select page 0
-00000887,1D03,,            btfss STATUS, Z
-00000888,22E7,,            call if_50  ;pokud zmena odesle na sbernici
-,,,
-,,,
-00000889,3003,,            movlw .3 ;nastavime ANx kde x je zadane cislo
-0000088A,00F6,,            movwf ran1
-0000088B,158A,,            bsf PCLATH,3 ;Select page 1
-0000088C,22FB,,            call adconv
-0000088D,118A,,            bcf PCLATH,3 ;Select page 0
-0000088E,0876,,            movf ran1, W
-0000088F,00A0,,            movwf r1
-,,,
-00000890,0940,,            comf ir_59, W
-00000891,07A0,,            addwf r1, F
-00000892,081E,,            movf ADRESH, W
-00000893,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000894,00C0,,            movwf ir_59  ;prepise reg AN prevedenou hodnotou
-00000895,0820,,            movf r1, W
-00000896,118A,,            bcf PCLATH,3 ;Select page 0
-00000897,1D03,,            btfss STATUS, Z
-00000898,22E9,,            call if_59  ;pokud zmena odesle na sbernici
+0000086F,0943,,            comf ir_62, W
+00000870,07A0,,            addwf r1, F
+00000871,081E,,            movf ADRESH, W
+00000872,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000873,00C3,,            movwf ir_62  ;prepise reg AN prevedenou hodnotou
+00000874,0820,,            movf r1, W
+00000875,118A,,            bcf PCLATH,3 ;Select page 0
+00000876,1D03,,            btfss STATUS, Z
+00000877,229A,,            call if_62  ;pokud zmena odesle na sbernici
 ,,,
 ,,,
-00000899,3004,,            movlw .4 ;nastavime ANx kde x je zadane cislo
-0000089A,00F6,,            movwf ran1
-0000089B,158A,,            bsf PCLATH,3 ;Select page 1
-0000089C,22FB,,            call adconv
-0000089D,118A,,            bcf PCLATH,3 ;Select page 0
-0000089E,0876,,            movf ran1, W
-0000089F,00A0,,            movwf r1
+00000878,3002,,            movlw .2 ;nastavime ANx kde x je zadane cislo
+00000879,00F6,,            movwf ran1
+0000087A,158A,,            bsf PCLATH,3 ;Select page 1
+0000087B,22FA,,            call adconv
+0000087C,118A,,            bcf PCLATH,3 ;Select page 0
+0000087D,0876,,            movf ran1, W
+0000087E,00A0,,            movwf r1
 ,,,
-000008A0,0941,,            comf ir_60, W
-000008A1,07A0,,            addwf r1, F
-000008A2,081E,,            movf ADRESH, W
-000008A3,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000008A4,00C1,,            movwf ir_60  ;prepise reg AN prevedenou hodnotou
-000008A5,0820,,            movf r1, W
-000008A6,118A,,            bcf PCLATH,3 ;Select page 0
-000008A7,1D03,,            btfss STATUS, Z
-000008A8,22EB,,            call if_60  ;pokud zmena odesle na sbernici
+0000087F,0937,,            comf ir_50, W
+00000880,07A0,,            addwf r1, F
+00000881,081E,,            movf ADRESH, W
+00000882,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000883,00B7,,            movwf ir_50  ;prepise reg AN prevedenou hodnotou
+00000884,0820,,            movf r1, W
+00000885,118A,,            bcf PCLATH,3 ;Select page 0
+00000886,1D03,,            btfss STATUS, Z
+00000887,22E7,,            call if_50  ;pokud zmena odesle na sbernici
 ,,,
 ,,,
-000008A9,3005,,            movlw .5 ;nastavime ANx kde x je zadane cislo
-000008AA,00F6,,            movwf ran1
-000008AB,158A,,            bsf PCLATH,3 ;Select page 1
-000008AC,22FB,,            call adconv
-000008AD,118A,,            bcf PCLATH,3 ;Select page 0
-000008AE,0876,,            movf ran1, W
-000008AF,00A0,,            movwf r1
+00000888,3003,,            movlw .3 ;nastavime ANx kde x je zadane cislo
+00000889,00F6,,            movwf ran1
+0000088A,158A,,            bsf PCLATH,3 ;Select page 1
+0000088B,22FA,,            call adconv
+0000088C,118A,,            bcf PCLATH,3 ;Select page 0
+0000088D,0876,,            movf ran1, W
+0000088E,00A0,,            movwf r1
 ,,,
-000008B0,0942,,            comf ir_61, W
-000008B1,07A0,,            addwf r1, F
-000008B2,081E,,            movf ADRESH, W
-000008B3,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000008B4,00C2,,            movwf ir_61  ;prepise reg AN prevedenou hodnotou
-000008B5,0820,,            movf r1, W
-000008B6,118A,,            bcf PCLATH,3 ;Select page 0
-000008B7,1D03,,            btfss STATUS, Z
-000008B8,22ED,,            call if_61  ;pokud zmena odesle na sbernici
+0000088F,0940,,            comf ir_59, W
+00000890,07A0,,            addwf r1, F
+00000891,081E,,            movf ADRESH, W
+00000892,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000893,00C0,,            movwf ir_59  ;prepise reg AN prevedenou hodnotou
+00000894,0820,,            movf r1, W
+00000895,118A,,            bcf PCLATH,3 ;Select page 0
+00000896,1D03,,            btfss STATUS, Z
+00000897,22E9,,            call if_59  ;pokud zmena odesle na sbernici
+,,,
+,,,
+00000898,3004,,            movlw .4 ;nastavime ANx kde x je zadane cislo
+00000899,00F6,,            movwf ran1
+0000089A,158A,,            bsf PCLATH,3 ;Select page 1
+0000089B,22FA,,            call adconv
+0000089C,118A,,            bcf PCLATH,3 ;Select page 0
+0000089D,0876,,            movf ran1, W
+0000089E,00A0,,            movwf r1
+,,,
+0000089F,0941,,            comf ir_60, W
+000008A0,07A0,,            addwf r1, F
+000008A1,081E,,            movf ADRESH, W
+000008A2,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000008A3,00C1,,            movwf ir_60  ;prepise reg AN prevedenou hodnotou
+000008A4,0820,,            movf r1, W
+000008A5,118A,,            bcf PCLATH,3 ;Select page 0
+000008A6,1D03,,            btfss STATUS, Z
+000008A7,22EB,,            call if_60  ;pokud zmena odesle na sbernici
+,,,
+,,,
+000008A8,3005,,            movlw .5 ;nastavime ANx kde x je zadane cislo
+000008A9,00F6,,            movwf ran1
+000008AA,158A,,            bsf PCLATH,3 ;Select page 1
+000008AB,22FA,,            call adconv
+000008AC,118A,,            bcf PCLATH,3 ;Select page 0
+000008AD,0876,,            movf ran1, W
+000008AE,00A0,,            movwf r1
+,,,
+000008AF,0942,,            comf ir_61, W
+000008B0,07A0,,            addwf r1, F
+000008B1,081E,,            movf ADRESH, W
+000008B2,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000008B3,00C2,,            movwf ir_61  ;prepise reg AN prevedenou hodnotou
+000008B4,0820,,            movf r1, W
+000008B5,118A,,            bcf PCLATH,3 ;Select page 0
+000008B6,1D03,,            btfss STATUS, Z
+000008B7,22ED,,            call if_61  ;pokud zmena odesle na sbernici
 ,,,
 ,,,
 ,,,
@@ -2764,781 +2764,781 @@
 ,,,
 ,,,
 ,,,            ; Začne počítat čas pro procesor WATCH2
-000008B9,2059,,            call watchstart
+000008B8,2059,,            call watchstart
 ,,,
 ,,,            ;dotaz na procesor 2
-000008BA,3002,,            movlw .2  ;oznaceni ciloveho procesoru
-000008BB,00F8,,            movwf cil
-000008BC,2146,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
+000008B9,3002,,            movlw .2  ;oznaceni ciloveho procesoru
+000008BA,00F8,,            movwf cil
+000008BB,2146,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
 ,,,
 ,,,            ; Čeká až doběhne čas vyhrazený pro tento procesor WATCH2
-000008BD,205C,,            call watchwait
+000008BC,205C,,            call watchwait
 ,,,
-000008BE,0870,,            movf pri0, W    ;kontroluje zda je zmena od minule
-000008BF,00A0,,            movwf r1
-000008C0,0938,,            comf ir_51, W
-000008C1,07A0,,            addwf r1, F
-000008C2,0870,,            movf pri0, W
-000008C3,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000008C4,00B8,,            movwf ir_51  ;priepise reg AN prievedenou hodnotou
-000008C5,0820,,            movf r1, W
-000008C6,1D03,,            btfss STATUS, Z
-000008C7,22F3,,            call if_51  ;pokud zmena spusti podprig
+000008BD,0870,,            movf pri0, W    ;kontroluje zda je zmena od minule
+000008BE,00A0,,            movwf r1
+000008BF,0938,,            comf ir_51, W
+000008C0,07A0,,            addwf r1, F
+000008C1,0870,,            movf pri0, W
+000008C2,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000008C3,00B8,,            movwf ir_51  ;priepise reg AN prievedenou hodnotou
+000008C4,0820,,            movf r1, W
+000008C5,1D03,,            btfss STATUS, Z
+000008C6,22F3,,            call if_51  ;pokud zmena spusti podprig
 ,,,
-000008C8,0871,,            movf pri1, W    ;kontroluje zda je zmena od minule
-000008C9,00A0,,            movwf r1
-000008CA,0939,,            comf ir_52, W
-000008CB,07A0,,            addwf r1, F
-000008CC,0871,,            movf pri1, W
-000008CD,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000008CE,00B9,,            movwf ir_52  ;priepise reg AN prievedenou hodnotou
-000008CF,0820,,            movf r1, W
-000008D0,1D03,,            btfss STATUS, Z
-000008D1,22F5,,            call if_52  ;pokud zmena spusti podprig
-,,,
-,,,
-000008D2,0872,,            movf pri2, W    ;kontroluje zda je zmena od minule
-000008D3,00A0,,            movwf r1
-000008D4,093A,,            comf ir_53, W
-000008D5,07A0,,            addwf r1, F
-000008D6,0872,,            movf pri2, W
-000008D7,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000008D8,00BA,,            movwf ir_53  ;priepise reg AN prievedenou hodnotou
-000008D9,0820,,            movf r1, W
-000008DA,1D03,,            btfss STATUS, Z
-000008DB,22F7,,            call if_53  ;pokud zmena spusti podprig
+000008C7,0871,,            movf pri1, W    ;kontroluje zda je zmena od minule
+000008C8,00A0,,            movwf r1
+000008C9,0939,,            comf ir_52, W
+000008CA,07A0,,            addwf r1, F
+000008CB,0871,,            movf pri1, W
+000008CC,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000008CD,00B9,,            movwf ir_52  ;priepise reg AN prievedenou hodnotou
+000008CE,0820,,            movf r1, W
+000008CF,1D03,,            btfss STATUS, Z
+000008D0,22F5,,            call if_52  ;pokud zmena spusti podprig
 ,,,
 ,,,
-000008DC,0873,,            movf pri3, W    ;kontroluje zda je zmena od minule
-000008DD,00A0,,            movwf r1
-000008DE,093B,,            comf ir_54, W
-000008DF,07A0,,            addwf r1, F
-000008E0,0873,,            movf pri3, W
-000008E1,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000008E2,00BB,,            movwf ir_54  ;priepise reg AN prievedenou hodnotou
-000008E3,0820,,            movf r1, W
-000008E4,1D03,,            btfss STATUS, Z
-000008E5,22F9,,            call if_54  ;pokud zmena spusti podprig
+000008D1,0872,,            movf pri2, W    ;kontroluje zda je zmena od minule
+000008D2,00A0,,            movwf r1
+000008D3,093A,,            comf ir_53, W
+000008D4,07A0,,            addwf r1, F
+000008D5,0872,,            movf pri2, W
+000008D6,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000008D7,00BA,,            movwf ir_53  ;priepise reg AN prievedenou hodnotou
+000008D8,0820,,            movf r1, W
+000008D9,1D03,,            btfss STATUS, Z
+000008DA,22F7,,            call if_53  ;pokud zmena spusti podprig
 ,,,
 ,,,
-000008E6,0874,,            movf pri4, W    ;kontroluje zda je zmena od minule
-000008E7,00A0,,            movwf r1
-000008E8,093C,,            comf ir_55, W
-000008E9,07A0,,            addwf r1, F
-000008EA,0874,,            movf pri4, W
-000008EB,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000008EC,00BC,,            movwf ir_55  ;priepise reg AN prievedenou hodnotou
-000008ED,0820,,            movf r1, W
-000008EE,1D03,,            btfss STATUS, Z
-000008EF,22FB,,            call if_55  ;pokud zmena spusti podprig
+000008DB,0873,,            movf pri3, W    ;kontroluje zda je zmena od minule
+000008DC,00A0,,            movwf r1
+000008DD,093B,,            comf ir_54, W
+000008DE,07A0,,            addwf r1, F
+000008DF,0873,,            movf pri3, W
+000008E0,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000008E1,00BB,,            movwf ir_54  ;priepise reg AN prievedenou hodnotou
+000008E2,0820,,            movf r1, W
+000008E3,1D03,,            btfss STATUS, Z
+000008E4,22F9,,            call if_54  ;pokud zmena spusti podprig
 ,,,
 ,,,
-000008F0,0875,,            movf pri5, W    ;kontroluje zda je zmena od minule
-000008F1,00A0,,            movwf r1
-000008F2,093D,,            comf ir_56, W
-000008F3,07A0,,            addwf r1, F
-000008F4,0875,,            movf pri5, W
-000008F5,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000008F6,00BD,,            movwf ir_56  ;priepise reg AN prievedenou hodnotou
-000008F7,0820,,            movf r1, W
-000008F8,1D03,,            btfss STATUS, Z
-000008F9,22FD,,            call if_56  ;pokud zmena spusti podprig
+000008E5,0874,,            movf pri4, W    ;kontroluje zda je zmena od minule
+000008E6,00A0,,            movwf r1
+000008E7,093C,,            comf ir_55, W
+000008E8,07A0,,            addwf r1, F
+000008E9,0874,,            movf pri4, W
+000008EA,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000008EB,00BC,,            movwf ir_55  ;priepise reg AN prievedenou hodnotou
+000008EC,0820,,            movf r1, W
+000008ED,1D03,,            btfss STATUS, Z
+000008EE,22FB,,            call if_55  ;pokud zmena spusti podprig
 ,,,
 ,,,
-000008FA,0876,,            movf pri6, W    ;kontroluje zda je zmena od minule
-000008FB,00A0,,            movwf r1
-000008FC,093E,,            comf ir_57, W
-000008FD,07A0,,            addwf r1, F
-000008FE,0876,,            movf pri6, W
-000008FF,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000900,00BE,,            movwf ir_57  ;priepise reg AN prievedenou hodnotou
-00000901,0820,,            movf r1, W
-00000902,1D03,,            btfss STATUS, Z
-00000903,22FF,,            call if_57  ;pokud zmena spusti podprig
+000008EF,0875,,            movf pri5, W    ;kontroluje zda je zmena od minule
+000008F0,00A0,,            movwf r1
+000008F1,093D,,            comf ir_56, W
+000008F2,07A0,,            addwf r1, F
+000008F3,0875,,            movf pri5, W
+000008F4,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000008F5,00BD,,            movwf ir_56  ;priepise reg AN prievedenou hodnotou
+000008F6,0820,,            movf r1, W
+000008F7,1D03,,            btfss STATUS, Z
+000008F8,22FD,,            call if_56  ;pokud zmena spusti podprig
 ,,,
 ,,,
-00000904,0877,,            movf pri7, W    ;kontroluje zda je zmena od minule
-00000905,00A0,,            movwf r1
-00000906,0936,,            comf ir_49, W
-00000907,07A0,,            addwf r1, F
-00000908,0877,,            movf pri7, W
-00000909,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0000090A,00B6,,            movwf ir_49  ;priepise reg AN prievedenou hodnotou
-0000090B,0820,,            movf r1, W
-0000090C,1D03,,            btfss STATUS, Z
-0000090D,22EF,,            call if_49  ;pokud zmena spusti podprig
+000008F9,0876,,            movf pri6, W    ;kontroluje zda je zmena od minule
+000008FA,00A0,,            movwf r1
+000008FB,093E,,            comf ir_57, W
+000008FC,07A0,,            addwf r1, F
+000008FD,0876,,            movf pri6, W
+000008FE,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000008FF,00BE,,            movwf ir_57  ;priepise reg AN prievedenou hodnotou
+00000900,0820,,            movf r1, W
+00000901,1D03,,            btfss STATUS, Z
+00000902,22FF,,            call if_57  ;pokud zmena spusti podprig
+,,,
+,,,
+00000903,0877,,            movf pri7, W    ;kontroluje zda je zmena od minule
+00000904,00A0,,            movwf r1
+00000905,0936,,            comf ir_49, W
+00000906,07A0,,            addwf r1, F
+00000907,0877,,            movf pri7, W
+00000908,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000909,00B6,,            movwf ir_49  ;priepise reg AN prievedenou hodnotou
+0000090A,0820,,            movf r1, W
+0000090B,1D03,,            btfss STATUS, Z
+0000090C,22EF,,            call if_49  ;pokud zmena spusti podprig
 ,,,
 ,,,
 ,,,            ; Začne počítat čas pro procesor WATCH2
-0000090E,2059,,            call watchstart
+0000090D,2059,,            call watchstart
 ,,,
 ,,,            ;dotaz na procesor 3
-0000090F,3003,,            movlw .3  ;oznaceni ciloveho procesoru
-00000910,00F8,,            movwf cil
-00000911,2146,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
+0000090E,3003,,            movlw .3  ;oznaceni ciloveho procesoru
+0000090F,00F8,,            movwf cil
+00000910,2146,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
 ,,,
 ,,,            ; Čeká až doběhne čas vyhrazený pro tento procesor WATCH2
-00000912,205C,,            call watchwait
+00000911,205C,,            call watchwait
 ,,,
 ,,,
 ,,,
-00000913,0870,,            movf pri0, W    ;kontroluje zda je zmena od minule
-00000914,00A0,,            movwf r1
-00000915,0944,,            comf ir_80, W
-00000916,07A0,,            addwf r1, F
-00000917,0870,,            movf pri0, W
-00000918,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000919,00C4,,            movwf ir_80  ;priepise reg AN prievedenou hodnotou
-0000091A,0820,,            movf r1, W
-0000091B,1D03,,            btfss STATUS, Z
-0000091C,22F1,,            call if_80  ;pokud zmena spusti podprig
+00000912,0870,,            movf pri0, W    ;kontroluje zda je zmena od minule
+00000913,00A0,,            movwf r1
+00000914,0944,,            comf ir_80, W
+00000915,07A0,,            addwf r1, F
+00000916,0870,,            movf pri0, W
+00000917,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000918,00C4,,            movwf ir_80  ;priepise reg AN prievedenou hodnotou
+00000919,0820,,            movf r1, W
+0000091A,1D03,,            btfss STATUS, Z
+0000091B,22F1,,            call if_80  ;pokud zmena spusti podprig
 ,,,
 ,,,
-0000091D,0871,,            movf pri1, W    ;kontroluje zda je zmena od minule
-0000091E,00A0,,            movwf r1
-0000091F,0945,,            comf ir_84, W
-00000920,07A0,,            addwf r1, F
-00000921,0871,,            movf pri1, W
-00000922,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000923,00C5,,            movwf ir_84  ;priepise reg AN prievedenou hodnotou
-00000924,0820,,            movf r1, W
-00000925,1D03,,            btfss STATUS, Z
-00000926,2301,,            call if_84  ;pokud zmena spusti podprig
+0000091C,0871,,            movf pri1, W    ;kontroluje zda je zmena od minule
+0000091D,00A0,,            movwf r1
+0000091E,0945,,            comf ir_84, W
+0000091F,07A0,,            addwf r1, F
+00000920,0871,,            movf pri1, W
+00000921,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000922,00C5,,            movwf ir_84  ;priepise reg AN prievedenou hodnotou
+00000923,0820,,            movf r1, W
+00000924,1D03,,            btfss STATUS, Z
+00000925,2301,,            call if_84  ;pokud zmena spusti podprig
 ,,,
 ,,,
-00000927,0872,,            movf pri2, W    ;kontroluje zda je zmena od minule
-00000928,00A0,,            movwf r1
-00000929,0946,,            comf ir_85, W
-0000092A,07A0,,            addwf r1, F
-0000092B,0872,,            movf pri2, W
-0000092C,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0000092D,00C6,,            movwf ir_85  ;priepise reg AN prievedenou hodnotou
-0000092E,0820,,            movf r1, W
-0000092F,1D03,,            btfss STATUS, Z
-00000930,2303,,            call if_85  ;pokud zmena spusti podprig
+00000926,0872,,            movf pri2, W    ;kontroluje zda je zmena od minule
+00000927,00A0,,            movwf r1
+00000928,0946,,            comf ir_85, W
+00000929,07A0,,            addwf r1, F
+0000092A,0872,,            movf pri2, W
+0000092B,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0000092C,00C6,,            movwf ir_85  ;priepise reg AN prievedenou hodnotou
+0000092D,0820,,            movf r1, W
+0000092E,1D03,,            btfss STATUS, Z
+0000092F,2303,,            call if_85  ;pokud zmena spusti podprig
 ,,,
 ,,,
-00000931,0873,,            movf pri3, W    ;kontroluje zda je zmena od minule
-00000932,00A0,,            movwf r1
-00000933,0947,,            comf ir_86, W
-00000934,07A0,,            addwf r1, F
-00000935,0873,,            movf pri3, W
-00000936,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000937,00C7,,            movwf ir_86  ;priepise reg AN prievedenou hodnotou
-00000938,0820,,            movf r1, W
-00000939,1D03,,            btfss STATUS, Z
-0000093A,2305,,            call if_86  ;pokud zmena spusti podprig
+00000930,0873,,            movf pri3, W    ;kontroluje zda je zmena od minule
+00000931,00A0,,            movwf r1
+00000932,0947,,            comf ir_86, W
+00000933,07A0,,            addwf r1, F
+00000934,0873,,            movf pri3, W
+00000935,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000936,00C7,,            movwf ir_86  ;priepise reg AN prievedenou hodnotou
+00000937,0820,,            movf r1, W
+00000938,1D03,,            btfss STATUS, Z
+00000939,2305,,            call if_86  ;pokud zmena spusti podprig
 ,,,
 ,,,
-0000093B,0874,,            movf pri4, W    ;kontroluje zda je zmena od minule
-0000093C,00A0,,            movwf r1
-0000093D,0948,,            comf ir_87, W
-0000093E,07A0,,            addwf r1, F
-0000093F,0874,,            movf pri4, W
-00000940,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000941,00C8,,            movwf ir_87  ;priepise reg AN prievedenou hodnotou
-00000942,0820,,            movf r1, W
-00000943,1D03,,            btfss STATUS, Z
-00000944,2307,,            call if_87  ;pokud zmena spusti podprig
+0000093A,0874,,            movf pri4, W    ;kontroluje zda je zmena od minule
+0000093B,00A0,,            movwf r1
+0000093C,0948,,            comf ir_87, W
+0000093D,07A0,,            addwf r1, F
+0000093E,0874,,            movf pri4, W
+0000093F,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000940,00C8,,            movwf ir_87  ;priepise reg AN prievedenou hodnotou
+00000941,0820,,            movf r1, W
+00000942,1D03,,            btfss STATUS, Z
+00000943,2307,,            call if_87  ;pokud zmena spusti podprig
 ,,,
 ,,,
-00000945,0875,,            movf pri5, W    ;kontroluje zda je zmena od minule
-00000946,00A0,,            movwf r1
-00000947,0949,,            comf ir_88, W
-00000948,07A0,,            addwf r1, F
-00000949,0875,,            movf pri5, W
-0000094A,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0000094B,00C9,,            movwf ir_88  ;priepise reg AN prievedenou hodnotou
-0000094C,0820,,            movf r1, W
-0000094D,1D03,,            btfss STATUS, Z
-0000094E,2309,,            call if_88  ;pokud zmena spusti podprig
+00000944,0875,,            movf pri5, W    ;kontroluje zda je zmena od minule
+00000945,00A0,,            movwf r1
+00000946,0949,,            comf ir_88, W
+00000947,07A0,,            addwf r1, F
+00000948,0875,,            movf pri5, W
+00000949,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0000094A,00C9,,            movwf ir_88  ;priepise reg AN prievedenou hodnotou
+0000094B,0820,,            movf r1, W
+0000094C,1D03,,            btfss STATUS, Z
+0000094D,2309,,            call if_88  ;pokud zmena spusti podprig
 ,,,
 ,,,
-0000094F,0876,,            movf pri6, W    ;kontroluje zda je zmena od minule
-00000950,00A0,,            movwf r1
-00000951,094A,,            comf ir_89, W
-00000952,07A0,,            addwf r1, F
-00000953,0876,,            movf pri6, W
-00000954,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000955,00CA,,            movwf ir_89  ;priepise reg AN prievedenou hodnotou
-00000956,0820,,            movf r1, W
-00000957,1D03,,            btfss STATUS, Z
-00000958,230B,,            call if_89  ;pokud zmena spusti podprig
+0000094E,0876,,            movf pri6, W    ;kontroluje zda je zmena od minule
+0000094F,00A0,,            movwf r1
+00000950,094A,,            comf ir_89, W
+00000951,07A0,,            addwf r1, F
+00000952,0876,,            movf pri6, W
+00000953,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000954,00CA,,            movwf ir_89  ;priepise reg AN prievedenou hodnotou
+00000955,0820,,            movf r1, W
+00000956,1D03,,            btfss STATUS, Z
+00000957,230B,,            call if_89  ;pokud zmena spusti podprig
 ,,,
 ,,,
-00000959,0877,,            movf pri7, W    ;kontroluje zda je zmena od minule
-0000095A,00A0,,            movwf r1
-0000095B,094B,,            comf ir_90, W
-0000095C,07A0,,            addwf r1, F
-0000095D,0877,,            movf pri7, W
-0000095E,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0000095F,00CB,,            movwf ir_90  ;priepise reg AN prievedenou hodnotou
-00000960,0820,,            movf r1, W
-00000961,1D03,,            btfss STATUS, Z
-00000962,230D,,            call if_90  ;pokud zmena spusti podprig
+00000958,0877,,            movf pri7, W    ;kontroluje zda je zmena od minule
+00000959,00A0,,            movwf r1
+0000095A,094B,,            comf ir_90, W
+0000095B,07A0,,            addwf r1, F
+0000095C,0877,,            movf pri7, W
+0000095D,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0000095E,00CB,,            movwf ir_90  ;priepise reg AN prievedenou hodnotou
+0000095F,0820,,            movf r1, W
+00000960,1D03,,            btfss STATUS, Z
+00000961,230D,,            call if_90  ;pokud zmena spusti podprig
 ,,,
 ,,,
 ,,,
 ,,,            ; Začne počítat čas pro procesor WATCH2
-00000963,2059,,            call watchstart
+00000962,2059,,            call watchstart
 ,,,
 ,,,            ;dotaz na procesor 4
-00000964,3004,,            movlw .4  ;oznaceni ciloveho procesoru
-00000965,00F8,,            movwf cil
-00000966,2146,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
+00000963,3004,,            movlw .4  ;oznaceni ciloveho procesoru
+00000964,00F8,,            movwf cil
+00000965,2146,,            call dotaz  ;prijem dat z procesoru do pri0 - pri7
 ,,,
 ,,,            ; Čeká až doběhne čas vyhrazený pro tento procesor WATCH2
-00000967,205C,,            call watchwait
+00000966,205C,,            call watchwait
 ,,,
 ,,,
 ,,,
-00000968,0870,,            movf pri0, W    ;kontroluje zda je zmena od minule
-00000969,00A0,,            movwf r1
-0000096A,094C,,            comf ir_91, W
-0000096B,07A0,,            addwf r1, F
-0000096C,0870,,            movf pri0, W
-0000096D,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0000096E,00CC,,            movwf ir_91  ;priepise reg AN prievedenou hodnotou
-0000096F,0820,,            movf r1, W
-00000970,1D03,,            btfss STATUS, Z
-00000971,230F,,            call if_91  ;pokud zmena spusti podprig
+00000967,0870,,            movf pri0, W    ;kontroluje zda je zmena od minule
+00000968,00A0,,            movwf r1
+00000969,094C,,            comf ir_91, W
+0000096A,07A0,,            addwf r1, F
+0000096B,0870,,            movf pri0, W
+0000096C,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0000096D,00CC,,            movwf ir_91  ;priepise reg AN prievedenou hodnotou
+0000096E,0820,,            movf r1, W
+0000096F,1D03,,            btfss STATUS, Z
+00000970,230F,,            call if_91  ;pokud zmena spusti podprig
 ,,,
 ,,,
-00000972,0871,,            movf pri1, W    ;kontroluje zda je zmena od minule
-00000973,00A0,,            movwf r1
-00000974,094D,,            comf ir_92, W
-00000975,07A0,,            addwf r1, F
-00000976,0871,,            movf pri1, W
-00000977,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000978,00CD,,            movwf ir_92  ;priepise reg AN prievedenou hodnotou
-00000979,0820,,            movf r1, W
-0000097A,1D03,,            btfss STATUS, Z
-0000097B,2311,,            call if_92  ;pokud zmena spusti podprig
+00000971,0871,,            movf pri1, W    ;kontroluje zda je zmena od minule
+00000972,00A0,,            movwf r1
+00000973,094D,,            comf ir_92, W
+00000974,07A0,,            addwf r1, F
+00000975,0871,,            movf pri1, W
+00000976,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000977,00CD,,            movwf ir_92  ;priepise reg AN prievedenou hodnotou
+00000978,0820,,            movf r1, W
+00000979,1D03,,            btfss STATUS, Z
+0000097A,2311,,            call if_92  ;pokud zmena spusti podprig
 ,,,
 ,,,
-0000097C,0872,,            movf pri2, W    ;kontroluje zda je zmena od minule
-0000097D,00A0,,            movwf r1
-0000097E,094E,,            comf ir_93, W
-0000097F,07A0,,            addwf r1, F
-00000980,0872,,            movf pri2, W
-00000981,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000982,00CE,,            movwf ir_93  ;priepise reg AN prievedenou hodnotou
-00000983,0820,,            movf r1, W
-00000984,1D03,,            btfss STATUS, Z
-00000985,2313,,            call if_93  ;pokud zmena spusti podprig
+0000097B,0872,,            movf pri2, W    ;kontroluje zda je zmena od minule
+0000097C,00A0,,            movwf r1
+0000097D,094E,,            comf ir_93, W
+0000097E,07A0,,            addwf r1, F
+0000097F,0872,,            movf pri2, W
+00000980,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000981,00CE,,            movwf ir_93  ;priepise reg AN prievedenou hodnotou
+00000982,0820,,            movf r1, W
+00000983,1D03,,            btfss STATUS, Z
+00000984,2313,,            call if_93  ;pokud zmena spusti podprig
 ,,,
 ,,,
-00000986,0873,,            movf pri3, W    ;kontroluje zda je zmena od minule
-00000987,00A0,,            movwf r1
-00000988,094F,,            comf ir_127, W
-00000989,07A0,,            addwf r1, F
-0000098A,0873,,            movf pri3, W
-0000098B,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0000098C,00CF,,            movwf ir_127  ;priepise reg AN prievedenou hodnotou
-0000098D,0820,,            movf r1, W
-0000098E,1D03,,            btfss STATUS, Z
-0000098F,2315,,            call if_127  ;pokud zmena spusti podprig
+00000985,0873,,            movf pri3, W    ;kontroluje zda je zmena od minule
+00000986,00A0,,            movwf r1
+00000987,094F,,            comf ir_127, W
+00000988,07A0,,            addwf r1, F
+00000989,0873,,            movf pri3, W
+0000098A,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0000098B,00CF,,            movwf ir_127  ;priepise reg AN prievedenou hodnotou
+0000098C,0820,,            movf r1, W
+0000098D,1D03,,            btfss STATUS, Z
+0000098E,2315,,            call if_127  ;pokud zmena spusti podprig
 ,,,
 ,,,
-00000990,0874,,            movf pri4, W    ;kontroluje zda je zmena od minule
-00000991,00A0,,            movwf r1
-00000992,0950,,            comf ir_128, W
-00000993,07A0,,            addwf r1, F
-00000994,0874,,            movf pri4, W
-00000995,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-00000996,00D0,,            movwf ir_128  ;priepise reg AN prievedenou hodnotou
-00000997,0820,,            movf r1, W
-00000998,1D03,,            btfss STATUS, Z
-00000999,2317,,            call if_128  ;pokud zmena spusti podprig
+0000098F,0874,,            movf pri4, W    ;kontroluje zda je zmena od minule
+00000990,00A0,,            movwf r1
+00000991,0950,,            comf ir_128, W
+00000992,07A0,,            addwf r1, F
+00000993,0874,,            movf pri4, W
+00000994,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+00000995,00D0,,            movwf ir_128  ;priepise reg AN prievedenou hodnotou
+00000996,0820,,            movf r1, W
+00000997,1D03,,            btfss STATUS, Z
+00000998,2317,,            call if_128  ;pokud zmena spusti podprig
 ,,,
 ,,,
-0000099A,0875,,            movf pri5, W    ;kontroluje zda je zmena od minule
-0000099B,00A0,,            movwf r1
-0000099C,0935,,            comf ir_x, W
-0000099D,07A0,,            addwf r1, F
-0000099E,0875,,            movf pri5, W
-0000099F,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000009A0,00B5,,            movwf ir_x  ;priepise reg AN prievedenou hodnotou
-000009A1,0820,,            movf r1, W
-000009A2,1D03,,            btfss STATUS, Z
-000009A3,2364,,            call if_x  ;pokud zmena spusti podprig
+00000999,0875,,            movf pri5, W    ;kontroluje zda je zmena od minule
+0000099A,00A0,,            movwf r1
+0000099B,0935,,            comf ir_x, W
+0000099C,07A0,,            addwf r1, F
+0000099D,0875,,            movf pri5, W
+0000099E,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0000099F,00B5,,            movwf ir_x  ;priepise reg AN prievedenou hodnotou
+000009A0,0820,,            movf r1, W
+000009A1,1D03,,            btfss STATUS, Z
+000009A2,2364,,            call if_x  ;pokud zmena spusti podprig
 ,,,
 ,,,
-000009A4,0876,,            movf pri6, W    ;kontroluje zda je zmena od minule
-000009A5,00A0,,            movwf r1
-000009A6,0935,,            comf ir_x, W
-000009A7,07A0,,            addwf r1, F
-000009A8,0876,,            movf pri6, W
-000009A9,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000009AA,00B5,,            movwf ir_x  ;priepise reg AN prievedenou hodnotou
-000009AB,0820,,            movf r1, W
-000009AC,1D03,,            btfss STATUS, Z
-000009AD,2364,,            call if_x  ;pokud zmena spusti podprig
+000009A3,0876,,            movf pri6, W    ;kontroluje zda je zmena od minule
+000009A4,00A0,,            movwf r1
+000009A5,0935,,            comf ir_x, W
+000009A6,07A0,,            addwf r1, F
+000009A7,0876,,            movf pri6, W
+000009A8,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000009A9,00B5,,            movwf ir_x  ;priepise reg AN prievedenou hodnotou
+000009AA,0820,,            movf r1, W
+000009AB,1D03,,            btfss STATUS, Z
+000009AC,2364,,            call if_x  ;pokud zmena spusti podprig
 ,,,
 ,,,
-000009AE,0877,,            movf pri7, W    ;kontroluje zda je zmena od minule
-000009AF,00A0,,            movwf r1
-000009B0,0935,,            comf ir_x, W
-000009B1,07A0,,            addwf r1, F
-000009B2,0877,,            movf pri7, W
-000009B3,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
-000009B4,00B5,,            movwf ir_x  ;priepise reg AN prievedenou hodnotou
-000009B5,0820,,            movf r1, W
-000009B6,1D03,,            btfss STATUS, Z
-000009B7,2364,,            call if_x  ;pokud zmena spusti podprig
-,,,
-,,,
-,,,
-000009B8,158A,,            bsf PCLATH,3 ;Select page 1
-000009B9,284B,,            goto loop      ;zpet v cyklu na zacatek
+000009AD,0877,,            movf pri7, W    ;kontroluje zda je zmena od minule
+000009AE,00A0,,            movwf r1
+000009AF,0935,,            comf ir_x, W
+000009B0,07A0,,            addwf r1, F
+000009B1,0877,,            movf pri7, W
+000009B2,0FA0,,            incfsz r1, F  ;pokud zadna zmena pokracuje dal
+000009B3,00B5,,            movwf ir_x  ;priepise reg AN prievedenou hodnotou
+000009B4,0820,,            movf r1, W
+000009B5,1D03,,            btfss STATUS, Z
+000009B6,2364,,            call if_x  ;pokud zmena spusti podprig
 ,,,
 ,,,
 ,,,
-,,,
+000009B7,158A,,            bsf PCLATH,3 ;Select page 1
+000009B8,284A,,            goto loop      ;zpet v cyklu na zacatek
 ,,,
 ,,,
 ,,,
 ,,,
 ,,,
-000009BA,084B,okna,okna        movf ir_90, W
-000009BB,39F0,,            andlw b'11110000' ;odseknu konecnou cast
-000009BC,00A0,,            movwf r1
-000009BD,09A0,,            comf r1, F ;udelám dvojkový doplněk
-000009BE,0824,,            movf o1tar, W
-000009BF,39F0,,            andlw b'11110000' ;odseknu konecnou cast
-000009C0,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
-000009C1,0803,,            movf STATUS, W
-000009C2,00A2,,            movwf r3
-000009C3,1922,,            btfsc r3, Z
-000009C4,2229,,            call o1stop
-000009C5,1922,,            btfsc r3, Z
-000009C6,29CB,,            goto okno2
-000009C7,1C22,,            btfss r3, C ;pokud nepreteklo, vyjed nahoru
-000009C8,21FF,,            call o1up
-000009C9,1822,,            btfsc r3, C ;pokud preteklo, sjed dolu
-000009CA,2214,,            call o1down
-000009CB,084C,okno2,okno2       movf ir_91, W
-000009CC,39F0,,            andlw b'11110000' ;odseknu konecnou cast
-000009CD,00A0,,            movwf r1
-000009CE,09A0,,            comf r1, F ;udelám dvojkový doplněk
-000009CF,0825,,            movf o2tar, W
-000009D0,39F0,,            andlw b'11110000' ;odseknu konecnou cast
-000009D1,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
-000009D2,0803,,            movf STATUS, W
-000009D3,00A2,,            movwf r3
-000009D4,1922,,            btfsc r3, Z
-000009D5,2268,,            call o2stop
-000009D6,1922,,            btfsc r3, Z
-000009D7,29DC,,            goto okno3
-000009D8,1C22,,            btfss r3, C ;pokud nepreteklo, vyjed nahoru
-000009D9,223E,,            call o2up
-000009DA,1822,,            btfsc r3, C ;pokud preteklo, sjed dolu
-000009DB,2253,,            call o2down
-000009DC,084D,okno3,okno3       movf ir_92, W
-000009DD,39F0,,            andlw b'11110000' ;odseknu konecnou cast
-000009DE,00A0,,            movwf r1
-000009DF,09A0,,            comf r1, F ;udelám dvojkový doplněk
-000009E0,0826,,            movf o3tar, W
-000009E1,39F0,,            andlw b'11110000' ;odseknu konecnou cast
-000009E2,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
-000009E3,0803,,            movf STATUS, W
-000009E4,00A2,,            movwf r3
-000009E5,1922,,            btfsc r3, Z
-000009E6,22A7,,            call o3stop
-000009E7,1922,,            btfsc r3, Z
-000009E8,29ED,,            goto okno4
-000009E9,1C22,,            btfss r3, C ;pokud nepreteklo, vyjed nahoru
-000009EA,227D,,            call o3up
-000009EB,1822,,            btfsc r3, C ;pokud preteklo, sjed dolu
-000009EC,2292,,            call o3down
-000009ED,084E,okno4,okno4       movf ir_93, W
-000009EE,39F0,,            andlw b'11110000' ;odseknu konecnou cast
-000009EF,00A0,,            movwf r1
-000009F0,09A0,,            comf r1, F ;udelám dvojkový doplněk
-000009F1,0827,,            movf o4tar, W
-000009F2,39F0,,            andlw b'11110000' ;odseknu konecnou cast
-000009F3,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
-000009F4,0803,,            movf STATUS, W
-000009F5,00A2,,            movwf r3
-000009F6,1922,,            btfsc r3, Z
-000009F7,22E6,,            call o4stop
-000009F8,1922,,            btfsc r3, Z
-000009F9,0008,,            return
-000009FA,1C22,,            btfss r3, C ;pokud nepreteklo, vyjed nahoru
-000009FB,22BC,,            call o4up
-000009FC,1822,,            btfsc r3, C ;pokud preteklo, sjed dolu
-000009FD,22D1,,            call o4down
-000009FE,0008,,            return
+,,,
+,,,
+,,,
+,,,
+000009B9,084B,okna,okna        movf ir_90, W
+000009BA,39F0,,            andlw b'11110000' ;odseknu konecnou cast
+000009BB,00A0,,            movwf r1
+000009BC,09A0,,            comf r1, F ;udelám dvojkový doplněk
+000009BD,0824,,            movf o1tar, W
+000009BE,39F0,,            andlw b'11110000' ;odseknu konecnou cast
+000009BF,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
+000009C0,0803,,            movf STATUS, W
+000009C1,00A2,,            movwf r3
+000009C2,1922,,            btfsc r3, Z
+000009C3,2228,,            call o1stop
+000009C4,1922,,            btfsc r3, Z
+000009C5,29CA,,            goto okno2
+000009C6,1C22,,            btfss r3, C ;pokud nepreteklo, vyjed nahoru
+000009C7,21FE,,            call o1up
+000009C8,1822,,            btfsc r3, C ;pokud preteklo, sjed dolu
+000009C9,2213,,            call o1down
+000009CA,084C,okno2,okno2       movf ir_91, W
+000009CB,39F0,,            andlw b'11110000' ;odseknu konecnou cast
+000009CC,00A0,,            movwf r1
+000009CD,09A0,,            comf r1, F ;udelám dvojkový doplněk
+000009CE,0825,,            movf o2tar, W
+000009CF,39F0,,            andlw b'11110000' ;odseknu konecnou cast
+000009D0,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
+000009D1,0803,,            movf STATUS, W
+000009D2,00A2,,            movwf r3
+000009D3,1922,,            btfsc r3, Z
+000009D4,2267,,            call o2stop
+000009D5,1922,,            btfsc r3, Z
+000009D6,29DB,,            goto okno3
+000009D7,1C22,,            btfss r3, C ;pokud nepreteklo, vyjed nahoru
+000009D8,223D,,            call o2up
+000009D9,1822,,            btfsc r3, C ;pokud preteklo, sjed dolu
+000009DA,2252,,            call o2down
+000009DB,084D,okno3,okno3       movf ir_92, W
+000009DC,39F0,,            andlw b'11110000' ;odseknu konecnou cast
+000009DD,00A0,,            movwf r1
+000009DE,09A0,,            comf r1, F ;udelám dvojkový doplněk
+000009DF,0826,,            movf o3tar, W
+000009E0,39F0,,            andlw b'11110000' ;odseknu konecnou cast
+000009E1,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
+000009E2,0803,,            movf STATUS, W
+000009E3,00A2,,            movwf r3
+000009E4,1922,,            btfsc r3, Z
+000009E5,22A6,,            call o3stop
+000009E6,1922,,            btfsc r3, Z
+000009E7,29EC,,            goto okno4
+000009E8,1C22,,            btfss r3, C ;pokud nepreteklo, vyjed nahoru
+000009E9,227C,,            call o3up
+000009EA,1822,,            btfsc r3, C ;pokud preteklo, sjed dolu
+000009EB,2291,,            call o3down
+000009EC,084E,okno4,okno4       movf ir_93, W
+000009ED,39F0,,            andlw b'11110000' ;odseknu konecnou cast
+000009EE,00A0,,            movwf r1
+000009EF,09A0,,            comf r1, F ;udelám dvojkový doplněk
+000009F0,0827,,            movf o4tar, W
+000009F1,39F0,,            andlw b'11110000' ;odseknu konecnou cast
+000009F2,07A0,,            addwf r1, F ;sectu s dvojkovym doplnkem
+000009F3,0803,,            movf STATUS, W
+000009F4,00A2,,            movwf r3
+000009F5,1922,,            btfsc r3, Z
+000009F6,22E5,,            call o4stop
+000009F7,1922,,            btfsc r3, Z
+000009F8,0008,,            return
+000009F9,1C22,,            btfss r3, C ;pokud nepreteklo, vyjed nahoru
+000009FA,22BB,,            call o4up
+000009FB,1822,,            btfsc r3, C ;pokud preteklo, sjed dolu
+000009FC,22D0,,            call o4down
+000009FD,0008,,            return
 ,,,
 ,,,;okno 1 nahoru, dolu, zastavit
-000009FF,19A9,o1up,o1up        btfsc o_a, 3
-00000A00,2A09,,            goto no1up
-00000A01,301D,,            movlw b'11101' ;port D5
-00000A02,00D2,,            movwf port
-00000A03,3003,,            movlw b'11' ;procesor 3
-00000A04,00D3,,            movwf prc
+000009FE,19A9,o1up,o1up        btfsc o_a, 3
+000009FF,2A08,,            goto no1up
+00000A00,301D,,            movlw b'11101' ;port D5
+00000A01,00D2,,            movwf port
+00000A02,3003,,            movlw b'11' ;procesor 3
+00000A03,00D3,,            movwf prc
 ,,,
-00000A05,118A,,            bcf PCLATH,3 ;Select page 0
-00000A06,21FF,,            call setout ;smaz port v prc
-00000A07,158A,,            bsf PCLATH,3 ;Select page 1
-00000A08,15A9,,            bsf o_a, 3
-00000A09,1FA9,no1up,no1up       btfss o_a, 7
-00000A0A,0008,,            return
-00000A0B,300C,,            movlw b'01100' ;port B4
-00000A0C,00D2,,            movwf port
-00000A0D,3002,,            movlw b'10' ;procesor 2
-00000A0E,00D3,,            movwf prc
+00000A04,118A,,            bcf PCLATH,3 ;Select page 0
+00000A05,21FF,,            call setout ;smaz port v prc
+00000A06,158A,,            bsf PCLATH,3 ;Select page 1
+00000A07,15A9,,            bsf o_a, 3
+00000A08,1FA9,no1up,no1up       btfss o_a, 7
+00000A09,0008,,            return
+00000A0A,300C,,            movlw b'01100' ;port B4
+00000A0B,00D2,,            movwf port
+00000A0C,3002,,            movlw b'10' ;procesor 2
+00000A0D,00D3,,            movwf prc
 ,,,
-00000A0F,118A,,            bcf PCLATH,3 ;Select page 0
-00000A10,2226,,            call clrout ;smaz port v prc
-00000A11,158A,,            bsf PCLATH,3 ;Select page 1
-00000A12,13A9,,            bcf o_a, 7
-00000A13,0008,,            return
-00000A14,1DA9,o1down,o1down      btfss o_a, 3
-00000A15,2A1E,,            goto no1down
-00000A16,301D,,            movlw b'11101' ;port D5
-00000A17,00D2,,            movwf port
-00000A18,3003,,            movlw b'11' ;procesor 3
-00000A19,00D3,,            movwf prc
+00000A0E,118A,,            bcf PCLATH,3 ;Select page 0
+00000A0F,2226,,            call clrout ;smaz port v prc
+00000A10,158A,,            bsf PCLATH,3 ;Select page 1
+00000A11,13A9,,            bcf o_a, 7
+00000A12,0008,,            return
+00000A13,1DA9,o1down,o1down      btfss o_a, 3
+00000A14,2A1D,,            goto no1down
+00000A15,301D,,            movlw b'11101' ;port D5
+00000A16,00D2,,            movwf port
+00000A17,3003,,            movlw b'11' ;procesor 3
+00000A18,00D3,,            movwf prc
 ,,,
-00000A1A,118A,,            bcf PCLATH,3 ;Select page 0
-00000A1B,2226,,            call clrout ;smaz port v prc
-00000A1C,158A,,            bsf PCLATH,3 ;Select page 1
-00000A1D,11A9,,            bcf o_a, 3
-00000A1E,1BA9,no1down,no1down     btfsc o_a, 7
-00000A1F,0008,,            return
-00000A20,300C,,            movlw b'01100' ;port B4
-00000A21,00D2,,            movwf port
-00000A22,3002,,            movlw b'10' ;procesor 2
-00000A23,00D3,,            movwf prc
+00000A19,118A,,            bcf PCLATH,3 ;Select page 0
+00000A1A,2226,,            call clrout ;smaz port v prc
+00000A1B,158A,,            bsf PCLATH,3 ;Select page 1
+00000A1C,11A9,,            bcf o_a, 3
+00000A1D,1BA9,no1down,no1down     btfsc o_a, 7
+00000A1E,0008,,            return
+00000A1F,300C,,            movlw b'01100' ;port B4
+00000A20,00D2,,            movwf port
+00000A21,3002,,            movlw b'10' ;procesor 2
+00000A22,00D3,,            movwf prc
 ,,,
-00000A24,118A,,            bcf PCLATH,3 ;Select page 1
-00000A25,21FF,,            call setout ;smaz port v prc
-00000A26,158A,,            bsf PCLATH,3 ;Select page 1
-00000A27,17A9,,            bsf o_a, 7
-00000A28,0008,,            return
-00000A29,1DA9,o1stop,o1stop      btfss o_a, 3
-00000A2A,2A33,,            goto no1stop
-00000A2B,301D,,            movlw b'11101' ;port D5
-00000A2C,00D2,,            movwf port
-00000A2D,3003,,            movlw b'11' ;procesor 3
-00000A2E,00D3,,            movwf prc
+00000A23,118A,,            bcf PCLATH,3 ;Select page 1
+00000A24,21FF,,            call setout ;smaz port v prc
+00000A25,158A,,            bsf PCLATH,3 ;Select page 1
+00000A26,17A9,,            bsf o_a, 7
+00000A27,0008,,            return
+00000A28,1DA9,o1stop,o1stop      btfss o_a, 3
+00000A29,2A32,,            goto no1stop
+00000A2A,301D,,            movlw b'11101' ;port D5
+00000A2B,00D2,,            movwf port
+00000A2C,3003,,            movlw b'11' ;procesor 3
+00000A2D,00D3,,            movwf prc
 ,,,
-00000A2F,118A,,            bcf PCLATH,3 ;Select page 1
-00000A30,2226,,            call clrout ;smaz port v prc
-00000A31,158A,,            bsf PCLATH,3 ;Select page 1
-00000A32,11A9,,            bcf o_a, 3
-00000A33,1FA9,no1stop,no1stop     btfss o_a, 7
-00000A34,0008,,            return
-00000A35,300C,,            movlw b'01100' ;port B4
-00000A36,00D2,,            movwf port
-00000A37,3002,,            movlw b'10' ;procesor 2
-00000A38,00D3,,            movwf prc
+00000A2E,118A,,            bcf PCLATH,3 ;Select page 1
+00000A2F,2226,,            call clrout ;smaz port v prc
+00000A30,158A,,            bsf PCLATH,3 ;Select page 1
+00000A31,11A9,,            bcf o_a, 3
+00000A32,1FA9,no1stop,no1stop     btfss o_a, 7
+00000A33,0008,,            return
+00000A34,300C,,            movlw b'01100' ;port B4
+00000A35,00D2,,            movwf port
+00000A36,3002,,            movlw b'10' ;procesor 2
+00000A37,00D3,,            movwf prc
 ,,,
-00000A39,118A,,            bcf PCLATH,3 ;Select page 1
-00000A3A,2226,,            call clrout ;smaz port v prc
-00000A3B,158A,,            bsf PCLATH,3 ;Select page 1
-00000A3C,13A9,,            bcf o_a, 7
-00000A3D,0008,,            return
+00000A38,118A,,            bcf PCLATH,3 ;Select page 1
+00000A39,2226,,            call clrout ;smaz port v prc
+00000A3A,158A,,            bsf PCLATH,3 ;Select page 1
+00000A3B,13A9,,            bcf o_a, 7
+00000A3C,0008,,            return
 ,,,;okno 2 nahoru, dolu, zastavit
-00000A3E,1A29,o2up,o2up        btfsc o_a, 4
-00000A3F,2A48,,            goto no2up
-00000A40,3018,,            movlw b'11000' ;port D0
-00000A41,00D2,,            movwf port
-00000A42,3002,,            movlw b'10' ;procesor 2
-00000A43,00D3,,            movwf prc
+00000A3D,1A29,o2up,o2up        btfsc o_a, 4
+00000A3E,2A47,,            goto no2up
+00000A3F,3018,,            movlw b'11000' ;port D0
+00000A40,00D2,,            movwf port
+00000A41,3002,,            movlw b'10' ;procesor 2
+00000A42,00D3,,            movwf prc
 ,,,
-00000A44,118A,,            bcf PCLATH,3 ;Select page 1
-00000A45,21FF,,            call setout ;smaz port v prc
-00000A46,158A,,            bsf PCLATH,3 ;Select page 1
-00000A47,1629,,            bsf o_a, 4
-00000A48,1C2A,no2up,no2up       btfss o_b, 0
-00000A49,0008,,            return
-00000A4A,300D,,            movlw b'01101' ;port B5
-00000A4B,00D2,,            movwf port
-00000A4C,3002,,            movlw b'10' ;procesor 2
-00000A4D,00D3,,            movwf prc
+00000A43,118A,,            bcf PCLATH,3 ;Select page 1
+00000A44,21FF,,            call setout ;smaz port v prc
+00000A45,158A,,            bsf PCLATH,3 ;Select page 1
+00000A46,1629,,            bsf o_a, 4
+00000A47,1C2A,no2up,no2up       btfss o_b, 0
+00000A48,0008,,            return
+00000A49,300D,,            movlw b'01101' ;port B5
+00000A4A,00D2,,            movwf port
+00000A4B,3002,,            movlw b'10' ;procesor 2
+00000A4C,00D3,,            movwf prc
 ,,,
-00000A4E,118A,,            bcf PCLATH,3 ;Select page 1
-00000A4F,2226,,            call clrout ;smaz port v prc
-00000A50,158A,,            bsf PCLATH,3 ;Select page 1
-00000A51,102A,,            bcf o_b, 0
-00000A52,0008,,            return
-00000A53,1E29,o2down,o2down      btfss o_a, 4
-00000A54,2A5D,,            goto no2down
-00000A55,3018,,            movlw b'11000' ;port D0
-00000A56,00D2,,            movwf port
-00000A57,3002,,            movlw b'10' ;procesor 2
-00000A58,00D3,,            movwf prc
+00000A4D,118A,,            bcf PCLATH,3 ;Select page 1
+00000A4E,2226,,            call clrout ;smaz port v prc
+00000A4F,158A,,            bsf PCLATH,3 ;Select page 1
+00000A50,102A,,            bcf o_b, 0
+00000A51,0008,,            return
+00000A52,1E29,o2down,o2down      btfss o_a, 4
+00000A53,2A5C,,            goto no2down
+00000A54,3018,,            movlw b'11000' ;port D0
+00000A55,00D2,,            movwf port
+00000A56,3002,,            movlw b'10' ;procesor 2
+00000A57,00D3,,            movwf prc
 ,,,
-00000A59,118A,,            bcf PCLATH,3 ;Select page 1
-00000A5A,2226,,            call clrout ;smaz port v prc
-00000A5B,158A,,            bsf PCLATH,3 ;Select page 1
-00000A5C,1229,,            bcf o_a, 4
-00000A5D,182A,no2down,no2down     btfsc o_b, 0
-00000A5E,0008,,            return
-00000A5F,300D,,            movlw b'01101' ;port B5
-00000A60,00D2,,            movwf port
-00000A61,3002,,            movlw b'10' ;procesor 2
-00000A62,00D3,,            movwf prc
+00000A58,118A,,            bcf PCLATH,3 ;Select page 1
+00000A59,2226,,            call clrout ;smaz port v prc
+00000A5A,158A,,            bsf PCLATH,3 ;Select page 1
+00000A5B,1229,,            bcf o_a, 4
+00000A5C,182A,no2down,no2down     btfsc o_b, 0
+00000A5D,0008,,            return
+00000A5E,300D,,            movlw b'01101' ;port B5
+00000A5F,00D2,,            movwf port
+00000A60,3002,,            movlw b'10' ;procesor 2
+00000A61,00D3,,            movwf prc
 ,,,
-00000A63,118A,,            bcf PCLATH,3 ;Select page 1
-00000A64,21FF,,            call setout ;smaz port v prc
-00000A65,158A,,            bsf PCLATH,3 ;Select page 1
-00000A66,142A,,            bsf o_b, 0
-00000A67,0008,,            return
-00000A68,1E29,o2stop,o2stop      btfss o_a, 4
-00000A69,2A72,,            goto no2stop
-00000A6A,3018,,            movlw b'11000' ;port D0
-00000A6B,00D2,,            movwf port
-00000A6C,3002,,            movlw b'10' ;procesor 2
-00000A6D,00D3,,            movwf prc
+00000A62,118A,,            bcf PCLATH,3 ;Select page 1
+00000A63,21FF,,            call setout ;smaz port v prc
+00000A64,158A,,            bsf PCLATH,3 ;Select page 1
+00000A65,142A,,            bsf o_b, 0
+00000A66,0008,,            return
+00000A67,1E29,o2stop,o2stop      btfss o_a, 4
+00000A68,2A71,,            goto no2stop
+00000A69,3018,,            movlw b'11000' ;port D0
+00000A6A,00D2,,            movwf port
+00000A6B,3002,,            movlw b'10' ;procesor 2
+00000A6C,00D3,,            movwf prc
 ,,,
-00000A6E,118A,,            bcf PCLATH,3 ;Select page 1
-00000A6F,2226,,            call clrout ;smaz port v prc
-00000A70,158A,,            bsf PCLATH,3 ;Select page 1
-00000A71,1229,,            bcf o_a, 4
-00000A72,1C2A,no2stop,no2stop     btfss o_b, 0
-00000A73,0008,,            return
-00000A74,300D,,            movlw b'01101' ;port B5
-00000A75,00D2,,            movwf port
-00000A76,3002,,            movlw b'10' ;procesor 2
-00000A77,00D3,,            movwf prc
+00000A6D,118A,,            bcf PCLATH,3 ;Select page 1
+00000A6E,2226,,            call clrout ;smaz port v prc
+00000A6F,158A,,            bsf PCLATH,3 ;Select page 1
+00000A70,1229,,            bcf o_a, 4
+00000A71,1C2A,no2stop,no2stop     btfss o_b, 0
+00000A72,0008,,            return
+00000A73,300D,,            movlw b'01101' ;port B5
+00000A74,00D2,,            movwf port
+00000A75,3002,,            movlw b'10' ;procesor 2
+00000A76,00D3,,            movwf prc
 ,,,
-00000A78,118A,,            bcf PCLATH,3 ;Select page 1
-00000A79,2226,,            call clrout ;smaz port v prc
-00000A7A,158A,,            bsf PCLATH,3 ;Select page 1
-00000A7B,102A,,            bcf o_b, 0
-00000A7C,0008,,            return
+00000A77,118A,,            bcf PCLATH,3 ;Select page 1
+00000A78,2226,,            call clrout ;smaz port v prc
+00000A79,158A,,            bsf PCLATH,3 ;Select page 1
+00000A7A,102A,,            bcf o_b, 0
+00000A7B,0008,,            return
 ,,,;okno 3 nahoru, dolu, zastavit
-00000A7D,1AA9,o3up,o3up        btfsc o_a, 5
-00000A7E,2A87,,            goto no3up
-00000A7F,300A,,            movlw b'01010' ;port B2
-00000A80,00D2,,            movwf port
-00000A81,3002,,            movlw b'10' ;procesor 2
-00000A82,00D3,,            movwf prc
+00000A7C,1AA9,o3up,o3up        btfsc o_a, 5
+00000A7D,2A86,,            goto no3up
+00000A7E,300A,,            movlw b'01010' ;port B2
+00000A7F,00D2,,            movwf port
+00000A80,3002,,            movlw b'10' ;procesor 2
+00000A81,00D3,,            movwf prc
 ,,,
-00000A83,118A,,            bcf PCLATH,3 ;Select page 1
-00000A84,21FF,,            call setout ;smaz port v prc
-00000A85,158A,,            bsf PCLATH,3 ;Select page 1
-00000A86,16A9,,            bsf o_a, 5
-00000A87,1CAA,no3up,no3up       btfss o_b, 1
-00000A88,0008,,            return
-00000A89,300E,,            movlw b'01110' ;port B6
-00000A8A,00D2,,            movwf port
-00000A8B,3002,,            movlw b'10' ;procesor 2
-00000A8C,00D3,,            movwf prc
+00000A82,118A,,            bcf PCLATH,3 ;Select page 1
+00000A83,21FF,,            call setout ;smaz port v prc
+00000A84,158A,,            bsf PCLATH,3 ;Select page 1
+00000A85,16A9,,            bsf o_a, 5
+00000A86,1CAA,no3up,no3up       btfss o_b, 1
+00000A87,0008,,            return
+00000A88,300E,,            movlw b'01110' ;port B6
+00000A89,00D2,,            movwf port
+00000A8A,3002,,            movlw b'10' ;procesor 2
+00000A8B,00D3,,            movwf prc
 ,,,
-00000A8D,118A,,            bcf PCLATH,3 ;Select page 1
-00000A8E,2226,,            call clrout ;smaz port v prc
-00000A8F,158A,,            bsf PCLATH,3 ;Select page 1
-00000A90,10AA,,            bcf o_b, 1
-00000A91,0008,,            return
-00000A92,1EA9,o3down,o3down      btfss o_a, 5
-00000A93,2A9C,,            goto no3down
-00000A94,300A,,            movlw b'01010' ;port B2
-00000A95,00D2,,            movwf port
-00000A96,3002,,            movlw b'10' ;procesor 2
-00000A97,00D3,,            movwf prc
+00000A8C,118A,,            bcf PCLATH,3 ;Select page 1
+00000A8D,2226,,            call clrout ;smaz port v prc
+00000A8E,158A,,            bsf PCLATH,3 ;Select page 1
+00000A8F,10AA,,            bcf o_b, 1
+00000A90,0008,,            return
+00000A91,1EA9,o3down,o3down      btfss o_a, 5
+00000A92,2A9B,,            goto no3down
+00000A93,300A,,            movlw b'01010' ;port B2
+00000A94,00D2,,            movwf port
+00000A95,3002,,            movlw b'10' ;procesor 2
+00000A96,00D3,,            movwf prc
 ,,,
-00000A98,118A,,            bcf PCLATH,3 ;Select page 1
-00000A99,2226,,            call clrout ;smaz port v prc
-00000A9A,158A,,            bsf PCLATH,3 ;Select page 1
-00000A9B,12A9,,            bcf o_a, 5
-00000A9C,18AA,no3down,no3down     btfsc o_b, 1
-00000A9D,0008,,            return
-00000A9E,300E,,            movlw b'01110' ;port B6
-00000A9F,00D2,,            movwf port
-00000AA0,3002,,            movlw b'10' ;procesor 2
-00000AA1,00D3,,            movwf prc
+00000A97,118A,,            bcf PCLATH,3 ;Select page 1
+00000A98,2226,,            call clrout ;smaz port v prc
+00000A99,158A,,            bsf PCLATH,3 ;Select page 1
+00000A9A,12A9,,            bcf o_a, 5
+00000A9B,18AA,no3down,no3down     btfsc o_b, 1
+00000A9C,0008,,            return
+00000A9D,300E,,            movlw b'01110' ;port B6
+00000A9E,00D2,,            movwf port
+00000A9F,3002,,            movlw b'10' ;procesor 2
+00000AA0,00D3,,            movwf prc
 ,,,
-00000AA2,118A,,            bcf PCLATH,3 ;Select page 1
-00000AA3,21FF,,            call setout ;smaz port v prc
-00000AA4,158A,,            bsf PCLATH,3 ;Select page 1
-00000AA5,14AA,,            bsf o_b, 1
-00000AA6,0008,,            return
-00000AA7,1EA9,o3stop,o3stop      btfss o_a, 5
-00000AA8,2AB1,,            goto no3stop
-00000AA9,300A,,            movlw b'01010' ;port B2
-00000AAA,00D2,,            movwf port
-00000AAB,3002,,            movlw b'10' ;procesor 2
-00000AAC,00D3,,            movwf prc
+00000AA1,118A,,            bcf PCLATH,3 ;Select page 1
+00000AA2,21FF,,            call setout ;smaz port v prc
+00000AA3,158A,,            bsf PCLATH,3 ;Select page 1
+00000AA4,14AA,,            bsf o_b, 1
+00000AA5,0008,,            return
+00000AA6,1EA9,o3stop,o3stop      btfss o_a, 5
+00000AA7,2AB0,,            goto no3stop
+00000AA8,300A,,            movlw b'01010' ;port B2
+00000AA9,00D2,,            movwf port
+00000AAA,3002,,            movlw b'10' ;procesor 2
+00000AAB,00D3,,            movwf prc
 ,,,
-00000AAD,118A,,            bcf PCLATH,3 ;Select page 1
-00000AAE,2226,,            call clrout ;smaz port v prc
-00000AAF,158A,,            bsf PCLATH,3 ;Select page 1
-00000AB0,12A9,,            bcf o_a, 5
-00000AB1,1CAA,no3stop,no3stop     btfss o_b, 1
-00000AB2,0008,,            return
-00000AB3,300E,,            movlw b'01110' ;port B6
-00000AB4,00D2,,            movwf port
-00000AB5,3002,,            movlw b'10' ;procesor 2
-00000AB6,00D3,,            movwf prc
+00000AAC,118A,,            bcf PCLATH,3 ;Select page 1
+00000AAD,2226,,            call clrout ;smaz port v prc
+00000AAE,158A,,            bsf PCLATH,3 ;Select page 1
+00000AAF,12A9,,            bcf o_a, 5
+00000AB0,1CAA,no3stop,no3stop     btfss o_b, 1
+00000AB1,0008,,            return
+00000AB2,300E,,            movlw b'01110' ;port B6
+00000AB3,00D2,,            movwf port
+00000AB4,3002,,            movlw b'10' ;procesor 2
+00000AB5,00D3,,            movwf prc
 ,,,
-00000AB7,118A,,            bcf PCLATH,3 ;Select page 1
-00000AB8,2226,,            call clrout ;smaz port v prc
-00000AB9,158A,,            bsf PCLATH,3 ;Select page 1
-00000ABA,10AA,,            bcf o_b, 1
-00000ABB,0008,,            return
+00000AB6,118A,,            bcf PCLATH,3 ;Select page 1
+00000AB7,2226,,            call clrout ;smaz port v prc
+00000AB8,158A,,            bsf PCLATH,3 ;Select page 1
+00000AB9,10AA,,            bcf o_b, 1
+00000ABA,0008,,            return
 ,,,;okno 4 nahoru, dolu, zastavit
-00000ABC,1B29,o4up,o4up        btfsc o_a, 6
-00000ABD,2AC6,,            goto no4up
-00000ABE,300B,,            movlw b'01011' ;port B3
-00000ABF,00D2,,            movwf port
-00000AC0,3002,,            movlw b'10' ;procesor 2
-00000AC1,00D3,,            movwf prc
+00000ABB,1B29,o4up,o4up        btfsc o_a, 6
+00000ABC,2AC5,,            goto no4up
+00000ABD,300B,,            movlw b'01011' ;port B3
+00000ABE,00D2,,            movwf port
+00000ABF,3002,,            movlw b'10' ;procesor 2
+00000AC0,00D3,,            movwf prc
 ,,,
-00000AC2,118A,,            bcf PCLATH,3 ;Select page 1
-00000AC3,21FF,,            call setout ;smaz port v prc
-00000AC4,158A,,            bsf PCLATH,3 ;Select page 1
-00000AC5,1729,,            bsf o_a, 6
-00000AC6,1D2A,no4up,no4up       btfss o_b, 2
-00000AC7,0008,,            return
-00000AC8,300F,,            movlw b'01111' ;port B7
-00000AC9,00D2,,            movwf port
-00000ACA,3002,,            movlw b'10' ;procesor 2
-00000ACB,00D3,,            movwf prc
+00000AC1,118A,,            bcf PCLATH,3 ;Select page 1
+00000AC2,21FF,,            call setout ;smaz port v prc
+00000AC3,158A,,            bsf PCLATH,3 ;Select page 1
+00000AC4,1729,,            bsf o_a, 6
+00000AC5,1D2A,no4up,no4up       btfss o_b, 2
+00000AC6,0008,,            return
+00000AC7,300F,,            movlw b'01111' ;port B7
+00000AC8,00D2,,            movwf port
+00000AC9,3002,,            movlw b'10' ;procesor 2
+00000ACA,00D3,,            movwf prc
 ,,,
-00000ACC,118A,,            bcf PCLATH,3 ;Select page 1
-00000ACD,2226,,            call clrout ;smaz port v prc
-00000ACE,158A,,            bsf PCLATH,3 ;Select page 1
-00000ACF,112A,,            bcf o_b, 2
-00000AD0,0008,,            return
-00000AD1,1F29,o4down,o4down      btfss o_a, 6
-00000AD2,2ADB,,            goto no4down
-00000AD3,300B,,            movlw b'01011' ;port B3
-00000AD4,00D2,,            movwf port
-00000AD5,3002,,            movlw b'10' ;procesor 2
-00000AD6,00D3,,            movwf prc
+00000ACB,118A,,            bcf PCLATH,3 ;Select page 1
+00000ACC,2226,,            call clrout ;smaz port v prc
+00000ACD,158A,,            bsf PCLATH,3 ;Select page 1
+00000ACE,112A,,            bcf o_b, 2
+00000ACF,0008,,            return
+00000AD0,1F29,o4down,o4down      btfss o_a, 6
+00000AD1,2ADA,,            goto no4down
+00000AD2,300B,,            movlw b'01011' ;port B3
+00000AD3,00D2,,            movwf port
+00000AD4,3002,,            movlw b'10' ;procesor 2
+00000AD5,00D3,,            movwf prc
 ,,,
-00000AD7,118A,,            bcf PCLATH,3 ;Select page 1
-00000AD8,2226,,            call clrout ;smaz port v prc
-00000AD9,158A,,            bsf PCLATH,3 ;Select page 1
-00000ADA,1329,,            bcf o_a, 6
-00000ADB,192A,no4down,no4down     btfsc o_b, 2
-00000ADC,0008,,            return
-00000ADD,300F,,            movlw b'01111' ;port B7
-00000ADE,00D2,,            movwf port
-00000ADF,3002,,            movlw b'10' ;procesor 2
-00000AE0,00D3,,            movwf prc
+00000AD6,118A,,            bcf PCLATH,3 ;Select page 1
+00000AD7,2226,,            call clrout ;smaz port v prc
+00000AD8,158A,,            bsf PCLATH,3 ;Select page 1
+00000AD9,1329,,            bcf o_a, 6
+00000ADA,192A,no4down,no4down     btfsc o_b, 2
+00000ADB,0008,,            return
+00000ADC,300F,,            movlw b'01111' ;port B7
+00000ADD,00D2,,            movwf port
+00000ADE,3002,,            movlw b'10' ;procesor 2
+00000ADF,00D3,,            movwf prc
 ,,,
-00000AE1,118A,,            bcf PCLATH,3 ;Select page 1
-00000AE2,21FF,,            call setout ;smaz port v prc
-00000AE3,158A,,            bsf PCLATH,3 ;Select page 1
-00000AE4,152A,,            bsf o_b, 2
-00000AE5,0008,,            return
-00000AE6,1F29,o4stop,o4stop      btfss o_a, 6
-00000AE7,2AF0,,            goto no4stop
-00000AE8,300B,,            movlw b'01011' ;port B3
-00000AE9,00D2,,            movwf port
-00000AEA,3002,,            movlw b'10' ;procesor 2
-00000AEB,00D3,,            movwf prc
+00000AE0,118A,,            bcf PCLATH,3 ;Select page 1
+00000AE1,21FF,,            call setout ;smaz port v prc
+00000AE2,158A,,            bsf PCLATH,3 ;Select page 1
+00000AE3,152A,,            bsf o_b, 2
+00000AE4,0008,,            return
+00000AE5,1F29,o4stop,o4stop      btfss o_a, 6
+00000AE6,2AEF,,            goto no4stop
+00000AE7,300B,,            movlw b'01011' ;port B3
+00000AE8,00D2,,            movwf port
+00000AE9,3002,,            movlw b'10' ;procesor 2
+00000AEA,00D3,,            movwf prc
 ,,,
-00000AEC,118A,,            bcf PCLATH,3 ;Select page 1
-00000AED,2226,,            call clrout ;smaz port v prc
-00000AEE,158A,,            bsf PCLATH,3 ;Select page 1
-00000AEF,1329,,            bcf o_a, 6
-00000AF0,1D2A,no4stop,no4stop     btfss o_b, 2
-00000AF1,0008,,            return
-00000AF2,300F,,            movlw b'01111' ;port B7
-00000AF3,00D2,,            movwf port
-00000AF4,3002,,            movlw b'10' ;procesor 2
-00000AF5,00D3,,            movwf prc
+00000AEB,118A,,            bcf PCLATH,3 ;Select page 1
+00000AEC,2226,,            call clrout ;smaz port v prc
+00000AED,158A,,            bsf PCLATH,3 ;Select page 1
+00000AEE,1329,,            bcf o_a, 6
+00000AEF,1D2A,no4stop,no4stop     btfss o_b, 2
+00000AF0,0008,,            return
+00000AF1,300F,,            movlw b'01111' ;port B7
+00000AF2,00D2,,            movwf port
+00000AF3,3002,,            movlw b'10' ;procesor 2
+00000AF4,00D3,,            movwf prc
 ,,,
-00000AF6,118A,,            bcf PCLATH,3 ;Select page 1
-00000AF7,2226,,            call clrout ;smaz port v prc
-00000AF8,158A,,            bsf PCLATH,3 ;Select page 1
-00000AF9,112A,,            bcf o_b, 2
-00000AFA,0008,,            return
-,,,
-,,,
+00000AF5,118A,,            bcf PCLATH,3 ;Select page 1
+00000AF6,2226,,            call clrout ;smaz port v prc
+00000AF7,158A,,            bsf PCLATH,3 ;Select page 1
+00000AF8,112A,,            bcf o_b, 2
+00000AF9,0008,,            return
 ,,,
 ,,,
 ,,,
 ,,,
 ,,,
 ,,,
-00000AFB,3032,adconv,adconv      movlw .50 ; kolikrat se ma merit vstup
-00000AFC,00F7,,            movwf ran2 ; decrementator pro cykl
-00000AFD,00FA,,            movwf ran5 ; delitel pro vypocet prumeru
-00000AFE,0876,,            movf ran1, W
-00000AFF,00F8,,            movwf ran3 ; zachováni ANx vstupu
-00000B00,01F2,,            clrf CIS2_L
-00000B01,01F3,,            clrf CIS2_H
 ,,,
-00000B02,0878,adconv2,adconv2     movf ran3, W
-00000B03,00F6,,            movwf ran1 ; nasteni znova ANx vstupu
-00000B04,2323,,            call adconv_one
+,,,
+00000AFA,3032,adconv,adconv      movlw .50 ; kolikrat se ma merit vstup
+00000AFB,00F7,,            movwf ran2 ; decrementator pro cykl
+00000AFC,00FA,,            movwf ran5 ; delitel pro vypocet prumeru
+00000AFD,0876,,            movf ran1, W
+00000AFE,00F8,,            movwf ran3 ; zachováni ANx vstupu
+00000AFF,01F2,,            clrf CIS2_L
+00000B00,01F3,,            clrf CIS2_H
+,,,
+00000B01,0878,adconv2,adconv2     movf ran3, W
+00000B02,00F6,,            movwf ran1 ; nasteni znova ANx vstupu
+00000B03,2322,,            call adconv_one
 ,,,
 ,,,            ; pripraveni cisla 1 k pricteni
-00000B05,01F1,,            clrf CIS1_H
-00000B06,0876,,            movf ran1, W
-00000B07,00F0,,            movwf CIS1_L
+00000B04,01F1,,            clrf CIS1_H
+00000B05,0876,,            movf ran1, W
+00000B06,00F0,,            movwf CIS1_L
 ,,,
 ,,,            ; Secte dve 16-bitova cisla do max. hodnoty vysledku FFFFh (65535d)
 ,,,            ; CIS1_H, CIS1_L + CIS2_H, CIS2_L -> OUT_H a OUT_L
 ,,,
-00000B08,0870,,                movf    CIS1_L,W        ; CIS1_L do W
-00000B09,0772,,                addwf   CIS2_L,W        ; W + CIS2_L do W
-00000B0A,00F4,,                movwf   OUT_L           ; W do OUT_L
+00000B07,0870,,                movf    CIS1_L,W        ; CIS1_L do W
+00000B08,0772,,                addwf   CIS2_L,W        ; W + CIS2_L do W
+00000B09,00F4,,                movwf   OUT_L           ; W do OUT_L
 ,,,
-00000B0B,0871,,                movf    CIS1_H,W        ; CIS1_H do W
-00000B0C,1803,,                btfsc   STATUS,C
-00000B0D,3E01,,                addlw   0x01            ; C=1, scitani preteklo tak uloz 1 do W
-00000B0E,0773,,                addwf   CIS2_H,W
-00000B0F,00F5,,                movwf   OUT_H           ; W do OUT_H
+00000B0A,0871,,                movf    CIS1_H,W        ; CIS1_H do W
+00000B0B,1803,,                btfsc   STATUS,C
+00000B0C,3E01,,                addlw   0x01            ; C=1, scitani preteklo tak uloz 1 do W
+00000B0D,0773,,                addwf   CIS2_H,W
+00000B0E,00F5,,                movwf   OUT_H           ; W do OUT_H
 ,,,
 ,,,                ; ulozi OUT do CIS2
-00000B10,0874,,            movf OUT_L, W
-00000B11,00F2,,            movwf CIS2_L
-00000B12,0875,,            movf OUT_H, W
-00000B13,00F3,,            movwf CIS2_H
+00000B0F,0874,,            movf OUT_L, W
+00000B10,00F2,,            movwf CIS2_L
+00000B11,0875,,            movf OUT_H, W
+00000B12,00F3,,            movwf CIS2_H
 ,,,
 ,,,
-00000B14,0BF7,,            decfsz ran2, F
-00000B15,2B02,,            goto adconv2
+00000B13,0BF7,,            decfsz ran2, F
+00000B14,2B01,,            goto adconv2
 ,,,
 ,,,            ; vydeli poctem mereni
-00000B16,0872,,            movf CIS2_L, W
-00000B17,00F0,,            movwf A1
-00000B18,0873,,            movf CIS2_H, W
-00000B19,00F1,,            movwf A2
-00000B1A,01F2,,            clrf A3
+00000B15,0872,,            movf CIS2_L, W
+00000B16,00F0,,            movwf A1
+00000B17,0873,,            movf CIS2_H, W
+00000B18,00F1,,            movwf A2
+00000B19,01F2,,            clrf A3
 ,,,
-00000B1B,087A,,            movf ran5, W
-00000B1C,00F3,,            movwf B1
-00000B1D,01F4,,            clrf B2
-00000B1E,01F5,,            clrf B3
+00000B1A,087A,,            movf ran5, W
+00000B1B,00F3,,            movwf B1
+00000B1C,01F4,,            clrf B2
+00000B1D,01F5,,            clrf B3
 ,,,
-00000B1F,2332,,            call LOMENO24
-00000B20,0876,,            movf C1, W
-00000B21,00F6,,            movwf ran1
+00000B1E,2331,,            call LOMENO24
+00000B1F,0876,,            movf C1, W
+00000B20,00F6,,            movwf ran1
 ,,,
-00000B22,0008,,            return
+00000B21,0008,,            return
 ,,,
-00000B23,1003,adconv_one,adconv_one  bcf STATUS, C
+00000B22,1003,adconv_one,adconv_one  bcf STATUS, C
+00000B23,0DF6,,            rlf ran1, F
 00000B24,0DF6,,            rlf ran1, F
 00000B25,0DF6,,            rlf ran1, F
-00000B26,0DF6,,            rlf ran1, F
 ,,,
 ,,,            ; ADCON0 REG     ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
-00000B27,13F6,,            bcf ran1, 7
-00000B28,1776,,            bsf ran1, 6
+00000B26,13F6,,            bcf ran1, 7
+00000B27,1776,,            bsf ran1, 6
 ,,,            ; 5
 ,,,            ; 4
 ,,,            ; 3
-00000B29,1576,,            bsf ran1, 2
+00000B28,1576,,            bsf ran1, 2
 ,,,            ; 1
-00000B2A,1476,,            bsf ran1, 0
+00000B29,1476,,            bsf ran1, 0
 ,,,
-00000B2B,0876,,            movf ran1, W
-00000B2C,009F,,            movwf ADCON0
+00000B2A,0876,,            movf ran1, W
+00000B2B,009F,,            movwf ADCON0
 ,,,
-00000B2D,191F,,            btfsc ADCON0, 2   ;ceka nez skonci AD prevod
-00000B2E,2B2D,,            goto $-1
-00000B2F,081E,,            movf ADRESH, W    ;kontroluje zda je zmena od minule
-00000B30,00F6,,            movwf ran1
-00000B31,0008,,            return
+00000B2C,191F,,            btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+00000B2D,2B2C,,            goto $-1
+00000B2E,081E,,            movf ADRESH, W    ;kontroluje zda je zmena od minule
+00000B2F,00F6,,            movwf ran1
+00000B30,0008,,            return
 ,,,
 ,,,
 ,,,
@@ -3550,90 +3550,90 @@
 ,,,;SZ=1=deleni nulou (B1,2,3=0)
 ,,,;B se nezmeni, v A bude zbytek
 ,,,;pouziva D1,2,3; X1
-00000B32,,LOMENO24,LOMENO24
+00000B31,,LOMENO24,LOMENO24
 ,,,;test B na nulu; sZ=1=ANO
-00000B32,08F3,,        MOVF    B1,F
-00000B33,1903,,        BTFSC   STATUS,Z        ;nenulove?
-00000B34,08F4,,        MOVF    B2,F
-00000B35,1903,,        BTFSC   STATUS,Z        ;nenulove?
-00000B36,08F5,,        MOVF    B3,F
-00000B37,1903,,        BTFSC   STATUS,Z        ;nenulove?
-00000B38,0008,,        RETURN                  ;B1,2,3=0
+00000B31,08F3,,        MOVF    B1,F
+00000B32,1903,,        BTFSC   STATUS,Z        ;nenulove?
+00000B33,08F4,,        MOVF    B2,F
+00000B34,1903,,        BTFSC   STATUS,Z        ;nenulove?
+00000B35,08F5,,        MOVF    B3,F
+00000B36,1903,,        BTFSC   STATUS,Z        ;nenulove?
+00000B37,0008,,        RETURN                  ;B1,2,3=0
 ,,,;priprava pro deleni
-00000B39,0870,LOM24,LOM24   MOVF    A1,W            ;A do D
-00000B3A,00F9,,        MOVWF   D1              ;
-00000B3B,0871,,        MOVF    A2,W            ;
-00000B3C,00FA,,        MOVWF   D2              ;
-00000B3D,0872,,        MOVF    A3,W            ;
-00000B3E,00FB,,        MOVWF   D3              ;
-00000B3F,01F0,,        CLRF    A1              ;nulovat
-00000B40,01F1,,        CLRF    A2              ;
-00000B41,01F2,,        CLRF    A3              ;
-00000B42,3018,,        MOVLW   24              ;pocet bitu
-00000B43,00FC,,        MOVWF   X1              ;
-00000B44,1003,,        BCF     STATUS,C        ;SC=0
+00000B38,0870,LOM24,LOM24   MOVF    A1,W            ;A do D
+00000B39,00F9,,        MOVWF   D1              ;
+00000B3A,0871,,        MOVF    A2,W            ;
+00000B3B,00FA,,        MOVWF   D2              ;
+00000B3C,0872,,        MOVF    A3,W            ;
+00000B3D,00FB,,        MOVWF   D3              ;
+00000B3E,01F0,,        CLRF    A1              ;nulovat
+00000B3F,01F1,,        CLRF    A2              ;
+00000B40,01F2,,        CLRF    A3              ;
+00000B41,3018,,        MOVLW   24              ;pocet bitu
+00000B42,00FC,,        MOVWF   X1              ;
+00000B43,1003,,        BCF     STATUS,C        ;SC=0
 ,,,;deleni
-00000B45,2357,LDalsi,LDalsi  CALL    x2M             ;D,A posun vlevo, A-B=C
-00000B46,1C03,,        BTFSS   STATUS,C        ;kladny vysledek?
-00000B47,2B4D,,        GOTO    LZapor          ;NE
+00000B44,2356,LDalsi,LDalsi  CALL    x2M             ;D,A posun vlevo, A-B=C
+00000B45,1C03,,        BTFSS   STATUS,C        ;kladny vysledek?
+00000B46,2B4C,,        GOTO    LZapor          ;NE
 ,,,;LKlad
-00000B48,00F2,,        MOVWF   A3              ;C do A
-00000B49,0877,,        MOVF    C2,W            ;
-00000B4A,00F1,,        MOVWF   A2              ;
-00000B4B,0876,,        MOVF    C1,W            ;
-00000B4C,00F0,,        MOVWF   A1              ;
+00000B47,00F2,,        MOVWF   A3              ;C do A
+00000B48,0877,,        MOVF    C2,W            ;
+00000B49,00F1,,        MOVWF   A2              ;
+00000B4A,0876,,        MOVF    C1,W            ;
+00000B4B,00F0,,        MOVWF   A1              ;
 ,,,
-00000B4D,0BFC,LZapor,LZapor  DECFSZ  X1,F            ;-1=0?
-00000B4E,2B45,,        GOTO    LDalsi          ;jeste neni konec
+00000B4C,0BFC,LZapor,LZapor  DECFSZ  X1,F            ;-1=0?
+00000B4D,2B44,,        GOTO    LDalsi          ;jeste neni konec
 ,,,;vysledek
-00000B4F,0D79,,        RLF     D1,W            ;posledni x2
-00000B50,00F6,,        MOVWF   C1              ; a W do C
-00000B51,0D7A,,        RLF     D2,W            ;
-00000B52,00F7,,        MOVWF   C2              ;
-00000B53,0D7B,,        RLF     D3,W            ;
-00000B54,00F8,,        MOVWF   C3              ;
+00000B4E,0D79,,        RLF     D1,W            ;posledni x2
+00000B4F,00F6,,        MOVWF   C1              ; a W do C
+00000B50,0D7A,,        RLF     D2,W            ;
+00000B51,00F7,,        MOVWF   C2              ;
+00000B52,0D7B,,        RLF     D3,W            ;
+00000B53,00F8,,        MOVWF   C3              ;
 ,,,
-00000B55,1103,,        BCF     STATUS,Z        ;SZ=0
-00000B56,0008,,        RETURN
+00000B54,1103,,        BCF     STATUS,Z        ;SZ=0
+00000B55,0008,,        RETURN
 ,,,
 ,,,
 ,,,;................................
 ,,,; D1,2,3 A1,2,3 * 2 a Minus
-00000B57,0DF9,x2M,x2M     RLF     D1,F            ;posuv vlevo
-00000B58,0DFA,,        RLF     D2,F            ;
-00000B59,0DFB,,        RLF     D3,F            ;
-00000B5A,0DF0,,        RLF     A1,F            ;
-00000B5B,0DF1,,        RLF     A2,F            ;
-00000B5C,0DF2,,        RLF     A3,F            ;
+00000B56,0DF9,x2M,x2M     RLF     D1,F            ;posuv vlevo
+00000B57,0DFA,,        RLF     D2,F            ;
+00000B58,0DFB,,        RLF     D3,F            ;
+00000B59,0DF0,,        RLF     A1,F            ;
+00000B5A,0DF1,,        RLF     A2,F            ;
+00000B5B,0DF2,,        RLF     A3,F            ;
 ,,,                                ;pokracuje MINUS
 ,,,;--------------------------------
 ,,,; A1,2,3 - B1,2,3 = C1,2,3
 ,,,;SC=0=zaporny vysledek
 ,,,;A,B se nezmeni
-00000B5D,0873,MINUS,MINUS   MOVF    B1,W            ;W=B1
-00000B5E,0270,,        SUBWF   A1,W            ;A1-B1=W
-00000B5F,00F6,,        MOVWF   C1              ;C1=W=vysledek1
-00000B60,0103,,        CLRW                    ;W=0
-00000B61,1C03,,        BTFSS   STATUS,C        ;SUB kladne?
-00000B62,3001,,        MOVLW   1               ;W=1
-00000B63,0774,,        ADDWF   B2,W            ;B2+W=W
-00000B64,01F8,,        CLRF    C3              ;C3=0
-00000B65,1803,,        BTFSC   STATUS,C        ;ADD nepreteklo?
-00000B66,1478,,        BSF     C3,0            ;C3=1
-00000B67,0271,,        SUBWF   A2,W            ;A2-W=W
-00000B68,00F7,,        MOVWF   C2              ;C2=w=vysledek2
-00000B69,0878,,        MOVF    C3,W            ;W=C3
-00000B6A,1C03,,        BTFSS   STATUS,C        ;SUB kladne?
-00000B6B,3001,,        MOVLW   1               ;W=1
-00000B6C,0775,,        ADDWF   B3,W            ;B3+W=W
-00000B6D,01F8,,        CLRF    C3              ;C3=0
-00000B6E,1803,,        BTFSC   STATUS,C        ;ADD nepreteklo?
-00000B6F,1478,,        BSF     C3,0            ;C3=1
-00000B70,0272,,        SUBWF   A3,W            ;A3-W=W
-00000B71,1878,,        BTFSC   C3,0            ;C3=0?
-00000B72,1003,,        BCF     STATUS,C        ;SC=0
-00000B73,00F8,,        MOVWF   C3              ;C3=W=vysledek3
-00000B74,0008,,        RETURN
+00000B5C,0873,MINUS,MINUS   MOVF    B1,W            ;W=B1
+00000B5D,0270,,        SUBWF   A1,W            ;A1-B1=W
+00000B5E,00F6,,        MOVWF   C1              ;C1=W=vysledek1
+00000B5F,0103,,        CLRW                    ;W=0
+00000B60,1C03,,        BTFSS   STATUS,C        ;SUB kladne?
+00000B61,3001,,        MOVLW   1               ;W=1
+00000B62,0774,,        ADDWF   B2,W            ;B2+W=W
+00000B63,01F8,,        CLRF    C3              ;C3=0
+00000B64,1803,,        BTFSC   STATUS,C        ;ADD nepreteklo?
+00000B65,1478,,        BSF     C3,0            ;C3=1
+00000B66,0271,,        SUBWF   A2,W            ;A2-W=W
+00000B67,00F7,,        MOVWF   C2              ;C2=w=vysledek2
+00000B68,0878,,        MOVF    C3,W            ;W=C3
+00000B69,1C03,,        BTFSS   STATUS,C        ;SUB kladne?
+00000B6A,3001,,        MOVLW   1               ;W=1
+00000B6B,0775,,        ADDWF   B3,W            ;B3+W=W
+00000B6C,01F8,,        CLRF    C3              ;C3=0
+00000B6D,1803,,        BTFSC   STATUS,C        ;ADD nepreteklo?
+00000B6E,1478,,        BSF     C3,0            ;C3=1
+00000B6F,0272,,        SUBWF   A3,W            ;A3-W=W
+00000B70,1878,,        BTFSC   C3,0            ;C3=0?
+00000B71,1003,,        BCF     STATUS,C        ;SC=0
+00000B72,00F8,,        MOVWF   C3              ;C3=W=vysledek3
+00000B73,0008,,        RETURN
 ,,,
 ,,,
 ,,,        end                                           ; KONEC PROGRAMU

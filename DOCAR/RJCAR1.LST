@@ -1,4 +1,4 @@
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE  1
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ Message[301]: MESSAGE: (Processor-header file mismatch.  Verify selected process
   0000003F            00047 ir_58       
   00000040            00048 ir_59       
   00000041            00049 ir_60       
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE  2
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,7 +116,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00100 
                       00101 ; BANK 1
                       00102       cblock    0x20
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE  3
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -175,7 +175,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   0000007A            00153 D2    
   0000007B            00154 D3    
   0000007C            00155 X1    
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE  4
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -234,7 +234,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00206 
 0016   118A           00207 init        bcf PCLATH,3 ;Select page 0
 0017   120A           00208             bcf PCLATH,4 ;Select page 0
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE  5
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -293,7 +293,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0036   3046           00249             movlw b'01000110' ; nastaví control register timer2
 0037   0092           00250             movwf T2CON
                       00251             
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE  6
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -352,7 +352,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0053   188C           00296             btfsc PIR1, TMR2IF      ;preruseni od timer2 watch
 0054   2057           00297             call watchover
                       00298             
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE  7
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -411,7 +411,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0076   0008           00349             return
                       00350             
 0077   0000           00351 vterinka    nop
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE  8
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -470,7 +470,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00A2   3009           00402             movlw .9 ;nastavy na dalsich 240ms
 00A3   00EC           00403             movwf vterina
 00A4   0008           00404             return
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE  9
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -529,7 +529,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00CF   1708           00455             bsf PORTD, 6
 00D0   1C22           00456             btfss r3, 0 ;pokud jeden vyply oba zapne
 00D1   16AD           00457             bsf o_e, 5
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 10
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -588,7 +588,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00FD   3002           00508             movlw b'10' ;procesor 2
 00FE   00D3           00509             movwf prc
 00FF   2226           00510             call clrout ;smaz port v prc
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 11
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -647,7 +647,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 012D   2226           00561             call clrout ;nastav port v prc
 012E   12AE           00562             bcf o_f, 5
 012F   301D           00563             movlw b'11101' ;port D5
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 12
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -706,7 +706,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0155   294E           00614             goto $-7
                       00615             
 0156   3000           00616             movlw b'00000000'   ;vysila nuly aby dostal odpoved XXXXXXX - 0000000
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 13
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 13
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -765,7 +765,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0181   29FB           00666             goto dotazerr
 0182   1886           00667             btfsc PORTB, 1  ;ceka az skonci privni synchronizacni bit X - 1
 0183   2980           00668             goto $-3 ;ochrana proti zamrznuti
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 14
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 14
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -824,7 +824,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 01AE   1C86           00719             btfss PORTB, 1
 01AF   1073           00720             bcf pri3, 0
 01B0   26D3           00721             call w100c
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 15
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 15
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -883,7 +883,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00772             
 01DB   01F6           00773             clrf pri6        ; ulozi priijate do pri XXXX XXXX
 01DC   3008           00774             movlw .8
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 16
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 16
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -942,7 +942,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0205   3004           00824             movlw .4
 0206   00A1           00825             movwf r2
 0207   19A0           00826             btfsc r1, 3
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 17
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 17
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1001,7 +1001,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0232   26D3           00877             call w100c
 0233   0DA0           00878             rlf r1, F
 0234   0BA1           00879             decfsz r2, F
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 18
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 18
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1060,7 +1060,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0254   1003           00930             bcf STATUS, C
 0255   0CA0           00931             rrf r1, F
 0256   30E0           00932             movlw b'11100000'
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 19
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 19
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1119,7 +1119,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0287   0AA0           00983             incf r1, F
 0288   1903           00984             btfsc STATUS, Z
 0289   2565           00985             call t1_30
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 20
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 20
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1178,7 +1178,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 02B6   0AA0           01036             incf r1, F
 02B7   1903           01037             btfsc STATUS, Z
 02B8   2550           01038             call t1_26
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 21
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 21
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1237,7 +1237,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       01089              ;pasy
 02E9   0000           01090 if_59       nop
 02EA   0008           01091             return
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 22
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 22
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1296,7 +1296,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 030C   0008           01142             return
                       01143              ;okno 1
 030D   0000           01144 if_90       nop
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 23
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 23
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1355,7 +1355,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0337   1903           01195             btfsc STATUS, Z
 0338   26CC           01196             call t1_x
 0339   0AA0           01197             incf r1, F
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 24
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 24
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1414,7 +1414,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0367   0008           01248             return
 0368   0000           01249 t2_stop     nop
 0369   0008           01250             return
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 25
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 25
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1473,7 +1473,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 039A   13E1           01301             bcf PORTD_temp, 7
 039B   1388           01302             bcf PORTD, 7
                       01303                   ;klakson
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 26
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 26
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1532,7 +1532,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 03AF   248E           01354             call t1_06 ;vypne vse 
 03B0   17AC           01355             bsf o_d, 7 ;zapne alarm cidla
 03B1   17DF           01356             bsf PORTB_temp, 7
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 27
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 27
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1591,7 +1591,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       01406                   ;zatahnuti okenek
                       01407             ;movf ir_90, W ;ulozi si aktualni polohy okenek pro stazeni pri odemknuti
                       01408             ;movwf o1tmp
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 28
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 28
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1650,7 +1650,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       01458             ;bsf o_f, 4 ;problikne white interier na 1 sekundu
                       01459 
 03E2   15DA           01460             bsf casov, WHITUN ;do timeru ze po 1s vypne
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 29
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 29
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1709,7 +1709,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0403   15B1           01511             bsf o_i, 3
 0404   301B           01512             movlw b'11011' ;port D3
 0405   00D2           01513             movwf port
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 30
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 30
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1768,7 +1768,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0432   1C64           01564 t2_03       btfss spinac, 0
 0433   2C3B           01565             goto t3_03
 0434   1029           01566             bcf o_a, 0
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 31
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 31
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1827,7 +1827,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0460   3002           01617             movlw b'10' ;procesor 2
 0461   00D3           01618             movwf prc 
 0462   19AE           01619             btfsc o_f, 3
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 32
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 32
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1886,7 +1886,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0489   30FF           01670             movlw b'11111111' ;nastavi do timeru ze bude blikat porad
 048A   00EB           01671             movwf casvar
 048B   3008           01672             movlw .8
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 33
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 33
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1945,7 +1945,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 04B4   2226           01723             call clrout ;set port v prc
 04B5   112D           01724             bcf o_e, 2
                       01725             ;sirena
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 34
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 34
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2004,7 +2004,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 04E1   00D2           01776             movwf port
 04E2   3003           01777             movlw b'0011' ;procesor 3
 04E3   00D3           01778             movwf prc
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 35
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 35
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2063,7 +2063,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       01829 ;odskok kufr
 050B   15AA           01830 t1_14       bsf o_b, 3
 050C   165F           01831             bsf PORTB_temp, 4
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 36
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 36
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2122,7 +2122,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0533   0008           01882             return
                       01883             
                       01884 ;forwind
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 37
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 37
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2181,7 +2181,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 055C   1924           01935             btfsc r5, 2
 055D   112E           01936             bcf o_f, 2 
 055E   0008           01937             return
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 38
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 38
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2240,7 +2240,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0584   0827           01987             movf o4tar, W
 0585   00A4           01988             movwf r5
 0586   30F0           01989             movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 39
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 39
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2299,7 +2299,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 05B1   2226           02040             call clrout ;nastav port v prc        
 05B2   0008           02041             return
                       02042             
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 40
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 40
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2358,7 +2358,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 05D8   2226           02093             call clrout ;smaz port v prc
 05D9   19A4           02094             btfsc r5, 3
 05DA   11AB           02095             bcf o_c, 3 
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 41
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 41
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2417,7 +2417,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       02146         
 0602   18A4           02147             btfsc r5, 1
 0603   1260           02148             bcf PORTC_temp, 4
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 42
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 42
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2476,7 +2476,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0629   21FF           02199             call setout ;nastav port v prc
 062A   0008           02200             return
                       02201             
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 43
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 43
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2535,7 +2535,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0650   0008           02252             return
                       02253             
                       02254 ;Dálkové světla
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 44
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 44
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2594,7 +2594,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       02305             
                       02306 ;pripraveno
 0671   0000           02307 t1_58       nop
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 45
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 45
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2653,7 +2653,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0697   1E24           02358             btfss r5, 4
 0698   162E           02359             bsf o_f, 4 
                       02360         
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 46
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 46
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2712,7 +2712,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 06C3   3008           02411             movlw .8
 06C4   00E6           02412             movwf timods
 06C5   0008           02413             return
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 47
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 47
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2771,7 +2771,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 06E2   00A4           02464             movwf r5
                       02465 
 06E3   1E24           02466             btfss r5, 4
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 48
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 48
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2830,7 +2830,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0804   0086           02517             movwf PORTB
 0805   0860           02518             movf PORTC_temp, W
 0806   0087           02519             movwf PORTC
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 49
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 49
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2880,7 +2880,7 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
                       02557         
                       02558 
 0825   158A           02559             bsf PCLATH,3 ;Select page 0
-0826   284B           02560             goto loop
+0826   284A           02560             goto loop
                       02561     
 0827   118A           02562 start       bcf PCLATH,3 ;Select page 0
                       02563             
@@ -2889,7 +2889,7 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
 082A   01E0           02566             clrf PORTC_temp
 082B   01E1           02567             clrf PORTD_temp
 082C   01E2           02568             clrf PORTE_temp
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 50
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 50
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2899,240 +2899,239 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 Message[306]: Crossing page boundary -- ensure page bits are set.
 082D   26D3           02570             call w100c
                       02571             
-Message[306]: Crossing page boundary -- ensure page bits are set.
-082E   23AD           02572             call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne al
-                            arm
+                      02572             ;call t1_00  ;@todo: Zkouška, aby se po startu vše nevypínalo ;po startu zamkne a zapne a
+                            larm
                       02573             
                       02574             ; zapne predni pasy po startu
-082F   300C           02575             movlw b'01100' ;port B4
-0830   00D2           02576             movwf port
-0831   3003           02577             movlw b'11' ;procesor 3
-0832   00D3           02578             movwf prc
+082E   300C           02575             movlw b'01100' ;port B4
+082F   00D2           02576             movwf port
+0830   3003           02577             movlw b'11' ;procesor 3
+0831   00D3           02578             movwf prc
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0833   21FF           02579             call setout ;nastav port v prc
-0834   162F           02580             bsf o_g, 4 
+0832   21FF           02579             call setout ;nastav port v prc
+0833   162F           02580             bsf o_g, 4 
                       02581             
-0835   300D           02582             movlw b'01101' ;port B5
-0836   00D2           02583             movwf port
-0837   3003           02584             movlw b'11' ;procesor 3
-0838   00D3           02585             movwf prc
+0834   300D           02582             movlw b'01101' ;port B5
+0835   00D2           02583             movwf port
+0836   3003           02584             movlw b'11' ;procesor 3
+0837   00D3           02585             movwf prc
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0839   21FF           02586             call setout ;nastav port v prc
-083A   16AF           02587             bsf o_g, 5 
+0838   21FF           02586             call setout ;nastav port v prc
+0839   16AF           02587             bsf o_g, 5 
                       02588 
                       02589             ;zapne zadni pasy po restartu
-083B   300E           02590             movlw b'01110' ;port B6
-083C   00D2           02591             movwf port
-083D   3003           02592             movlw b'11' ;procesor 3
-083E   00D3           02593             movwf prc
+083A   300E           02590             movlw b'01110' ;port B6
+083B   00D2           02591             movwf port
+083C   3003           02592             movlw b'11' ;procesor 3
+083D   00D3           02593             movwf prc
 Message[306]: Crossing page boundary -- ensure page bits are set.
-083F   2226           02594             call clrout ;nastav port v prc
-0840   132F           02595             bcf o_g, 6 
+083E   2226           02594             call clrout ;nastav port v prc
+083F   132F           02595             bcf o_g, 6 
                       02596             
-0841   300F           02597             movlw b'01111' ;port B7
-0842   00D2           02598             movwf port
-0843   3003           02599             movlw b'11' ;procesor 3
-0844   00D3           02600             movwf prc
+0840   300F           02597             movlw b'01111' ;port B7
+0841   00D2           02598             movwf port
+0842   3003           02599             movlw b'11' ;procesor 3
+0843   00D3           02600             movwf prc
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0845   2226           02601             call clrout ;nastav port v prc
-0846   13AF           02602             bcf o_g, 7 
+0844   2226           02601             call clrout ;nastav port v prc
+0845   13AF           02602             bcf o_g, 7 
                       02603 
-0847   301E           02604             movlw .30
-0848   00EC           02605             movwf vterina
+0846   301E           02604             movlw .30
+0847   00EC           02605             movwf vterina
                       02606         
                       02607 
-0849   158A           02608             bsf PCLATH,3 ;Select page 0
-084A   284B           02609             goto loop
+0848   158A           02608             bsf PCLATH,3 ;Select page 0
+0849   284A           02609             goto loop
                       02610 
-084B   118A           02611 loop        bcf PCLATH,3 ;Select page 0
+084A   118A           02611 loop        bcf PCLATH,3 ;Select page 0
                       02612             
-084C   0064           02613             clrwdt
+084B   0064           02613             clrwdt
                       02614    
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 51
+                      02615             ;#### Čeká několik cyklů aby se stihly ostatní procesory vzpamatovat z případnejch pr
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 51
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      02615             ;#### Čeká několik cyklů aby se stihly ostatní procesory vzpamatovat z případnejch pr
                             oblémů
                       02616             ; Začne počítat čas odpočinku procesorů WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-084D   2059           02617             call watchstart
+084C   2059           02617             call watchstart
                       02618             ; Čeká až skončí čas odpočinku procesorů WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-084E   205C           02619             call watchwait
+084D   205C           02619             call watchwait
                       02620             
                       02621             ; Začne počítat čas odpočinku procesorů WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-084F   2059           02622             call watchstart
+084E   2059           02622             call watchstart
                       02623             ; Čeká až skončí čas odpočinku procesorů WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0850   205C           02624             call watchwait
+084F   205C           02624             call watchwait
                       02625             
                       02626             ; Začne počítat čas odpočinku procesorů WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0851   2059           02627             call watchstart
+0850   2059           02627             call watchstart
                       02628             ; Čeká až skončí čas odpočinku procesorů WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0852   205C           02629             call watchwait
+0851   205C           02629             call watchwait
                       02630             
                       02631             ; Začne počítat čas odpočinku procesorů WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0853   2059           02632             call watchstart
+0852   2059           02632             call watchstart
                       02633             ; Čeká až skončí čas odpočinku procesorů WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0854   205C           02634             call watchwait
+0853   205C           02634             call watchwait
                       02635       
                       02636       
                       02637       
-0855   1A59           02638             btfsc conf, T1OF ;pokud timer 1 přetekl, spustí jeho obsluhu
+0854   1A59           02638             btfsc conf, T1OF ;pokud timer 1 přetekl, spustí jeho obsluhu
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0856   2062           02639             call timer1
+0855   2062           02639             call timer1
                       02640 
-0857   158A           02641             bsf PCLATH,3 ;Select page 1
+0856   158A           02641             bsf PCLATH,3 ;Select page 1
                       02642             ;call okna ;spouští obsluhu jednotlivých okének DEBUG
-0858   118A           02643             bcf PCLATH,3 ;Select page 0
+0857   118A           02643             bcf PCLATH,3 ;Select page 0
                       02644 
                       02645 
                       02646             
                       02647             
-0859   3000           02648             movlw .0 ;nastavime ANx kde x je zadane cislo
-085A   00F6           02649             movwf ran1
-085B   158A           02650             bsf PCLATH,3 ;Select page 1
-085C   22FB           02651             call adconv
-085D   118A           02652             bcf PCLATH,3 ;Select page 0
-085E   0876           02653             movf ran1, W
-085F   00A0           02654             movwf r1
+0858   3000           02648             movlw .0 ;nastavime ANx kde x je zadane cislo
+0859   00F6           02649             movwf ran1
+085A   158A           02650             bsf PCLATH,3 ;Select page 1
+085B   22FA           02651             call adconv
+085C   118A           02652             bcf PCLATH,3 ;Select page 0
+085D   0876           02653             movf ran1, W
+085E   00A0           02654             movwf r1
                       02655             
-0860   093F           02656             comf ir_58, W
-0861   07A0           02657             addwf r1, F
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 52
+085F   093F           02656             comf ir_58, W
+0860   07A0           02657             addwf r1, F
+0861   081E           02658             movf ADRESH, W
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 52
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0862   081E           02658             movf ADRESH, W
-0863   0FA0           02659             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0864   00BF           02660             movwf ir_58  ;prepise reg AN prevedenou hodnotou
-0865   0820           02661             movf r1, W
-0866   118A           02662             bcf PCLATH,3 ;Select page 0
-0867   1D03           02663             btfss STATUS, Z
+0862   0FA0           02659             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0863   00BF           02660             movwf ir_58  ;prepise reg AN prevedenou hodnotou
+0864   0820           02661             movf r1, W
+0865   118A           02662             bcf PCLATH,3 ;Select page 0
+0866   1D03           02663             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0868   224D           02664             call if_58  ;pokud zmena odesle na sbernici
+0867   224D           02664             call if_58  ;pokud zmena odesle na sbernici
                       02665             
                       02666             
-0869   3001           02667             movlw .1 ;nastavime ANx kde x je zadane cislo
-086A   00F6           02668             movwf ran1
-086B   158A           02669             bsf PCLATH,3 ;Select page 1
-086C   22FB           02670             call adconv
-086D   118A           02671             bcf PCLATH,3 ;Select page 0
-086E   0876           02672             movf ran1, W
-086F   00A0           02673             movwf r1
+0868   3001           02667             movlw .1 ;nastavime ANx kde x je zadane cislo
+0869   00F6           02668             movwf ran1
+086A   158A           02669             bsf PCLATH,3 ;Select page 1
+086B   22FA           02670             call adconv
+086C   118A           02671             bcf PCLATH,3 ;Select page 0
+086D   0876           02672             movf ran1, W
+086E   00A0           02673             movwf r1
                       02674             
-0870   0943           02675             comf ir_62, W
-0871   07A0           02676             addwf r1, F
-0872   081E           02677             movf ADRESH, W
-0873   0FA0           02678             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0874   00C3           02679             movwf ir_62  ;prepise reg AN prevedenou hodnotou
-0875   0820           02680             movf r1, W
-0876   118A           02681             bcf PCLATH,3 ;Select page 0
-0877   1D03           02682             btfss STATUS, Z
+086F   0943           02675             comf ir_62, W
+0870   07A0           02676             addwf r1, F
+0871   081E           02677             movf ADRESH, W
+0872   0FA0           02678             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0873   00C3           02679             movwf ir_62  ;prepise reg AN prevedenou hodnotou
+0874   0820           02680             movf r1, W
+0875   118A           02681             bcf PCLATH,3 ;Select page 0
+0876   1D03           02682             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0878   229A           02683             call if_62  ;pokud zmena odesle na sbernici
+0877   229A           02683             call if_62  ;pokud zmena odesle na sbernici
                       02684             
                       02685             
-0879   3002           02686             movlw .2 ;nastavime ANx kde x je zadane cislo
-087A   00F6           02687             movwf ran1
-087B   158A           02688             bsf PCLATH,3 ;Select page 1
-087C   22FB           02689             call adconv
-087D   118A           02690             bcf PCLATH,3 ;Select page 0
-087E   0876           02691             movf ran1, W
-087F   00A0           02692             movwf r1
+0878   3002           02686             movlw .2 ;nastavime ANx kde x je zadane cislo
+0879   00F6           02687             movwf ran1
+087A   158A           02688             bsf PCLATH,3 ;Select page 1
+087B   22FA           02689             call adconv
+087C   118A           02690             bcf PCLATH,3 ;Select page 0
+087D   0876           02691             movf ran1, W
+087E   00A0           02692             movwf r1
                       02693             
-0880   0937           02694             comf ir_50, W
-0881   07A0           02695             addwf r1, F
-0882   081E           02696             movf ADRESH, W
-0883   0FA0           02697             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0884   00B7           02698             movwf ir_50  ;prepise reg AN prevedenou hodnotou
-0885   0820           02699             movf r1, W
-0886   118A           02700             bcf PCLATH,3 ;Select page 0
-0887   1D03           02701             btfss STATUS, Z
+087F   0937           02694             comf ir_50, W
+0880   07A0           02695             addwf r1, F
+0881   081E           02696             movf ADRESH, W
+0882   0FA0           02697             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0883   00B7           02698             movwf ir_50  ;prepise reg AN prevedenou hodnotou
+0884   0820           02699             movf r1, W
+0885   118A           02700             bcf PCLATH,3 ;Select page 0
+0886   1D03           02701             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0888   22E7           02702             call if_50  ;pokud zmena odesle na sbernici
+0887   22E7           02702             call if_50  ;pokud zmena odesle na sbernici
                       02703             
                       02704             
-0889   3003           02705             movlw .3 ;nastavime ANx kde x je zadane cislo
-088A   00F6           02706             movwf ran1
-088B   158A           02707             bsf PCLATH,3 ;Select page 1
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 53
+0888   3003           02705             movlw .3 ;nastavime ANx kde x je zadane cislo
+0889   00F6           02706             movwf ran1
+088A   158A           02707             bsf PCLATH,3 ;Select page 1
+088B   22FA           02708             call adconv
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 53
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-088C   22FB           02708             call adconv
-088D   118A           02709             bcf PCLATH,3 ;Select page 0
-088E   0876           02710             movf ran1, W
-088F   00A0           02711             movwf r1
+088C   118A           02709             bcf PCLATH,3 ;Select page 0
+088D   0876           02710             movf ran1, W
+088E   00A0           02711             movwf r1
                       02712             
-0890   0940           02713             comf ir_59, W
-0891   07A0           02714             addwf r1, F
-0892   081E           02715             movf ADRESH, W
-0893   0FA0           02716             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0894   00C0           02717             movwf ir_59  ;prepise reg AN prevedenou hodnotou
-0895   0820           02718             movf r1, W
-0896   118A           02719             bcf PCLATH,3 ;Select page 0
-0897   1D03           02720             btfss STATUS, Z
+088F   0940           02713             comf ir_59, W
+0890   07A0           02714             addwf r1, F
+0891   081E           02715             movf ADRESH, W
+0892   0FA0           02716             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0893   00C0           02717             movwf ir_59  ;prepise reg AN prevedenou hodnotou
+0894   0820           02718             movf r1, W
+0895   118A           02719             bcf PCLATH,3 ;Select page 0
+0896   1D03           02720             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0898   22E9           02721             call if_59  ;pokud zmena odesle na sbernici
+0897   22E9           02721             call if_59  ;pokud zmena odesle na sbernici
                       02722             
                       02723             
-0899   3004           02724             movlw .4 ;nastavime ANx kde x je zadane cislo
-089A   00F6           02725             movwf ran1
-089B   158A           02726             bsf PCLATH,3 ;Select page 1
-089C   22FB           02727             call adconv
-089D   118A           02728             bcf PCLATH,3 ;Select page 0
-089E   0876           02729             movf ran1, W
-089F   00A0           02730             movwf r1
+0898   3004           02724             movlw .4 ;nastavime ANx kde x je zadane cislo
+0899   00F6           02725             movwf ran1
+089A   158A           02726             bsf PCLATH,3 ;Select page 1
+089B   22FA           02727             call adconv
+089C   118A           02728             bcf PCLATH,3 ;Select page 0
+089D   0876           02729             movf ran1, W
+089E   00A0           02730             movwf r1
                       02731             
-08A0   0941           02732             comf ir_60, W
-08A1   07A0           02733             addwf r1, F
-08A2   081E           02734             movf ADRESH, W
-08A3   0FA0           02735             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-08A4   00C1           02736             movwf ir_60  ;prepise reg AN prevedenou hodnotou
-08A5   0820           02737             movf r1, W
-08A6   118A           02738             bcf PCLATH,3 ;Select page 0
-08A7   1D03           02739             btfss STATUS, Z
+089F   0941           02732             comf ir_60, W
+08A0   07A0           02733             addwf r1, F
+08A1   081E           02734             movf ADRESH, W
+08A2   0FA0           02735             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+08A3   00C1           02736             movwf ir_60  ;prepise reg AN prevedenou hodnotou
+08A4   0820           02737             movf r1, W
+08A5   118A           02738             bcf PCLATH,3 ;Select page 0
+08A6   1D03           02739             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-08A8   22EB           02740             call if_60  ;pokud zmena odesle na sbernici
+08A7   22EB           02740             call if_60  ;pokud zmena odesle na sbernici
                       02741             
                       02742             
-08A9   3005           02743             movlw .5 ;nastavime ANx kde x je zadane cislo
-08AA   00F6           02744             movwf ran1
-08AB   158A           02745             bsf PCLATH,3 ;Select page 1
-08AC   22FB           02746             call adconv
-08AD   118A           02747             bcf PCLATH,3 ;Select page 0
-08AE   0876           02748             movf ran1, W
-08AF   00A0           02749             movwf r1
+08A8   3005           02743             movlw .5 ;nastavime ANx kde x je zadane cislo
+08A9   00F6           02744             movwf ran1
+08AA   158A           02745             bsf PCLATH,3 ;Select page 1
+08AB   22FA           02746             call adconv
+08AC   118A           02747             bcf PCLATH,3 ;Select page 0
+08AD   0876           02748             movf ran1, W
+08AE   00A0           02749             movwf r1
                       02750             
-08B0   0942           02751             comf ir_61, W
-08B1   07A0           02752             addwf r1, F
-08B2   081E           02753             movf ADRESH, W
-08B3   0FA0           02754             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-08B4   00C2           02755             movwf ir_61  ;prepise reg AN prevedenou hodnotou
-08B5   0820           02756             movf r1, W
-08B6   118A           02757             bcf PCLATH,3 ;Select page 0
-08B7   1D03           02758             btfss STATUS, Z
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 54
+08AF   0942           02751             comf ir_61, W
+08B0   07A0           02752             addwf r1, F
+08B1   081E           02753             movf ADRESH, W
+08B2   0FA0           02754             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+08B3   00C2           02755             movwf ir_61  ;prepise reg AN prevedenou hodnotou
+08B4   0820           02756             movf r1, W
+08B5   118A           02757             bcf PCLATH,3 ;Select page 0
+08B6   1D03           02758             btfss STATUS, Z
+Message[306]: Crossing page boundary -- ensure page bits are set.
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 54
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-Message[306]: Crossing page boundary -- ensure page bits are set.
-08B8   22ED           02759             call if_61  ;pokud zmena odesle na sbernici
+08B7   22ED           02759             call if_61  ;pokud zmena odesle na sbernici
                       02760             
                       02761             
                       02762             
@@ -3141,832 +3140,832 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
                       02765 
                       02766             ; Začne počítat čas pro procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-08B9   2059           02767             call watchstart
+08B8   2059           02767             call watchstart
                       02768 
                       02769             ;dotaz na procesor 2
-08BA   3002           02770             movlw .2  ;oznaceni ciloveho procesoru
-08BB   00F8           02771             movwf cil
+08B9   3002           02770             movlw .2  ;oznaceni ciloveho procesoru
+08BA   00F8           02771             movwf cil
 Message[306]: Crossing page boundary -- ensure page bits are set.
-08BC   2146           02772             call dotaz  ;prijem dat z procesoru do pri0 - pri7
+08BB   2146           02772             call dotaz  ;prijem dat z procesoru do pri0 - pri7
                       02773     
                       02774             ; Čeká až doběhne čas vyhrazený pro tento procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-08BD   205C           02775             call watchwait
+08BC   205C           02775             call watchwait
                       02776     
-08BE   0870           02777             movf pri0, W    ;kontroluje zda je zmena od minule
-08BF   00A0           02778             movwf r1
-08C0   0938           02779             comf ir_51, W
-08C1   07A0           02780             addwf r1, F
-08C2   0870           02781             movf pri0, W
-08C3   0FA0           02782             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-08C4   00B8           02783             movwf ir_51  ;priepise reg AN prievedenou hodnotou
-08C5   0820           02784             movf r1, W
-08C6   1D03           02785             btfss STATUS, Z
+08BD   0870           02777             movf pri0, W    ;kontroluje zda je zmena od minule
+08BE   00A0           02778             movwf r1
+08BF   0938           02779             comf ir_51, W
+08C0   07A0           02780             addwf r1, F
+08C1   0870           02781             movf pri0, W
+08C2   0FA0           02782             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+08C3   00B8           02783             movwf ir_51  ;priepise reg AN prievedenou hodnotou
+08C4   0820           02784             movf r1, W
+08C5   1D03           02785             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-08C7   22F3           02786             call if_51  ;pokud zmena spusti podprig
+08C6   22F3           02786             call if_51  ;pokud zmena spusti podprig
                       02787     
-08C8   0871           02788             movf pri1, W    ;kontroluje zda je zmena od minule
-08C9   00A0           02789             movwf r1
-08CA   0939           02790             comf ir_52, W
-08CB   07A0           02791             addwf r1, F
-08CC   0871           02792             movf pri1, W
-08CD   0FA0           02793             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-08CE   00B9           02794             movwf ir_52  ;priepise reg AN prievedenou hodnotou
-08CF   0820           02795             movf r1, W
-08D0   1D03           02796             btfss STATUS, Z
+08C7   0871           02788             movf pri1, W    ;kontroluje zda je zmena od minule
+08C8   00A0           02789             movwf r1
+08C9   0939           02790             comf ir_52, W
+08CA   07A0           02791             addwf r1, F
+08CB   0871           02792             movf pri1, W
+08CC   0FA0           02793             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+08CD   00B9           02794             movwf ir_52  ;priepise reg AN prievedenou hodnotou
+08CE   0820           02795             movf r1, W
+08CF   1D03           02796             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-08D1   22F5           02797             call if_52  ;pokud zmena spusti podprig
+08D0   22F5           02797             call if_52  ;pokud zmena spusti podprig
                       02798     
                       02799     
-08D2   0872           02800             movf pri2, W    ;kontroluje zda je zmena od minule
-08D3   00A0           02801             movwf r1
-08D4   093A           02802             comf ir_53, W
-08D5   07A0           02803             addwf r1, F
-08D6   0872           02804             movf pri2, W
-08D7   0FA0           02805             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 55
+08D1   0872           02800             movf pri2, W    ;kontroluje zda je zmena od minule
+08D2   00A0           02801             movwf r1
+08D3   093A           02802             comf ir_53, W
+08D4   07A0           02803             addwf r1, F
+08D5   0872           02804             movf pri2, W
+08D6   0FA0           02805             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+08D7   00BA           02806             movwf ir_53  ;priepise reg AN prievedenou hodnotou
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 55
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-08D8   00BA           02806             movwf ir_53  ;priepise reg AN prievedenou hodnotou
-08D9   0820           02807             movf r1, W
-08DA   1D03           02808             btfss STATUS, Z
+08D8   0820           02807             movf r1, W
+08D9   1D03           02808             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-08DB   22F7           02809             call if_53  ;pokud zmena spusti podprig
+08DA   22F7           02809             call if_53  ;pokud zmena spusti podprig
                       02810     
                       02811     
-08DC   0873           02812             movf pri3, W    ;kontroluje zda je zmena od minule
-08DD   00A0           02813             movwf r1
-08DE   093B           02814             comf ir_54, W
-08DF   07A0           02815             addwf r1, F
-08E0   0873           02816             movf pri3, W
-08E1   0FA0           02817             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-08E2   00BB           02818             movwf ir_54  ;priepise reg AN prievedenou hodnotou
-08E3   0820           02819             movf r1, W
-08E4   1D03           02820             btfss STATUS, Z
+08DB   0873           02812             movf pri3, W    ;kontroluje zda je zmena od minule
+08DC   00A0           02813             movwf r1
+08DD   093B           02814             comf ir_54, W
+08DE   07A0           02815             addwf r1, F
+08DF   0873           02816             movf pri3, W
+08E0   0FA0           02817             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+08E1   00BB           02818             movwf ir_54  ;priepise reg AN prievedenou hodnotou
+08E2   0820           02819             movf r1, W
+08E3   1D03           02820             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-08E5   22F9           02821             call if_54  ;pokud zmena spusti podprig
+08E4   22F9           02821             call if_54  ;pokud zmena spusti podprig
                       02822     
                       02823     
-08E6   0874           02824             movf pri4, W    ;kontroluje zda je zmena od minule
-08E7   00A0           02825             movwf r1
-08E8   093C           02826             comf ir_55, W
-08E9   07A0           02827             addwf r1, F
-08EA   0874           02828             movf pri4, W
-08EB   0FA0           02829             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-08EC   00BC           02830             movwf ir_55  ;priepise reg AN prievedenou hodnotou
-08ED   0820           02831             movf r1, W
-08EE   1D03           02832             btfss STATUS, Z
+08E5   0874           02824             movf pri4, W    ;kontroluje zda je zmena od minule
+08E6   00A0           02825             movwf r1
+08E7   093C           02826             comf ir_55, W
+08E8   07A0           02827             addwf r1, F
+08E9   0874           02828             movf pri4, W
+08EA   0FA0           02829             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+08EB   00BC           02830             movwf ir_55  ;priepise reg AN prievedenou hodnotou
+08EC   0820           02831             movf r1, W
+08ED   1D03           02832             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-08EF   22FB           02833             call if_55  ;pokud zmena spusti podprig
+08EE   22FB           02833             call if_55  ;pokud zmena spusti podprig
                       02834     
                       02835     
-08F0   0875           02836             movf pri5, W    ;kontroluje zda je zmena od minule
-08F1   00A0           02837             movwf r1
-08F2   093D           02838             comf ir_56, W
-08F3   07A0           02839             addwf r1, F
-08F4   0875           02840             movf pri5, W
-08F5   0FA0           02841             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-08F6   00BD           02842             movwf ir_56  ;priepise reg AN prievedenou hodnotou
-08F7   0820           02843             movf r1, W
-08F8   1D03           02844             btfss STATUS, Z
+08EF   0875           02836             movf pri5, W    ;kontroluje zda je zmena od minule
+08F0   00A0           02837             movwf r1
+08F1   093D           02838             comf ir_56, W
+08F2   07A0           02839             addwf r1, F
+08F3   0875           02840             movf pri5, W
+08F4   0FA0           02841             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+08F5   00BD           02842             movwf ir_56  ;priepise reg AN prievedenou hodnotou
+08F6   0820           02843             movf r1, W
+08F7   1D03           02844             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-08F9   22FD           02845             call if_56  ;pokud zmena spusti podprig
+08F8   22FD           02845             call if_56  ;pokud zmena spusti podprig
                       02846     
                       02847     
-08FA   0876           02848             movf pri6, W    ;kontroluje zda je zmena od minule
-08FB   00A0           02849             movwf r1
-08FC   093E           02850             comf ir_57, W
-08FD   07A0           02851             addwf r1, F
-08FE   0876           02852             movf pri6, W
-08FF   0FA0           02853             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0900   00BE           02854             movwf ir_57  ;priepise reg AN prievedenou hodnotou
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 56
+08F9   0876           02848             movf pri6, W    ;kontroluje zda je zmena od minule
+08FA   00A0           02849             movwf r1
+08FB   093E           02850             comf ir_57, W
+08FC   07A0           02851             addwf r1, F
+08FD   0876           02852             movf pri6, W
+08FE   0FA0           02853             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+08FF   00BE           02854             movwf ir_57  ;priepise reg AN prievedenou hodnotou
+0900   0820           02855             movf r1, W
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 56
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0901   0820           02855             movf r1, W
-0902   1D03           02856             btfss STATUS, Z
+0901   1D03           02856             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0903   22FF           02857             call if_57  ;pokud zmena spusti podprig
+0902   22FF           02857             call if_57  ;pokud zmena spusti podprig
                       02858     
                       02859     
-0904   0877           02860             movf pri7, W    ;kontroluje zda je zmena od minule
-0905   00A0           02861             movwf r1
-0906   0936           02862             comf ir_49, W
-0907   07A0           02863             addwf r1, F
-0908   0877           02864             movf pri7, W
-0909   0FA0           02865             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-090A   00B6           02866             movwf ir_49  ;priepise reg AN prievedenou hodnotou
-090B   0820           02867             movf r1, W
-090C   1D03           02868             btfss STATUS, Z
+0903   0877           02860             movf pri7, W    ;kontroluje zda je zmena od minule
+0904   00A0           02861             movwf r1
+0905   0936           02862             comf ir_49, W
+0906   07A0           02863             addwf r1, F
+0907   0877           02864             movf pri7, W
+0908   0FA0           02865             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0909   00B6           02866             movwf ir_49  ;priepise reg AN prievedenou hodnotou
+090A   0820           02867             movf r1, W
+090B   1D03           02868             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-090D   22EF           02869             call if_49  ;pokud zmena spusti podprig
+090C   22EF           02869             call if_49  ;pokud zmena spusti podprig
                       02870 
                       02871 
                       02872             ; Začne počítat čas pro procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-090E   2059           02873             call watchstart
+090D   2059           02873             call watchstart
                       02874 
                       02875             ;dotaz na procesor 3
-090F   3003           02876             movlw .3  ;oznaceni ciloveho procesoru
-0910   00F8           02877             movwf cil
+090E   3003           02876             movlw .3  ;oznaceni ciloveho procesoru
+090F   00F8           02877             movwf cil
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0911   2146           02878             call dotaz  ;prijem dat z procesoru do pri0 - pri7
+0910   2146           02878             call dotaz  ;prijem dat z procesoru do pri0 - pri7
                       02879             
                       02880             ; Čeká až doběhne čas vyhrazený pro tento procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0912   205C           02881             call watchwait
+0911   205C           02881             call watchwait
                       02882             
                       02883     
                       02884     
-0913   0870           02885             movf pri0, W    ;kontroluje zda je zmena od minule
-0914   00A0           02886             movwf r1
-0915   0944           02887             comf ir_80, W
-0916   07A0           02888             addwf r1, F
-0917   0870           02889             movf pri0, W
-0918   0FA0           02890             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0919   00C4           02891             movwf ir_80  ;priepise reg AN prievedenou hodnotou
-091A   0820           02892             movf r1, W
-091B   1D03           02893             btfss STATUS, Z
+0912   0870           02885             movf pri0, W    ;kontroluje zda je zmena od minule
+0913   00A0           02886             movwf r1
+0914   0944           02887             comf ir_80, W
+0915   07A0           02888             addwf r1, F
+0916   0870           02889             movf pri0, W
+0917   0FA0           02890             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0918   00C4           02891             movwf ir_80  ;priepise reg AN prievedenou hodnotou
+0919   0820           02892             movf r1, W
+091A   1D03           02893             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-091C   22F1           02894             call if_80  ;pokud zmena spusti podprig
+091B   22F1           02894             call if_80  ;pokud zmena spusti podprig
                       02895     
                       02896     
-091D   0871           02897             movf pri1, W    ;kontroluje zda je zmena od minule
-091E   00A0           02898             movwf r1
-091F   0945           02899             comf ir_84, W
-0920   07A0           02900             addwf r1, F
-0921   0871           02901             movf pri1, W
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 57
+091C   0871           02897             movf pri1, W    ;kontroluje zda je zmena od minule
+091D   00A0           02898             movwf r1
+091E   0945           02899             comf ir_84, W
+091F   07A0           02900             addwf r1, F
+0920   0871           02901             movf pri1, W
+0921   0FA0           02902             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 57
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0922   0FA0           02902             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0923   00C5           02903             movwf ir_84  ;priepise reg AN prievedenou hodnotou
-0924   0820           02904             movf r1, W
-0925   1D03           02905             btfss STATUS, Z
+0922   00C5           02903             movwf ir_84  ;priepise reg AN prievedenou hodnotou
+0923   0820           02904             movf r1, W
+0924   1D03           02905             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0926   2301           02906             call if_84  ;pokud zmena spusti podprig
+0925   2301           02906             call if_84  ;pokud zmena spusti podprig
                       02907     
                       02908     
-0927   0872           02909             movf pri2, W    ;kontroluje zda je zmena od minule
-0928   00A0           02910             movwf r1
-0929   0946           02911             comf ir_85, W
-092A   07A0           02912             addwf r1, F
-092B   0872           02913             movf pri2, W
-092C   0FA0           02914             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-092D   00C6           02915             movwf ir_85  ;priepise reg AN prievedenou hodnotou
-092E   0820           02916             movf r1, W
-092F   1D03           02917             btfss STATUS, Z
+0926   0872           02909             movf pri2, W    ;kontroluje zda je zmena od minule
+0927   00A0           02910             movwf r1
+0928   0946           02911             comf ir_85, W
+0929   07A0           02912             addwf r1, F
+092A   0872           02913             movf pri2, W
+092B   0FA0           02914             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+092C   00C6           02915             movwf ir_85  ;priepise reg AN prievedenou hodnotou
+092D   0820           02916             movf r1, W
+092E   1D03           02917             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0930   2303           02918             call if_85  ;pokud zmena spusti podprig
+092F   2303           02918             call if_85  ;pokud zmena spusti podprig
                       02919     
                       02920     
-0931   0873           02921             movf pri3, W    ;kontroluje zda je zmena od minule
-0932   00A0           02922             movwf r1
-0933   0947           02923             comf ir_86, W
-0934   07A0           02924             addwf r1, F
-0935   0873           02925             movf pri3, W
-0936   0FA0           02926             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0937   00C7           02927             movwf ir_86  ;priepise reg AN prievedenou hodnotou
-0938   0820           02928             movf r1, W
-0939   1D03           02929             btfss STATUS, Z
+0930   0873           02921             movf pri3, W    ;kontroluje zda je zmena od minule
+0931   00A0           02922             movwf r1
+0932   0947           02923             comf ir_86, W
+0933   07A0           02924             addwf r1, F
+0934   0873           02925             movf pri3, W
+0935   0FA0           02926             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0936   00C7           02927             movwf ir_86  ;priepise reg AN prievedenou hodnotou
+0937   0820           02928             movf r1, W
+0938   1D03           02929             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-093A   2305           02930             call if_86  ;pokud zmena spusti podprig
+0939   2305           02930             call if_86  ;pokud zmena spusti podprig
                       02931     
                       02932     
-093B   0874           02933             movf pri4, W    ;kontroluje zda je zmena od minule
-093C   00A0           02934             movwf r1
-093D   0948           02935             comf ir_87, W
-093E   07A0           02936             addwf r1, F
-093F   0874           02937             movf pri4, W
-0940   0FA0           02938             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0941   00C8           02939             movwf ir_87  ;priepise reg AN prievedenou hodnotou
-0942   0820           02940             movf r1, W
-0943   1D03           02941             btfss STATUS, Z
+093A   0874           02933             movf pri4, W    ;kontroluje zda je zmena od minule
+093B   00A0           02934             movwf r1
+093C   0948           02935             comf ir_87, W
+093D   07A0           02936             addwf r1, F
+093E   0874           02937             movf pri4, W
+093F   0FA0           02938             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0940   00C8           02939             movwf ir_87  ;priepise reg AN prievedenou hodnotou
+0941   0820           02940             movf r1, W
+0942   1D03           02941             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0944   2307           02942             call if_87  ;pokud zmena spusti podprig
+0943   2307           02942             call if_87  ;pokud zmena spusti podprig
                       02943     
                       02944     
-0945   0875           02945             movf pri5, W    ;kontroluje zda je zmena od minule
-0946   00A0           02946             movwf r1
-0947   0949           02947             comf ir_88, W
-0948   07A0           02948             addwf r1, F
-0949   0875           02949             movf pri5, W
-094A   0FA0           02950             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 58
+0944   0875           02945             movf pri5, W    ;kontroluje zda je zmena od minule
+0945   00A0           02946             movwf r1
+0946   0949           02947             comf ir_88, W
+0947   07A0           02948             addwf r1, F
+0948   0875           02949             movf pri5, W
+0949   0FA0           02950             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+094A   00C9           02951             movwf ir_88  ;priepise reg AN prievedenou hodnotou
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 58
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-094B   00C9           02951             movwf ir_88  ;priepise reg AN prievedenou hodnotou
-094C   0820           02952             movf r1, W
-094D   1D03           02953             btfss STATUS, Z
+094B   0820           02952             movf r1, W
+094C   1D03           02953             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-094E   2309           02954             call if_88  ;pokud zmena spusti podprig
+094D   2309           02954             call if_88  ;pokud zmena spusti podprig
                       02955     
                       02956     
-094F   0876           02957             movf pri6, W    ;kontroluje zda je zmena od minule
-0950   00A0           02958             movwf r1
-0951   094A           02959             comf ir_89, W
-0952   07A0           02960             addwf r1, F
-0953   0876           02961             movf pri6, W
-0954   0FA0           02962             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0955   00CA           02963             movwf ir_89  ;priepise reg AN prievedenou hodnotou
-0956   0820           02964             movf r1, W
-0957   1D03           02965             btfss STATUS, Z
+094E   0876           02957             movf pri6, W    ;kontroluje zda je zmena od minule
+094F   00A0           02958             movwf r1
+0950   094A           02959             comf ir_89, W
+0951   07A0           02960             addwf r1, F
+0952   0876           02961             movf pri6, W
+0953   0FA0           02962             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0954   00CA           02963             movwf ir_89  ;priepise reg AN prievedenou hodnotou
+0955   0820           02964             movf r1, W
+0956   1D03           02965             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0958   230B           02966             call if_89  ;pokud zmena spusti podprig
+0957   230B           02966             call if_89  ;pokud zmena spusti podprig
                       02967     
                       02968     
-0959   0877           02969             movf pri7, W    ;kontroluje zda je zmena od minule
-095A   00A0           02970             movwf r1
-095B   094B           02971             comf ir_90, W
-095C   07A0           02972             addwf r1, F
-095D   0877           02973             movf pri7, W
-095E   0FA0           02974             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-095F   00CB           02975             movwf ir_90  ;priepise reg AN prievedenou hodnotou
-0960   0820           02976             movf r1, W
-0961   1D03           02977             btfss STATUS, Z
+0958   0877           02969             movf pri7, W    ;kontroluje zda je zmena od minule
+0959   00A0           02970             movwf r1
+095A   094B           02971             comf ir_90, W
+095B   07A0           02972             addwf r1, F
+095C   0877           02973             movf pri7, W
+095D   0FA0           02974             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+095E   00CB           02975             movwf ir_90  ;priepise reg AN prievedenou hodnotou
+095F   0820           02976             movf r1, W
+0960   1D03           02977             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0962   230D           02978             call if_90  ;pokud zmena spusti podprig
+0961   230D           02978             call if_90  ;pokud zmena spusti podprig
                       02979 
                       02980 
                       02981 
                       02982             ; Začne počítat čas pro procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0963   2059           02983             call watchstart
+0962   2059           02983             call watchstart
                       02984 
                       02985             ;dotaz na procesor 4
-0964   3004           02986             movlw .4  ;oznaceni ciloveho procesoru
-0965   00F8           02987             movwf cil
+0963   3004           02986             movlw .4  ;oznaceni ciloveho procesoru
+0964   00F8           02987             movwf cil
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0966   2146           02988             call dotaz  ;prijem dat z procesoru do pri0 - pri7
+0965   2146           02988             call dotaz  ;prijem dat z procesoru do pri0 - pri7
                       02989             
                       02990             ; Čeká až doběhne čas vyhrazený pro tento procesor WATCH2
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0967   205C           02991             call watchwait
+0966   205C           02991             call watchwait
                       02992             
                       02993     
                       02994     
-0968   0870           02995             movf pri0, W    ;kontroluje zda je zmena od minule
-0969   00A0           02996             movwf r1
-096A   094C           02997             comf ir_91, W
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 59
+0967   0870           02995             movf pri0, W    ;kontroluje zda je zmena od minule
+0968   00A0           02996             movwf r1
+0969   094C           02997             comf ir_91, W
+096A   07A0           02998             addwf r1, F
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 59
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-096B   07A0           02998             addwf r1, F
-096C   0870           02999             movf pri0, W
-096D   0FA0           03000             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-096E   00CC           03001             movwf ir_91  ;priepise reg AN prievedenou hodnotou
-096F   0820           03002             movf r1, W
-0970   1D03           03003             btfss STATUS, Z
+096B   0870           02999             movf pri0, W
+096C   0FA0           03000             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+096D   00CC           03001             movwf ir_91  ;priepise reg AN prievedenou hodnotou
+096E   0820           03002             movf r1, W
+096F   1D03           03003             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0971   230F           03004             call if_91  ;pokud zmena spusti podprig
+0970   230F           03004             call if_91  ;pokud zmena spusti podprig
                       03005     
                       03006     
-0972   0871           03007             movf pri1, W    ;kontroluje zda je zmena od minule
-0973   00A0           03008             movwf r1
-0974   094D           03009             comf ir_92, W
-0975   07A0           03010             addwf r1, F
-0976   0871           03011             movf pri1, W
-0977   0FA0           03012             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0978   00CD           03013             movwf ir_92  ;priepise reg AN prievedenou hodnotou
-0979   0820           03014             movf r1, W
-097A   1D03           03015             btfss STATUS, Z
+0971   0871           03007             movf pri1, W    ;kontroluje zda je zmena od minule
+0972   00A0           03008             movwf r1
+0973   094D           03009             comf ir_92, W
+0974   07A0           03010             addwf r1, F
+0975   0871           03011             movf pri1, W
+0976   0FA0           03012             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0977   00CD           03013             movwf ir_92  ;priepise reg AN prievedenou hodnotou
+0978   0820           03014             movf r1, W
+0979   1D03           03015             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-097B   2311           03016             call if_92  ;pokud zmena spusti podprig
+097A   2311           03016             call if_92  ;pokud zmena spusti podprig
                       03017     
                       03018     
-097C   0872           03019             movf pri2, W    ;kontroluje zda je zmena od minule
-097D   00A0           03020             movwf r1
-097E   094E           03021             comf ir_93, W
-097F   07A0           03022             addwf r1, F
-0980   0872           03023             movf pri2, W
-0981   0FA0           03024             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0982   00CE           03025             movwf ir_93  ;priepise reg AN prievedenou hodnotou
-0983   0820           03026             movf r1, W
-0984   1D03           03027             btfss STATUS, Z
+097B   0872           03019             movf pri2, W    ;kontroluje zda je zmena od minule
+097C   00A0           03020             movwf r1
+097D   094E           03021             comf ir_93, W
+097E   07A0           03022             addwf r1, F
+097F   0872           03023             movf pri2, W
+0980   0FA0           03024             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0981   00CE           03025             movwf ir_93  ;priepise reg AN prievedenou hodnotou
+0982   0820           03026             movf r1, W
+0983   1D03           03027             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0985   2313           03028             call if_93  ;pokud zmena spusti podprig
+0984   2313           03028             call if_93  ;pokud zmena spusti podprig
                       03029     
                       03030     
-0986   0873           03031             movf pri3, W    ;kontroluje zda je zmena od minule
-0987   00A0           03032             movwf r1
-0988   094F           03033             comf ir_127, W
-0989   07A0           03034             addwf r1, F
-098A   0873           03035             movf pri3, W
-098B   0FA0           03036             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-098C   00CF           03037             movwf ir_127  ;priepise reg AN prievedenou hodnotou
-098D   0820           03038             movf r1, W
-098E   1D03           03039             btfss STATUS, Z
+0985   0873           03031             movf pri3, W    ;kontroluje zda je zmena od minule
+0986   00A0           03032             movwf r1
+0987   094F           03033             comf ir_127, W
+0988   07A0           03034             addwf r1, F
+0989   0873           03035             movf pri3, W
+098A   0FA0           03036             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+098B   00CF           03037             movwf ir_127  ;priepise reg AN prievedenou hodnotou
+098C   0820           03038             movf r1, W
+098D   1D03           03039             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-098F   2315           03040             call if_127  ;pokud zmena spusti podprig
+098E   2315           03040             call if_127  ;pokud zmena spusti podprig
                       03041     
                       03042     
-0990   0874           03043             movf pri4, W    ;kontroluje zda je zmena od minule
-0991   00A0           03044             movwf r1
-0992   0950           03045             comf ir_128, W
-0993   07A0           03046             addwf r1, F
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 60
+098F   0874           03043             movf pri4, W    ;kontroluje zda je zmena od minule
+0990   00A0           03044             movwf r1
+0991   0950           03045             comf ir_128, W
+0992   07A0           03046             addwf r1, F
+0993   0874           03047             movf pri4, W
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 60
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0994   0874           03047             movf pri4, W
-0995   0FA0           03048             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-0996   00D0           03049             movwf ir_128  ;priepise reg AN prievedenou hodnotou
-0997   0820           03050             movf r1, W
-0998   1D03           03051             btfss STATUS, Z
+0994   0FA0           03048             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+0995   00D0           03049             movwf ir_128  ;priepise reg AN prievedenou hodnotou
+0996   0820           03050             movf r1, W
+0997   1D03           03051             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0999   2317           03052             call if_128  ;pokud zmena spusti podprig
+0998   2317           03052             call if_128  ;pokud zmena spusti podprig
                       03053     
                       03054     
-099A   0875           03055             movf pri5, W    ;kontroluje zda je zmena od minule
-099B   00A0           03056             movwf r1
-099C   0935           03057             comf ir_x, W
-099D   07A0           03058             addwf r1, F
-099E   0875           03059             movf pri5, W
-099F   0FA0           03060             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-09A0   00B5           03061             movwf ir_x  ;priepise reg AN prievedenou hodnotou
-09A1   0820           03062             movf r1, W
-09A2   1D03           03063             btfss STATUS, Z
+0999   0875           03055             movf pri5, W    ;kontroluje zda je zmena od minule
+099A   00A0           03056             movwf r1
+099B   0935           03057             comf ir_x, W
+099C   07A0           03058             addwf r1, F
+099D   0875           03059             movf pri5, W
+099E   0FA0           03060             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+099F   00B5           03061             movwf ir_x  ;priepise reg AN prievedenou hodnotou
+09A0   0820           03062             movf r1, W
+09A1   1D03           03063             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-09A3   2364           03064             call if_x  ;pokud zmena spusti podprig
+09A2   2364           03064             call if_x  ;pokud zmena spusti podprig
                       03065     
                       03066     
-09A4   0876           03067             movf pri6, W    ;kontroluje zda je zmena od minule
-09A5   00A0           03068             movwf r1
-09A6   0935           03069             comf ir_x, W
-09A7   07A0           03070             addwf r1, F
-09A8   0876           03071             movf pri6, W
-09A9   0FA0           03072             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-09AA   00B5           03073             movwf ir_x  ;priepise reg AN prievedenou hodnotou
-09AB   0820           03074             movf r1, W
-09AC   1D03           03075             btfss STATUS, Z
+09A3   0876           03067             movf pri6, W    ;kontroluje zda je zmena od minule
+09A4   00A0           03068             movwf r1
+09A5   0935           03069             comf ir_x, W
+09A6   07A0           03070             addwf r1, F
+09A7   0876           03071             movf pri6, W
+09A8   0FA0           03072             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+09A9   00B5           03073             movwf ir_x  ;priepise reg AN prievedenou hodnotou
+09AA   0820           03074             movf r1, W
+09AB   1D03           03075             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-09AD   2364           03076             call if_x  ;pokud zmena spusti podprig
+09AC   2364           03076             call if_x  ;pokud zmena spusti podprig
                       03077     
                       03078     
-09AE   0877           03079             movf pri7, W    ;kontroluje zda je zmena od minule
-09AF   00A0           03080             movwf r1
-09B0   0935           03081             comf ir_x, W
-09B1   07A0           03082             addwf r1, F
-09B2   0877           03083             movf pri7, W
-09B3   0FA0           03084             incfsz r1, F  ;pokud zadna zmena pokracuje dal
-09B4   00B5           03085             movwf ir_x  ;priepise reg AN prievedenou hodnotou
-09B5   0820           03086             movf r1, W
-09B6   1D03           03087             btfss STATUS, Z
+09AD   0877           03079             movf pri7, W    ;kontroluje zda je zmena od minule
+09AE   00A0           03080             movwf r1
+09AF   0935           03081             comf ir_x, W
+09B0   07A0           03082             addwf r1, F
+09B1   0877           03083             movf pri7, W
+09B2   0FA0           03084             incfsz r1, F  ;pokud zadna zmena pokracuje dal
+09B3   00B5           03085             movwf ir_x  ;priepise reg AN prievedenou hodnotou
+09B4   0820           03086             movf r1, W
+09B5   1D03           03087             btfss STATUS, Z
 Message[306]: Crossing page boundary -- ensure page bits are set.
-09B7   2364           03088             call if_x  ;pokud zmena spusti podprig
+09B6   2364           03088             call if_x  ;pokud zmena spusti podprig
                       03089 
                       03090 
                       03091 
-09B8   158A           03092             bsf PCLATH,3 ;Select page 1
-09B9   284B           03093             goto loop      ;zpet v cyklu na zacatek
+09B7   158A           03092             bsf PCLATH,3 ;Select page 1
+09B8   284A           03093             goto loop      ;zpet v cyklu na zacatek
                       03094         
                       03095         
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 61
+                      03096         
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 61
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      03096         
                       03097 
                       03098 
                       03099 
                       03100 
                       03101 
                       03102 
-09BA   084B           03103 okna        movf ir_90, W
-09BB   39F0           03104             andlw b'11110000' ;odseknu konecnou cast
-09BC   00A0           03105             movwf r1
-09BD   09A0           03106             comf r1, F ;udelám dvojkový doplněk
-09BE   0824           03107             movf o1tar, W
-09BF   39F0           03108             andlw b'11110000' ;odseknu konecnou cast
-09C0   07A0           03109             addwf r1, F ;sectu s dvojkovym doplnkem
-09C1   0803           03110             movf STATUS, W
-09C2   00A2           03111             movwf r3
-09C3   1922           03112             btfsc r3, Z
-09C4   2229           03113             call o1stop
-09C5   1922           03114             btfsc r3, Z
-09C6   29CB           03115             goto okno2
-09C7   1C22           03116             btfss r3, C ;pokud nepreteklo, vyjed nahoru
-09C8   21FF           03117             call o1up
-09C9   1822           03118             btfsc r3, C ;pokud preteklo, sjed dolu
-09CA   2214           03119             call o1down
-09CB   084C           03120 okno2       movf ir_91, W
-09CC   39F0           03121             andlw b'11110000' ;odseknu konecnou cast
-09CD   00A0           03122             movwf r1
-09CE   09A0           03123             comf r1, F ;udelám dvojkový doplněk
-09CF   0825           03124             movf o2tar, W
-09D0   39F0           03125             andlw b'11110000' ;odseknu konecnou cast
-09D1   07A0           03126             addwf r1, F ;sectu s dvojkovym doplnkem
-09D2   0803           03127             movf STATUS, W
-09D3   00A2           03128             movwf r3
-09D4   1922           03129             btfsc r3, Z
-09D5   2268           03130             call o2stop
-09D6   1922           03131             btfsc r3, Z
-09D7   29DC           03132             goto okno3
-09D8   1C22           03133             btfss r3, C ;pokud nepreteklo, vyjed nahoru
-09D9   223E           03134             call o2up
-09DA   1822           03135             btfsc r3, C ;pokud preteklo, sjed dolu
-09DB   2253           03136             call o2down
-09DC   084D           03137 okno3       movf ir_92, W
-09DD   39F0           03138             andlw b'11110000' ;odseknu konecnou cast
-09DE   00A0           03139             movwf r1
-09DF   09A0           03140             comf r1, F ;udelám dvojkový doplněk
-09E0   0826           03141             movf o3tar, W
-09E1   39F0           03142             andlw b'11110000' ;odseknu konecnou cast
-09E2   07A0           03143             addwf r1, F ;sectu s dvojkovym doplnkem
-09E3   0803           03144             movf STATUS, W
-09E4   00A2           03145             movwf r3
-09E5   1922           03146             btfsc r3, Z
-09E6   22A7           03147             call o3stop
-09E7   1922           03148             btfsc r3, Z
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 62
+09B9   084B           03103 okna        movf ir_90, W
+09BA   39F0           03104             andlw b'11110000' ;odseknu konecnou cast
+09BB   00A0           03105             movwf r1
+09BC   09A0           03106             comf r1, F ;udelám dvojkový doplněk
+09BD   0824           03107             movf o1tar, W
+09BE   39F0           03108             andlw b'11110000' ;odseknu konecnou cast
+09BF   07A0           03109             addwf r1, F ;sectu s dvojkovym doplnkem
+09C0   0803           03110             movf STATUS, W
+09C1   00A2           03111             movwf r3
+09C2   1922           03112             btfsc r3, Z
+09C3   2228           03113             call o1stop
+09C4   1922           03114             btfsc r3, Z
+09C5   29CA           03115             goto okno2
+09C6   1C22           03116             btfss r3, C ;pokud nepreteklo, vyjed nahoru
+09C7   21FE           03117             call o1up
+09C8   1822           03118             btfsc r3, C ;pokud preteklo, sjed dolu
+09C9   2213           03119             call o1down
+09CA   084C           03120 okno2       movf ir_91, W
+09CB   39F0           03121             andlw b'11110000' ;odseknu konecnou cast
+09CC   00A0           03122             movwf r1
+09CD   09A0           03123             comf r1, F ;udelám dvojkový doplněk
+09CE   0825           03124             movf o2tar, W
+09CF   39F0           03125             andlw b'11110000' ;odseknu konecnou cast
+09D0   07A0           03126             addwf r1, F ;sectu s dvojkovym doplnkem
+09D1   0803           03127             movf STATUS, W
+09D2   00A2           03128             movwf r3
+09D3   1922           03129             btfsc r3, Z
+09D4   2267           03130             call o2stop
+09D5   1922           03131             btfsc r3, Z
+09D6   29DB           03132             goto okno3
+09D7   1C22           03133             btfss r3, C ;pokud nepreteklo, vyjed nahoru
+09D8   223D           03134             call o2up
+09D9   1822           03135             btfsc r3, C ;pokud preteklo, sjed dolu
+09DA   2252           03136             call o2down
+09DB   084D           03137 okno3       movf ir_92, W
+09DC   39F0           03138             andlw b'11110000' ;odseknu konecnou cast
+09DD   00A0           03139             movwf r1
+09DE   09A0           03140             comf r1, F ;udelám dvojkový doplněk
+09DF   0826           03141             movf o3tar, W
+09E0   39F0           03142             andlw b'11110000' ;odseknu konecnou cast
+09E1   07A0           03143             addwf r1, F ;sectu s dvojkovym doplnkem
+09E2   0803           03144             movf STATUS, W
+09E3   00A2           03145             movwf r3
+09E4   1922           03146             btfsc r3, Z
+09E5   22A6           03147             call o3stop
+09E6   1922           03148             btfsc r3, Z
+09E7   29EC           03149             goto okno4
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 62
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-09E8   29ED           03149             goto okno4
-09E9   1C22           03150             btfss r3, C ;pokud nepreteklo, vyjed nahoru
-09EA   227D           03151             call o3up
-09EB   1822           03152             btfsc r3, C ;pokud preteklo, sjed dolu
-09EC   2292           03153             call o3down
-09ED   084E           03154 okno4       movf ir_93, W
-09EE   39F0           03155             andlw b'11110000' ;odseknu konecnou cast
-09EF   00A0           03156             movwf r1
-09F0   09A0           03157             comf r1, F ;udelám dvojkový doplněk
-09F1   0827           03158             movf o4tar, W
-09F2   39F0           03159             andlw b'11110000' ;odseknu konecnou cast
-09F3   07A0           03160             addwf r1, F ;sectu s dvojkovym doplnkem
-09F4   0803           03161             movf STATUS, W
-09F5   00A2           03162             movwf r3
-09F6   1922           03163             btfsc r3, Z
-09F7   22E6           03164             call o4stop
-09F8   1922           03165             btfsc r3, Z
-09F9   0008           03166             return
-09FA   1C22           03167             btfss r3, C ;pokud nepreteklo, vyjed nahoru
-09FB   22BC           03168             call o4up
-09FC   1822           03169             btfsc r3, C ;pokud preteklo, sjed dolu
-09FD   22D1           03170             call o4down
-09FE   0008           03171             return
+09E8   1C22           03150             btfss r3, C ;pokud nepreteklo, vyjed nahoru
+09E9   227C           03151             call o3up
+09EA   1822           03152             btfsc r3, C ;pokud preteklo, sjed dolu
+09EB   2291           03153             call o3down
+09EC   084E           03154 okno4       movf ir_93, W
+09ED   39F0           03155             andlw b'11110000' ;odseknu konecnou cast
+09EE   00A0           03156             movwf r1
+09EF   09A0           03157             comf r1, F ;udelám dvojkový doplněk
+09F0   0827           03158             movf o4tar, W
+09F1   39F0           03159             andlw b'11110000' ;odseknu konecnou cast
+09F2   07A0           03160             addwf r1, F ;sectu s dvojkovym doplnkem
+09F3   0803           03161             movf STATUS, W
+09F4   00A2           03162             movwf r3
+09F5   1922           03163             btfsc r3, Z
+09F6   22E5           03164             call o4stop
+09F7   1922           03165             btfsc r3, Z
+09F8   0008           03166             return
+09F9   1C22           03167             btfss r3, C ;pokud nepreteklo, vyjed nahoru
+09FA   22BB           03168             call o4up
+09FB   1822           03169             btfsc r3, C ;pokud preteklo, sjed dolu
+09FC   22D0           03170             call o4down
+09FD   0008           03171             return
                       03172 
                       03173 ;okno 1 nahoru, dolu, zastavit
-09FF   19A9           03174 o1up        btfsc o_a, 3
-0A00   2A09           03175             goto no1up
-0A01   301D           03176             movlw b'11101' ;port D5
-0A02   00D2           03177             movwf port
-0A03   3003           03178             movlw b'11' ;procesor 3
-0A04   00D3           03179             movwf prc
+09FE   19A9           03174 o1up        btfsc o_a, 3
+09FF   2A08           03175             goto no1up
+0A00   301D           03176             movlw b'11101' ;port D5
+0A01   00D2           03177             movwf port
+0A02   3003           03178             movlw b'11' ;procesor 3
+0A03   00D3           03179             movwf prc
                       03180         
-0A05   118A           03181             bcf PCLATH,3 ;Select page 0
+0A04   118A           03181             bcf PCLATH,3 ;Select page 0
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A06   21FF           03182             call setout ;smaz port v prc
-0A07   158A           03183             bsf PCLATH,3 ;Select page 1
-0A08   15A9           03184             bsf o_a, 3 
-0A09   1FA9           03185 no1up       btfss o_a, 7
-0A0A   0008           03186             return
-0A0B   300C           03187             movlw b'01100' ;port B4
-0A0C   00D2           03188             movwf port
-0A0D   3002           03189             movlw b'10' ;procesor 2
-0A0E   00D3           03190             movwf prc
+0A05   21FF           03182             call setout ;smaz port v prc
+0A06   158A           03183             bsf PCLATH,3 ;Select page 1
+0A07   15A9           03184             bsf o_a, 3 
+0A08   1FA9           03185 no1up       btfss o_a, 7
+0A09   0008           03186             return
+0A0A   300C           03187             movlw b'01100' ;port B4
+0A0B   00D2           03188             movwf port
+0A0C   3002           03189             movlw b'10' ;procesor 2
+0A0D   00D3           03190             movwf prc
                       03191             
-0A0F   118A           03192             bcf PCLATH,3 ;Select page 0
+0A0E   118A           03192             bcf PCLATH,3 ;Select page 0
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A10   2226           03193             call clrout ;smaz port v prc
-0A11   158A           03194             bsf PCLATH,3 ;Select page 1
-0A12   13A9           03195             bcf o_a, 7             
-0A13   0008           03196             return
-0A14   1DA9           03197 o1down      btfss o_a, 3
-0A15   2A1E           03198             goto no1down
-0A16   301D           03199             movlw b'11101' ;port D5
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 63
+0A0F   2226           03193             call clrout ;smaz port v prc
+0A10   158A           03194             bsf PCLATH,3 ;Select page 1
+0A11   13A9           03195             bcf o_a, 7             
+0A12   0008           03196             return
+0A13   1DA9           03197 o1down      btfss o_a, 3
+0A14   2A1D           03198             goto no1down
+0A15   301D           03199             movlw b'11101' ;port D5
+0A16   00D2           03200             movwf port
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 63
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0A17   00D2           03200             movwf port
-0A18   3003           03201             movlw b'11' ;procesor 3
-0A19   00D3           03202             movwf prc
+0A17   3003           03201             movlw b'11' ;procesor 3
+0A18   00D3           03202             movwf prc
                       03203             
-0A1A   118A           03204             bcf PCLATH,3 ;Select page 0
+0A19   118A           03204             bcf PCLATH,3 ;Select page 0
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A1B   2226           03205             call clrout ;smaz port v prc
-0A1C   158A           03206             bsf PCLATH,3 ;Select page 1
-0A1D   11A9           03207             bcf o_a, 3 
-0A1E   1BA9           03208 no1down     btfsc o_a, 7
-0A1F   0008           03209             return
-0A20   300C           03210             movlw b'01100' ;port B4
-0A21   00D2           03211             movwf port
-0A22   3002           03212             movlw b'10' ;procesor 2
-0A23   00D3           03213             movwf prc
+0A1A   2226           03205             call clrout ;smaz port v prc
+0A1B   158A           03206             bsf PCLATH,3 ;Select page 1
+0A1C   11A9           03207             bcf o_a, 3 
+0A1D   1BA9           03208 no1down     btfsc o_a, 7
+0A1E   0008           03209             return
+0A1F   300C           03210             movlw b'01100' ;port B4
+0A20   00D2           03211             movwf port
+0A21   3002           03212             movlw b'10' ;procesor 2
+0A22   00D3           03213             movwf prc
                       03214             
-0A24   118A           03215             bcf PCLATH,3 ;Select page 1
+0A23   118A           03215             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A25   21FF           03216             call setout ;smaz port v prc
-0A26   158A           03217             bsf PCLATH,3 ;Select page 1
-0A27   17A9           03218             bsf o_a, 7             
-0A28   0008           03219             return
-0A29   1DA9           03220 o1stop      btfss o_a, 3
-0A2A   2A33           03221             goto no1stop
-0A2B   301D           03222             movlw b'11101' ;port D5
-0A2C   00D2           03223             movwf port
-0A2D   3003           03224             movlw b'11' ;procesor 3
-0A2E   00D3           03225             movwf prc
+0A24   21FF           03216             call setout ;smaz port v prc
+0A25   158A           03217             bsf PCLATH,3 ;Select page 1
+0A26   17A9           03218             bsf o_a, 7             
+0A27   0008           03219             return
+0A28   1DA9           03220 o1stop      btfss o_a, 3
+0A29   2A32           03221             goto no1stop
+0A2A   301D           03222             movlw b'11101' ;port D5
+0A2B   00D2           03223             movwf port
+0A2C   3003           03224             movlw b'11' ;procesor 3
+0A2D   00D3           03225             movwf prc
                       03226             
-0A2F   118A           03227             bcf PCLATH,3 ;Select page 1
+0A2E   118A           03227             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A30   2226           03228             call clrout ;smaz port v prc
-0A31   158A           03229             bsf PCLATH,3 ;Select page 1
-0A32   11A9           03230             bcf o_a, 3 
-0A33   1FA9           03231 no1stop     btfss o_a, 7
-0A34   0008           03232             return
-0A35   300C           03233             movlw b'01100' ;port B4
-0A36   00D2           03234             movwf port
-0A37   3002           03235             movlw b'10' ;procesor 2
-0A38   00D3           03236             movwf prc
+0A2F   2226           03228             call clrout ;smaz port v prc
+0A30   158A           03229             bsf PCLATH,3 ;Select page 1
+0A31   11A9           03230             bcf o_a, 3 
+0A32   1FA9           03231 no1stop     btfss o_a, 7
+0A33   0008           03232             return
+0A34   300C           03233             movlw b'01100' ;port B4
+0A35   00D2           03234             movwf port
+0A36   3002           03235             movlw b'10' ;procesor 2
+0A37   00D3           03236             movwf prc
                       03237             
-0A39   118A           03238             bcf PCLATH,3 ;Select page 1
+0A38   118A           03238             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A3A   2226           03239             call clrout ;smaz port v prc
-0A3B   158A           03240             bsf PCLATH,3 ;Select page 1
-0A3C   13A9           03241             bcf o_a, 7             
-0A3D   0008           03242             return
+0A39   2226           03239             call clrout ;smaz port v prc
+0A3A   158A           03240             bsf PCLATH,3 ;Select page 1
+0A3B   13A9           03241             bcf o_a, 7             
+0A3C   0008           03242             return
                       03243 ;okno 2 nahoru, dolu, zastavit
-0A3E   1A29           03244 o2up        btfsc o_a, 4
-0A3F   2A48           03245             goto no2up
-0A40   3018           03246             movlw b'11000' ;port D0
-0A41   00D2           03247             movwf port
-0A42   3002           03248             movlw b'10' ;procesor 2
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 64
+0A3D   1A29           03244 o2up        btfsc o_a, 4
+0A3E   2A47           03245             goto no2up
+0A3F   3018           03246             movlw b'11000' ;port D0
+0A40   00D2           03247             movwf port
+0A41   3002           03248             movlw b'10' ;procesor 2
+0A42   00D3           03249             movwf prc
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 64
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0A43   00D3           03249             movwf prc
                       03250             
-0A44   118A           03251             bcf PCLATH,3 ;Select page 1
+0A43   118A           03251             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A45   21FF           03252             call setout ;smaz port v prc
-0A46   158A           03253             bsf PCLATH,3 ;Select page 1
-0A47   1629           03254             bsf o_a, 4 
-0A48   1C2A           03255 no2up       btfss o_b, 0
-0A49   0008           03256             return
-0A4A   300D           03257             movlw b'01101' ;port B5
-0A4B   00D2           03258             movwf port
-0A4C   3002           03259             movlw b'10' ;procesor 2
-0A4D   00D3           03260             movwf prc
+0A44   21FF           03252             call setout ;smaz port v prc
+0A45   158A           03253             bsf PCLATH,3 ;Select page 1
+0A46   1629           03254             bsf o_a, 4 
+0A47   1C2A           03255 no2up       btfss o_b, 0
+0A48   0008           03256             return
+0A49   300D           03257             movlw b'01101' ;port B5
+0A4A   00D2           03258             movwf port
+0A4B   3002           03259             movlw b'10' ;procesor 2
+0A4C   00D3           03260             movwf prc
                       03261             
-0A4E   118A           03262             bcf PCLATH,3 ;Select page 1
+0A4D   118A           03262             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A4F   2226           03263             call clrout ;smaz port v prc
-0A50   158A           03264             bsf PCLATH,3 ;Select page 1
-0A51   102A           03265             bcf o_b, 0             
-0A52   0008           03266             return
-0A53   1E29           03267 o2down      btfss o_a, 4
-0A54   2A5D           03268             goto no2down
-0A55   3018           03269             movlw b'11000' ;port D0
-0A56   00D2           03270             movwf port
-0A57   3002           03271             movlw b'10' ;procesor 2
-0A58   00D3           03272             movwf prc
+0A4E   2226           03263             call clrout ;smaz port v prc
+0A4F   158A           03264             bsf PCLATH,3 ;Select page 1
+0A50   102A           03265             bcf o_b, 0             
+0A51   0008           03266             return
+0A52   1E29           03267 o2down      btfss o_a, 4
+0A53   2A5C           03268             goto no2down
+0A54   3018           03269             movlw b'11000' ;port D0
+0A55   00D2           03270             movwf port
+0A56   3002           03271             movlw b'10' ;procesor 2
+0A57   00D3           03272             movwf prc
                       03273             
-0A59   118A           03274             bcf PCLATH,3 ;Select page 1
+0A58   118A           03274             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A5A   2226           03275             call clrout ;smaz port v prc
-0A5B   158A           03276             bsf PCLATH,3 ;Select page 1
-0A5C   1229           03277             bcf o_a, 4 
-0A5D   182A           03278 no2down     btfsc o_b, 0
-0A5E   0008           03279             return
-0A5F   300D           03280             movlw b'01101' ;port B5
-0A60   00D2           03281             movwf port
-0A61   3002           03282             movlw b'10' ;procesor 2
-0A62   00D3           03283             movwf prc
+0A59   2226           03275             call clrout ;smaz port v prc
+0A5A   158A           03276             bsf PCLATH,3 ;Select page 1
+0A5B   1229           03277             bcf o_a, 4 
+0A5C   182A           03278 no2down     btfsc o_b, 0
+0A5D   0008           03279             return
+0A5E   300D           03280             movlw b'01101' ;port B5
+0A5F   00D2           03281             movwf port
+0A60   3002           03282             movlw b'10' ;procesor 2
+0A61   00D3           03283             movwf prc
                       03284             
-0A63   118A           03285             bcf PCLATH,3 ;Select page 1
+0A62   118A           03285             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A64   21FF           03286             call setout ;smaz port v prc
-0A65   158A           03287             bsf PCLATH,3 ;Select page 1
-0A66   142A           03288             bsf o_b, 0             
-0A67   0008           03289             return
-0A68   1E29           03290 o2stop      btfss o_a, 4
-0A69   2A72           03291             goto no2stop
-0A6A   3018           03292             movlw b'11000' ;port D0
-0A6B   00D2           03293             movwf port
-0A6C   3002           03294             movlw b'10' ;procesor 2
-0A6D   00D3           03295             movwf prc
+0A63   21FF           03286             call setout ;smaz port v prc
+0A64   158A           03287             bsf PCLATH,3 ;Select page 1
+0A65   142A           03288             bsf o_b, 0             
+0A66   0008           03289             return
+0A67   1E29           03290 o2stop      btfss o_a, 4
+0A68   2A71           03291             goto no2stop
+0A69   3018           03292             movlw b'11000' ;port D0
+0A6A   00D2           03293             movwf port
+0A6B   3002           03294             movlw b'10' ;procesor 2
+0A6C   00D3           03295             movwf prc
                       03296             
-0A6E   118A           03297             bcf PCLATH,3 ;Select page 1
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 65
+0A6D   118A           03297             bcf PCLATH,3 ;Select page 1
+Message[306]: Crossing page boundary -- ensure page bits are set.
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 65
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-Message[306]: Crossing page boundary -- ensure page bits are set.
-0A6F   2226           03298             call clrout ;smaz port v prc
-0A70   158A           03299             bsf PCLATH,3 ;Select page 1
-0A71   1229           03300             bcf o_a, 4 
-0A72   1C2A           03301 no2stop     btfss o_b, 0
-0A73   0008           03302             return
-0A74   300D           03303             movlw b'01101' ;port B5
-0A75   00D2           03304             movwf port
-0A76   3002           03305             movlw b'10' ;procesor 2
-0A77   00D3           03306             movwf prc
+0A6E   2226           03298             call clrout ;smaz port v prc
+0A6F   158A           03299             bsf PCLATH,3 ;Select page 1
+0A70   1229           03300             bcf o_a, 4 
+0A71   1C2A           03301 no2stop     btfss o_b, 0
+0A72   0008           03302             return
+0A73   300D           03303             movlw b'01101' ;port B5
+0A74   00D2           03304             movwf port
+0A75   3002           03305             movlw b'10' ;procesor 2
+0A76   00D3           03306             movwf prc
                       03307             
-0A78   118A           03308             bcf PCLATH,3 ;Select page 1
+0A77   118A           03308             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A79   2226           03309             call clrout ;smaz port v prc
-0A7A   158A           03310             bsf PCLATH,3 ;Select page 1
-0A7B   102A           03311             bcf o_b, 0             
-0A7C   0008           03312             return
+0A78   2226           03309             call clrout ;smaz port v prc
+0A79   158A           03310             bsf PCLATH,3 ;Select page 1
+0A7A   102A           03311             bcf o_b, 0             
+0A7B   0008           03312             return
                       03313 ;okno 3 nahoru, dolu, zastavit
-0A7D   1AA9           03314 o3up        btfsc o_a, 5
-0A7E   2A87           03315             goto no3up
-0A7F   300A           03316             movlw b'01010' ;port B2
-0A80   00D2           03317             movwf port
-0A81   3002           03318             movlw b'10' ;procesor 2
-0A82   00D3           03319             movwf prc
+0A7C   1AA9           03314 o3up        btfsc o_a, 5
+0A7D   2A86           03315             goto no3up
+0A7E   300A           03316             movlw b'01010' ;port B2
+0A7F   00D2           03317             movwf port
+0A80   3002           03318             movlw b'10' ;procesor 2
+0A81   00D3           03319             movwf prc
                       03320             
-0A83   118A           03321             bcf PCLATH,3 ;Select page 1
+0A82   118A           03321             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A84   21FF           03322             call setout ;smaz port v prc
-0A85   158A           03323             bsf PCLATH,3 ;Select page 1
-0A86   16A9           03324             bsf o_a, 5 
-0A87   1CAA           03325 no3up       btfss o_b, 1
-0A88   0008           03326             return
-0A89   300E           03327             movlw b'01110' ;port B6
-0A8A   00D2           03328             movwf port
-0A8B   3002           03329             movlw b'10' ;procesor 2
-0A8C   00D3           03330             movwf prc
+0A83   21FF           03322             call setout ;smaz port v prc
+0A84   158A           03323             bsf PCLATH,3 ;Select page 1
+0A85   16A9           03324             bsf o_a, 5 
+0A86   1CAA           03325 no3up       btfss o_b, 1
+0A87   0008           03326             return
+0A88   300E           03327             movlw b'01110' ;port B6
+0A89   00D2           03328             movwf port
+0A8A   3002           03329             movlw b'10' ;procesor 2
+0A8B   00D3           03330             movwf prc
                       03331             
-0A8D   118A           03332             bcf PCLATH,3 ;Select page 1
+0A8C   118A           03332             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A8E   2226           03333             call clrout ;smaz port v prc
-0A8F   158A           03334             bsf PCLATH,3 ;Select page 1
-0A90   10AA           03335             bcf o_b, 1             
-0A91   0008           03336             return
-0A92   1EA9           03337 o3down      btfss o_a, 5
-0A93   2A9C           03338             goto no3down
-0A94   300A           03339             movlw b'01010' ;port B2
-0A95   00D2           03340             movwf port
-0A96   3002           03341             movlw b'10' ;procesor 2
-0A97   00D3           03342             movwf prc
+0A8D   2226           03333             call clrout ;smaz port v prc
+0A8E   158A           03334             bsf PCLATH,3 ;Select page 1
+0A8F   10AA           03335             bcf o_b, 1             
+0A90   0008           03336             return
+0A91   1EA9           03337 o3down      btfss o_a, 5
+0A92   2A9B           03338             goto no3down
+0A93   300A           03339             movlw b'01010' ;port B2
+0A94   00D2           03340             movwf port
+0A95   3002           03341             movlw b'10' ;procesor 2
+0A96   00D3           03342             movwf prc
                       03343             
-0A98   118A           03344             bcf PCLATH,3 ;Select page 1
+0A97   118A           03344             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0A99   2226           03345             call clrout ;smaz port v prc
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 66
+0A98   2226           03345             call clrout ;smaz port v prc
+0A99   158A           03346             bsf PCLATH,3 ;Select page 1
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 66
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0A9A   158A           03346             bsf PCLATH,3 ;Select page 1
-0A9B   12A9           03347             bcf o_a, 5 
-0A9C   18AA           03348 no3down     btfsc o_b, 1
-0A9D   0008           03349             return
-0A9E   300E           03350             movlw b'01110' ;port B6
-0A9F   00D2           03351             movwf port
-0AA0   3002           03352             movlw b'10' ;procesor 2
-0AA1   00D3           03353             movwf prc
+0A9A   12A9           03347             bcf o_a, 5 
+0A9B   18AA           03348 no3down     btfsc o_b, 1
+0A9C   0008           03349             return
+0A9D   300E           03350             movlw b'01110' ;port B6
+0A9E   00D2           03351             movwf port
+0A9F   3002           03352             movlw b'10' ;procesor 2
+0AA0   00D3           03353             movwf prc
                       03354             
-0AA2   118A           03355             bcf PCLATH,3 ;Select page 1
+0AA1   118A           03355             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0AA3   21FF           03356             call setout ;smaz port v prc
-0AA4   158A           03357             bsf PCLATH,3 ;Select page 1
-0AA5   14AA           03358             bsf o_b, 1             
-0AA6   0008           03359             return
-0AA7   1EA9           03360 o3stop      btfss o_a, 5
-0AA8   2AB1           03361             goto no3stop
-0AA9   300A           03362             movlw b'01010' ;port B2
-0AAA   00D2           03363             movwf port
-0AAB   3002           03364             movlw b'10' ;procesor 2
-0AAC   00D3           03365             movwf prc
+0AA2   21FF           03356             call setout ;smaz port v prc
+0AA3   158A           03357             bsf PCLATH,3 ;Select page 1
+0AA4   14AA           03358             bsf o_b, 1             
+0AA5   0008           03359             return
+0AA6   1EA9           03360 o3stop      btfss o_a, 5
+0AA7   2AB0           03361             goto no3stop
+0AA8   300A           03362             movlw b'01010' ;port B2
+0AA9   00D2           03363             movwf port
+0AAA   3002           03364             movlw b'10' ;procesor 2
+0AAB   00D3           03365             movwf prc
                       03366             
-0AAD   118A           03367             bcf PCLATH,3 ;Select page 1
+0AAC   118A           03367             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0AAE   2226           03368             call clrout ;smaz port v prc
-0AAF   158A           03369             bsf PCLATH,3 ;Select page 1
-0AB0   12A9           03370             bcf o_a, 5 
-0AB1   1CAA           03371 no3stop     btfss o_b, 1
-0AB2   0008           03372             return
-0AB3   300E           03373             movlw b'01110' ;port B6
-0AB4   00D2           03374             movwf port
-0AB5   3002           03375             movlw b'10' ;procesor 2
-0AB6   00D3           03376             movwf prc
+0AAD   2226           03368             call clrout ;smaz port v prc
+0AAE   158A           03369             bsf PCLATH,3 ;Select page 1
+0AAF   12A9           03370             bcf o_a, 5 
+0AB0   1CAA           03371 no3stop     btfss o_b, 1
+0AB1   0008           03372             return
+0AB2   300E           03373             movlw b'01110' ;port B6
+0AB3   00D2           03374             movwf port
+0AB4   3002           03375             movlw b'10' ;procesor 2
+0AB5   00D3           03376             movwf prc
                       03377             
-0AB7   118A           03378             bcf PCLATH,3 ;Select page 1
+0AB6   118A           03378             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0AB8   2226           03379             call clrout ;smaz port v prc
-0AB9   158A           03380             bsf PCLATH,3 ;Select page 1
-0ABA   10AA           03381             bcf o_b, 1             
-0ABB   0008           03382             return
+0AB7   2226           03379             call clrout ;smaz port v prc
+0AB8   158A           03380             bsf PCLATH,3 ;Select page 1
+0AB9   10AA           03381             bcf o_b, 1             
+0ABA   0008           03382             return
                       03383 ;okno 4 nahoru, dolu, zastavit
-0ABC   1B29           03384 o4up        btfsc o_a, 6
-0ABD   2AC6           03385             goto no4up
-0ABE   300B           03386             movlw b'01011' ;port B3
-0ABF   00D2           03387             movwf port
-0AC0   3002           03388             movlw b'10' ;procesor 2
-0AC1   00D3           03389             movwf prc
+0ABB   1B29           03384 o4up        btfsc o_a, 6
+0ABC   2AC5           03385             goto no4up
+0ABD   300B           03386             movlw b'01011' ;port B3
+0ABE   00D2           03387             movwf port
+0ABF   3002           03388             movlw b'10' ;procesor 2
+0AC0   00D3           03389             movwf prc
                       03390             
-0AC2   118A           03391             bcf PCLATH,3 ;Select page 1
+0AC1   118A           03391             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0AC3   21FF           03392             call setout ;smaz port v prc
-0AC4   158A           03393             bsf PCLATH,3 ;Select page 1
-0AC5   1729           03394             bsf o_a, 6 
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 67
+0AC2   21FF           03392             call setout ;smaz port v prc
+0AC3   158A           03393             bsf PCLATH,3 ;Select page 1
+0AC4   1729           03394             bsf o_a, 6 
+0AC5   1D2A           03395 no4up       btfss o_b, 2
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 67
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0AC6   1D2A           03395 no4up       btfss o_b, 2
-0AC7   0008           03396             return
-0AC8   300F           03397             movlw b'01111' ;port B7
-0AC9   00D2           03398             movwf port
-0ACA   3002           03399             movlw b'10' ;procesor 2
-0ACB   00D3           03400             movwf prc
+0AC6   0008           03396             return
+0AC7   300F           03397             movlw b'01111' ;port B7
+0AC8   00D2           03398             movwf port
+0AC9   3002           03399             movlw b'10' ;procesor 2
+0ACA   00D3           03400             movwf prc
                       03401             
-0ACC   118A           03402             bcf PCLATH,3 ;Select page 1
+0ACB   118A           03402             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0ACD   2226           03403             call clrout ;smaz port v prc
-0ACE   158A           03404             bsf PCLATH,3 ;Select page 1
-0ACF   112A           03405             bcf o_b, 2             
-0AD0   0008           03406             return
-0AD1   1F29           03407 o4down      btfss o_a, 6
-0AD2   2ADB           03408             goto no4down
-0AD3   300B           03409             movlw b'01011' ;port B3
-0AD4   00D2           03410             movwf port
-0AD5   3002           03411             movlw b'10' ;procesor 2
-0AD6   00D3           03412             movwf prc
+0ACC   2226           03403             call clrout ;smaz port v prc
+0ACD   158A           03404             bsf PCLATH,3 ;Select page 1
+0ACE   112A           03405             bcf o_b, 2             
+0ACF   0008           03406             return
+0AD0   1F29           03407 o4down      btfss o_a, 6
+0AD1   2ADA           03408             goto no4down
+0AD2   300B           03409             movlw b'01011' ;port B3
+0AD3   00D2           03410             movwf port
+0AD4   3002           03411             movlw b'10' ;procesor 2
+0AD5   00D3           03412             movwf prc
                       03413             
-0AD7   118A           03414             bcf PCLATH,3 ;Select page 1
+0AD6   118A           03414             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0AD8   2226           03415             call clrout ;smaz port v prc
-0AD9   158A           03416             bsf PCLATH,3 ;Select page 1
-0ADA   1329           03417             bcf o_a, 6 
-0ADB   192A           03418 no4down     btfsc o_b, 2
-0ADC   0008           03419             return
-0ADD   300F           03420             movlw b'01111' ;port B7
-0ADE   00D2           03421             movwf port
-0ADF   3002           03422             movlw b'10' ;procesor 2
-0AE0   00D3           03423             movwf prc
+0AD7   2226           03415             call clrout ;smaz port v prc
+0AD8   158A           03416             bsf PCLATH,3 ;Select page 1
+0AD9   1329           03417             bcf o_a, 6 
+0ADA   192A           03418 no4down     btfsc o_b, 2
+0ADB   0008           03419             return
+0ADC   300F           03420             movlw b'01111' ;port B7
+0ADD   00D2           03421             movwf port
+0ADE   3002           03422             movlw b'10' ;procesor 2
+0ADF   00D3           03423             movwf prc
                       03424             
-0AE1   118A           03425             bcf PCLATH,3 ;Select page 1
+0AE0   118A           03425             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0AE2   21FF           03426             call setout ;smaz port v prc
-0AE3   158A           03427             bsf PCLATH,3 ;Select page 1
-0AE4   152A           03428             bsf o_b, 2             
-0AE5   0008           03429             return
-0AE6   1F29           03430 o4stop      btfss o_a, 6
-0AE7   2AF0           03431             goto no4stop
-0AE8   300B           03432             movlw b'01011' ;port B3
-0AE9   00D2           03433             movwf port
-0AEA   3002           03434             movlw b'10' ;procesor 2
-0AEB   00D3           03435             movwf prc
+0AE1   21FF           03426             call setout ;smaz port v prc
+0AE2   158A           03427             bsf PCLATH,3 ;Select page 1
+0AE3   152A           03428             bsf o_b, 2             
+0AE4   0008           03429             return
+0AE5   1F29           03430 o4stop      btfss o_a, 6
+0AE6   2AEF           03431             goto no4stop
+0AE7   300B           03432             movlw b'01011' ;port B3
+0AE8   00D2           03433             movwf port
+0AE9   3002           03434             movlw b'10' ;procesor 2
+0AEA   00D3           03435             movwf prc
                       03436             
-0AEC   118A           03437             bcf PCLATH,3 ;Select page 1
+0AEB   118A           03437             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0AED   2226           03438             call clrout ;smaz port v prc
-0AEE   158A           03439             bsf PCLATH,3 ;Select page 1
-0AEF   1329           03440             bcf o_a, 6 
-0AF0   1D2A           03441 no4stop     btfss o_b, 2
-0AF1   0008           03442             return
-0AF2   300F           03443             movlw b'01111' ;port B7
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 68
+0AEC   2226           03438             call clrout ;smaz port v prc
+0AED   158A           03439             bsf PCLATH,3 ;Select page 1
+0AEE   1329           03440             bcf o_a, 6 
+0AEF   1D2A           03441 no4stop     btfss o_b, 2
+0AF0   0008           03442             return
+0AF1   300F           03443             movlw b'01111' ;port B7
+0AF2   00D2           03444             movwf port
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 68
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0AF3   00D2           03444             movwf port
-0AF4   3002           03445             movlw b'10' ;procesor 2
-0AF5   00D3           03446             movwf prc
+0AF3   3002           03445             movlw b'10' ;procesor 2
+0AF4   00D3           03446             movwf prc
                       03447             
-0AF6   118A           03448             bcf PCLATH,3 ;Select page 1
+0AF5   118A           03448             bcf PCLATH,3 ;Select page 1
 Message[306]: Crossing page boundary -- ensure page bits are set.
-0AF7   2226           03449             call clrout ;smaz port v prc
-0AF8   158A           03450             bsf PCLATH,3 ;Select page 1
-0AF9   112A           03451             bcf o_b, 2             
-0AFA   0008           03452             return
+0AF6   2226           03449             call clrout ;smaz port v prc
+0AF7   158A           03450             bsf PCLATH,3 ;Select page 1
+0AF8   112A           03451             bcf o_b, 2             
+0AF9   0008           03452             return
                       03453             
                       03454             
                       03455             
@@ -3975,93 +3974,93 @@ Message[306]: Crossing page boundary -- ensure page bits are set.
                       03458 
                       03459 
                       03460 
-0AFB   3032           03461 adconv      movlw .50 ; kolikrat se ma merit vstup
-0AFC   00F7           03462             movwf ran2 ; decrementator pro cykl
-0AFD   00FA           03463             movwf ran5 ; delitel pro vypocet prumeru
-0AFE   0876           03464             movf ran1, W
-0AFF   00F8           03465             movwf ran3 ; zachováni ANx vstupu
-0B00   01F2           03466             clrf CIS2_L
-0B01   01F3           03467             clrf CIS2_H
+0AFA   3032           03461 adconv      movlw .50 ; kolikrat se ma merit vstup
+0AFB   00F7           03462             movwf ran2 ; decrementator pro cykl
+0AFC   00FA           03463             movwf ran5 ; delitel pro vypocet prumeru
+0AFD   0876           03464             movf ran1, W
+0AFE   00F8           03465             movwf ran3 ; zachováni ANx vstupu
+0AFF   01F2           03466             clrf CIS2_L
+0B00   01F3           03467             clrf CIS2_H
                       03468             
-0B02   0878           03469 adconv2     movf ran3, W
-0B03   00F6           03470             movwf ran1 ; nasteni znova ANx vstupu
-0B04   2323           03471             call adconv_one
+0B01   0878           03469 adconv2     movf ran3, W
+0B02   00F6           03470             movwf ran1 ; nasteni znova ANx vstupu
+0B03   2322           03471             call adconv_one
                       03472             
                       03473             ; pripraveni cisla 1 k pricteni
-0B05   01F1           03474             clrf CIS1_H
-0B06   0876           03475             movf ran1, W
-0B07   00F0           03476             movwf CIS1_L
+0B04   01F1           03474             clrf CIS1_H
+0B05   0876           03475             movf ran1, W
+0B06   00F0           03476             movwf CIS1_L
                       03477             
                       03478             ; Secte dve 16-bitova cisla do max. hodnoty vysledku FFFFh (65535d)
                       03479             ; CIS1_H, CIS1_L + CIS2_H, CIS2_L -> OUT_H a OUT_L
                       03480         
-0B08   0870           03481                 movf    CIS1_L,W        ; CIS1_L do W
-0B09   0772           03482                 addwf   CIS2_L,W        ; W + CIS2_L do W
-0B0A   00F4           03483                 movwf   OUT_L           ; W do OUT_L
+0B07   0870           03481                 movf    CIS1_L,W        ; CIS1_L do W
+0B08   0772           03482                 addwf   CIS2_L,W        ; W + CIS2_L do W
+0B09   00F4           03483                 movwf   OUT_L           ; W do OUT_L
                       03484         
-0B0B   0871           03485                 movf    CIS1_H,W        ; CIS1_H do W
-0B0C   1803           03486                 btfsc   STATUS,C
-0B0D   3E01           03487                 addlw   0x01            ; C=1, scitani preteklo tak uloz 1 do W
-0B0E   0773           03488                 addwf   CIS2_H,W
-0B0F   00F5           03489                 movwf   OUT_H           ; W do OUT_H
+0B0A   0871           03485                 movf    CIS1_H,W        ; CIS1_H do W
+0B0B   1803           03486                 btfsc   STATUS,C
+0B0C   3E01           03487                 addlw   0x01            ; C=1, scitani preteklo tak uloz 1 do W
+0B0D   0773           03488                 addwf   CIS2_H,W
+0B0E   00F5           03489                 movwf   OUT_H           ; W do OUT_H
                       03490                 
                       03491                 ; ulozi OUT do CIS2
-0B10   0874           03492             movf OUT_L, W
-0B11   00F2           03493             movwf CIS2_L
-0B12   0875           03494             movf OUT_H, W
-0B13   00F3           03495             movwf CIS2_H
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 69
+0B0F   0874           03492             movf OUT_L, W
+0B10   00F2           03493             movwf CIS2_L
+0B11   0875           03494             movf OUT_H, W
+0B12   00F3           03495             movwf CIS2_H
+                      03496             
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 69
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      03496             
                       03497             
-0B14   0BF7           03498             decfsz ran2, F
-0B15   2B02           03499             goto adconv2
+0B13   0BF7           03498             decfsz ran2, F
+0B14   2B01           03499             goto adconv2
                       03500             
                       03501             ; vydeli poctem mereni
-0B16   0872           03502             movf CIS2_L, W
-0B17   00F0           03503             movwf A1
-0B18   0873           03504             movf CIS2_H, W
-0B19   00F1           03505             movwf A2
-0B1A   01F2           03506             clrf A3
+0B15   0872           03502             movf CIS2_L, W
+0B16   00F0           03503             movwf A1
+0B17   0873           03504             movf CIS2_H, W
+0B18   00F1           03505             movwf A2
+0B19   01F2           03506             clrf A3
                       03507             
-0B1B   087A           03508             movf ran5, W
-0B1C   00F3           03509             movwf B1
-0B1D   01F4           03510             clrf B2
-0B1E   01F5           03511             clrf B3
+0B1A   087A           03508             movf ran5, W
+0B1B   00F3           03509             movwf B1
+0B1C   01F4           03510             clrf B2
+0B1D   01F5           03511             clrf B3
                       03512             
-0B1F   2332           03513             call LOMENO24
-0B20   0876           03514             movf C1, W
-0B21   00F6           03515             movwf ran1
+0B1E   2331           03513             call LOMENO24
+0B1F   0876           03514             movf C1, W
+0B20   00F6           03515             movwf ran1
                       03516             
-0B22   0008           03517             return
+0B21   0008           03517             return
                       03518         
-0B23   1003           03519 adconv_one  bcf STATUS, C
-0B24   0DF6           03520             rlf ran1, F
-0B25   0DF6           03521             rlf ran1, F
-0B26   0DF6           03522             rlf ran1, F
+0B22   1003           03519 adconv_one  bcf STATUS, C
+0B23   0DF6           03520             rlf ran1, F
+0B24   0DF6           03521             rlf ran1, F
+0B25   0DF6           03522             rlf ran1, F
                       03523             
                       03524             ; ADCON0 REG     ;00 Fosc/2, 000 AN0, 1 start & in progres, 0, 1 shut up (povoleno)
-0B27   13F6           03525             bcf ran1, 7
-0B28   1776           03526             bsf ran1, 6
+0B26   13F6           03525             bcf ran1, 7
+0B27   1776           03526             bsf ran1, 6
                       03527             ; 5
                       03528             ; 4
                       03529             ; 3
-0B29   1576           03530             bsf ran1, 2
+0B28   1576           03530             bsf ran1, 2
                       03531             ; 1
-0B2A   1476           03532             bsf ran1, 0
+0B29   1476           03532             bsf ran1, 0
                       03533             
-0B2B   0876           03534             movf ran1, W
-0B2C   009F           03535             movwf ADCON0
+0B2A   0876           03534             movf ran1, W
+0B2B   009F           03535             movwf ADCON0
                       03536             
-0B2D   191F           03537             btfsc ADCON0, 2   ;ceka nez skonci AD prevod
-0B2E   2B2D           03538             goto $-1
-0B2F   081E           03539             movf ADRESH, W    ;kontroluje zda je zmena od minule
-0B30   00F6           03540             movwf ran1
-0B31   0008           03541             return
+0B2C   191F           03537             btfsc ADCON0, 2   ;ceka nez skonci AD prevod
+0B2D   2B2C           03538             goto $-1
+0B2E   081E           03539             movf ADRESH, W    ;kontroluje zda je zmena od minule
+0B2F   00F6           03540             movwf ran1
+0B30   0008           03541             return
                       03542         
                       03543         
                       03544         
@@ -4069,110 +4068,110 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       03546         
                       03547 ;-------------------------------;
                       03548 ; A1,2,3 / B1,2,3 = C1,2,3
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 70
+                      03549 ;24Bit, pouze kladna cisla
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 70
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      03549 ;24Bit, pouze kladna cisla
                       03550 ;SZ=1=deleni nulou (B1,2,3=0)
                       03551 ;B se nezmeni, v A bude zbytek
                       03552 ;pouziva D1,2,3; X1
-0B32                  03553 LOMENO24
+0B31                  03553 LOMENO24
                       03554 ;test B na nulu; sZ=1=ANO
-0B32   08F3           03555         MOVF    B1,F
-0B33   1903           03556         BTFSC   STATUS,Z        ;nenulove?
-0B34   08F4           03557         MOVF    B2,F
-0B35   1903           03558         BTFSC   STATUS,Z        ;nenulove?
-0B36   08F5           03559         MOVF    B3,F
-0B37   1903           03560         BTFSC   STATUS,Z        ;nenulove?
-0B38   0008           03561         RETURN                  ;B1,2,3=0
+0B31   08F3           03555         MOVF    B1,F
+0B32   1903           03556         BTFSC   STATUS,Z        ;nenulove?
+0B33   08F4           03557         MOVF    B2,F
+0B34   1903           03558         BTFSC   STATUS,Z        ;nenulove?
+0B35   08F5           03559         MOVF    B3,F
+0B36   1903           03560         BTFSC   STATUS,Z        ;nenulove?
+0B37   0008           03561         RETURN                  ;B1,2,3=0
                       03562 ;priprava pro deleni
-0B39   0870           03563 LOM24   MOVF    A1,W            ;A do D
-0B3A   00F9           03564         MOVWF   D1              ;
-0B3B   0871           03565         MOVF    A2,W            ;
-0B3C   00FA           03566         MOVWF   D2              ;
-0B3D   0872           03567         MOVF    A3,W            ;
-0B3E   00FB           03568         MOVWF   D3              ;
-0B3F   01F0           03569         CLRF    A1              ;nulovat
-0B40   01F1           03570         CLRF    A2              ;
-0B41   01F2           03571         CLRF    A3              ;
-0B42   3018           03572         MOVLW   24              ;pocet bitu
-0B43   00FC           03573         MOVWF   X1              ;
-0B44   1003           03574         BCF     STATUS,C        ;SC=0
+0B38   0870           03563 LOM24   MOVF    A1,W            ;A do D
+0B39   00F9           03564         MOVWF   D1              ;
+0B3A   0871           03565         MOVF    A2,W            ;
+0B3B   00FA           03566         MOVWF   D2              ;
+0B3C   0872           03567         MOVF    A3,W            ;
+0B3D   00FB           03568         MOVWF   D3              ;
+0B3E   01F0           03569         CLRF    A1              ;nulovat
+0B3F   01F1           03570         CLRF    A2              ;
+0B40   01F2           03571         CLRF    A3              ;
+0B41   3018           03572         MOVLW   24              ;pocet bitu
+0B42   00FC           03573         MOVWF   X1              ;
+0B43   1003           03574         BCF     STATUS,C        ;SC=0
                       03575 ;deleni
-0B45   2357           03576 LDalsi  CALL    x2M             ;D,A posun vlevo, A-B=C
-0B46   1C03           03577         BTFSS   STATUS,C        ;kladny vysledek?
-0B47   2B4D           03578         GOTO    LZapor          ;NE
+0B44   2356           03576 LDalsi  CALL    x2M             ;D,A posun vlevo, A-B=C
+0B45   1C03           03577         BTFSS   STATUS,C        ;kladny vysledek?
+0B46   2B4C           03578         GOTO    LZapor          ;NE
                       03579 ;LKlad
-0B48   00F2           03580         MOVWF   A3              ;C do A
-0B49   0877           03581         MOVF    C2,W            ;
-0B4A   00F1           03582         MOVWF   A2              ;
-0B4B   0876           03583         MOVF    C1,W            ;
-0B4C   00F0           03584         MOVWF   A1              ;
+0B47   00F2           03580         MOVWF   A3              ;C do A
+0B48   0877           03581         MOVF    C2,W            ;
+0B49   00F1           03582         MOVWF   A2              ;
+0B4A   0876           03583         MOVF    C1,W            ;
+0B4B   00F0           03584         MOVWF   A1              ;
                       03585 
-0B4D   0BFC           03586 LZapor  DECFSZ  X1,F            ;-1=0?
-0B4E   2B45           03587         GOTO    LDalsi          ;jeste neni konec
+0B4C   0BFC           03586 LZapor  DECFSZ  X1,F            ;-1=0?
+0B4D   2B44           03587         GOTO    LDalsi          ;jeste neni konec
                       03588 ;vysledek
-0B4F   0D79           03589         RLF     D1,W            ;posledni x2
-0B50   00F6           03590         MOVWF   C1              ; a W do C
-0B51   0D7A           03591         RLF     D2,W            ;
-0B52   00F7           03592         MOVWF   C2              ;
-0B53   0D7B           03593         RLF     D3,W            ;
-0B54   00F8           03594         MOVWF   C3              ;
+0B4E   0D79           03589         RLF     D1,W            ;posledni x2
+0B4F   00F6           03590         MOVWF   C1              ; a W do C
+0B50   0D7A           03591         RLF     D2,W            ;
+0B51   00F7           03592         MOVWF   C2              ;
+0B52   0D7B           03593         RLF     D3,W            ;
+0B53   00F8           03594         MOVWF   C3              ;
                       03595 
-0B55   1103           03596         BCF     STATUS,Z        ;SZ=0
-0B56   0008           03597         RETURN
+0B54   1103           03596         BCF     STATUS,Z        ;SZ=0
+0B55   0008           03597         RETURN
                       03598 
                       03599 
                       03600 ;................................
                       03601 ; D1,2,3 A1,2,3 * 2 a Minus
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 71
+0B56   0DF9           03602 x2M     RLF     D1,F            ;posuv vlevo
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 71
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0B57   0DF9           03602 x2M     RLF     D1,F            ;posuv vlevo
-0B58   0DFA           03603         RLF     D2,F            ;
-0B59   0DFB           03604         RLF     D3,F            ;
-0B5A   0DF0           03605         RLF     A1,F            ;
-0B5B   0DF1           03606         RLF     A2,F            ;
-0B5C   0DF2           03607         RLF     A3,F            ;
+0B57   0DFA           03603         RLF     D2,F            ;
+0B58   0DFB           03604         RLF     D3,F            ;
+0B59   0DF0           03605         RLF     A1,F            ;
+0B5A   0DF1           03606         RLF     A2,F            ;
+0B5B   0DF2           03607         RLF     A3,F            ;
                       03608                                 ;pokracuje MINUS
                       03609 ;--------------------------------
                       03610 ; A1,2,3 - B1,2,3 = C1,2,3
                       03611 ;SC=0=zaporny vysledek
                       03612 ;A,B se nezmeni
-0B5D   0873           03613 MINUS   MOVF    B1,W            ;W=B1
-0B5E   0270           03614         SUBWF   A1,W            ;A1-B1=W
-0B5F   00F6           03615         MOVWF   C1              ;C1=W=vysledek1
-0B60   0103           03616         CLRW                    ;W=0
-0B61   1C03           03617         BTFSS   STATUS,C        ;SUB kladne?
-0B62   3001           03618         MOVLW   1               ;W=1
-0B63   0774           03619         ADDWF   B2,W            ;B2+W=W
-0B64   01F8           03620         CLRF    C3              ;C3=0
-0B65   1803           03621         BTFSC   STATUS,C        ;ADD nepreteklo?
-0B66   1478           03622         BSF     C3,0            ;C3=1
-0B67   0271           03623         SUBWF   A2,W            ;A2-W=W
-0B68   00F7           03624         MOVWF   C2              ;C2=w=vysledek2
-0B69   0878           03625         MOVF    C3,W            ;W=C3
-0B6A   1C03           03626         BTFSS   STATUS,C        ;SUB kladne?
-0B6B   3001           03627         MOVLW   1               ;W=1
-0B6C   0775           03628         ADDWF   B3,W            ;B3+W=W
-0B6D   01F8           03629         CLRF    C3              ;C3=0
-0B6E   1803           03630         BTFSC   STATUS,C        ;ADD nepreteklo?
-0B6F   1478           03631         BSF     C3,0            ;C3=1
-0B70   0272           03632         SUBWF   A3,W            ;A3-W=W
-0B71   1878           03633         BTFSC   C3,0            ;C3=0?
-0B72   1003           03634         BCF     STATUS,C        ;SC=0
-0B73   00F8           03635         MOVWF   C3              ;C3=W=vysledek3
-0B74   0008           03636         RETURN
+0B5C   0873           03613 MINUS   MOVF    B1,W            ;W=B1
+0B5D   0270           03614         SUBWF   A1,W            ;A1-B1=W
+0B5E   00F6           03615         MOVWF   C1              ;C1=W=vysledek1
+0B5F   0103           03616         CLRW                    ;W=0
+0B60   1C03           03617         BTFSS   STATUS,C        ;SUB kladne?
+0B61   3001           03618         MOVLW   1               ;W=1
+0B62   0774           03619         ADDWF   B2,W            ;B2+W=W
+0B63   01F8           03620         CLRF    C3              ;C3=0
+0B64   1803           03621         BTFSC   STATUS,C        ;ADD nepreteklo?
+0B65   1478           03622         BSF     C3,0            ;C3=1
+0B66   0271           03623         SUBWF   A2,W            ;A2-W=W
+0B67   00F7           03624         MOVWF   C2              ;C2=w=vysledek2
+0B68   0878           03625         MOVF    C3,W            ;W=C3
+0B69   1C03           03626         BTFSS   STATUS,C        ;SUB kladne?
+0B6A   3001           03627         MOVLW   1               ;W=1
+0B6B   0775           03628         ADDWF   B3,W            ;B3+W=W
+0B6C   01F8           03629         CLRF    C3              ;C3=0
+0B6D   1803           03630         BTFSC   STATUS,C        ;ADD nepreteklo?
+0B6E   1478           03631         BSF     C3,0            ;C3=1
+0B6F   0272           03632         SUBWF   A3,W            ;A3-W=W
+0B70   1878           03633         BTFSC   C3,0            ;C3=0?
+0B71   1003           03634         BCF     STATUS,C        ;SC=0
+0B72   00F8           03635         MOVWF   C3              ;C3=W=vysledek3
+0B73   0008           03636         RETURN
                       03637 
                       03638 
                       03639         end                                           ; KONEC PROGRAMU
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 72
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 72
 
 
 SYMBOL TABLE
@@ -4231,7 +4230,7 @@ CCPR2H                            0000001C
 CCPR2L                            0000001B
 CHS0                              00000003
 CHS1                              00000004
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 73
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 73
 
 
 SYMBOL TABLE
@@ -4282,15 +4281,15 @@ INTE                              00000004
 INTEDG                            00000006
 INTF                              00000001
 IRP                               00000007
-LDalsi                            00000B45
+LDalsi                            00000B44
 LEDZAM                            00000002
-LOM24                             00000B39
-LOMENO24                          00000B32
-LZapor                            00000B4D
-MINUS                             00000B5D
+LOM24                             00000B38
+LOMENO24                          00000B31
+LZapor                            00000B4C
+MINUS                             00000B5C
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 74
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 74
 
 
 SYMBOL TABLE
@@ -4349,7 +4348,7 @@ PSPIE                             00000007
 PSPIF                             00000007
 PSPMODE                           00000004
 R                                 00000002
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 75
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 75
 
 
 SYMBOL TABLE
@@ -4408,7 +4407,7 @@ T1INSYNC                          00000002
 T1OF                              00000004
 T1OSCEN                           00000003
 T1SYNC                            00000002
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 76
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 76
 
 
 SYMBOL TABLE
@@ -4467,7 +4466,7 @@ _CPD_OFF                          00003FFF
 _CPD_ON                           00003EFF
 _CP_ALL                           00000FCF
 _CP_HALF                          00001FDF
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 77
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 77
 
 
 SYMBOL TABLE
@@ -4490,9 +4489,9 @@ _WRT_ENABLE_OFF                   00003DFF
 _WRT_ENABLE_ON                    00003FFF
 _XT_OSC                           00003FFD
 __16F874A                         00000001
-adconv                            00000AFB
-adconv2                           00000B02
-adconv_one                        00000B23
+adconv                            00000AFA
+adconv2                           00000B01
+adconv_one                        00000B22
 alabli                            0000013C
 casov                             0000005A
 cassir                            00000058
@@ -4526,7 +4525,7 @@ if_87                             00000307
 if_88                             00000309
 if_89                             0000030B
 if_90                             0000030D
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 78
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 78
 
 
 SYMBOL TABLE
@@ -4572,46 +4571,46 @@ klakson                           000006DD
 ledPCRun                          00000078
 ledzam                            000006EC
 locked                            00000051
-loop                              0000084B
+loop                              0000084A
 lzabli                            000000EA
-no1down                           00000A1E
-no1stop                           00000A33
-no1up                             00000A09
-no2down                           00000A5D
-no2stop                           00000A72
-no2up                             00000A48
-no3down                           00000A9C
-no3stop                           00000AB1
-no3up                             00000A87
-no4down                           00000ADB
-no4stop                           00000AF0
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 79
+no1down                           00000A1D
+no1stop                           00000A32
+no1up                             00000A08
+no2down                           00000A5C
+no2stop                           00000A71
+no2up                             00000A47
+no3down                           00000A9B
+no3stop                           00000AB0
+no3up                             00000A86
+no4down                           00000ADA
+no4stop                           00000AEF
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 79
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-no4up                             00000AC6
-o1down                            00000A14
-o1stop                            00000A29
+no4up                             00000AC5
+o1down                            00000A13
+o1stop                            00000A28
 o1tar                             00000024
 o1tmp                             00000020
-o1up                              000009FF
-o2down                            00000A53
-o2stop                            00000A68
+o1up                              000009FE
+o2down                            00000A52
+o2stop                            00000A67
 o2tar                             00000025
 o2tmp                             00000021
-o2up                              00000A3E
-o3down                            00000A92
-o3stop                            00000AA7
+o2up                              00000A3D
+o3down                            00000A91
+o3stop                            00000AA6
 o3tar                             00000026
 o3tmp                             00000022
-o3up                              00000A7D
-o4down                            00000AD1
-o4stop                            00000AE6
+o3up                              00000A7C
+o4down                            00000AD0
+o4stop                            00000AE5
 o4tar                             00000027
 o4tmp                             00000023
-o4up                              00000ABC
+o4up                              00000ABB
 o_a                               00000029
 o_b                               0000002A
 o_c                               0000002B
@@ -4625,10 +4624,10 @@ o_j                               00000032
 o_k                               00000033
 o_l                               00000034
 odsoff                            00000107
-okna                              000009BA
-okno2                             000009CB
-okno3                             000009DC
-okno4                             000009ED
+okna                              000009B9
+okno2                             000009CA
+okno3                             000009DB
+okno4                             000009EC
 pcl_temp                          00000028
 port                              00000052
 prc                               00000053
@@ -4644,7 +4643,7 @@ r1                                00000020
 r2                                00000021
 r3                                00000022
 r4                                00000023
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 80
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 80
 
 
 SYMBOL TABLE
@@ -4703,7 +4702,7 @@ t1_33                             00000582
 t1_34                             0000058D
 t1_35                             00000596
 t1_36                             0000059F
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 81
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 81
 
 
 SYMBOL TABLE
@@ -4762,7 +4761,7 @@ timvar                            0000005B
 timwtu                            00000063
 tl1                               00000054
 tl2                               00000055
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 82
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 82
 
 
 SYMBOL TABLE
@@ -4784,7 +4783,7 @@ wtuoff                            000000F1
 x0                                00000068
 x1                                00000069
 x2                                0000006A
-x2M                               00000B57
+x2M                               00000B56
 
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
@@ -4814,7 +4813,7 @@ MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 0580 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 05C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0600 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-MPASM  5.35                        RJCAR1.ASM   3-14-2012  23:24:19         PAGE 83
+MPASM  5.35                        RJCAR1.ASM   3-15-2012  17:33:59         PAGE 83
 
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
@@ -4836,16 +4835,16 @@ MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 0A80 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0AC0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0B00 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-0B40 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXX-----------
+0B40 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXX------------
 
 All other memory blocks unused.
 
-Program Memory Words Used:  2669
-Program Memory Words Free:  1427
+Program Memory Words Used:  2668
+Program Memory Words Free:  1428
 
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
-Messages :   100 reported,     0 suppressed
+Messages :    99 reported,     0 suppressed
 
 
