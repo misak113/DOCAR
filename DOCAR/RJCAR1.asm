@@ -545,7 +545,7 @@ odsoff      decf timods, F
             bcf PORTB, 5
             bcf o_c, 0
             bcf PORTB_temp, 6
-	    bcf PORTB, 6
+            bcf PORTB, 6
 
             bcf o_e, 7
             movlw b'11110' ;port D6
@@ -572,7 +572,14 @@ odsoff      decf timods, F
             movwf prc
             call clrout ;nastav port v prc
 
-            bcf casov, ODSKOK ;timer red tunningu nebude vniman
+
+            ; vypnutí stahovani oken
+            bsf PCLATH,3 ;Select page 1
+            call o1stop
+            call o2stop
+            bcf PCLATH,3 ;Select page 0
+
+            bcf casov, ODSKOK ;timer odskuku nebude vniman
             return
             
 ;Problikavani alarmu
@@ -1947,25 +1954,23 @@ t1_29       nop
             return
 
 ;okno 1 up        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ve vsech oknech dodelat drobne veci typu pokud je uplne nahore, tak se prepne dolu
-t1_30       return;movf o1tar, W
-            movwf r5
-            movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
-            addwf r5, F
-            btfss STATUS, C
-            return
-            movf r5, W
-            movwf o1tar
+t1_30       bsf PCLATH,3 ;Select page 1
+            call o1up
+            bcf PCLATH,3 ;Select page 0
+            ; zapne casovac na vypnuti
+            bsf casov, ODSKOK
+            movlw .16 ; o neco déle než odskok
+            movwf timods
             return
             
 ;okno 2 up
-t1_31       return;movf o2tar, W
-            movwf r5
-            movlw b'11110000' ;odecte od cilove polohy 1/16tinu celeho okna
-            addwf r5, F
-            btfss STATUS, C
-            return
-            movf r5, W
-            movwf o2tar
+t1_31       bsf PCLATH,3 ;Select page 1
+            call o2up
+            bcf PCLATH,3 ;Select page 0
+            ; zapne casovac na vypnuti
+            bsf casov, ODSKOK
+            movlw .16 ; o neco déle než odskok
+            movwf timods
             return
             
 ;okno 3 up
@@ -1995,25 +2000,23 @@ t1_33       return;btfsc o_i, 4
             return
             
 ;okno 1 down
-t1_34       return;movf o1tar, W
-            movwf r5
-            movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
-            addwf r5, F
-            btfsc STATUS, C
-            return
-            movf r5, W
-            movwf o1tar
+t1_34       bsf PCLATH,3 ;Select page 1
+            call o1down
+            bcf PCLATH,3 ;Select page 0
+            ; zapne casovac na vypnuti
+            bsf casov, ODSKOK
+            movlw .16 ; o neco déle než odskok
+            movwf timods
             return
             
 ;okno 2 down
-t1_35       return;movf o2tar, W
-            movwf r5
-            movlw b'00010000' ;pricte k cilove polohy 1/16tinu celeho okna
-            addwf r5, F
-            btfsc STATUS, C
-            return
-            movf r5, W
-            movwf o2tar
+t1_35       bsf PCLATH,3 ;Select page 1
+            call o2down
+            bcf PCLATH,3 ;Select page 0
+            ; zapne casovac na vypnuti
+            bsf casov, ODSKOK
+            movlw .16 ; o neco déle než odskok
+            movwf timods
             return
             
 ;okno 3 down
